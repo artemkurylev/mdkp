@@ -5,8 +5,7 @@ DbRecord::DbRecord(QObject *parent)
 {
 
 }
-DbRecord::DbRecord(){
-}
+
 DbRecord::DbRecord(int id)
 {
 	this->_id = id;
@@ -21,6 +20,7 @@ int DbRecord::id() const
 {
     return _id;
 }
+
 DbRecord::~DbRecord()
 {
 
