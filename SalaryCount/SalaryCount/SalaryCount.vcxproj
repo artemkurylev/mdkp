@@ -71,6 +71,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DirectiveGenerator.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_salarycount.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -112,6 +113,7 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DirectiveGenerator.h" />
     <ClInclude Include="GeneratedFiles\ui_salarycount.h" />
   </ItemGroup>
   <ItemGroup>
