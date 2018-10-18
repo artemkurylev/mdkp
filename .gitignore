@@ -1,0 +1,12 @@
+*.opensdf
+*.sdf
+*.suo
+*.exe
+*.dll
+*.user
+*.filters
+
+debug
+Debug
+Win32
+ipch
