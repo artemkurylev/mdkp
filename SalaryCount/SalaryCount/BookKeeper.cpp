@@ -1,3 +1,4 @@
+
 #include "BookKeeper.h"
 
 
@@ -15,3 +16,8 @@ float BookKeeper::calcPerHoursSalary(float hourSalary, int hours)
 	
 }
 
+
+bool BookKeeper::calcSalary() 
+{
+	return false;
+}

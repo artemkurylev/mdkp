@@ -1,3 +1,4 @@
+
 #pragma once
 
 #include "laborsheet.h"
@@ -42,3 +43,9 @@ private:
 
 	
 };
+
+class BookKeeper
+{
+public:
+	static bool calcSalary();
+}
