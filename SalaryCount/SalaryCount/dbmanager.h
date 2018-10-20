@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include <qsql.h>
+#include <qstring.h>
+#include <qsqldatabase.h>
 
 class DbManager : public QObject
 {
@@ -11,11 +13,13 @@ class DbManager : public QObject
 public:
     DbManager(QObject *parent);
 
+    DbManager(QObject *parent, QString hostName, QString dbName, int port, QString pass);
+
     ~DbManager();
 
 
 private:
-    
+    QSqlDatabase db;
 };
 
 #endif // DBMANAGER_H
