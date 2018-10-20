@@ -2,7 +2,7 @@
 #define DBRECORD_H
 
 #include <QObject>
-
+#include "dbmanager.h"
 class DbRecord : public QObject
 {
     Q_OBJECT
@@ -10,7 +10,7 @@ class DbRecord : public QObject
 public:
     DbRecord(QObject *parent);
     ~DbRecord();
-
+    
     virtual bool fetch() = 0;
     
     virtual bool set() = 0;
@@ -20,8 +20,11 @@ public:
     virtual bool update() = 0;
 
 
-private:
+protected:
+    /*!< Строка для запроса к базе данных MYSQL */
+    QString query;
     
+
 };
 
 #endif // DBRECORD_H
