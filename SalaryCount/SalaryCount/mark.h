@@ -10,7 +10,10 @@ class Mark : public DbRecord
 public:
     Mark(QObject *parent);
     ~Mark();
-
+    bool fetch();
+    bool validate();
+    bool set();
+    bool update();
 private:
     int base;
     int altered;
