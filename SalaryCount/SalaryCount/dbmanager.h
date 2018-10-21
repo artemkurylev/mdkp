@@ -5,6 +5,7 @@
 #include <qsql.h>
 #include <qstring.h>
 #include <qsqldatabase.h>
+#include <qsqlquery.h>
 
 class DbManager : public QObject
 {
@@ -17,6 +18,7 @@ public:
 
     ~DbManager();
 
+    bool makeQuery(QSqlQuery* query);
 
 private:
     QSqlDatabase db;

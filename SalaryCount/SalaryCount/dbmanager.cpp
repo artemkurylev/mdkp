@@ -12,6 +12,17 @@ DbManager::DbManager(QObject *parent,QString hostName, QString dbName, int port,
     this->db.setPort(port);
     this->db.setPassword(pass);
 }
+bool DbManager::makeQuery(QSqlQuery* query){
+    if(query->isValid())
+    {
+        query->exec();
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
 
 DbManager::~DbManager()
 {
