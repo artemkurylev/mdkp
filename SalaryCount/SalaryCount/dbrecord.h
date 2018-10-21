@@ -19,11 +19,12 @@ public:
     
     virtual bool update() = 0;
 
-
+    int getId();
 protected:
     /*!< Строка для запроса к базе данных MYSQL */
     QString query;
-    
+private:
+    int id;
 
 };
 

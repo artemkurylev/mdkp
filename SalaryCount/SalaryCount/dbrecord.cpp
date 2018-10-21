@@ -5,6 +5,9 @@ DbRecord::DbRecord(QObject *parent)
 {
 
 }
+int DbRecord::getId(){
+    return id;
+}
 DbRecord::~DbRecord()
 {
 

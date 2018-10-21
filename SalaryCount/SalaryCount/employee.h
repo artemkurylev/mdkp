@@ -15,7 +15,6 @@ public:
     ~Employee();
 
 private:
-    int id;
     QDate hireDate;
     QString fio[3];
     QString phoneNumber;
