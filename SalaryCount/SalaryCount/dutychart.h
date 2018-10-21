@@ -2,8 +2,9 @@
 #define DUTYCHART_H
 
 #include <QObject>
-
-class DutyChart : public QObject
+#include "mark.h"
+#include<qdatetime.h>
+class DutyChart : public DbRecord
 {
     Q_OBJECT
 
@@ -12,7 +13,9 @@ public:
     ~DutyChart();
 
 private:
-    
+    int length;
+    QList<Mark> grid;
+    QDate anchorDate;
 };
 
 #endif // DUTYCHART_H
