@@ -20,9 +20,20 @@ public:
 	static bool calcSalary(const LaborSheet & laborSheet);
 
 
-	bool fillLaborsheetWithDefaults(LaborSheet & laborSheet);
+	static bool fillLaborsheetWithDefaults(LaborSheet & laborSheet);
 
 private:
+
+	/*! ѕодсчитать плановое рабочее врем€ за период
+	*/
+	static int countDefaultLaborTimeUnits(const LaborSheet & laborSheet);
+
+	/*! ѕодсчитать отработанное врем€ за период
+	*/
+	static int countActualLaborTimeUnits (const LaborSheet & laborSheet);
+
+	static float calcPerHoursSalary(float basic_salary, int hours);
+	static float calcPerMonthSalary(float basic_salary, int days, int workDays);
 
 
 };
