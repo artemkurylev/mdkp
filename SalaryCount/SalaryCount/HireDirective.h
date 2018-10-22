@@ -15,11 +15,12 @@ public:
 	~HireDirective(void);
 
 	// getters
-	QDate hireDate()	{	return _hireDate;	}
-	QString fio()		{	return _fio;		}
-	PayForm payForm()	{	return _payForm;	}
-	float salary()		{	return _salary;		}
+	QDate hireDate()	const	{	return _hireDate;	}
+	QString fio()		const	{	return _fio;		}
+	PayForm payForm()	const	{	return _payForm;	}
+	float salary()		const	{	return _salary;		}
 
+	// methods
 	Employee * hiredEmployee();
 
 private:

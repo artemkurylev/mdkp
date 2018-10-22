@@ -12,6 +12,7 @@ class Employee : public DbRecord
 
 public:
     Employee(QObject *parent);
+	Employee(int id);
     ~Employee();
 
 private:
