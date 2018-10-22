@@ -14,9 +14,9 @@ SalaryCount::SalaryCount(QWidget *parent)
 		QComboBox* combo = new QComboBox();
 
 		QTextCodec* codec = QTextCodec::codecForLocale();
-		combo->insertItem(0, codec->toUnicode("Выходной"));
+		combo->insertItem(0, codec->toUnicode("Рабочий"));
 
-		combo->insertItem(1, codec->toUnicode("Рабочий"));
+		combo->insertItem(1, codec->toUnicode("Выходной"));
 
 		ui.DutyChartMarksEdit->setCellWidget(i,0,combo);
 	}
@@ -53,6 +53,32 @@ void SalaryCount::changePayForm(int index)
 
 void SalaryCount::saveNewDutyChart()
 {
+	//DutyChart dch;
+	QList<Mark> marks;
+
+	for(int i=0;i<7;++i)
+	{
+		QComboBox* combo = (QComboBox*)ui.DutyChartMarksEdit->cellWidget(i,0);
+
+		if(ui.payFormChoice->currentIndex()==0)
+		{
+			Mark m;
+			int markValue = combo->currentIndex();
+			if(markValue==0) 
+			{
+				m.setBase(Mark.Type.ATTENDS);
+			}
+
+			if(markValue==1) 
+			{
+				m.setBase(Mark.Type.HOLIDAY);
+			}
+		}
+		else
+		{
+
+		}
+	}
 
 }
 
