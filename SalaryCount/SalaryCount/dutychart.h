@@ -13,7 +13,11 @@ public:
     ~DutyChart();
 
 private:
-    int length;
+    int length()
+	{
+		return grid.size();
+	}
+
     QList<Mark> grid;
     QDate anchorDate;
 };
