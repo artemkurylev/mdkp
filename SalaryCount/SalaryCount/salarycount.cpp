@@ -53,17 +53,16 @@ void SalaryCount::changePayForm(int index)
 
 void SalaryCount::saveNewDutyChart()
 {
-	//DutyChart dch;
 	QList<Mark> marks;
 
 	for(int i=0;i<7;++i)
 	{
 		QComboBox* combo = (QComboBox*)ui.DutyChartMarksEdit->cellWidget(i,0);
+		Mark m();
+		int markValue = combo->currentIndex();
 
 		if(ui.payFormChoice->currentIndex()==0)
 		{
-			Mark m;
-			int markValue = combo->currentIndex();
 			if(markValue==0) 
 			{
 				m.setBase(Mark.Type.ATTENDS);
@@ -71,15 +70,26 @@ void SalaryCount::saveNewDutyChart()
 
 			if(markValue==1) 
 			{
-				m.setBase(Mark.Type.HOLIDAY);
+				m.setBase(Mark::Type.HOLIDAY);
 			}
 		}
 		else
 		{
+			
+			if(markValue==0) 
+			{
+				m.setBase(ui.workTimeEdit->time().hour());
+			}
 
+			if(markValue==1) 
+			{
+				m.setBase(Mark::Type.HOLIDAY);
+			}
 		}
+		marks.append(m);
 	}
-
+	DutyChart dch(marks);
+	dch.set();
 }
 
 void SalaryCount::cancelNewDutyChart()
