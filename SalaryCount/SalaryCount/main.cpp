@@ -1,10 +1,18 @@
 #include "salarycount.h"
 #include <QtWidgets/QApplication>
 
+#include "DirectiveGenerator.h"
+
+
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-    SalaryCount w;
-    w.show();
-    return a.exec();
+	DirectiveGenerator g;
+	HireDirective hd();
+
+	g.pdf( &hd, "example.pdf" );
+	
+	//QApplication a(argc, argv);
+    //SalaryCount w;
+    //w.show();
+    //return a.exec();
 }
