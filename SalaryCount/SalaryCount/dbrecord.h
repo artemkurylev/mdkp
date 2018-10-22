@@ -18,11 +18,11 @@ public:
     
     virtual bool set() = 0;
     
-    virtual bool validate() = 0;
+    virtual bool validate() const = 0;
     
-    virtual bool update() = 0;
+    virtual bool update() const = 0;
 
-    int id();
+    int id() const;
 protected:
 
     /*! Строка для запроса к базе данных MYSQL */

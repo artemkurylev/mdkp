@@ -26,8 +26,8 @@ public:
 	// inherited
 	bool HireDirective::fetch();
 	bool HireDirective::set();
-	bool HireDirective::validate();
-	bool HireDirective::update();
+	bool HireDirective::validate() const;
+	bool HireDirective::update() const;
 
 
 private:
