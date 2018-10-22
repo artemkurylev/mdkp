@@ -1,5 +1,7 @@
+#include "BookKeeper.h"
 
-bool BookKeeper::calcSalary() 
-{
-	return false;
-}
+
+//bool BookKeeper::calcSalary(int id)
+//{
+//	return false;
+//}

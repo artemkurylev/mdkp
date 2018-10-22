@@ -2,13 +2,16 @@
 #define DBRECORD_H
 
 #include <QObject>
-#include "dbmanager.h"
+//#include "dbmanager.h"
+
 class DbRecord : public QObject
 {
     Q_OBJECT
 
 public:
     DbRecord(QObject *parent);
+	DbRecord(int id);
+	DbRecord(const DbRecord & other);
     ~DbRecord();
     
     virtual bool fetch() = 0;
@@ -19,12 +22,14 @@ public:
     
     virtual bool update() = 0;
 
-    int getId();
+    int id();
 protected:
-    /*!< Строка для запроса к базе данных MYSQL */
+
+    /*! Строка для запроса к базе данных MYSQL */
     QString query;
+
 private:
-    int id;
+    int _id;
 
 };
 

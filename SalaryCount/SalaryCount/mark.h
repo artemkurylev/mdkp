@@ -9,11 +9,22 @@ class Mark : public DbRecord
 
 public:
     Mark(QObject *parent);
+    Mark(int baseMark);
     ~Mark();
     bool fetch();
     bool validate();
     bool set();
     bool update();
+
+	enum Type
+	{
+		HOLIDAY = 100,
+		ATTENDS = 124,
+		MISS = 0,
+		USUAL = 8,
+		INVALID = 999,
+	};
+
 private:
     int base;
     int altered;
