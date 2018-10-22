@@ -5,6 +5,7 @@
 *.dll
 *.user
 *.filters
+*.pdf
 
 debug
 Debug

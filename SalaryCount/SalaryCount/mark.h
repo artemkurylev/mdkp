@@ -11,10 +11,6 @@ public:
     Mark(QObject *parent);
     Mark(int baseMark);
     ~Mark();
-    bool fetch();
-    bool validate();
-    bool set();
-    bool update();
 
 	enum Type
 	{
@@ -24,6 +20,12 @@ public:
 		USUAL = 8,
 		INVALID = 999,
 	};
+
+	// inherited
+	bool fetch();
+	bool set();
+	bool validate() const;
+	bool update() const;
 
 private:
     int base;

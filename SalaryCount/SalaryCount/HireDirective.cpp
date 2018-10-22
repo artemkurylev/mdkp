@@ -38,12 +38,12 @@ bool HireDirective::set()
 	return false;
 }
     
-bool HireDirective::validate()
+bool HireDirective::validate() const
 {
 	return false;
 }
     
-bool HireDirective::update()
+bool HireDirective::update() const
 {
 	return false;
 }

@@ -1,8 +1,5 @@
 #include "salarycount.h"
 #include <QtWidgets/QApplication>
-#include <QtTest/QtTest>
-
-#include "unittest/DirectiveGeneratorTest.h"
 
 
 #include "DirectiveGenerator.h"
@@ -16,10 +13,10 @@ int main(int argc, char *argv[])
 
 	//g.pdf( &hd, "example.pdf" );
 	
-	QTest::qExec( new DirectiveGeneratorTest(0) , NULL , NULL);
+	//QTest::qExec( new DirectiveGeneratorTest(0) , NULL , NULL);
 
-    //QApplication a(argc, argv);
-    //SalaryCount w;
-    //w.show();
-    //return a.exec();
+    QApplication a(argc, argv);
+    SalaryCount w;
+    w.show();
+    return a.exec();
 }
