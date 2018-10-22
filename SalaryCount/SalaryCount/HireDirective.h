@@ -23,6 +23,13 @@ public:
 	// methods
 	Employee * hiredEmployee();
 
+	// inherited
+	bool HireDirective::fetch();
+	bool HireDirective::set();
+	bool HireDirective::validate();
+	bool HireDirective::update();
+
+
 private:
 	QDate _hireDate;
 	QString _fio;
@@ -30,5 +37,5 @@ private:
 	float _salary;
 
 	// DB links
-	int employeeID;
+	int _employeeID;
 };

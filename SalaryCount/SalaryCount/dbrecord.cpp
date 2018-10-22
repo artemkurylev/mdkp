@@ -8,7 +8,7 @@ DbRecord::DbRecord(QObject *parent)
 DbRecord::DbRecord(int id)
 {
 	this->_id = id;
-	this->fetch();
+	//this->fetch();
 }
 DbRecord::DbRecord(const DbRecord & other)
 {
