@@ -1,0 +1,23 @@
+#include "mark.h"
+
+Mark::Mark(QObject *parent)
+    : DbRecord(parent)
+{
+
+} 
+bool Mark::fetch(){
+    return false;
+}
+bool Mark::validate(){
+    return false;
+}
+bool Mark::set(){
+    return false;
+}
+bool Mark::update(){
+    return false;
+}
+Mark::~Mark()
+{
+
+}
