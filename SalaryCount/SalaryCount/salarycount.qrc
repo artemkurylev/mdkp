@@ -1,4 +1,4 @@
 <RCC>
-    <qresource prefix="SalaryCount">
+    <qresource prefix="SalaryPayApp">
     </qresource>
 </RCC>
