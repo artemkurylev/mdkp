@@ -13,7 +13,7 @@ public:
     ~SalaryCount();
 
 private:
-    Ui::SalaryCountClass ui;
+    Ui_SalaryCount ui;
 };
 
 #endif // SALARYCOUNT_H
