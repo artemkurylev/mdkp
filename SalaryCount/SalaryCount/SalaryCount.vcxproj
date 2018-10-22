@@ -71,6 +71,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DirectiveGenerator.cpp" />
     <ClCompile Include="BookKeeper.cpp" />
     <ClCompile Include="dbmanager.cpp" />
     <ClCompile Include="dbrecord.cpp" />
@@ -156,6 +157,7 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DirectiveGenerator.h" />
     <ClInclude Include="BookKeeper.h" />
     <ClInclude Include="HireDirective.h" />
     <CustomBuild Include="laborsheet.h">
