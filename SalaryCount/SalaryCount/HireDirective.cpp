@@ -18,5 +18,5 @@ HireDirective::~HireDirective(void)
 
 Employee * HireDirective::hiredEmployee()
 {
-	return new Employee(employeeID);
+	return NULL; // new Employee(employeeID);
 }
