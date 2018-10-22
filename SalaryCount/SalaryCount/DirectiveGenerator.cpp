@@ -74,10 +74,6 @@ void DirectiveGenerator::pdf(const HireDirective* hireDirective, const QString& 
 
 }
 
-void DirectiveGenerator::insertDataToPdf(const HireDirective* hireDirective,QPainter)
-{
-	QString fio=hireDirective->fio();
-}
 void DirectiveGenerator::drawTableOne(QPainter *painter,QString text1,QString text2)
 {
     setFontRectangle(painter);

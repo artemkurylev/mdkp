@@ -23,6 +23,7 @@ HireDirective::~HireDirective(void)
 
 Employee * HireDirective::hiredEmployee()
 {
+
 	return NULL; // new Employee(_employeeID);
 }
 
