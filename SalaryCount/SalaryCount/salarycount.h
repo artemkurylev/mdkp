@@ -2,7 +2,12 @@
 #define SALARYCOUNT_H
 
 #include <QtWidgets/QMainWindow>
+#include <QComboBox.h>
+#include <qtextcodec.h>
 #include "ui_salarycount.h"
+#include "BookKeeper.h"
+#include "mark.h"
+
 
 class SalaryCount : public QMainWindow
 {
@@ -13,7 +18,14 @@ public:
     ~SalaryCount();
 
 private:
-    Ui_SalaryCount ui;
+    Ui::SalaryCount ui;
+
+private slots:
+	void addDutyChart();
+	void changePayForm(int index);
+
+	void saveNewDutyChart();
+	void cancelNewDutyChart();
 };
 
 #endif // SALARYCOUNT_H
