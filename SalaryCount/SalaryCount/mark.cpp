@@ -12,16 +12,20 @@ Mark::Mark(int baseMark)
 	base = baseMark;
 } 
 
-bool Mark::fetch(){
+bool Mark::fetch()
+{
     return false;
 }
-bool Mark::validate(){
+bool Mark::set()
+{
     return false;
 }
-bool Mark::set(){
+bool Mark::validate() const
+{
     return false;
 }
-bool Mark::update(){
+bool Mark::update() const
+{
     return false;
 }
 Mark::~Mark()

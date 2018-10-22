@@ -23,6 +23,7 @@ HireDirective::~HireDirective(void)
 
 Employee * HireDirective::hiredEmployee()
 {
+
 	return NULL; // new Employee(_employeeID);
 }
 
@@ -37,12 +38,12 @@ bool HireDirective::set()
 	return false;
 }
     
-bool HireDirective::validate()
+bool HireDirective::validate() const
 {
 	return false;
 }
     
-bool HireDirective::update()
+bool HireDirective::update() const
 {
 	return false;
 }

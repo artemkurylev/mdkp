@@ -15,7 +15,7 @@ DbRecord::DbRecord(const DbRecord & other)
 	//*this = other;
 }
 
-int DbRecord::id()
+int DbRecord::id() const
 {
     return _id;
 }
