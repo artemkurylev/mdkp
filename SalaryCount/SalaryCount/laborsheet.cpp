@@ -5,7 +5,10 @@ LaborSheet::LaborSheet(QObject *parent)
 {
 
 }
-
+bool LaborSheet::fillWithDefaults(int empploeeId, QDate date,DutyChart dutyChart){
+    
+    int count = 0;
+}
 LaborSheet::~LaborSheet()
 {
 

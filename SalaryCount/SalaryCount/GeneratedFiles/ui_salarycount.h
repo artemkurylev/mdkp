@@ -47,9 +47,9 @@ public:
     QAction *action;
     QAction *action_2;
     QAction *action_3;
-    QAction *action_4;
-    QAction *action_5;
-    QAction *action_6;
+    QAction *workeListAction;
+    QAction *LaborSheetAction;
+    QAction *DutyCharAction;
     QAction *action_8;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
@@ -160,7 +160,7 @@ public:
     QToolBar *mainToolBar;
     QMenuBar *menuBar;
     QMenu *menu;
-    QMenu *menu_2;
+    QMenu *CompanyMenu;
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *SalaryCount)
@@ -174,12 +174,12 @@ public:
         action_2->setObjectName(QStringLiteral("action_2"));
         action_3 = new QAction(SalaryCount);
         action_3->setObjectName(QStringLiteral("action_3"));
-        action_4 = new QAction(SalaryCount);
-        action_4->setObjectName(QStringLiteral("action_4"));
-        action_5 = new QAction(SalaryCount);
-        action_5->setObjectName(QStringLiteral("action_5"));
-        action_6 = new QAction(SalaryCount);
-        action_6->setObjectName(QStringLiteral("action_6"));
+        workeListAction = new QAction(SalaryCount);
+        workeListAction->setObjectName(QStringLiteral("workeListAction"));
+        LaborSheetAction = new QAction(SalaryCount);
+        LaborSheetAction->setObjectName(QStringLiteral("LaborSheetAction"));
+        DutyCharAction = new QAction(SalaryCount);
+        DutyCharAction->setObjectName(QStringLiteral("DutyCharAction"));
         action_8 = new QAction(SalaryCount);
         action_8->setObjectName(QStringLiteral("action_8"));
         centralWidget = new QWidget(SalaryCount);
@@ -270,7 +270,7 @@ public:
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 218, 559));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 217, 559));
         gridLayout_2 = new QGridLayout(scrollAreaWidgetContents);
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -797,23 +797,23 @@ public:
         menuBar->setGeometry(QRect(0, 0, 737, 21));
         menu = new QMenu(menuBar);
         menu->setObjectName(QStringLiteral("menu"));
-        menu_2 = new QMenu(menuBar);
-        menu_2->setObjectName(QStringLiteral("menu_2"));
+        CompanyMenu = new QMenu(menuBar);
+        CompanyMenu->setObjectName(QStringLiteral("CompanyMenu"));
         SalaryCount->setMenuBar(menuBar);
         statusBar = new QStatusBar(SalaryCount);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         SalaryCount->setStatusBar(statusBar);
 
         menuBar->addAction(menu->menuAction());
-        menuBar->addAction(menu_2->menuAction());
+        menuBar->addAction(CompanyMenu->menuAction());
         menu->addAction(action_2);
         menu->addAction(action);
         menu->addAction(action_3);
         menu->addSeparator();
         menu->addAction(action_8);
-        menu_2->addAction(action_4);
-        menu_2->addAction(action_5);
-        menu_2->addAction(action_6);
+        CompanyMenu->addAction(workeListAction);
+        CompanyMenu->addAction(LaborSheetAction);
+        CompanyMenu->addAction(DutyCharAction);
 
         retranslateUi(SalaryCount);
 
@@ -829,9 +829,9 @@ public:
         action->setText(QApplication::translate("SalaryCount", "\320\241\320\276\320\267\320\264\320\260\321\202\321\214 \320\277\321\200\320\265\320\264\320\277\321\200\320\270\321\217\321\202\320\270\320\265", 0));
         action_2->setText(QApplication::translate("SalaryCount", "\320\236\321\202\320\272\321\200\321\213\321\202\321\214 \320\277\321\200\320\265\320\264\320\277\321\200\320\270\321\217\321\202\320\270\320\265", 0));
         action_3->setText(QApplication::translate("SalaryCount", "\320\222\321\213\320\271\321\202\320\270", 0));
-        action_4->setText(QApplication::translate("SalaryCount", "\320\241\320\276\321\202\321\200\321\203\320\264\320\275\320\270\320\272\320\270", 0));
-        action_5->setText(QApplication::translate("SalaryCount", "\320\242\320\260\320\261\320\265\320\273\320\270 \321\203\321\207\320\265\321\202\320\260 \321\202\321\200\321\203\320\264\320\260", 0));
-        action_6->setText(QApplication::translate("SalaryCount", "\320\223\321\200\320\260\321\204\320\270\320\272\320\270 \321\200\320\260\320\261\320\276\321\202\321\213", 0));
+        workeListAction->setText(QApplication::translate("SalaryCount", "\320\241\320\276\321\202\321\200\321\203\320\264\320\275\320\270\320\272\320\270", 0));
+        LaborSheetAction->setText(QApplication::translate("SalaryCount", "\320\242\320\260\320\261\320\265\320\273\320\270 \321\203\321\207\320\265\321\202\320\260 \321\202\321\200\321\203\320\264\320\260", 0));
+        DutyCharAction->setText(QApplication::translate("SalaryCount", "\320\223\321\200\320\260\321\204\320\270\320\272\320\270 \321\200\320\260\320\261\320\276\321\202\321\213", 0));
         action_8->setText(QApplication::translate("SalaryCount", "\320\222\321\213\321\205\320\276\320\264 \320\270\320\267 \320\277\321\200\320\276\320\263\321\200\320\260\320\274\320\274\321\213", 0));
         groupBox_5->setTitle(QApplication::translate("SalaryCount", "\320\241\320\276\321\202\321\200\321\203\320\264\320\275\320\270\320\272\320\270", 0));
         label_4->setText(QApplication::translate("SalaryCount", "\320\237\320\276\320\270\321\201\320\272 \321\201\320\276\321\202\321\200\321\203\320\264\320\275\320\270\320\272\320\276\320\262", 0));
@@ -912,7 +912,7 @@ public:
         pushButton_15->setText(QApplication::translate("SalaryCount", "\320\241\320\276\320\267\320\264\320\260\321\202\321\214 \320\277\321\200\320\270\320\272\320\260\320\267", 0));
         pushButton_16->setText(QApplication::translate("SalaryCount", "\320\237\321\200\320\276\321\201\320\274\320\276\321\202\321\200\320\265\321\202 \320\277\321\200\320\270\320\272\320\260\320\267", 0));
         menu->setTitle(QApplication::translate("SalaryCount", "\320\244\320\260\320\271\320\273", 0));
-        menu_2->setTitle(QApplication::translate("SalaryCount", "\320\237\321\200\320\265\320\264\320\277\321\200\320\270\321\217\321\202\320\270\320\265", 0));
+        CompanyMenu->setTitle(QApplication::translate("SalaryCount", "\320\237\321\200\320\265\320\264\320\277\321\200\320\270\321\217\321\202\320\270\320\265", 0));
     } // retranslateUi
 
 };

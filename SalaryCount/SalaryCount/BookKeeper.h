@@ -20,7 +20,6 @@ public:
 	static bool calcSalary(const LaborSheet & laborSheet);
 
 
-	static bool fillLaborsheetWithDefaults(LaborSheet & laborSheet);
 
 private:
 
