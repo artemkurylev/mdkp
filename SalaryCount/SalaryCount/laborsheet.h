@@ -22,12 +22,19 @@ public:
         Getter для взятия всех отметок табеля.
     */
     const QList<Mark>* marks() const{return &grid;}
-
+    /*
+        getter для взятия даты
+    */
+    QDate beginDate(){return this->_beginDate;}
+    /*
+        getter для взятия графика
+    */
+    const DutyChart* dutyChart() const{return this->_dutyChart;}
 private:
-    QDate beginDate;
+    QDate _beginDate;
     int employeeId;
     QList<Mark> grid; 
-    DutyChart* dutyChart;
+    DutyChart* _dutyChart;
 };
 
 #endif // LABORSHEET_H
