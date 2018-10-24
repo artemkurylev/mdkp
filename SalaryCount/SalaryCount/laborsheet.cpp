@@ -15,9 +15,6 @@ bool LaborSheet::fillWithDefaults(int empploeeId, QDate date,DutyChart* dutyChar
     int count = 0;
     return false;
 }
-QList<Mark>* LaborSheet::getMarks(int empploeeId, QDate date){
-    return &(this->grid);
-}
 LaborSheet::~LaborSheet()
 {
 
