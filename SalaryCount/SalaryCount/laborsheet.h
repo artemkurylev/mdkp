@@ -17,11 +17,19 @@ public:
     LaborSheet(QObject *parent, int employeeId);
 
 	bool fillWithDefaults(int empploeeId, QDate date,DutyChart* dutyChart);
-    Employee* getEmployee();
-    /*
+    const Employee* employee() const;
+    /*!
         Getter дл€ вз€ти€ всех отметок табел€.
     */
     const QList<Mark>* marks() const{return &grid;}
+
+	/*! ѕодсчитать плановое рабочее врем€ за период
+	*/
+	int countDefaultTimeUnits() const;
+
+	/*! ѕодсчитать отработанное врем€ за период
+	*/
+	int countActualTimeUnits () const;
 
 private:
     QDate beginDate;

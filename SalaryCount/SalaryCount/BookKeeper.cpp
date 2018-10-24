@@ -2,8 +2,9 @@
 
 
 bool BookKeeper::calcSalary(const LaborSheet & laborSheet)
-
 {
+
+
 	return false;
 }
 
