@@ -10,7 +10,7 @@ LaborSheet::LaborSheet(QObject *parent, int employeeId)
 {
     this->employeeId = employeeId;
 }
-bool LaborSheet::fillWithDefaults(int empploeeId, QDate date,DutyChart* dutyChart){
+bool LaborSheet::fillWithDefaults(){
     
     int count = 0;
     return false;
