@@ -30,9 +30,15 @@ public:
 	void setBase(int state){base=state;}
 	void setAltered(int state){altered=state;}
 
+	// getters
+	int base()		const	{	return _base;		}
+	int altered()	const	{	return _altered;	}
+
+	// methods
+
 private:
-    int base;
-    int altered;
+    int _base;
+    int _altered;
 };
 
 #endif // MARK_H

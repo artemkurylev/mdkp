@@ -9,7 +9,7 @@ Mark::Mark(QObject *parent)
 Mark::Mark(int baseMark)
     : DbRecord(NULL)
 {
-	base = baseMark;
+	_base = baseMark;
 } 
 
 bool Mark::fetch(){
