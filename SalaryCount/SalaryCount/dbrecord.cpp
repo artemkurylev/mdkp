@@ -5,6 +5,8 @@ DbRecord::DbRecord(QObject *parent)
 {
 
 }
+DbRecord::DbRecord(){
+}
 DbRecord::DbRecord(int id)
 {
 	this->_id = id;

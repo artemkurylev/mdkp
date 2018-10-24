@@ -10,6 +10,7 @@ class DbRecord : public QObject
 
 public:
     DbRecord(QObject *parent);
+    DbRecord();
 	DbRecord(int id);
 	DbRecord(const DbRecord & other);
     ~DbRecord();
