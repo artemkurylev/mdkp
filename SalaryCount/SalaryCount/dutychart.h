@@ -10,7 +10,13 @@ class DutyChart : public DbRecord
 
 public:
     DutyChart(QObject *parent);
+	DutyChart(QList<Mark> marks){grid = marks;}
     ~DutyChart();
+
+	bool fetch() {return false;}
+	bool set() {return false;}
+	bool validate() const {return false;}
+	bool update() const {return false;}
 
 private:
     int length()

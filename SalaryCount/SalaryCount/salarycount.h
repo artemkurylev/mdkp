@@ -7,7 +7,7 @@
 #include "ui_salarycount.h"
 #include "BookKeeper.h"
 #include "mark.h"
-
+#include "dutychart.h"
 
 class SalaryCount : public QMainWindow
 {

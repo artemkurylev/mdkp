@@ -3,18 +3,19 @@
 
 #include "dbrecord.h"
 
+
 class Mark : public DbRecord
 {
     Q_OBJECT
 
 public:
     Mark(QObject *parent);
-    Mark(int baseMark);
+    Mark(int baseMark=0);
     ~Mark();
     bool fetch();
-    bool validate();
+    bool validate() const;
     bool set();
-    bool update();
+    bool update() const;
 
 	enum Type
 	{
@@ -24,6 +25,9 @@ public:
 		USUAL = 8,
 		INVALID = 999,
 	};
+
+	void setBase(int state){base=state;}
+	void setAltered(int state){altered=state;}
 
 private:
     int base;
