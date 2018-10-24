@@ -16,7 +16,6 @@ public:
 	~BookKeeperTest();
 
 private:
-	BookKeeper *bookKeeper;
 
 	private slots:
 		void testCalSalary();

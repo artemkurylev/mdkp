@@ -25,6 +25,7 @@ public:
 	static bool fillLaborsheetWithDefaults(LaborSheet & laborSheet);
 
 private:
+	friend class BookKeeperTest;
 
 	/*! Подсчитать плановое рабочее время за период
 	TODO: сделать методом класса LaborSheet
@@ -44,5 +45,5 @@ private:
 	*/
 	static float calcPerMonthSalary(float monthSalary, int days, int workDays);
 
-
+	
 };
