@@ -136,7 +136,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>218</width>
+             <width>217</width>
              <height>559</height>
             </rect>
            </property>
@@ -756,16 +756,16 @@
     <addaction name="separator"/>
     <addaction name="action_8"/>
    </widget>
-   <widget class="QMenu" name="menu_2">
+   <widget class="QMenu" name="CompanyMenu">
     <property name="title">
      <string>Предприятие</string>
     </property>
-    <addaction name="action_4"/>
-    <addaction name="action_5"/>
-    <addaction name="action_6"/>
+    <addaction name="workeListAction"/>
+    <addaction name="LaborSheetAction"/>
+    <addaction name="DutyCharAction"/>
    </widget>
    <addaction name="menu"/>
-   <addaction name="menu_2"/>
+   <addaction name="CompanyMenu"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="action">
@@ -783,17 +783,17 @@
     <string>Выйти</string>
    </property>
   </action>
-  <action name="action_4">
+  <action name="workeListAction">
    <property name="text">
     <string>Сотрудники</string>
    </property>
   </action>
-  <action name="action_5">
+  <action name="LaborSheetAction">
    <property name="text">
     <string>Табели учета труда</string>
    </property>
   </action>
-  <action name="action_6">
+  <action name="DutyCharAction">
    <property name="text">
     <string>Графики работы</string>
    </property>
