@@ -18,11 +18,6 @@ class BookKeeper
 {
 public:
 	static bool calcSalary(const LaborSheet & laborSheet);
-	
-	/*! «аполнить табель за период отметками по умолчанию
-	TODO: сделать методом класса LaborSheet
-	*/
-	static bool fillLaborsheetWithDefaults(LaborSheet & laborSheet);
 
 private:
 
