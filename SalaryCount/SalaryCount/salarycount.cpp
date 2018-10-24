@@ -1,15 +1,10 @@
 #include "salarycount.h"
 
-#include <QtTest/QtTest>
-#include "unittest/DirectiveGeneratorTest.h"
-
-
 SalaryCount::SalaryCount(QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
 
-	QTest::qExec( new DirectiveGeneratorTest(0) , NULL , NULL);
 	for(int i=0; i<7;++i){
 
 		QComboBox* combo = new QComboBox();
@@ -59,7 +54,7 @@ void SalaryCount::saveNewDutyChart()
 	for(int i=0;i<7;++i)
 	{
 		QComboBox* combo = (QComboBox*)ui.DutyChartMarksEdit->cellWidget(i,0);
-		Mark m();
+		Mark m(0);
 		int markValue = combo->currentIndex();
 
 		if(ui.payFormChoice->currentIndex()==0)

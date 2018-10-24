@@ -16,6 +16,7 @@ public:
     bool validate() const;
     bool set();
     bool update() const;
+
 	enum Type
 	{
 		HOLIDAY = 100,
@@ -24,6 +25,7 @@ public:
 		USUAL = 8,
 		INVALID = 999,
 	};
+
 	void setBase(int state){base=state;}
 	void setAltered(int state){altered=state;}
 

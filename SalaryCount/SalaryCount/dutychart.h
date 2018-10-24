@@ -10,6 +10,7 @@ class DutyChart : public DbRecord
 
 public:
     DutyChart(QObject *parent);
+    
 	DutyChart(QList<Mark> marks){grid = marks;}
     ~DutyChart();
 
