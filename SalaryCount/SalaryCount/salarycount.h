@@ -14,6 +14,7 @@ public:
 
 private:
     Ui_SalaryCount ui;
+
 };
 
 #endif // SALARYCOUNT_H
