@@ -18,22 +18,31 @@ class BookKeeper
 {
 public:
 	static bool calcSalary(const LaborSheet & laborSheet);
-
-
+	
+	/*! «аполнить табель за период отметками по умолчанию
+	TODO: сделать методом класса LaborSheet
+	*/
 	static bool fillLaborsheetWithDefaults(LaborSheet & laborSheet);
 
 private:
 
 	/*! ѕодсчитать плановое рабочее врем€ за период
+	TODO: сделать методом класса LaborSheet
 	*/
 	static int countDefaultLaborTimeUnits(const LaborSheet & laborSheet);
 
 	/*! ѕодсчитать отработанное врем€ за период
+	TODO: сделать методом класса LaborSheet
 	*/
 	static int countActualLaborTimeUnits (const LaborSheet & laborSheet);
 
-	static float calcPerHoursSalary(float basic_salary, int hours);
-	static float calcPerMonthSalary(float basic_salary, int days, int workDays);
+	/*! ѕодсчитать зарплату за период дл€ почасовой формы оплаты
+	*/
+	static float calcPerHoursSalary(float hourSalary, int hours);
+
+	/*! ѕодсчитать зарплату за период дл€ помес€чной формы оплаты
+	*/
+	static float calcPerMonthSalary(float monthSalary, int days, int workDays);
 
 
 };
