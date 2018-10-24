@@ -11,7 +11,8 @@ float BookKeeper::calcPerHoursSalary(float hourSalary, int hours)
 {
 	
 }
- float BookKeeper::calcPerMonthSalary(float monthSalary, int days, int workDays)
+
+float BookKeeper::calcPerMonthSalary(float monthSalary, int days, int workDays)
 {
 
 	// TODO: handle negative params & zero workDays
