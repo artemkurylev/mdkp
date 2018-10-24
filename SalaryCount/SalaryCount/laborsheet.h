@@ -12,16 +12,14 @@ class LaborSheet : public DbRecord
     Q_OBJECT
 
 public:
-    LaborSheet(QObject *parent);
+    LaborSheet();
     ~LaborSheet();
-    LaborSheet(QObject *parent, int employeeId);
-
+    LaborSheet(int employeeId);
 	bool fillWithDefaults();
-    Employee* getEmployee();
     /*
         Getter для взятия всех отметок табеля.
     */
-    const QList<Mark>* marks() const{return &grid;}
+    const QList<Mark>* marks() const{return &_grid;}
     /*
         getter для взятия даты
     */
@@ -30,10 +28,20 @@ public:
         getter для взятия графика
     */
     const DutyChart* dutyChart() const{return this->_dutyChart;}
+	bool fillWithDefaults(int empploeeId, QDate date,DutyChart* dutyChart);
+    const Employee* employee() const;
+
+	/*! Подсчитать плановое рабочее время за период
+	*/
+	int countDefaultTimeUnits() const;
+
+	/*! Подсчитать отработанное время за период
+	*/
+	int countActualTimeUnits () const;
 private:
     QDate _beginDate;
     int employeeId;
-    QList<Mark> grid; 
+    QList<Mark> _grid; 
     DutyChart* _dutyChart;
 };
 

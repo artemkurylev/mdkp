@@ -1,7 +1,7 @@
 #include "employee.h"
 
-Employee::Employee(QObject *parent)
-    : DbRecord(parent)
+Employee::Employee()
+    : DbRecord(0)
 {
 }
 Employee::Employee(int id)

@@ -1,11 +1,9 @@
 #include "dbrecord.h"
 
-DbRecord::DbRecord(QObject *parent)
-    : QObject(parent)
+DbRecord::DbRecord()
+    : QObject(0)
 {
 
-}
-DbRecord::DbRecord(){
 }
 DbRecord::DbRecord(int id)
 {

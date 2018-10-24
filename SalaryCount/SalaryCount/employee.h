@@ -11,17 +11,9 @@ class Employee : public DbRecord
     Q_OBJECT
 
 public:
-    Employee(QObject *parent);
+    Employee();
 	Employee(int id);
     ~Employee();
-
-	bool fetch(){return false;}
-    
-	bool set(){return false;}
-    
-	bool validate() const {return false;}
-    
-	bool update() const {return false;}
 
 private:
     QDate hireDate;

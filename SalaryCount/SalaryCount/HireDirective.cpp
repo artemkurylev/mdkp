@@ -1,8 +1,8 @@
 #include "HireDirective.h"
 
 
-HireDirective::HireDirective(QObject *parent)
-    : DbRecord(parent)
+HireDirective::HireDirective()
+    : DbRecord(0)
 {
 }
 HireDirective::HireDirective(QDate hireDate, QString fio, PayForm payForm, float salary, int employeeID)

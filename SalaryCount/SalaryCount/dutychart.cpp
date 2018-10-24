@@ -1,7 +1,7 @@
 #include "dutychart.h"
 
-DutyChart::DutyChart(QObject *parent)
-    : DbRecord(parent)
+DutyChart::DutyChart()
+    : DbRecord(0)
 {
 	// создать типичный график 5\2
 	_grid.clear();

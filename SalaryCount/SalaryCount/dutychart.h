@@ -9,20 +9,19 @@ class DutyChart : public DbRecord
     Q_OBJECT
 
 public:
-    DutyChart(QObject *parent);
+    DutyChart();
     
 	DutyChart(QList<Mark> marks){_grid = marks;}
-    ~DutyChart();
-
 	bool fetch() {return false;}
 	bool set() {return false;}
 	bool validate() const {return false;}
 	bool update() const {return false;}
     const QDate anchorDate() {return this->_anchorDate;}
-    const int length()
-	{
-		return _grid.size();
-	}
+    const int length(){return _grid.size();}
+    ~DutyChart();
+
+private:
+
     const QList<Mark>* grid() const{return &_grid;}
 private:
     

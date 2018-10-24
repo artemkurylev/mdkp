@@ -1,12 +1,12 @@
 #include "laborsheet.h"
 
-LaborSheet::LaborSheet(QObject *parent)
-    : DbRecord(parent)
+LaborSheet::LaborSheet()
+    : DbRecord(0)
 {
 
 }
-LaborSheet::LaborSheet(QObject *parent, int employeeId)
-    : DbRecord(parent)
+LaborSheet::LaborSheet(int employeeId)
+    : DbRecord(0)
 {
     this->employeeId = employeeId;
 }
@@ -23,3 +23,14 @@ LaborSheet::~LaborSheet()
 {
 
 }
+
+
+int LaborSheet::countDefaultTimeUnits() const
+{
+	return 0;
+}
+int LaborSheet::countActualTimeUnits () const
+{
+	return 0;
+}
+

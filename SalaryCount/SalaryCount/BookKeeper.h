@@ -19,20 +19,15 @@ class BookKeeper
 public:
 	static bool calcSalary(const LaborSheet & laborSheet);
 
-
-
 private:
 
-	/*! Подсчитать плановое рабочее время за период
+	/*! Подсчитать зарплату за период для почасовой формы оплаты
 	*/
-	static int countDefaultLaborTimeUnits(const LaborSheet & laborSheet);
+	static float calcPerHoursSalary(float hourSalary, int hours);
 
-	/*! Подсчитать отработанное время за период
+	/*! Подсчитать зарплату за период для помесячной формы оплаты
 	*/
-	static int countActualLaborTimeUnits (const LaborSheet & laborSheet);
-
-	static float calcPerHoursSalary(float basic_salary, int hours);
-	static float calcPerMonthSalary(float basic_salary, int days, int workDays);
+	static float calcPerMonthSalary(float monthSalary, int days, int workDays);
 
 
 };

@@ -10,7 +10,7 @@ class HireDirective :
 	public DbRecord
 {
 public:
-	HireDirective(QObject *parent);
+	HireDirective();
 	HireDirective(QDate hireDate, QString fio, PayForm payForm, float salary, int employeeID);
 	~HireDirective(void);
 
