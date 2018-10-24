@@ -7,12 +7,12 @@ bool BookKeeper::calcSalary(const LaborSheet & laborSheet)
 	return false;
 }
 
-static float BookKeeper::calcPerHoursSalary(float hourSalary, int hours)
+float BookKeeper::calcPerHoursSalary(float hourSalary, int hours)
 {
 	return hourSalary * hours;
 }
 
-static float BookKeeper::calcPerMonthSalary(float monthSalary, int days, int workDays)
+float BookKeeper::calcPerMonthSalary(float monthSalary, int days, int workDays)
 {
 	// TODO: handle negative params & zero workDays
 	return monthSalary * days / workDays;
