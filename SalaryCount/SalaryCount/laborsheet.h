@@ -16,7 +16,7 @@ public:
     ~LaborSheet();
     LaborSheet(QObject *parent, int employeeId);
 
-	bool fillWithDefaults(int empploeeId, QDate date,DutyChart* dutyChart);
+	bool fillWithDefaults();
     Employee* getEmployee();
     /*
         Getter для взятия всех отметок табеля.
