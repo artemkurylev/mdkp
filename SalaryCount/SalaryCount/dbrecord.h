@@ -2,7 +2,7 @@
 #define DBRECORD_H
 
 #include <QObject>
-//#include "dbmanager.h"
+#include "dbmanager.h"
 
 class DbRecord : public QObject
 {
@@ -14,10 +14,13 @@ public:
 	DbRecord(const DbRecord & other);
     ~DbRecord();
     
+
+
     virtual bool fetch() = 0;
     
     virtual bool set() = 0;
     
+
     virtual bool validate() const = 0;
     
     virtual bool update() const = 0;
@@ -30,6 +33,8 @@ protected:
 
 private:
     int _id;
+
+    
 
 };
 
