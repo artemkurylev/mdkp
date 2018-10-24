@@ -17,8 +17,11 @@ public:
     LaborSheet(QObject *parent, int employeeId);
 
 	bool fillWithDefaults(int empploeeId, QDate date,DutyChart* dutyChart);
-    Employee* getEmployee(int id);
-    QList<Mark>* getMarks(int empploeeId, QDate date);
+    Employee* getEmployee();
+    /*
+        Getter для взятия всех отметок табеля.
+    */
+    const QList<Mark>* marks() const{return &grid;}
 
 private:
     QDate beginDate;
