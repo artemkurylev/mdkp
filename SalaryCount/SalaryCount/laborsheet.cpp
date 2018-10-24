@@ -23,3 +23,14 @@ LaborSheet::~LaborSheet()
 {
 
 }
+
+
+int LaborSheet::countDefaultTimeUnits() const
+{
+	return 0;
+}
+int LaborSheet::countActualTimeUnits () const
+{
+	return 0;
+}
+

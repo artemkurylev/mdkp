@@ -16,20 +16,22 @@ public:
     ~LaborSheet();
     LaborSheet(QObject *parent, int employeeId);
 
-	bool fillWithDefaults();
-    Employee* getEmployee();
-    /*
+
+	bool fillWithDefaults(int empploeeId, QDate date,DutyChart* dutyChart);
+    const Employee* employee() const;
+    /*!
         Getter для взятия всех отметок табеля.
     */
     const QList<Mark>* marks() const{return &grid;}
-    /*
-        getter для взятия даты
-    */
-    QDate beginDate(){return this->_beginDate;}
-    /*
-        getter для взятия графика
-    */
-    const DutyChart* dutyChart() const{return this->_dutyChart;}
+
+	/*! Подсчитать плановое рабочее время за период
+	*/
+	int countDefaultTimeUnits() const;
+
+	/*! Подсчитать отработанное время за период
+	*/
+	int countActualTimeUnits () const;
+
 private:
     QDate _beginDate;
     int employeeId;

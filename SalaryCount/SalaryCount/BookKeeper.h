@@ -23,16 +23,6 @@ public:
 private:
 	friend class BookKeeperTest;
 
-	/*! ѕодсчитать плановое рабочее врем€ за период
-	TODO: сделать методом класса LaborSheet
-	*/
-	static int countDefaultLaborTimeUnits(const LaborSheet & laborSheet);
-
-	/*! ѕодсчитать отработанное врем€ за период
-	TODO: сделать методом класса LaborSheet
-	*/
-	static int countActualLaborTimeUnits (const LaborSheet & laborSheet);
-
 	/*! ѕодсчитать зарплату за период дл€ почасовой формы оплаты
 	*/
 	static float calcPerHoursSalary(float hourSalary, int hours);
