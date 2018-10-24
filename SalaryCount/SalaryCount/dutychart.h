@@ -11,22 +11,24 @@ class DutyChart : public DbRecord
 public:
     DutyChart(QObject *parent);
     
-	DutyChart(QList<Mark> marks){grid = marks;}
+	DutyChart(QList<Mark> marks){_grid = marks;}
     ~DutyChart();
 
 	bool fetch() {return false;}
 	bool set() {return false;}
 	bool validate() const {return false;}
 	bool update() const {return false;}
-
-private:
-    int length()
+    const QDate anchorDate() {return this->_anchorDate;}
+    const int length()
 	{
-		return grid.size();
+		return _grid.size();
 	}
+    const QList<Mark>* grid() const{return &_grid;}
+private:
+    
 
-    QList<Mark> grid;
-    QDate anchorDate;
+    QList<Mark> _grid;
+    QDate _anchorDate;
 };
 
 #endif // DUTYCHART_H
