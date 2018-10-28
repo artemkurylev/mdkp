@@ -18,11 +18,12 @@ public:
 	bool update() const {return false;}
     const QDate anchorDate() {return this->_anchorDate;}
     const int length(){return _grid.size();}
+    const QList<Mark>& grid() const{return _grid;}
     ~DutyChart();
 
 private:
 
-    const QList<Mark>* grid() const{return &_grid;}
+    
 private:
     
 
