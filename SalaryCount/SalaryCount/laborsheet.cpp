@@ -11,13 +11,20 @@ LaborSheet::LaborSheet(int employeeId)
     this->employeeId = employeeId;
 }
 bool LaborSheet::fillWithDefaults(){
-    QDate date = this->_dutyChart->anchorDate(); 
     QDate buffer_date = this->_dutyChart->anchorDate();
     int count_diff_days = 0;
-    count_diff_days = abs(buffer_date.daysTo(this->beginDate()));
+    count_diff_days = abs(buffer_date.daysTo(this->_beginDate));
     int bias = count_diff_days % this->_dutyChart->length();
     int length = _dutyChart->length();
-    return false;
+    int month_length = this->_beginDate.daysInMonth();
+    int dutychart_index = bias;
+    for(int i = 0; i < month_length; ++i,dutychart_index++){
+        if(dutychart_index >= length)
+            dutychart_index = 0;
+        Mark m(_dutyChart->grid()[dutychart_index]);
+        this->_grid.push_back(m);
+    }
+    return this->update();
 }
 LaborSheet::~LaborSheet()
 {
