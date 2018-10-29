@@ -2,7 +2,7 @@
 #pragma once
 
 #include "laborsheet.h"
-
+#include "BillingPeriod.h"
 /*! ‘орма оплаты труда. (помес€чна€/почасова€)
 */
 enum PayForm

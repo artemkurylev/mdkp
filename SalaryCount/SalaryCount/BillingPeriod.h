@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include<qdatetime.h>
-
+#include"dbrecord.h"
 class BillingPeriod : public DbRecord
 {
     Q_OBJECT
@@ -13,10 +13,14 @@ public:
     ~BillingPeriod();
 
 	// getters
-	enum Status status()	{	return _status;		}
+    int status()	{	return _status;		}
 	const QDate& startDate()		{	return _startDate;	}
 
 	// methods
+    bool fetch();
+	bool set() ;
+	bool validate() const;
+	bool update() const;
 
 	//! Управление статусом
 	void open();
