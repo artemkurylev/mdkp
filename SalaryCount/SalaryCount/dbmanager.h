@@ -6,6 +6,7 @@
 #include <qstring.h>
 #include <qsqldatabase.h>
 #include <qsqlquery.h>
+#include "qsqlerror.h"
 
 class DbManager : public QObject
 {
@@ -14,12 +15,12 @@ class DbManager : public QObject
 public:
     DbManager(QObject *parent);
 
-    DbManager(QString hostName, QString dbName, int port, QString pass);
+    DbManager(QString hostName, QString dbName, int port,QString userName, QString pass);
 
     ~DbManager();
 
     bool makeQuery(QSqlQuery* query);
-
+    bool checkConnection();
 private:
     QSqlDatabase db;
 };
