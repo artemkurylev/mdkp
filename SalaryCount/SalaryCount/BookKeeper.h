@@ -17,17 +17,20 @@ enum PayForm
 class BookKeeper
 {
 public:
-	static bool calcSalary(const LaborSheet & laborSheet);
+	/*! Вычислить зарплату за период по закрытому месячному табелю
+	*/
+	static bool calcAwardFor(LaborSheet & laborSheet);
+
 
 private:
 
 	/*! Подсчитать зарплату за период для почасовой формы оплаты
 	*/
-	static float calcPerHoursSalary(float hourSalary, int hours);
+	static float awardPerHoursForm(float hourSalary, int hours);
 
 	/*! Подсчитать зарплату за период для помесячной формы оплаты
 	*/
-	static float calcPerMonthSalary(float monthSalary, int days, int workDays);
+	static float awardPerMonthForm(float monthSalary, int days, int workDays);
 
 
 };
