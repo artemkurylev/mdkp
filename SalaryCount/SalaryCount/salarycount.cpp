@@ -3,6 +3,8 @@
 
 #include <QtTest/QtTest>
 #include "dbmanager.h"
+#include"qsqldatabase.h"
+
 #include "unittest/DirectiveGeneratorTest.h"
 
 
@@ -10,7 +12,6 @@
 {
     
     ui.setupUi(this);
-    
 
 	for(int i=0; i<7;++i){
 
@@ -29,6 +30,12 @@
 
 	connect(ui.addDutyChart,SIGNAL(pressed()), this,SLOT(addDutyChart()));
 	connect(ui.payFormChoice,SIGNAL(currentIndexChanged(int)), this,SLOT(changePayForm(int)));
+    DbManager manager("localhost","salarycount",3306,"root","root");
+    if(manager.checkConnection()){
+        //Создание таблиц
+    }
+    else{
+    }
 	QTest::qExec( new DirectiveGeneratorTest(0) , NULL , NULL);
 }
 
