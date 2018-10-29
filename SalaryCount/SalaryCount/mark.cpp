@@ -10,6 +10,7 @@ Mark::Mark(int baseMark)
     : DbRecord(NULL)
 {
 	_base = baseMark;
+	_altered = INVALID;
 } 
 
 bool Mark::fetch(){
