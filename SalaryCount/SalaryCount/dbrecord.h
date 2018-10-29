@@ -32,17 +32,13 @@ public:
 	*/
     int id() const;
 
+protected:
     /*! Строка для запроса к базе данных MYSQL */
     QString _query;
-    DbManager _manager;
     int _id;
+
+
 private:
-
-
-    virtual bool validate() = 0;
-    
-    virtual bool update() = 0;
-
 
 private:
     
