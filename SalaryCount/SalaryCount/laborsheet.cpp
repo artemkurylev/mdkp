@@ -41,7 +41,7 @@ LaborSheet::~LaborSheet()
 
 int LaborSheet::countDefaultTimeUnits() const
 {
-	int 
+	int total;
 	return 0;
 }
 int LaborSheet::countActualTimeUnits () const
