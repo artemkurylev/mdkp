@@ -1,9 +1,16 @@
 #include "salarycount.h"
 
-SalaryCount::SalaryCount(QWidget *parent)
+
+#include <QtTest/QtTest>
+#include "dbmanager.h"
+#include "unittest/DirectiveGeneratorTest.h"
+
+
     : QMainWindow(parent)
 {
+    
     ui.setupUi(this);
+    
 
 	for(int i=0; i<7;++i){
 
@@ -22,6 +29,7 @@ SalaryCount::SalaryCount(QWidget *parent)
 
 	connect(ui.addDutyChart,SIGNAL(pressed()), this,SLOT(addDutyChart()));
 	connect(ui.payFormChoice,SIGNAL(currentIndexChanged(int)), this,SLOT(changePayForm(int)));
+	QTest::qExec( new DirectiveGeneratorTest(0) , NULL , NULL);
 }
 
 SalaryCount::~SalaryCount()
