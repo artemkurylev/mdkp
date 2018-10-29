@@ -12,13 +12,16 @@ public:
     DutyChart();
     
 	DutyChart(QList<Mark> marks){_grid = marks;}
+
 	bool fetch() {return false;}
 	bool set() {return false;}
 	bool validate() const {return false;}
 	bool update() const {return false;}
-    const QDate anchorDate() {return this->_anchorDate;}
-    const int length(){return _grid.size();}
-    const QList<Mark>& grid() const{return _grid;}
+
+    const QDate anchorDate() const	{return _anchorDate;}
+    const int length()		 const	{return _grid.size();}
+    const QList<Mark>& grid() const	{return _grid;}
+
     ~DutyChart();
 
 private:
