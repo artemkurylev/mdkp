@@ -19,9 +19,9 @@ public:
 	*/
     virtual bool fetch() = 0;
     
-	/*! Задать данные записи, не отправляя из в БД (обновить локальную копию)
-	*/
-    virtual bool set() = 0;
+	///*! Задать данные записи, не отправляя из в БД (обновить локальную копию)
+	//*/
+ //   virtual bool set() = 0;
     
 	/*! Проверить данные записи на корректность (полезно перед отправкой в БД)
 	*/
@@ -34,16 +34,15 @@ public:
 	/*! Возвращает ID [Primary Key] записи в БД
 	*/
     int id() const;
-protected:
 
+protected:
     /*! Строка для запроса к базе данных MYSQL */
     QString _query;
-    DbManager _manager;
     int _id;
 private:
 
 
-    
+private:
 
 };
 
