@@ -14,10 +14,17 @@ SalaryCount::SalaryCount(QWidget *parent)
     ui.setupUi(this);
 
     DbManager manager("localhost","salarycount",3306,"root","root");
-    if(manager.checkConnection()){
+    if(manager.checkConnection())
+    {
         //Создание таблиц
+        bool b = Employee::createDbTable();
+        if(b){
+
+        }
     }
-    else{
+    else
+    {
+
     }
 	QTest::qExec( new DirectiveGeneratorTest(0) , NULL , NULL);
 }

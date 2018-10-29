@@ -2,6 +2,7 @@
 #define SALARYCOUNT_H
 
 #include <QtWidgets/QMainWindow>
+#include "employee.h"
 #include "ui_salarycount.h"
 
 class SalaryCount : public QMainWindow
