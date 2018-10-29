@@ -13,6 +13,7 @@ class Employee : public DbRecord
 public:
     Employee();
 	Employee(int id);
+    static bool createDbTable();
     ~Employee();
 
 private:
