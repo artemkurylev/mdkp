@@ -35,7 +35,8 @@
     {
         //Создание таблиц
         bool b = Employee::createDbTable();
-        if(b){
+        if(b)
+        {
 
         }
     }

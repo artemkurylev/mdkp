@@ -31,10 +31,12 @@ QSqlQuery* DbManager::makeQuery()
 }
 bool DbManager::checkConnection()
 {
-    if(db.isOpen()){
+    if(db.isOpen())
+    {
         return true;
     }
-    else{
+    else
+    {
         QString s= db.lastError().text();
         return false;
     }

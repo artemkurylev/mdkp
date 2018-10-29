@@ -8,7 +8,8 @@ Employee::Employee(int id)
     : DbRecord(id)
 {
 }
-bool Employee::createDbTable(){
+bool Employee::createDbTable()
+{
     if(DbManager::manager().checkConnection()){
         QSqlQuery* query = DbManager::manager().makeQuery();
         if(query->exec("CREATE TABLE IF NOT EXISTS `employee` (`id` INT(11) NOT NULL AUTO_INCREMENT, `fio` CHAR(30) NOT NULL, `phone_number` CHAR(20),`hire_date` DATE,`dutychart_id` INT(11), PRIMARY KEY(`id`))"))
