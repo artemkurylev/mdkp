@@ -2,6 +2,8 @@
 
 #include <QtTest/QtTest>
 #include "dbmanager.h"
+#include"qsqldatabase.h"
+
 #include "unittest/DirectiveGeneratorTest.h"
 
 
@@ -10,8 +12,13 @@ SalaryCount::SalaryCount(QWidget *parent)
 {
     
     ui.setupUi(this);
-    
 
+    DbManager manager("localhost","salarycount",3306,"root","root");
+    if(manager.checkConnection()){
+        //Создание таблиц
+    }
+    else{
+    }
 	QTest::qExec( new DirectiveGeneratorTest(0) , NULL , NULL);
 }
 
