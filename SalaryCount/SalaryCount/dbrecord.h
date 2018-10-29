@@ -34,16 +34,13 @@ public:
 	/*! Возвращает ID [Primary Key] записи в БД
 	*/
     int id() const;
-protected:
 
+protected:
     /*! Строка для запроса к базе данных MYSQL */
     QString _query;
-    DbManager _manager;
     int _id;
+
 private:
-
-
-    
 
 };
 
