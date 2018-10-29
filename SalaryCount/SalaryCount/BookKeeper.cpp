@@ -8,6 +8,11 @@ bool BookKeeper::calcAwardFor(LaborSheet & laborSheet)
 
 	return false;
 }
+bool openBillingPeriod(BillingPeriod & billingPeriod)
+{
+	return false;
+}
+
 
 float BookKeeper::awardPerHoursForm(float hourSalary, int hours)
 {

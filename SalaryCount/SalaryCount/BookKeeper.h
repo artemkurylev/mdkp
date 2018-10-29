@@ -22,6 +22,7 @@ public:
 	*/
 	static bool calcAwardFor(LaborSheet & laborSheet);
 
+	static bool openBillingPeriod(BillingPeriod & billingPeriod);
 
 private:
 	friend class BookKeeperTest;
