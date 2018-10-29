@@ -10,20 +10,27 @@ LaborSheet::LaborSheet(QObject *parent, int employeeId)
 {
     this->employeeId = employeeId;
 }
-bool LaborSheet::fillWithDefaults(){
+bool LaborSheet::fillWithDefaults()
+{
+	// Вычислить относительное смещение наложения графика на месяц
     QDate buffer_date = this->_dutyChart->anchorDate();
     int count_diff_days = 0;
     count_diff_days = abs(buffer_date.daysTo(this->_beginDate));
-    int bias = count_diff_days % this->_dutyChart->length();
     int length = _dutyChart->length();
-    int month_length = this->_beginDate.daysInMonth();
+    int bias = count_diff_days % length;
     int dutychart_index = bias;
+	
+	this->_grid.clear();
+	// Заполнить табель отметками по умолчанию
+    int month_length = this->_beginDate.daysInMonth();
     for(int i = 0; i < month_length; ++i,dutychart_index++){
         if(dutychart_index >= length)
             dutychart_index = 0;
         Mark m(_dutyChart->grid()[dutychart_index]);
         this->_grid.push_back(m);
     }
+	
+	// Обновить табель в БД
     return this->update();
 }
 LaborSheet::~LaborSheet()
@@ -34,6 +41,7 @@ LaborSheet::~LaborSheet()
 
 int LaborSheet::countDefaultTimeUnits() const
 {
+	int 
 	return 0;
 }
 int LaborSheet::countActualTimeUnits () const
