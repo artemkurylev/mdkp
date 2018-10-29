@@ -13,6 +13,7 @@ class Employee : public DbRecord
 public:
     Employee(QObject *parent);
 	Employee(int id);
+    static bool createDbTable();
     ~Employee();
 
 	bool fetch(){return false;}

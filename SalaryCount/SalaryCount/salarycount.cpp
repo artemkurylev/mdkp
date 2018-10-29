@@ -31,10 +31,17 @@
 	connect(ui.addDutyChart,SIGNAL(pressed()), this,SLOT(addDutyChart()));
 	connect(ui.payFormChoice,SIGNAL(currentIndexChanged(int)), this,SLOT(changePayForm(int)));
     DbManager manager("localhost","salarycount",3306,"root","root");
-    if(manager.checkConnection()){
+    if(manager.checkConnection())
+    {
         //Создание таблиц
+        bool b = Employee::createDbTable();
+        if(b){
+
+        }
     }
-    else{
+    else
+    {
+
     }
 	QTest::qExec( new DirectiveGeneratorTest(0) , NULL , NULL);
 }

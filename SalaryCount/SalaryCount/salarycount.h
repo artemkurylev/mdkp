@@ -2,8 +2,10 @@
 #define SALARYCOUNT_H
 
 #include <QtWidgets/QMainWindow>
+
 #include <QComboBox.h>
 #include <qtextcodec.h>
+#include "employee.h"
 #include "ui_salarycount.h"
 #include "BookKeeper.h"
 #include "mark.h"
