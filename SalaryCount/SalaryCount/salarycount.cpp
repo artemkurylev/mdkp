@@ -42,7 +42,12 @@
     else
     {
 
+    DbManager manager("localhost","salarycount",3306,"root","root");
+    if(manager.checkConnection()){
+        //Создание таблиц
     }
+    else{
+   }
 	QTest::qExec( new DirectiveGeneratorTest(0) , NULL , NULL);
 }
 

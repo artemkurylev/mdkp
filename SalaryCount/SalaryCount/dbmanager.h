@@ -19,10 +19,8 @@ public:
 
     ~DbManager();
 
-    QSqlQuery* makeQuery();
+    bool makeQuery(QSqlQuery* query);
     bool checkConnection();
-    static DbManager& manager();
-    static void closeConnection(){globalManager->db.close();}
 private:
     QSqlDatabase db;
     QSqlQuery _query;
