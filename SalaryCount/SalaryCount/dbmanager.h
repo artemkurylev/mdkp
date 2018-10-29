@@ -14,7 +14,7 @@ class DbManager : public QObject
 public:
     DbManager(QObject *parent);
 
-    DbManager(QObject *parent, QString hostName, QString dbName, int port, QString pass);
+    DbManager(QString hostName, QString dbName, int port, QString pass);
 
     ~DbManager();
 
