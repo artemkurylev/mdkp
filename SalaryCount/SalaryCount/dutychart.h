@@ -17,6 +17,7 @@ public:
 	bool set() {return false;}
 	bool validate() const {return false;}
 	bool update() const {return false;}
+    static bool createDbTable();
 
     const QDate anchorDate() const	{return _anchorDate;}
     const int length()		 const	{return _grid.size();}
