@@ -38,14 +38,14 @@ SalaryCount::SalaryCount(QWidget *parent)
 
 		combo->insertItem(1, codec->toUnicode("Выходной"));
 
-		//ui.DutyChartMarksEdit->setCellWidget(i,0,combo);
+		ui.DutyChartMarksEdit->setCellWidget(i,0,combo);
 	}
 	
-	//ui.saveDutyChartBtn->setEnabled(true);
-	//ui.cancelDutyChartBtn->setEnabled(true);
+	ui.saveDutyChartBtn->setEnabled(true);
+	ui.cancelDutyChartBtn->setEnabled(true);
 
-	//connect(ui.addDutyChart,SIGNAL(pressed()), this,SLOT(addDutyChart()));
-	//connect(ui.payFormChoice,SIGNAL(currentIndexChanged(int)), this,SLOT(changePayForm(int)));
+	connect(ui.addDutyChart,SIGNAL(pressed()), this,SLOT(addDutyChart()));
+	connect(ui.payFormChoice,SIGNAL(currentIndexChanged(int)), this,SLOT(changePayForm(int)));
 }
 
 SalaryCount::~SalaryCount()
