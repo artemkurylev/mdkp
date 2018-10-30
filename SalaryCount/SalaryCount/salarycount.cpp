@@ -60,6 +60,14 @@
 		}
 	}
 	QTest::qExec( new DirectiveGeneratorTest(0) , NULL , NULL);
+		ui.DutyChartMarksEdit->setCellWidget(i,0,combo);
+	}
+	
+	ui.saveDutyChartBtn->setEnabled(true);
+	ui.cancelDutyChartBtn->setEnabled(true);
+
+	connect(ui.addDutyChart,SIGNAL(pressed()), this,SLOT(addDutyChart()));
+	connect(ui.payFormChoice,SIGNAL(currentIndexChanged(int)), this,SLOT(changePayForm(int)));
 }
 
 SalaryCount::~SalaryCount()
