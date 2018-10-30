@@ -13,7 +13,9 @@
     
     ui.setupUi(this);
 
-	for(int i=0; i<7;++i){
+	//заполнение шаблона редактирования графика
+	for(int i=0; i<7;++i)
+	{
 
 		QComboBox* combo = new QComboBox();
 
