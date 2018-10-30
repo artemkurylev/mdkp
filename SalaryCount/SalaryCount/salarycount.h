@@ -15,6 +15,13 @@ public:
 
 private:
     Ui_SalaryCount ui;
+
+private slots:
+	void addDutyChart();//добавление нового графика
+	void changePayForm(int index);
+
+	void saveNewDutyChart();
+	void cancelNewDutyChart();
 };
 
 #endif // SALARYCOUNT_H
