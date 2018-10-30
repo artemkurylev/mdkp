@@ -57,6 +57,15 @@
 		else
 		{
 
+		QComboBox* combo = new QComboBox();
+
+		QTextCodec* codec = QTextCodec::codecForLocale();
+
+		combo->insertItem(0, codec->toUnicode("Выходной"));
+		combo->insertItem(1, codec->toUnicode("Рабочий"));
+
+		combo->setCurrentIndex(1);
+
 		}
 	}
 	QTest::qExec( new DirectiveGeneratorTest(0) , NULL , NULL);
@@ -132,6 +141,15 @@ void SalaryCount::saveNewDutyChart()
 	}
 	DutyChart dch(marks);
 	dch.set();
+		
+		int mark_value = combo->currentIndex();
+		int choice_value = ui.payFormChoice->currentIndex();
+
+
+		Mark m(mark_value);
+		DutyChart dch(marks);
+		dch.set();
+	}
 }
 
 void SalaryCount::cancelNewDutyChart()
