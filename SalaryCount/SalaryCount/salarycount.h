@@ -22,7 +22,7 @@ private:
     Ui::SalaryCount ui;
 
 private slots:
-	void addDutyChart();
+	void addDutyChart();//добавление нового графика
 	void changePayForm(int index);
 
 	void saveNewDutyChart();
