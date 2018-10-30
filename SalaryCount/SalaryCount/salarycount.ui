@@ -6,7 +6,11 @@
    <rect>
     <x>0</x>
     <y>0</y>
+<<<<<<< HEAD
     <width>737</width>
+=======
+    <width>709</width>
+>>>>>>> a0de08c... Исправлены названия кнопок для редактирования и удаления графиков на странице графиков
     <height>474</height>
    </rect>
   </property>
@@ -519,14 +523,14 @@
            <item row="1" column="0">
             <layout class="QHBoxLayout" name="horizontalLayout_4">
              <item>
-              <widget class="QPushButton" name="pushButton_8">
+              <widget class="QPushButton" name="editDutyChart">
                <property name="text">
                 <string>Редактировать график</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton_5">
+              <widget class="QPushButton" name="deleteDutyChart">
                <property name="text">
                 <string>Удалить график</string>
                </property>
@@ -547,7 +551,11 @@
           </layout>
          </widget>
         </item>
+<<<<<<< HEAD
         <item row="0" column="1">
+=======
+        <item row="0" column="1" rowspan="2">
+>>>>>>> a0de08c... Исправлены названия кнопок для редактирования и удаления графиков на странице графиков
          <widget class="QGroupBox" name="dutyChartEdit">
           <property name="enabled">
            <bool>false</bool>
@@ -742,7 +750,11 @@
     <rect>
      <x>0</x>
      <y>0</y>
+<<<<<<< HEAD
      <width>737</width>
+=======
+     <width>709</width>
+>>>>>>> a0de08c... Исправлены названия кнопок для редактирования и удаления графиков на странице графиков
      <height>21</height>
     </rect>
    </property>
