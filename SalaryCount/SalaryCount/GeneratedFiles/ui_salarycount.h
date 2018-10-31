@@ -47,14 +47,15 @@ public:
     QAction *action;
     QAction *action_2;
     QAction *action_3;
-    QAction *workeListAction;
+    QAction *EmployeeListAction;
     QAction *LaborSheetAction;
     QAction *DutyCharAction;
     QAction *action_8;
+    QAction *HireDirectiveAction;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     QStackedWidget *stackedWidget;
-    QWidget *page;
+    QWidget *EmployeesPage;
     QGridLayout *gridLayout_8;
     QGroupBox *groupBox_5;
     QGridLayout *gridLayout_3;
@@ -108,7 +109,7 @@ public:
     QHBoxLayout *horizontalLayout_12;
     QPushButton *pushButton_11;
     QPushButton *pushButton_12;
-    QWidget *page_2;
+    QWidget *LaborSheetsPage;
     QGridLayout *gridLayout_10;
     QGroupBox *groupBox_6;
     QGridLayout *gridLayout_4;
@@ -130,7 +131,7 @@ public:
     QHBoxLayout *horizontalLayout_13;
     QPushButton *pushButton_13;
     QPushButton *pushButton_14;
-    QWidget *page_3;
+    QWidget *DutyChartsPage;
     QGridLayout *gridLayout_7;
     QGroupBox *groupBox_4;
     QGridLayout *gridLayout_5;
@@ -155,7 +156,7 @@ public:
     QHBoxLayout *horizontalLayout_10;
     QPushButton *saveDutyChartBtn;
     QPushButton *cancelDutyChartBtn;
-    QWidget *page_4;
+    QWidget *HireDirectivesPage;
     QGridLayout *gridLayout_11;
     QPushButton *pushButton_15;
     QListWidget *listWidget_4;
@@ -177,14 +178,16 @@ public:
         action_2->setObjectName(QStringLiteral("action_2"));
         action_3 = new QAction(SalaryCount);
         action_3->setObjectName(QStringLiteral("action_3"));
-        workeListAction = new QAction(SalaryCount);
-        workeListAction->setObjectName(QStringLiteral("workeListAction"));
+        EmployeeListAction = new QAction(SalaryCount);
+        EmployeeListAction->setObjectName(QStringLiteral("EmployeeListAction"));
         LaborSheetAction = new QAction(SalaryCount);
         LaborSheetAction->setObjectName(QStringLiteral("LaborSheetAction"));
         DutyCharAction = new QAction(SalaryCount);
         DutyCharAction->setObjectName(QStringLiteral("DutyCharAction"));
         action_8 = new QAction(SalaryCount);
         action_8->setObjectName(QStringLiteral("action_8"));
+        HireDirectiveAction = new QAction(SalaryCount);
+        HireDirectiveAction->setObjectName(QStringLiteral("HireDirectiveAction"));
         centralWidget = new QWidget(SalaryCount);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
@@ -193,13 +196,13 @@ public:
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         stackedWidget = new QStackedWidget(centralWidget);
         stackedWidget->setObjectName(QStringLiteral("stackedWidget"));
-        page = new QWidget();
-        page->setObjectName(QStringLiteral("page"));
-        gridLayout_8 = new QGridLayout(page);
+        EmployeesPage = new QWidget();
+        EmployeesPage->setObjectName(QStringLiteral("EmployeesPage"));
+        gridLayout_8 = new QGridLayout(EmployeesPage);
         gridLayout_8->setSpacing(6);
         gridLayout_8->setContentsMargins(11, 11, 11, 11);
         gridLayout_8->setObjectName(QStringLiteral("gridLayout_8"));
-        groupBox_5 = new QGroupBox(page);
+        groupBox_5 = new QGroupBox(EmployeesPage);
         groupBox_5->setObjectName(QStringLiteral("groupBox_5"));
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(2);
@@ -261,7 +264,7 @@ public:
 
         gridLayout_8->addWidget(groupBox_5, 0, 0, 1, 1);
 
-        scrollArea = new QScrollArea(page);
+        scrollArea = new QScrollArea(EmployeesPage);
         scrollArea->setObjectName(QStringLiteral("scrollArea"));
         scrollArea->setEnabled(true);
         QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -273,7 +276,7 @@ public:
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 217, 559));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 218, 559));
         gridLayout_2 = new QGridLayout(scrollAreaWidgetContents);
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -491,14 +494,14 @@ public:
 
         gridLayout_8->addWidget(scrollArea, 0, 1, 1, 1);
 
-        stackedWidget->addWidget(page);
-        page_2 = new QWidget();
-        page_2->setObjectName(QStringLiteral("page_2"));
-        gridLayout_10 = new QGridLayout(page_2);
+        stackedWidget->addWidget(EmployeesPage);
+        LaborSheetsPage = new QWidget();
+        LaborSheetsPage->setObjectName(QStringLiteral("LaborSheetsPage"));
+        gridLayout_10 = new QGridLayout(LaborSheetsPage);
         gridLayout_10->setSpacing(6);
         gridLayout_10->setContentsMargins(11, 11, 11, 11);
         gridLayout_10->setObjectName(QStringLiteral("gridLayout_10"));
-        groupBox_6 = new QGroupBox(page_2);
+        groupBox_6 = new QGroupBox(LaborSheetsPage);
         groupBox_6->setObjectName(QStringLiteral("groupBox_6"));
         sizePolicy.setHeightForWidth(groupBox_6->sizePolicy().hasHeightForWidth());
         groupBox_6->setSizePolicy(sizePolicy);
@@ -561,7 +564,7 @@ public:
 
         gridLayout_10->addWidget(groupBox_6, 0, 0, 1, 1);
 
-        groupBox_7 = new QGroupBox(page_2);
+        groupBox_7 = new QGroupBox(LaborSheetsPage);
         groupBox_7->setObjectName(QStringLiteral("groupBox_7"));
         groupBox_7->setEnabled(true);
         QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Preferred);
@@ -620,14 +623,14 @@ public:
 
         gridLayout_10->addWidget(groupBox_7, 0, 1, 1, 1);
 
-        stackedWidget->addWidget(page_2);
-        page_3 = new QWidget();
-        page_3->setObjectName(QStringLiteral("page_3"));
-        gridLayout_7 = new QGridLayout(page_3);
+        stackedWidget->addWidget(LaborSheetsPage);
+        DutyChartsPage = new QWidget();
+        DutyChartsPage->setObjectName(QStringLiteral("DutyChartsPage"));
+        gridLayout_7 = new QGridLayout(DutyChartsPage);
         gridLayout_7->setSpacing(6);
         gridLayout_7->setContentsMargins(11, 11, 11, 11);
         gridLayout_7->setObjectName(QStringLiteral("gridLayout_7"));
-        groupBox_4 = new QGroupBox(page_3);
+        groupBox_4 = new QGroupBox(DutyChartsPage);
         groupBox_4->setObjectName(QStringLiteral("groupBox_4"));
         QSizePolicy sizePolicy4(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy4.setHorizontalStretch(2);
@@ -667,7 +670,7 @@ public:
 
         gridLayout_7->addWidget(groupBox_4, 0, 0, 2, 1);
 
-        dutyChartEdit = new QGroupBox(page_3);
+        dutyChartEdit = new QGroupBox(DutyChartsPage);
         dutyChartEdit->setObjectName(QStringLiteral("dutyChartEdit"));
         dutyChartEdit->setEnabled(false);
         gridLayout_6 = new QGridLayout(dutyChartEdit);
@@ -779,31 +782,31 @@ public:
 
         gridLayout_7->addWidget(dutyChartEdit, 0, 1, 2, 1);
 
-        stackedWidget->addWidget(page_3);
-        page_4 = new QWidget();
-        page_4->setObjectName(QStringLiteral("page_4"));
-        gridLayout_11 = new QGridLayout(page_4);
+        stackedWidget->addWidget(DutyChartsPage);
+        HireDirectivesPage = new QWidget();
+        HireDirectivesPage->setObjectName(QStringLiteral("HireDirectivesPage"));
+        gridLayout_11 = new QGridLayout(HireDirectivesPage);
         gridLayout_11->setSpacing(6);
         gridLayout_11->setContentsMargins(11, 11, 11, 11);
         gridLayout_11->setObjectName(QStringLiteral("gridLayout_11"));
-        pushButton_15 = new QPushButton(page_4);
+        pushButton_15 = new QPushButton(HireDirectivesPage);
         pushButton_15->setObjectName(QStringLiteral("pushButton_15"));
         pushButton_15->setEnabled(false);
 
         gridLayout_11->addWidget(pushButton_15, 0, 0, 1, 1);
 
-        listWidget_4 = new QListWidget(page_4);
+        listWidget_4 = new QListWidget(HireDirectivesPage);
         listWidget_4->setObjectName(QStringLiteral("listWidget_4"));
 
         gridLayout_11->addWidget(listWidget_4, 1, 0, 1, 1);
 
-        pushButton_16 = new QPushButton(page_4);
+        pushButton_16 = new QPushButton(HireDirectivesPage);
         pushButton_16->setObjectName(QStringLiteral("pushButton_16"));
         pushButton_16->setEnabled(false);
 
         gridLayout_11->addWidget(pushButton_16, 2, 0, 1, 1);
 
-        stackedWidget->addWidget(page_4);
+        stackedWidget->addWidget(HireDirectivesPage);
 
         gridLayout->addWidget(stackedWidget, 0, 1, 1, 1);
 
@@ -830,13 +833,14 @@ public:
         menu->addAction(action_3);
         menu->addSeparator();
         menu->addAction(action_8);
-        CompanyMenu->addAction(workeListAction);
+        CompanyMenu->addAction(EmployeeListAction);
         CompanyMenu->addAction(LaborSheetAction);
         CompanyMenu->addAction(DutyCharAction);
+        CompanyMenu->addAction(HireDirectiveAction);
 
         retranslateUi(SalaryCount);
 
-        stackedWidget->setCurrentIndex(2);
+        stackedWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(SalaryCount);
@@ -848,10 +852,11 @@ public:
         action->setText(QApplication::translate("SalaryCount", "\320\241\320\276\320\267\320\264\320\260\321\202\321\214 \320\277\321\200\320\265\320\264\320\277\321\200\320\270\321\217\321\202\320\270\320\265", 0));
         action_2->setText(QApplication::translate("SalaryCount", "\320\236\321\202\320\272\321\200\321\213\321\202\321\214 \320\277\321\200\320\265\320\264\320\277\321\200\320\270\321\217\321\202\320\270\320\265", 0));
         action_3->setText(QApplication::translate("SalaryCount", "\320\222\321\213\320\271\321\202\320\270", 0));
-        workeListAction->setText(QApplication::translate("SalaryCount", "\320\241\320\276\321\202\321\200\321\203\320\264\320\275\320\270\320\272\320\270", 0));
+        EmployeeListAction->setText(QApplication::translate("SalaryCount", "\320\241\320\276\321\202\321\200\321\203\320\264\320\275\320\270\320\272\320\270", 0));
         LaborSheetAction->setText(QApplication::translate("SalaryCount", "\320\242\320\260\320\261\320\265\320\273\320\270 \321\203\321\207\320\265\321\202\320\260 \321\202\321\200\321\203\320\264\320\260", 0));
         DutyCharAction->setText(QApplication::translate("SalaryCount", "\320\223\321\200\320\260\321\204\320\270\320\272\320\270 \321\200\320\260\320\261\320\276\321\202\321\213", 0));
         action_8->setText(QApplication::translate("SalaryCount", "\320\222\321\213\321\205\320\276\320\264 \320\270\320\267 \320\277\321\200\320\276\320\263\321\200\320\260\320\274\320\274\321\213", 0));
+        HireDirectiveAction->setText(QApplication::translate("SalaryCount", "\320\237\321\200\320\270\320\272\320\260\320\267\321\213", 0));
         groupBox_5->setTitle(QApplication::translate("SalaryCount", "\320\241\320\276\321\202\321\200\321\203\320\264\320\275\320\270\320\272\320\270", 0));
         label_4->setText(QApplication::translate("SalaryCount", "\320\237\320\276\320\270\321\201\320\272 \321\201\320\276\321\202\321\200\321\203\320\264\320\275\320\270\320\272\320\276\320\262", 0));
 

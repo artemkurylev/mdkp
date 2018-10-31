@@ -18,9 +18,9 @@
     <item row="0" column="1">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
-      <widget class="QWidget" name="page">
+      <widget class="QWidget" name="EmployeesPage">
        <layout class="QGridLayout" name="gridLayout_8">
         <item row="0" column="0">
          <widget class="QGroupBox" name="groupBox_5">
@@ -136,7 +136,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>217</width>
+             <width>218</width>
              <height>559</height>
             </rect>
            </property>
@@ -350,7 +350,7 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page_2">
+      <widget class="QWidget" name="LaborSheetsPage">
        <layout class="QGridLayout" name="gridLayout_10">
         <item row="0" column="0">
          <widget class="QGroupBox" name="groupBox_6">
@@ -502,7 +502,7 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page_3">
+      <widget class="QWidget" name="DutyChartsPage">
        <layout class="QGridLayout" name="gridLayout_7">
         <item row="0" column="0" rowspan="2">
          <widget class="QGroupBox" name="groupBox_4">
@@ -716,7 +716,7 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page_4">
+      <widget class="QWidget" name="HireDirectivesPage">
        <layout class="QGridLayout" name="gridLayout_11">
         <item row="0" column="0">
          <widget class="QPushButton" name="pushButton_15">
@@ -778,9 +778,10 @@
     <property name="title">
      <string>Предприятие</string>
     </property>
-    <addaction name="workeListAction"/>
+    <addaction name="EmployeeListAction"/>
     <addaction name="LaborSheetAction"/>
     <addaction name="DutyCharAction"/>
+    <addaction name="HireDirectiveAction"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="CompanyMenu"/>
@@ -801,7 +802,7 @@
     <string>Выйти</string>
    </property>
   </action>
-  <action name="workeListAction">
+  <action name="EmployeeListAction">
    <property name="text">
     <string>Сотрудники</string>
    </property>
@@ -819,6 +820,11 @@
   <action name="action_8">
    <property name="text">
     <string>Выход из программы</string>
+   </property>
+  </action>
+  <action name="HireDirectiveAction">
+   <property name="text">
+    <string>Приказы</string>
    </property>
   </action>
  </widget>
