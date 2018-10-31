@@ -6,6 +6,7 @@
 #include <qstring.h>
 #include "dutychart.h"
 #include "dbrecord.h"
+
 class Employee : public DbRecord
 {
     Q_OBJECT
@@ -14,6 +15,7 @@ public:
     Employee();
 	Employee(int id);
     static bool createDbTable();
+    bool fetch();
     ~Employee();
 
 private:
