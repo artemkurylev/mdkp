@@ -141,17 +141,20 @@ public:
     QPushButton *addDutyChart;
     QGroupBox *dutyChartEdit;
     QGridLayout *gridLayout_6;
+    QHBoxLayout *horizontalLayout_6;
+    QLabel *label_13;
+    QDateEdit *dateEdit_3;
+    QTableWidget *DutyChartMarksEdit;
     QVBoxLayout *verticalLayout_13;
     QLabel *label_19;
     QComboBox *payFormChoice;
-    QHBoxLayout *horizontalLayout_10;
-    QPushButton *saveDutyChartBtn;
-    QPushButton *cancelDutyChartBtn;
     QHBoxLayout *horizontalLayout_5;
     QTimeEdit *workTimeEdit;
     QLabel *label_16;
     QSpacerItem *verticalSpacer;
-    QTableWidget *DutyChartMarksEdit;
+    QHBoxLayout *horizontalLayout_10;
+    QPushButton *saveDutyChartBtn;
+    QPushButton *cancelDutyChartBtn;
     QWidget *page_4;
     QGridLayout *gridLayout_11;
     QPushButton *pushButton_15;
@@ -167,7 +170,7 @@ public:
     {
         if (SalaryCount->objectName().isEmpty())
             SalaryCount->setObjectName(QStringLiteral("SalaryCount"));
-        SalaryCount->resize(709, 474);
+        SalaryCount->resize(687, 474);
         action = new QAction(SalaryCount);
         action->setObjectName(QStringLiteral("action"));
         action_2 = new QAction(SalaryCount);
@@ -671,61 +674,21 @@ public:
         gridLayout_6->setSpacing(6);
         gridLayout_6->setContentsMargins(11, 11, 11, 11);
         gridLayout_6->setObjectName(QStringLiteral("gridLayout_6"));
-        verticalLayout_13 = new QVBoxLayout();
-        verticalLayout_13->setSpacing(6);
-        verticalLayout_13->setObjectName(QStringLiteral("verticalLayout_13"));
-        label_19 = new QLabel(dutyChartEdit);
-        label_19->setObjectName(QStringLiteral("label_19"));
+        horizontalLayout_6 = new QHBoxLayout();
+        horizontalLayout_6->setSpacing(6);
+        horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
+        label_13 = new QLabel(dutyChartEdit);
+        label_13->setObjectName(QStringLiteral("label_13"));
 
-        verticalLayout_13->addWidget(label_19);
+        horizontalLayout_6->addWidget(label_13);
 
-        payFormChoice = new QComboBox(dutyChartEdit);
-        payFormChoice->setObjectName(QStringLiteral("payFormChoice"));
+        dateEdit_3 = new QDateEdit(dutyChartEdit);
+        dateEdit_3->setObjectName(QStringLiteral("dateEdit_3"));
 
-        verticalLayout_13->addWidget(payFormChoice);
-
-
-        gridLayout_6->addLayout(verticalLayout_13, 1, 0, 1, 1);
-
-        horizontalLayout_10 = new QHBoxLayout();
-        horizontalLayout_10->setSpacing(6);
-        horizontalLayout_10->setObjectName(QStringLiteral("horizontalLayout_10"));
-        saveDutyChartBtn = new QPushButton(dutyChartEdit);
-        saveDutyChartBtn->setObjectName(QStringLiteral("saveDutyChartBtn"));
-        saveDutyChartBtn->setEnabled(false);
-
-        horizontalLayout_10->addWidget(saveDutyChartBtn);
-
-        cancelDutyChartBtn = new QPushButton(dutyChartEdit);
-        cancelDutyChartBtn->setObjectName(QStringLiteral("cancelDutyChartBtn"));
-        cancelDutyChartBtn->setEnabled(false);
-
-        horizontalLayout_10->addWidget(cancelDutyChartBtn);
+        horizontalLayout_6->addWidget(dateEdit_3);
 
 
-        gridLayout_6->addLayout(horizontalLayout_10, 4, 0, 1, 1);
-
-        horizontalLayout_5 = new QHBoxLayout();
-        horizontalLayout_5->setSpacing(6);
-        horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
-        workTimeEdit = new QTimeEdit(dutyChartEdit);
-        workTimeEdit->setObjectName(QStringLiteral("workTimeEdit"));
-        workTimeEdit->setEnabled(false);
-        workTimeEdit->setMaximumTime(QTime(12, 0, 0));
-
-        horizontalLayout_5->addWidget(workTimeEdit);
-
-        label_16 = new QLabel(dutyChartEdit);
-        label_16->setObjectName(QStringLiteral("label_16"));
-
-        horizontalLayout_5->addWidget(label_16);
-
-
-        gridLayout_6->addLayout(horizontalLayout_5, 2, 0, 1, 1);
-
-        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout_6->addItem(verticalSpacer, 3, 0, 1, 1);
+        gridLayout_6->addLayout(horizontalLayout_6, 0, 0, 1, 1);
 
         DutyChartMarksEdit = new QTableWidget(dutyChartEdit);
         if (DutyChartMarksEdit->columnCount() < 1)
@@ -755,7 +718,63 @@ public:
         sizePolicy5.setHeightForWidth(DutyChartMarksEdit->sizePolicy().hasHeightForWidth());
         DutyChartMarksEdit->setSizePolicy(sizePolicy5);
 
-        gridLayout_6->addWidget(DutyChartMarksEdit, 0, 0, 1, 1);
+        gridLayout_6->addWidget(DutyChartMarksEdit, 1, 0, 1, 1);
+
+        verticalLayout_13 = new QVBoxLayout();
+        verticalLayout_13->setSpacing(6);
+        verticalLayout_13->setObjectName(QStringLiteral("verticalLayout_13"));
+        label_19 = new QLabel(dutyChartEdit);
+        label_19->setObjectName(QStringLiteral("label_19"));
+
+        verticalLayout_13->addWidget(label_19);
+
+        payFormChoice = new QComboBox(dutyChartEdit);
+        payFormChoice->setObjectName(QStringLiteral("payFormChoice"));
+
+        verticalLayout_13->addWidget(payFormChoice);
+
+
+        gridLayout_6->addLayout(verticalLayout_13, 2, 0, 1, 1);
+
+        horizontalLayout_5 = new QHBoxLayout();
+        horizontalLayout_5->setSpacing(6);
+        horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
+        workTimeEdit = new QTimeEdit(dutyChartEdit);
+        workTimeEdit->setObjectName(QStringLiteral("workTimeEdit"));
+        workTimeEdit->setEnabled(false);
+        workTimeEdit->setMaximumTime(QTime(12, 0, 0));
+
+        horizontalLayout_5->addWidget(workTimeEdit);
+
+        label_16 = new QLabel(dutyChartEdit);
+        label_16->setObjectName(QStringLiteral("label_16"));
+
+        horizontalLayout_5->addWidget(label_16);
+
+
+        gridLayout_6->addLayout(horizontalLayout_5, 3, 0, 1, 1);
+
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout_6->addItem(verticalSpacer, 4, 0, 1, 1);
+
+        horizontalLayout_10 = new QHBoxLayout();
+        horizontalLayout_10->setSpacing(6);
+        horizontalLayout_10->setObjectName(QStringLiteral("horizontalLayout_10"));
+        saveDutyChartBtn = new QPushButton(dutyChartEdit);
+        saveDutyChartBtn->setObjectName(QStringLiteral("saveDutyChartBtn"));
+        saveDutyChartBtn->setEnabled(false);
+
+        horizontalLayout_10->addWidget(saveDutyChartBtn);
+
+        cancelDutyChartBtn = new QPushButton(dutyChartEdit);
+        cancelDutyChartBtn->setObjectName(QStringLiteral("cancelDutyChartBtn"));
+        cancelDutyChartBtn->setEnabled(false);
+
+        horizontalLayout_10->addWidget(cancelDutyChartBtn);
+
+
+        gridLayout_6->addLayout(horizontalLayout_10, 5, 0, 1, 1);
 
 
         gridLayout_7->addWidget(dutyChartEdit, 0, 1, 2, 1);
@@ -794,7 +813,7 @@ public:
         SalaryCount->addToolBar(Qt::TopToolBarArea, mainToolBar);
         menuBar = new QMenuBar(SalaryCount);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 709, 21));
+        menuBar->setGeometry(QRect(0, 0, 687, 21));
         menu = new QMenu(menuBar);
         menu->setObjectName(QStringLiteral("menu"));
         CompanyMenu = new QMenu(menuBar);
@@ -884,15 +903,8 @@ public:
         deleteDutyChart->setText(QApplication::translate("SalaryCount", "\320\243\320\264\320\260\320\273\320\270\321\202\321\214 \320\263\321\200\320\260\321\204\320\270\320\272", 0));
         addDutyChart->setText(QApplication::translate("SalaryCount", "\320\224\320\276\320\261\320\260\320\262\320\270\321\202\321\214 \320\275\320\276\320\262\321\213\320\271 \320\263\321\200\320\260\321\204\320\270\320\272", 0));
         dutyChartEdit->setTitle(QApplication::translate("SalaryCount", "\320\237\320\260\320\275\320\265\320\273\321\214 \321\200\320\265\320\264\320\260\320\272\321\202\320\270\321\200\320\276\320\262\320\260\320\275\320\270\321\217 \320\263\321\200\320\260\321\204\320\270\320\272\320\276\320\262", 0));
-        label_19->setText(QApplication::translate("SalaryCount", "\320\244\320\276\321\200\320\274\320\260 \320\276\320\277\320\273\320\260\321\202\321\213 \321\202\321\200\321\203\320\264\320\260", 0));
-        payFormChoice->clear();
-        payFormChoice->insertItems(0, QStringList()
-         << QApplication::translate("SalaryCount", "\320\237\320\276\320\274\320\265\321\201\321\217\321\207\320\275\320\260\321\217", 0)
-         << QApplication::translate("SalaryCount", "\320\237\320\276\321\207\320\260\321\201\320\276\320\262\320\260\321\217", 0)
-        );
-        saveDutyChartBtn->setText(QApplication::translate("SalaryCount", "\320\241\320\276\321\205\321\200\320\260\320\275\320\270\321\202\321\214", 0));
-        cancelDutyChartBtn->setText(QApplication::translate("SalaryCount", "\320\236\321\202\320\274\320\265\320\275\320\270\321\202\321\214", 0));
-        label_16->setText(QApplication::translate("SalaryCount", "\320\240\320\260\320\261\320\276\321\207\320\265\320\265 \320\262\321\200\320\265\320\274\321\217 \320\262 \320\264\320\265\320\275\321\214", 0));
+        label_13->setText(QApplication::translate("SalaryCount", "TextLabel", 0));
+        dateEdit_3->setDisplayFormat(QApplication::translate("SalaryCount", "dd.MM", 0));
         QTableWidgetItem *___qtablewidgetitem = DutyChartMarksEdit->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QApplication::translate("SalaryCount", "\320\236\321\202\320\274\320\265\321\202\320\272\320\260", 0));
         QTableWidgetItem *___qtablewidgetitem1 = DutyChartMarksEdit->verticalHeaderItem(0);
@@ -909,6 +921,15 @@ public:
         ___qtablewidgetitem6->setText(QApplication::translate("SalaryCount", "\320\241\320\221", 0));
         QTableWidgetItem *___qtablewidgetitem7 = DutyChartMarksEdit->verticalHeaderItem(6);
         ___qtablewidgetitem7->setText(QApplication::translate("SalaryCount", "\320\222\320\241", 0));
+        label_19->setText(QApplication::translate("SalaryCount", "\320\244\320\276\321\200\320\274\320\260 \320\276\320\277\320\273\320\260\321\202\321\213 \321\202\321\200\321\203\320\264\320\260", 0));
+        payFormChoice->clear();
+        payFormChoice->insertItems(0, QStringList()
+         << QApplication::translate("SalaryCount", "\320\237\320\276\320\274\320\265\321\201\321\217\321\207\320\275\320\260\321\217", 0)
+         << QApplication::translate("SalaryCount", "\320\237\320\276\321\207\320\260\321\201\320\276\320\262\320\260\321\217", 0)
+        );
+        label_16->setText(QApplication::translate("SalaryCount", "\320\240\320\260\320\261\320\276\321\207\320\265\320\265 \320\262\321\200\320\265\320\274\321\217 \320\262 \320\264\320\265\320\275\321\214", 0));
+        saveDutyChartBtn->setText(QApplication::translate("SalaryCount", "\320\241\320\276\321\205\321\200\320\260\320\275\320\270\321\202\321\214", 0));
+        cancelDutyChartBtn->setText(QApplication::translate("SalaryCount", "\320\236\321\202\320\274\320\265\320\275\320\270\321\202\321\214", 0));
         pushButton_15->setText(QApplication::translate("SalaryCount", "\320\241\320\276\320\267\320\264\320\260\321\202\321\214 \320\277\321\200\320\270\320\272\320\260\320\267", 0));
         pushButton_16->setText(QApplication::translate("SalaryCount", "\320\237\321\200\320\276\321\201\320\274\320\276\321\202\321\200\320\265\321\202 \320\277\321\200\320\270\320\272\320\260\320\267", 0));
         menu->setTitle(QApplication::translate("SalaryCount", "\320\244\320\260\320\271\320\273", 0));
