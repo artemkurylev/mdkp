@@ -26,6 +26,7 @@ public:
 	bool set();
 	bool validate() const;
 	bool update() const;
+    int insert() const;
 
 	// getters
 	int base()		const	{	return _base;		}

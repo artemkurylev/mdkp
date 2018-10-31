@@ -29,6 +29,10 @@ bool Mark::update() const
 {
     return false;
 }
+int Mark::insert() const
+{
+    return -1;
+}
 Mark::~Mark()
 {
 
