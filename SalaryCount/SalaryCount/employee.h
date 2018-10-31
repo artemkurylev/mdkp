@@ -27,7 +27,6 @@ public:
 	bool update() const {return false;}
 
 private:
-    QDate _hireDate;
     QString _fio;
     QString _phoneNumber;
     int _INN;
