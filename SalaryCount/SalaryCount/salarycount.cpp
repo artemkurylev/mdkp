@@ -67,9 +67,6 @@
 	connect(ui.LaborSheetAction,SIGNAL(triggered()), this,SLOT(showLaborSheetsPage()));
 	connect(ui.DutyCharAction,SIGNAL(triggered()), this,SLOT(showDutyChartsPage()));
 	connect(ui.HireDirectiveAction,SIGNAL(triggered()), this,SLOT(showHireDirectivesPage()));
-
-	//поведение на странице создания графиков
-
 }
 
 SalaryCount::~SalaryCount()
@@ -214,6 +211,66 @@ void SalaryCount::showHireDirectivesPage()
 	showStacketItem(indexPage, namePage);
 }
 
+/*!Переход на страницу учета сотрудников
+*\
+*/
+void SalaryCount::showEmployeesPage()
+{
+	int indexPage = 0;
+	QString namePage = QString("EmployeesPage");
+
+	this->currentAction->setEnabled(true);
+	this->currentAction = ui.EmployeeListAction;
+	this->currentAction->setEnabled(false);
+
+	showStacketItem(indexPage, namePage);
+}
+
+/*!Переход на страницу табелей учета труда
+*\
+*/
+void SalaryCount::showLaborSheetsPage()
+{
+	int indexPage = 1;
+	QString namePage = QString("LaborSheetsPage");
+
+	this->currentAction->setEnabled(true);
+	this->currentAction = ui.LaborSheetAction;
+	this->currentAction->setEnabled(false);
+
+	showStacketItem(indexPage, namePage);
+}
+
+/*!Переход на страницу графиков
+*\
+*/
+void SalaryCount::showDutyChartsPage()
+{
+	int indexPage = 2;
+	QString namePage = QString("DutyChartsPage");
+
+	this->currentAction->setEnabled(true);
+	this->currentAction = ui.DutyCharAction;
+	this->currentAction->setEnabled(false);
+
+	showStacketItem(indexPage, namePage);
+}
+
+/*!Переход на страницу приказов
+*\
+*/
+void SalaryCount::showHireDirectivesPage()
+{
+	int indexPage = 3;
+	QString namePage = QString("HireDirectivesPage");
+
+	this->currentAction->setEnabled(true);
+	this->currentAction = ui.HireDirectiveAction;
+	this->currentAction->setEnabled(false);
+
+	showStacketItem(indexPage, namePage);
+}
+
 void SalaryCount::showStacketItem(int indexPage, QString namePage)
 {
 	const QWidget* searchPage = ui.stackedWidget->widget(indexPage);
@@ -227,6 +284,5 @@ void SalaryCount::showStacketItem(int indexPage, QString namePage)
 		QTextCodec* c = QTextCodec::codecForLocale();
 		QMessageBox::critical(this,c->toUnicode(""), c->toUnicode("Страница не существует"));
 	}
+
 }
-
-

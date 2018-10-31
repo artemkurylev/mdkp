@@ -157,10 +157,14 @@ public:
     QPushButton *saveDutyChartBtn;
     QPushButton *cancelDutyChartBtn;
 <<<<<<< HEAD
+<<<<<<< HEAD
     QWidget *HireDirectivesPage;
 =======
     QWidget *page_4;
 >>>>>>> abfe3c2... Изменено позиционирование элементов на окне интерфейса
+=======
+    QWidget *HireDirectivesPage;
+>>>>>>> 788c143... Добавлена возможность постраничного перехода в приложении
     QGridLayout *gridLayout_11;
     QPushButton *pushButton_15;
     QListWidget *listWidget_4;
@@ -280,7 +284,11 @@ public:
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
+<<<<<<< HEAD
         scrollAreaWidgetContents->setGeometry(QRect(0, -176, 218, 559));
+=======
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 218, 559));
+>>>>>>> 788c143... Добавлена возможность постраничного перехода в приложении
         gridLayout_2 = new QGridLayout(scrollAreaWidgetContents);
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
