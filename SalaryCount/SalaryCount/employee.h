@@ -28,7 +28,7 @@ public:
 
 private:
     QDate hireDate;
-    QString fio[3];
+    QString fio;
     QString phoneNumber;
     int INN[10];
     int nextDutyChart;
