@@ -13,34 +13,16 @@
     
     ui.setupUi(this);
 
-	//заполнение шаблона редактирования графика
-	for(int i=0; i<7;++i)
-	{
-
-		QComboBox* combo = new QComboBox();
-
-		QTextCodec* codec = QTextCodec::codecForLocale();
-		combo->insertItem(0, codec->toUnicode("Рабочий"));
-
-		combo->insertItem(1, codec->toUnicode("Выходной"));
-
-		ui.DutyChartMarksEdit->setCellWidget(i,0,combo);
-	}
-	
-	ui.saveDutyChartBtn->setEnabled(true);
-	ui.cancelDutyChartBtn->setEnabled(true);
-
-	connect(ui.addDutyChart,SIGNAL(pressed()), this,SLOT(addDutyChart()));
-	connect(ui.payFormChoice,SIGNAL(currentIndexChanged(int)), this,SLOT(changePayForm(int)));
-    DbManager manager("localhost","salarycount",3306,"root","root");
+    DbManager& manager = DbManager::manager();
     if(manager.checkConnection())
     {
         //Создание таблиц
-        bool b = Employee::createDbTable();
-        if(b)
+        bool table_created = Employee::createDbTable();
+        if(table_created)
         {
 
         }
+
     }
     else
     {
