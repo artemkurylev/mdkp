@@ -6,6 +6,7 @@
 #include <qstring.h>
 #include "dutychart.h"
 #include "dbrecord.h"
+
 class Employee : public DbRecord
 {
     Q_OBJECT
@@ -14,15 +15,17 @@ public:
     Employee();
 	Employee(int id);
     static bool createDbTable();
+    bool fetch();
     ~Employee();
 
 private:
-    QDate hireDate;
-    QString fio[3];
-    QString phoneNumber;
-    int INN[10];
-    int nextDutyChart;
-    QDate nextDutyChartSince;
+    QString _fio;
+    QString _phoneNumber;
+    int _INN;
+    int _nextDutyChart;
+    QDate _hireDate;
+    int _currentDutyChart;
+    QDate _nextDutyChartSince;
 };
 
 #endif // EMPLOYEE_H

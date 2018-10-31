@@ -3,7 +3,11 @@
 
 #include <QObject>
 #include "dbmanager.h"
-
+#include <qsqlquery.h>
+#include<qsqldatabase.h>
+#include<qtablewidget.h>
+#include <qsql.h>
+#include<qvariant.h>
 class DbRecord : public QObject
 {
     Q_OBJECT
