@@ -47,3 +47,7 @@ bool HireDirective::update() const
 {
 	return false;
 }
+int HireDirective::insert() const
+{
+    return -1;
+}

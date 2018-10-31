@@ -17,6 +17,7 @@ public:
 	bool set() {return false;}
 	bool validate() const {return false;}
 	bool update() const {return false;}
+    int insert() const{return -1;}
     static bool createDbTable();
 
     const QDate anchorDate() const	{return _anchorDate;}
