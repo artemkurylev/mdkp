@@ -27,8 +27,13 @@ public:
 		INVALID = 999,
 	};
 
-	void setBase(int state){base=state;}
-	void setAltered(int state){altered=state;}
+
+	// inherited
+	bool fetch();
+	bool set();
+	bool validate() const;
+	bool update() const;
+    int insert() const;
 
 	// getters
 	int base()		const	{	return _base;		}
