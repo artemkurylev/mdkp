@@ -27,12 +27,14 @@ public:
 	bool update() const {return false;}
 
 private:
-    QDate hireDate;
-    QString fio;
-    QString phoneNumber;
-    int INN;
-    int nextDutyChart;
-    QDate nextDutyChartSince;
+    QDate _hireDate;
+    QString _fio;
+    QString _phoneNumber;
+    int _INN;
+    int _nextDutyChart;
+    QDate _hireDate;
+    int _currentDutyChart;
+    QDate _nextDutyChartSince;
 };
 
 #endif // EMPLOYEE_H
