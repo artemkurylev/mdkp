@@ -156,7 +156,11 @@ public:
     QHBoxLayout *horizontalLayout_10;
     QPushButton *saveDutyChartBtn;
     QPushButton *cancelDutyChartBtn;
+<<<<<<< HEAD
     QWidget *HireDirectivesPage;
+=======
+    QWidget *page_4;
+>>>>>>> abfe3c2... Изменено позиционирование элементов на окне интерфейса
     QGridLayout *gridLayout_11;
     QPushButton *pushButton_15;
     QListWidget *listWidget_4;
