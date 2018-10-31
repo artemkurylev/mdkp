@@ -30,7 +30,7 @@ private:
     QDate hireDate;
     QString fio;
     QString phoneNumber;
-    int INN[10];
+    int INN;
     int nextDutyChart;
     QDate nextDutyChartSince;
 };
