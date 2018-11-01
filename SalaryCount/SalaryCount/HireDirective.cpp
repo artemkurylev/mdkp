@@ -21,7 +21,7 @@ HireDirective::~HireDirective(void)
 {
 }
 
-Employee * HireDirective::hiredEmployee()
+Employee * HireDirective::hiredEmployee() const
 {
 
 	return NULL; // new Employee(_employeeID);

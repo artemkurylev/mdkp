@@ -3,7 +3,8 @@
 Mark::Mark()
     : DbRecord(0)
 {
-
+	_base = INVALID;
+	_altered = INVALID;
 } 
 
 Mark::Mark(int baseMark)

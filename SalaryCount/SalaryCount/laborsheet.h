@@ -2,9 +2,11 @@
 #define LABORSHEET_H
 
 #include "dbrecord.h"
+#include "mark.h"
 #include "dutychart.h"
 #include "qdatetime.h"
 #include "employee.h"
+
 /*Ћичный табель на один мес€ц
 */
 class LaborSheet : public DbRecord
@@ -19,11 +21,11 @@ public:
     /*
         Getter дл€ вз€ти€ всех отметок табел€.
     */
-    const QList<Mark>* marks() const{return &_grid;}
+    const QList<Mark>& marks() const{return _grid;}
     /*
         getter дл€ вз€ти€ даты
     */
-    QDate beginDate(){return this->_beginDate;}
+    const QDate beginDate() const{return this->_beginDate;}
     /*
         getter дл€ вз€ти€ графика
     */
