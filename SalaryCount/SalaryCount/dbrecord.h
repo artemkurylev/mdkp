@@ -8,6 +8,7 @@
 #include<qtablewidget.h>
 #include <qsql.h>
 #include<qvariant.h>
+
 class DbRecord : public QObject
 {
     Q_OBJECT
@@ -21,7 +22,7 @@ public:
 
 	/*! Запросить запись из БД [SELECT] (обновить локальную копию)
 	*/
-    virtual bool fetch() = 0;
+	virtual bool fetch() { return false; };
     
 	///*! Задать данные записи, не отправляя из в БД (обновить локальную копию)
 	//*/
@@ -48,8 +49,9 @@ protected:
     /*! Строка для запроса к базе данных MYSQL */
     QString _query;
     int _id;
-private:
 
+	////! возвращает константу - имя таблицы в БД для текущего класса записи
+	//const QString& tableName(); ??? не нужно
 
 private:
 

@@ -35,6 +35,8 @@ private:
 
 	// DB links
 	int _hireDirectiveID;
+
+	//const QString& tableName() { return "employee";};
 };
 
 #endif // EMPLOYEE_H
