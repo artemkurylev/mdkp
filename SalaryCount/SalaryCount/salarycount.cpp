@@ -57,6 +57,9 @@ SalaryCount::SalaryCount(QWidget *parent)
 	connect(ui.LaborSheetAction,SIGNAL(triggered()), this,SLOT(showLaborSheetsPage()));
 	connect(ui.DutyCharAction,SIGNAL(triggered()), this,SLOT(showDutyChartsPage()));
 	connect(ui.HireDirectiveAction,SIGNAL(triggered()), this,SLOT(showHireDirectivesPage()));
+
+	//поведение на странице создания графиков
+
 }
 
 SalaryCount::~SalaryCount()
@@ -181,3 +184,5 @@ void SalaryCount::showStacketItem(int indexPage, QString namePage)
 		QMessageBox::critical(this,c->toUnicode(""), c->toUnicode("Страница не существует"));
 	}
 }
+
+
