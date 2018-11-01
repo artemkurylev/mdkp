@@ -37,8 +37,8 @@ public:
 private:
     int _base;
     int _altered;
-    int _position;
-    int foreign_id;
+    int _dutychartId;
+    int _laborsheetId;
 };
 
 #endif // MARK_H
