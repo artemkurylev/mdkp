@@ -27,7 +27,14 @@ bool BillingPeriod::update() const
 {
     return false;
 }
-
+int BillingPeriod::insert() const
+{
+    return -1;
+}
+bool BillingPeriod::createDb()
+{
+    return false;
+}
 void BillingPeriod::open()
 {
 	_status = OPEN;
