@@ -29,7 +29,30 @@ bool BillingPeriod::update() const
 }
 int BillingPeriod::insert() const
 {
-    return -1;
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+        query->prepare("INSERT INTO `billing_period` (start_date,status) VALUES(:start_date,:status");
+        query->bindValue(":start_date",this->_startDate);
+        query->bindValue(":phone_number",this->_status);
+        if(query->exec())
+        {
+            query->prepare("SELECT id FROM `billing_period` WHERE `startDate` = :start_date");
+            query->bindValue(":start_date",this->_startDate);
+            if(query->exec() && query->next())
+                return query->value(0).toInt();
+        }
+        else
+        {
+            QString s = query->lastError().text();
+            s+="as";
+            return -1;
+        }
+        delete query;
+    }
+    else{
+        return -1;
+    }
 }
 bool BillingPeriod::createDbTable()
 {
