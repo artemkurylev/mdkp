@@ -44,13 +44,13 @@ QT_BEGIN_NAMESPACE
 class Ui_SalaryCount
 {
 public:
-    QAction *action;
-    QAction *action_2;
-    QAction *action_3;
+    QAction *CreateCompanyAction;
+    QAction *OpenCompanyAction;
+    QAction *LogOffAction;
     QAction *EmployeeListAction;
     QAction *LaborSheetAction;
     QAction *DutyCharAction;
-    QAction *action_8;
+    QAction *ExitAction;
     QAction *HireDirectiveAction;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
@@ -172,20 +172,20 @@ public:
         if (SalaryCount->objectName().isEmpty())
             SalaryCount->setObjectName(QStringLiteral("SalaryCount"));
         SalaryCount->resize(687, 474);
-        action = new QAction(SalaryCount);
-        action->setObjectName(QStringLiteral("action"));
-        action_2 = new QAction(SalaryCount);
-        action_2->setObjectName(QStringLiteral("action_2"));
-        action_3 = new QAction(SalaryCount);
-        action_3->setObjectName(QStringLiteral("action_3"));
+        CreateCompanyAction = new QAction(SalaryCount);
+        CreateCompanyAction->setObjectName(QStringLiteral("CreateCompanyAction"));
+        OpenCompanyAction = new QAction(SalaryCount);
+        OpenCompanyAction->setObjectName(QStringLiteral("OpenCompanyAction"));
+        LogOffAction = new QAction(SalaryCount);
+        LogOffAction->setObjectName(QStringLiteral("LogOffAction"));
         EmployeeListAction = new QAction(SalaryCount);
         EmployeeListAction->setObjectName(QStringLiteral("EmployeeListAction"));
         LaborSheetAction = new QAction(SalaryCount);
         LaborSheetAction->setObjectName(QStringLiteral("LaborSheetAction"));
         DutyCharAction = new QAction(SalaryCount);
         DutyCharAction->setObjectName(QStringLiteral("DutyCharAction"));
-        action_8 = new QAction(SalaryCount);
-        action_8->setObjectName(QStringLiteral("action_8"));
+        ExitAction = new QAction(SalaryCount);
+        ExitAction->setObjectName(QStringLiteral("ExitAction"));
         HireDirectiveAction = new QAction(SalaryCount);
         HireDirectiveAction->setObjectName(QStringLiteral("HireDirectiveAction"));
         centralWidget = new QWidget(SalaryCount);
@@ -276,7 +276,7 @@ public:
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, -176, 218, 559));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 218, 559));
         gridLayout_2 = new QGridLayout(scrollAreaWidgetContents);
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -828,11 +828,11 @@ public:
 
         menuBar->addAction(menu->menuAction());
         menuBar->addAction(CompanyMenu->menuAction());
-        menu->addAction(action_2);
-        menu->addAction(action);
-        menu->addAction(action_3);
+        menu->addAction(OpenCompanyAction);
+        menu->addAction(CreateCompanyAction);
+        menu->addAction(LogOffAction);
         menu->addSeparator();
-        menu->addAction(action_8);
+        menu->addAction(ExitAction);
         CompanyMenu->addAction(EmployeeListAction);
         CompanyMenu->addAction(LaborSheetAction);
         CompanyMenu->addAction(DutyCharAction);
@@ -849,13 +849,13 @@ public:
     void retranslateUi(QMainWindow *SalaryCount)
     {
         SalaryCount->setWindowTitle(QApplication::translate("SalaryCount", "SalaryPayApp", 0));
-        action->setText(QApplication::translate("SalaryCount", "\320\241\320\276\320\267\320\264\320\260\321\202\321\214 \320\277\321\200\320\265\320\264\320\277\321\200\320\270\321\217\321\202\320\270\320\265", 0));
-        action_2->setText(QApplication::translate("SalaryCount", "\320\236\321\202\320\272\321\200\321\213\321\202\321\214 \320\277\321\200\320\265\320\264\320\277\321\200\320\270\321\217\321\202\320\270\320\265", 0));
-        action_3->setText(QApplication::translate("SalaryCount", "\320\222\321\213\320\271\321\202\320\270", 0));
+        CreateCompanyAction->setText(QApplication::translate("SalaryCount", "\320\241\320\276\320\267\320\264\320\260\321\202\321\214 \320\277\321\200\320\265\320\264\320\277\321\200\320\270\321\217\321\202\320\270\320\265", 0));
+        OpenCompanyAction->setText(QApplication::translate("SalaryCount", "\320\236\321\202\320\272\321\200\321\213\321\202\321\214 \320\277\321\200\320\265\320\264\320\277\321\200\320\270\321\217\321\202\320\270\320\265", 0));
+        LogOffAction->setText(QApplication::translate("SalaryCount", "\320\222\321\213\320\271\321\202\320\270", 0));
         EmployeeListAction->setText(QApplication::translate("SalaryCount", "\320\241\320\276\321\202\321\200\321\203\320\264\320\275\320\270\320\272\320\270", 0));
         LaborSheetAction->setText(QApplication::translate("SalaryCount", "\320\242\320\260\320\261\320\265\320\273\320\270 \321\203\321\207\320\265\321\202\320\260 \321\202\321\200\321\203\320\264\320\260", 0));
         DutyCharAction->setText(QApplication::translate("SalaryCount", "\320\223\321\200\320\260\321\204\320\270\320\272\320\270 \321\200\320\260\320\261\320\276\321\202\321\213", 0));
-        action_8->setText(QApplication::translate("SalaryCount", "\320\222\321\213\321\205\320\276\320\264 \320\270\320\267 \320\277\321\200\320\276\320\263\321\200\320\260\320\274\320\274\321\213", 0));
+        ExitAction->setText(QApplication::translate("SalaryCount", "\320\222\321\213\321\205\320\276\320\264 \320\270\320\267 \320\277\321\200\320\276\320\263\321\200\320\260\320\274\320\274\321\213", 0));
         HireDirectiveAction->setText(QApplication::translate("SalaryCount", "\320\237\321\200\320\270\320\272\320\260\320\267\321\213", 0));
         groupBox_5->setTitle(QApplication::translate("SalaryCount", "\320\241\320\276\321\202\321\200\321\203\320\264\320\275\320\270\320\272\320\270", 0));
         label_4->setText(QApplication::translate("SalaryCount", "\320\237\320\276\320\270\321\201\320\272 \321\201\320\276\321\202\321\200\321\203\320\264\320\275\320\270\320\272\320\276\320\262", 0));

@@ -27,7 +27,7 @@ public:
 	bool validate() const;
 	bool update() const;
     int insert() const;
-
+    static bool createDbTable();
 	// getters
 	int base()		const	{	return _base;		}
 	int altered()	const	{	return _altered;	}
@@ -37,6 +37,8 @@ public:
 private:
     int _base;
     int _altered;
+    int _position;
+    int foreign_id;
 };
 
 #endif // MARK_H

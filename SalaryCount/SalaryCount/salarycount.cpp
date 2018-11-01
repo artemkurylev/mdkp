@@ -16,17 +16,24 @@ SalaryCount::SalaryCount(QWidget *parent)
     {
         //—оздание таблиц
         bool table_created = Employee::createDbTable();
-        if(table_created)
+        if(!table_created)
         {
 
         }
+        table_created = BillingPeriod::createDbTable();
+        if(!table_created)
+        {
 
+        }
     }
     else
     {
 
     }
+	
+	// запуск тестировани€
 	QTest::qExec( new DirectiveGeneratorTest(0) , NULL , NULL);
+
 	//заполнение шаблона редактировани€ графика
 	for(int i=0; i<7;++i)
 	{
@@ -48,6 +55,7 @@ SalaryCount::SalaryCount(QWidget *parent)
 
 	connect(ui.addDutyChart,SIGNAL(pressed()), this,SLOT(addDutyChart()));
 	connect(ui.payFormChoice,SIGNAL(currentIndexChanged(int)), this,SLOT(changePayForm(int)));
+	connect(ui.ExitAction,SIGNAL(triggered()), this,SLOT(close()));
 
 	//постраничный переход
 	this->currentAction = ui.EmployeeListAction;
@@ -57,9 +65,6 @@ SalaryCount::SalaryCount(QWidget *parent)
 	connect(ui.LaborSheetAction,SIGNAL(triggered()), this,SLOT(showLaborSheetsPage()));
 	connect(ui.DutyCharAction,SIGNAL(triggered()), this,SLOT(showDutyChartsPage()));
 	connect(ui.HireDirectiveAction,SIGNAL(triggered()), this,SLOT(showHireDirectivesPage()));
-
-	//поведение на странице создани€ графиков
-
 }
 
 SalaryCount::~SalaryCount()
@@ -184,5 +189,3 @@ void SalaryCount::showStacketItem(int indexPage, QString namePage)
 		QMessageBox::critical(this,c->toUnicode(""), c->toUnicode("—траница не существует"));
 	}
 }
-
-

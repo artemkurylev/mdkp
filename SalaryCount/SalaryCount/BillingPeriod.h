@@ -29,6 +29,8 @@ public:
 	bool set() ;
 	bool validate() const;
 	bool update() const;
+    static bool createDbTable();
+    int insert() const;
 
 	//! Управление статусом
 	void open();

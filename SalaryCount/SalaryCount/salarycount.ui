@@ -135,7 +135,7 @@
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>-176</y>
+             <y>0</y>
              <width>218</width>
              <height>559</height>
             </rect>
@@ -768,11 +768,11 @@
     <property name="title">
      <string>Файл</string>
     </property>
-    <addaction name="action_2"/>
-    <addaction name="action"/>
-    <addaction name="action_3"/>
+    <addaction name="OpenCompanyAction"/>
+    <addaction name="CreateCompanyAction"/>
+    <addaction name="LogOffAction"/>
     <addaction name="separator"/>
-    <addaction name="action_8"/>
+    <addaction name="ExitAction"/>
    </widget>
    <widget class="QMenu" name="CompanyMenu">
     <property name="title">
@@ -787,17 +787,17 @@
    <addaction name="CompanyMenu"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="action">
+  <action name="CreateCompanyAction">
    <property name="text">
     <string>Создать предприятие</string>
    </property>
   </action>
-  <action name="action_2">
+  <action name="OpenCompanyAction">
    <property name="text">
     <string>Открыть предприятие</string>
    </property>
   </action>
-  <action name="action_3">
+  <action name="LogOffAction">
    <property name="text">
     <string>Выйти</string>
    </property>
@@ -817,7 +817,7 @@
     <string>Графики работы</string>
    </property>
   </action>
-  <action name="action_8">
+  <action name="ExitAction">
    <property name="text">
     <string>Выход из программы</string>
    </property>
