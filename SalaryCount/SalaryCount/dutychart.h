@@ -13,7 +13,7 @@ class DutyChart : public DbRecord
 public:
     DutyChart(/* int id ?? */);
     
-	DutyChart(QList<Mark> marks){_grid = marks;}
+	DutyChart(QList<Mark> marks, enum PayForm payForm=PER_HOUR)	{_grid = marks;_payForm=payForm;}
 
 	bool fetch()	{return false;}
 	bool set()		{return false;}
@@ -22,6 +22,7 @@ public:
     int insert()	const {return -1;}
     static bool createDbTable();
 
+    const int payForm()		 const	{return _payForm;}
     const QDate anchorDate() const	{return _anchorDate;}
     const int length()		 const	{return _grid.size();}
     const QList<Mark>& grid() const	{return _grid;}
