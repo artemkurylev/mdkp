@@ -4,8 +4,9 @@
 #include <QObject>
 #include <qdatetime.h>
 #include <qstring.h>
-#include "dutychart.h"
 #include "dbrecord.h"
+#include "dutychart.h"
+#include "HireDirective.h"
 
 class Employee : public DbRecord
 {
@@ -14,10 +15,12 @@ class Employee : public DbRecord
 public:
     Employee(QObject *parent);
 	Employee(int id);
-    static bool createDbTable();
+    ~Employee();
     bool fetch();
     int insert() const;
-    ~Employee();
+    static bool createDbTable();
+
+    const HireDirective* hireDirective() const;
 
 	bool fetch(){return false;}
     
@@ -28,13 +31,18 @@ public:
 	bool update() const {return false;}
 
 private:
+	// личные
     QString _fio;
     QString _phoneNumber;
     int _INN;
+
+	// график
     int _nextDutyChart;
-    QDate _hireDate;
     int _currentDutyChart;
     QDate _nextDutyChartSince;
+
+	// DB links
+	int _hireDirectiveID;
 };
 
 #endif // EMPLOYEE_H
