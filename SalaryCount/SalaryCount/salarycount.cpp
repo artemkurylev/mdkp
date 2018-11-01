@@ -17,7 +17,7 @@
     {
         //Создание таблиц
         bool table_created = Employee::createDbTable();
-        if(table_created)
+        if(!table_created)
         {
 
         }
@@ -26,18 +26,14 @@
     else
     {
 
-		DbManager manager("localhost","salarycount",3306,"root","root");
-		if(manager.checkConnection())
-		{
-			//Создание таблиц
-			bool b = Employee::createDbTable();
-			if(b){
+    }
+	
+	// запуск тестирования
+	QTest::qExec( new DirectiveGeneratorTest(0) , NULL , NULL);
 
-			}
-		}
-		else
-		{
-
+	//заполнение шаблона редактирования графика
+	for(int i=0; i<7;++i)
+	{
 		QComboBox* combo = new QComboBox();
 
 		QTextCodec* codec = QTextCodec::codecForLocale();
@@ -58,6 +54,7 @@
 
 	connect(ui.addDutyChart,SIGNAL(pressed()), this,SLOT(addDutyChart()));
 	connect(ui.payFormChoice,SIGNAL(currentIndexChanged(int)), this,SLOT(changePayForm(int)));
+	connect(ui.ExitAction,SIGNAL(triggered()), this,SLOT(close()));
 
 	//постраничный переход
 	this->currentAction = ui.EmployeeListAction;
