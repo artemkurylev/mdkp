@@ -2,9 +2,11 @@
 #define LABORSHEET_H
 
 #include "dbrecord.h"
+#include "mark.h"
 #include "dutychart.h"
 #include "qdatetime.h"
 #include "employee.h"
+
 /*Личный табель на один месяц
 */
 class LaborSheet : public DbRecord
@@ -19,17 +21,18 @@ public:
     /*
         Getter для взятия всех отметок табеля.
     */
-    const QList<Mark>* marks() const{return &_grid;}
+    const QList<Mark>& marks() const{return _grid;}
     /*
         getter для взятия даты
     */
-    QDate beginDate(){return this->_beginDate;}
+    const QDate beginDate() const{return this->_beginDate;}
     /*
         getter для взятия графика
     */
     const DutyChart* dutyChart() const{return this->_dutyChart;}
 	bool fillWithDefaults(int empploeeId, QDate date,DutyChart* dutyChart);
     const Employee* employee() const;
+    PayForm payForm() const;
 
 	/*! Подсчитать плановое рабочее время за период
 	*/

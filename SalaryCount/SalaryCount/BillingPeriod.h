@@ -21,8 +21,8 @@ public:
 	};
 
 	// getters
-    enum Status status()	{	return _status;		}
-	const QDate& startDate()		{	return _startDate;	}
+    enum Status status()		{	return _status;		}
+	const QDate& startDate()	{	return _startDate;	}
 
 	// methods
     bool fetch();
