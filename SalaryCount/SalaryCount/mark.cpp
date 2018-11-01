@@ -35,16 +35,14 @@ int Mark::insert() const
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        query->prepare("INSERT INTO `mark` (base,altered,dutychart_id,laborsheet_id) VALUES(:base,:altered,:dutychart_id,laborsheet_id");
+        query->prepare("INSERT INTO `mark` (base,altered,dutychart_id,laborsheet_id) VALUES(:base,:altered,:dutychart_id,:laborsheet_id");
         query->bindValue(":base",this->_base);
         query->bindValue(":altered",this->_altered);
         query->bindValue(":dutychart_id",this->_dutychartId);
-        query->bindValue("")
+        query->bindValue(":laborsheet_id",this->_laborsheetId);
         if(query->exec())
         {
-            query->prepare("SELECT id FROM `billing_period` WHERE `startDate` = :start_date");
-            query->bindValue(":start_date",this->_startDate);
-            if(query->exec() && query->next())
+            if(query->exec("SELECT LAST_INSERT_ID()") && query->next())
                 return query->value(0).toInt();
         }
         else
