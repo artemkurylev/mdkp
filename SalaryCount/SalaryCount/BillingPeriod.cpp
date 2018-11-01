@@ -31,9 +31,22 @@ int BillingPeriod::insert() const
 {
     return -1;
 }
-bool BillingPeriod::createDb()
+bool BillingPeriod::createDbTable()
 {
-    return false;
+    if(DbManager::manager().checkConnection()){
+        QSqlQuery* query = DbManager::manager().makeQuery();
+        if(query->exec("CREATE TABLE IF NOT EXISTS `billing_period` (`id` INT(11) NOT NULL AUTO_INCREMENT, `start_date` DATE, `status` INT(11), PRIMARY KEY(`id`))"))
+            return true;
+        else{
+            QString s = query->lastError().text();
+            s+="as";
+            return false;
+        }
+        delete query;
+    }
+    else{
+        return false;
+    }
 }
 void BillingPeriod::open()
 {

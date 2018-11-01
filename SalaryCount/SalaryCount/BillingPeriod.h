@@ -29,7 +29,7 @@ public:
 	bool set() ;
 	bool validate() const;
 	bool update() const;
-    static bool createDb();
+    static bool createDbTable();
     int insert() const;
 
 	//! Управление статусом
