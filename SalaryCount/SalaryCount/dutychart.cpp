@@ -34,6 +34,39 @@ bool DutyChart::createDbTable()
         return false;
     }
 }
+int DutyChart::insert() const
+{
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+        query->prepare("INSERT INTO `dutychart` (payform,anchor_date) VALUES(:payform,:anchor_date");
+        query->bindValue(":payform",this->_payForm);
+        query->bindValue(":anchor_date",this->_anchorDate);
+        if(query->exec())
+        {
+            for(int i = 0; i < this->length(); ++i)
+            {
+                if(this->_grid[i].insert()== - 1)
+                {
+                    //Îøèáêà!!
+                }
+            }
+            if(query->exec("SELECT LAST_INSERT_ID()") && query->next())
+                return query->value(0).toInt();
+        }
+        else
+        {
+            //Îøèáêà!
+            QString s = query->lastError().text();
+            s+="as";
+            return -1;
+        }
+        delete query;
+    }
+    else{
+        return -1;
+    }
+}
 DutyChart::~DutyChart()
 {
 
