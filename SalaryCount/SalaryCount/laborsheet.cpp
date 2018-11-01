@@ -44,13 +44,37 @@ const Employee* LaborSheet::employee() const
 }
 
 
+int inline markMeasure(int mark_val, enum PayForm pay_form) 
+{
+	// для почасовой вернуть часы;
+	// для помесячной - 1, если отметка ненулевая, иначе 0.
+	return (pay_form == PER_HOUR)? (mark_val) : (mark_val > 0);
+}
+
 int LaborSheet::countDefaultTimeUnits() const
 {
-	int total;
-	return 0;
+	int total = 0;
+	enum PayForm pay_form;
+	pay_form = employee()->hireDirective()->payForm();
+
+	foreach(Mark mark , this->marks())
+	{
+		total += markMeasure(mark.base(), pay_form);
+	}
+
+	return total;
 }
 int LaborSheet::countActualTimeUnits () const
 {
-	return 0;
+	int total = 0;
+	enum PayForm pay_form;
+	pay_form = employee()->hireDirective()->payForm();
+
+	foreach(Mark mark , this->marks())
+	{
+		total += markMeasure(mark.altered(), pay_form);
+	}
+
+	return total;
 }
 
