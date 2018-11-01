@@ -20,7 +20,11 @@ SalaryCount::SalaryCount(QWidget *parent)
         {
 
         }
+        table_created = BillingPeriod::createDbTable();
+        if(!table_created)
+        {
 
+        }
     }
     else
     {
