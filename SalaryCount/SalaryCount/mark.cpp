@@ -33,6 +33,26 @@ int Mark::insert() const
 {
     return -1;
 }
+bool Mark::createDbTable()
+{
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+        if(query->exec("CREATE TABLE IF NOT EXISTS `mark` (`id` INT(11) NOT NULL AUTO_INCREMENT, `base` INT(11), `altered` INT(11) ,`position` INT(11),`foreign_id` INT(11), PRIMARY KEY(`id`))"))
+            return true;
+        else
+        {
+            QString s = query->lastError().text();
+            s+="as";
+            return false;
+        }
+        delete query;
+    }
+    else
+    {
+        return false;
+    }
+}
 Mark::~Mark()
 {
 
