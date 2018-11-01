@@ -43,6 +43,11 @@ const Employee* LaborSheet::employee() const
 	return NULL; // TODO: create from id & return
 }
 
+PayForm LaborSheet::payForm() const
+{
+	return employee()->hireDirective()->payForm();
+}
+
 
 int inline markMeasure(int mark_val, enum PayForm pay_form) 
 {
@@ -55,7 +60,7 @@ int LaborSheet::countDefaultTimeUnits() const
 {
 	int total = 0;
 	enum PayForm pay_form;
-	pay_form = employee()->hireDirective()->payForm();
+	pay_form = payForm();
 
 	foreach(Mark mark , this->marks())
 	{
@@ -68,7 +73,7 @@ int LaborSheet::countActualTimeUnits () const
 {
 	int total = 0;
 	enum PayForm pay_form;
-	pay_form = employee()->hireDirective()->payForm();
+	pay_form = payForm();
 
 	foreach(Mark mark , this->marks())
 	{
