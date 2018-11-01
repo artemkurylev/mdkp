@@ -33,10 +33,8 @@ public:
     const DutyChart* dutyChart() const{return this->_dutyChart;}
 	bool fillWithDefaults(int empploeeId, QDate date,DutyChart* dutyChart);
     const Employee* employee() const;
-    /*!
-        Getter дл€ вз€ти€ всех отметок табел€.
-    */
-    const QList<Mark>* marks() const{return &grid;}
+
+    PayForm payForm() const;
 
 	/*! ѕодсчитать плановое рабочее врем€ за период
 	*/
