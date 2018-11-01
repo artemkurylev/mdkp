@@ -14,7 +14,26 @@ DutyChart::DutyChart(QObject *parent)
 			_grid.push_back(Mark::Type::HOLIDAY);
 	}
 }
-
+bool DutyChart::createDbTable()
+{
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+        if(query->exec("CREATE TABLE IF NOT EXISTS `dutychart` (`id` INT(11) NOT NULL AUTO_INCREMENT, `payform` INT(11), `anchor_date` DATE, PRIMARY KEY(`id`))"))
+            return true;
+        else
+        {
+            QString s = query->lastError().text();
+            s+="as";
+            return false;
+        }
+        delete query;
+    }
+    else
+    {
+        return false;
+    }
+}
 DutyChart::~DutyChart()
 {
 
