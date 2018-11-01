@@ -28,13 +28,12 @@ private:
 	void showStacketItem(int indexPage, QString namePage);
 
 private slots:
+	//поведение на странице создания графиков
 	void addDutyChart();//добавление нового графика
 	void changePayForm(int index);
 
 	void saveNewDutyChart();
 	void cancelNewDutyChart();
-
-	//
 
 	//переходы по страницам приложения
 	void showEmployeesPage();//страница со списком сотрудников
