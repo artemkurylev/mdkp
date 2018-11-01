@@ -38,6 +38,11 @@ LaborSheet::~LaborSheet()
 
 }
 
+const Employee* LaborSheet::employee() const
+{
+	return NULL; // TODO: create from id & return
+}
+
 
 int LaborSheet::countDefaultTimeUnits() const
 {

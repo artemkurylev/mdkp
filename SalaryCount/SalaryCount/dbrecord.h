@@ -34,9 +34,12 @@ public:
 	/*! Отправить запись в БД [UPDATE]
 	*/
     virtual bool update() const = 0;
-    /*! Отправить запись в БД
+
+    /*! Создать запись в БД
+	@returns ID созданной записи
     */
     virtual int insert() const = 0;
+
 	/*! Возвращает ID [Primary Key] записи в БД
 	*/
     int id() const;

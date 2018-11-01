@@ -3,7 +3,8 @@
 Mark::Mark(QObject *parent)
     : DbRecord(parent)
 {
-
+	_base = INVALID;
+	_altered = INVALID;
 } 
 
 Mark::Mark(int baseMark)

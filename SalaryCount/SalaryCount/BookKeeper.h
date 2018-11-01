@@ -1,8 +1,10 @@
 
 #pragma once
 
-#include "laborsheet.h"
 #include "BillingPeriod.h"
+//#include "laborsheet.h"
+
+
 /*! ‘орма оплаты труда. (помес€чна€/почасова€)
 */
 enum PayForm
@@ -11,7 +13,7 @@ enum PayForm
 	PER_MONTH,
 };
 
-
+class LaborSheet;
 
 /*! Ѕухгалтер. »нкапсулирует главные функции учЄта труда
 */
