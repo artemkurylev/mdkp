@@ -44,7 +44,10 @@ bool DbManager::checkConnection()
 {
     if(!singletonExists)
     {
-        DbManager::globalManager = new DbManager("localhost","salarycount",3306,"root","root");
+        if(true)
+            DbManager::globalManager = new DbManager("localhost","salarycount",3306,"root","root");
+        else
+            DbManager::globalManager = new DbManager("109.206.169.214","salary_count",3306,"remote","!E3f5c712");
         DbManager::singletonExists = 1;
     }
     return *(DbManager::globalManager);
