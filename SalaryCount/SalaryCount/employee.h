@@ -17,6 +17,7 @@ public:
 	Employee(int id);
     ~Employee();
     bool fetch();
+    bool update();
     int insert() const;
     static bool createDbTable();
 
