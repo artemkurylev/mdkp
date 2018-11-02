@@ -36,18 +36,21 @@ bool Employee::update()
 }
 bool Employee::createDbTable()
 {
-    if(DbManager::manager().checkConnection()){
+    if(DbManager::manager().checkConnection())
+    {
         QSqlQuery* query = DbManager::manager().makeQuery();
         if(query->exec("CREATE TABLE IF NOT EXISTS `employee` (`id` INT(11) NOT NULL AUTO_INCREMENT, `fio` CHAR(30) NOT NULL, `phone_number` CHAR(20),`inn` INT(10),`hire_directive_id` INT(11),`dutychart_id` INT(11),`next_dutychart_id` INT(11),`next_dutychart_since` DATE, PRIMARY KEY(`id`))"))
             return true;
-        else{
+        else
+        {
             QString s = query->lastError().text();
             s+="as";
             return false;
         }
         delete query;
     }
-    else{
+    else
+    {
         return false;
     }
 }
