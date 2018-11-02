@@ -23,7 +23,8 @@ bool LaborSheet::fillWithDefaults()
 	this->_grid.clear();
 	// Заполнить табель отметками по умолчанию
     int month_length = this->_beginDate.daysInMonth();
-    for(int i = 0; i < month_length; ++i,dutychart_index++){
+    for(int i = 0; i < month_length; ++i,dutychart_index++)
+    {
         if(dutychart_index >= length)
             dutychart_index = 0;
         Mark m(_dutyChart->grid()[dutychart_index]);
