@@ -8,7 +8,7 @@ Employee::Employee(int id)
     : DbRecord(id)
 {
 }
-bool Employee::update()
+bool Employee::update() const
 {
     if(DbManager::manager().checkConnection())
     {
@@ -120,6 +120,7 @@ int Employee::insert() const
         return -1;
     }
 }
+
 Employee::~Employee()
 {
 

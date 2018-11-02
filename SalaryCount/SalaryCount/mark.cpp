@@ -49,7 +49,8 @@ int Mark::insert() const
         }
         delete query;
     }
-    else{
+    else
+    {
         return -1;
     }
 }
