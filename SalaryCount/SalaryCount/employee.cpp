@@ -8,6 +8,32 @@ Employee::Employee(int id)
     : DbRecord(id)
 {
 }
+bool Employee::update()
+{
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+        query->prepare("UPDATE `employee` SET fio = :fio , phone_number = :phone_number, inn = :inn, hire_directive_id = :hire_directive_id, dutychart_id = :dutychart_id, next_dutychart_id = :next_dutychart_id, next_dutychart_since = :next_dutychart_since");
+        query->bindValue(":fio",this->_fio);
+        query->bindValue(":phone_number",this->_phoneNumber);
+        query->bindValue(":inn",this->_INN);
+        query->bindValue(":hire_directive_id",this->_hireDirectiveID);
+        query->bindValue(":dutychart_id",this->_currentDutyChart);
+        query->bindValue(":next_dutychart_id",this->_nextDutyChart);
+        query->bindValue(":next_dutychart_since", this->_nextDutyChartSince);
+        if(query->exec())
+        {
+            delete query;
+            return true;
+        }
+        else
+        {
+            delete query;
+            return false;
+        }
+    }
+    return false;
+}
 bool Employee::createDbTable()
 {
     if(DbManager::manager().checkConnection()){
