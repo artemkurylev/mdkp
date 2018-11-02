@@ -28,6 +28,23 @@ bool Mark::validate() const
 }
 bool Mark::update() const
 {
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+        query->prepare("UPDATE `mark` SET base = :base , altered = :altered");
+        query->bindValue(":base",this->_base);
+        query->bindValue(":altered",this->_altered);
+        if(query->exec())
+        {
+            delete query;
+            return true;
+        }
+        else
+        {
+            delete query;
+            return false;
+        }
+    }
     return false;
 }
 int Mark::insert() const
