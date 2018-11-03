@@ -24,6 +24,7 @@ public:
 
 	// methods
 	Employee * hiredEmployee()	const;
+    
 
 	// inherited
 	bool HireDirective::fetch();
@@ -31,7 +32,9 @@ public:
 	bool HireDirective::validate() const;
 	bool HireDirective::update() const;
     int  HireDirective::insert() const;
-
+    
+    //static
+    bool static createDbTable();
 private:
 	QDate _hireDate;
 	QString _fio;
