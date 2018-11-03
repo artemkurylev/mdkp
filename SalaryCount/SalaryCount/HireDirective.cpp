@@ -51,3 +51,23 @@ int HireDirective::insert() const
 {
     return -1;
 }
+bool HireDirective::createDbTable()
+{
+     if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+        if(query->exec("CREATE TABLE IF NOT EXISTS `hire_direcrive` (`id` INT(11) NOT NULL AUTO_INCREMENT, `hire_date` DATE, `fio` CHAR(30) ,`payform` INT(11),`salary` FLOAT(11),`employee_id` INT(11), PRIMARY KEY(`id`))"))
+            return true;
+        else
+        {
+            QString s = query->lastError().text();
+            s+="as";
+            return false;
+        }
+        delete query;
+    }
+    else
+    {
+        return false;
+    }
+}
