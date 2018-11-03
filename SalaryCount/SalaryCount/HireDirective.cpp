@@ -49,7 +49,32 @@ bool HireDirective::update() const
 }
 int HireDirective::insert() const
 {
-    return -1;
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+        query->prepare("INSERT INTO `hire_direcrive` (hire_date,fio,payform,salary,employee_id) VALUES(:hire_date,:fio,:payform,:salary,:employee_id");
+        query->bindValue(":hire_date",this->_hireDate);
+        query->bindValue(":fio",this->_fio);
+        query->bindValue(":payform",this->_payForm);
+        query->bindValue(":salary",this->_salary);
+        query->bindValue(":employee_id",this->_employeeID);
+        if(query->exec())
+        {
+            if(query->exec("SELECT LAST_INSERT_ID()") && query->next())
+                return query->value(0).toInt();
+        }
+        else
+        {
+            QString s = query->lastError().text();
+            s+="as";
+            return -1;
+        }
+        delete query;
+    }
+    else
+    {
+        return -1;
+    }
 }
 bool HireDirective::createDbTable()
 {
