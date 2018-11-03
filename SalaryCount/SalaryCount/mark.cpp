@@ -31,9 +31,10 @@ bool Mark::update() const
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        query->prepare("UPDATE `mark` SET base = :base , altered = :altered");
+        query->prepare("UPDATE `mark` SET base = :base , altered = :altered WHERE id = :id");
         query->bindValue(":base",this->_base);
         query->bindValue(":altered",this->_altered);
+        query->bindValue(":id", this->_id);
         if(query->exec())
         {
             delete query;
