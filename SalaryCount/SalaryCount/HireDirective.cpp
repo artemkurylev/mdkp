@@ -30,7 +30,36 @@ Employee * HireDirective::hiredEmployee() const
 
 bool HireDirective::fetch()
 {
-	return false;
+	if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+
+        query->prepare("SELECT * FROM `hire_directive` WHERE `id` = :id");
+        int id = this->id();
+        query->bindValue(":id",id);
+        if(query->exec())
+        {
+            if(query->next())
+            {
+                _hireDate = query->value(1).toDate();
+                _fio = query->value(2).toString();
+                _payForm = (PayForm)query->value(3).toInt();
+                _salary = query->value(4).toFloat();
+                _employeeID = query->value(5).toInt();
+            }
+        }
+        else
+        {
+            QString s = query->lastError().text();
+            s+="as";
+            return false;
+        }
+        delete query;
+    }
+    else
+    {
+        return false;
+    }
 }
     
 bool HireDirective::set()
