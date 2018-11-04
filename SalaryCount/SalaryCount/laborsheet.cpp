@@ -96,5 +96,21 @@ bool LaborSheet::update() const{
     return false;
 }
 bool LaborSheet::createDbTable() {
-    return false;
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+        if(query->exec("CREATE TABLE IF NOT EXISTS `labor_sheet` (`id` INT(11) NOT NULL AUTO_INCREMENT, `begin_date` DATE, `employee_id` INT(11),`dutychart_id` INT(11), PRIMARY KEY(`id`))"))
+            return true;
+        else
+        {
+            QString s = query->lastError().text();
+            s+="as";
+            return false;
+        }
+        delete query;
+    }
+    else
+    {
+        return false;
+    }
 }
