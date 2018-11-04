@@ -50,8 +50,8 @@ public:
     static bool createDbTable();
 private:
     QDate _beginDate;
-    int employeeId;
-    QList<Mark> _grid; 
+    int _employeeId;
+    QList<Mark> _grid;
     DutyChart* _dutyChart;
 };
 
