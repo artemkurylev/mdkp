@@ -13,7 +13,7 @@ bool Employee::update() const
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        query->prepare("UPDATE `employee` SET fio = :fio , phone_number = :phone_number, inn = :inn, hire_directive_id = :hire_directive_id, dutychart_id = :dutychart_id, next_dutychart_id = :next_dutychart_id, next_dutychart_since = :next_dutychart_since");
+        query->prepare("UPDATE `employee` SET fio = :fio , phone_number = :phone_number, inn = :inn, hire_directive_id = :hire_directive_id, dutychart_id = :dutychart_id, next_dutychart_id = :next_dutychart_id, next_dutychart_since = :next_dutychart_since WHERE `id` = id");
         query->bindValue(":fio",this->_fio);
         query->bindValue(":phone_number",this->_phoneNumber);
         query->bindValue(":inn",this->_INN);
@@ -21,6 +21,7 @@ bool Employee::update() const
         query->bindValue(":dutychart_id",this->_currentDutyChart);
         query->bindValue(":next_dutychart_id",this->_nextDutyChart);
         query->bindValue(":next_dutychart_since", this->_nextDutyChartSince);
+        query->bindValue(":id", this->id());
         if(query->exec())
         {
             delete query;
