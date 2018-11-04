@@ -83,4 +83,18 @@ int LaborSheet::countActualTimeUnits () const
 
 	return total;
 }
-
+bool LaborSheet::validate() const{
+    return false;
+}
+int LaborSheet::insert() const{
+    return -1;
+}
+bool LaborSheet::fetch(){
+    return false;
+}
+bool LaborSheet::update() const{
+    return false;
+}
+bool LaborSheet::createDbTable() {
+    return false;
+}

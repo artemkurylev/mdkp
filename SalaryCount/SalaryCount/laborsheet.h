@@ -41,6 +41,13 @@ public:
 	/*! Подсчитать отработанное время за период
 	*/
 	int countActualTimeUnits () const;
+    //Наследуемые методы
+    int LaborSheet::insert() const;
+    bool LaborSheet::update() const;
+    bool LaborSheet::fetch();
+    bool LaborSheet::validate() const;
+    //Статические методы
+    static bool createDbTable();
 private:
     QDate _beginDate;
     int employeeId;
