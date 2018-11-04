@@ -8,7 +8,7 @@ LaborSheet::LaborSheet(QObject *parent)
 LaborSheet::LaborSheet(QObject *parent, int employeeId)
     : DbRecord(parent)
 {
-    this->employeeId = employeeId;
+    this->_employeeId = employeeId;
 }
 bool LaborSheet::fillWithDefaults()
 {
@@ -87,7 +87,37 @@ bool LaborSheet::validate() const{
     return false;
 }
 int LaborSheet::insert() const{
-    return -1;
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+        query->prepare("INSERT INTO `labor_sheet` (begin_date,employee_id,dutychart_id, closed) VALUES(:begin_date,:employee_id,:dutychart_id");
+        query->bindValue(":begin_date",this->_beginDate);
+        query->bindValue(":employee_id",this->_employeeId);
+        query->bindValue(":dutychart_id", this->_dutyChart->id());
+        if(query->exec())
+        {
+            for(int i = 0; i < this->_grid.length(); ++i)
+            {
+                if(this->_grid[i].insert()== - 1)
+                {
+                    //Ошибка!!
+                }
+            }
+            if(query->exec("SELECT LAST_INSERT_ID()") && query->next())
+                return query->value(0).toInt();
+        }
+        else
+        {
+            //Ошибка!
+            QString s = query->lastError().text();
+            s+="as";
+            return -1;
+        }
+        delete query;
+    }
+    else{
+        return -1;
+    }
 }
 bool LaborSheet::fetch(){
     return false;

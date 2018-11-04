@@ -54,8 +54,9 @@ public:
 
 private:
     QDate _beginDate;
-    int employeeId;
-    QList<Mark> grid; 
+
+    int _employeeId;
+    QList<Mark> _grid;
     DutyChart* _dutyChart;
 };
 
