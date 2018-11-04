@@ -14,8 +14,38 @@ Mark::Mark(int baseMark)
 	_altered = INVALID;
 } 
 
-bool Mark::fetch(){
-    return false;
+
+bool Mark::fetch()
+{
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+
+        query->prepare("SELECT * FROM `mark` WHERE `id` = :id");
+        int id = this->id();
+        query->bindValue(":id",id);
+        if(query->exec())
+        {
+            if(query->next())
+            {
+                _base = query->value(1).toInt();
+                _altered = query->value(2).toInt();
+                _dutychartId = query->value(3).toInt();
+                _laborsheetId = query->value(4).toInt();
+            }
+        }
+        else
+        {
+            QString s = query->lastError().text();
+            s+="as";
+            return false;
+        }
+        delete query;
+    }
+    else
+    {
+        return false;
+    }
 }
 bool Mark::validate() const{
     return false;
