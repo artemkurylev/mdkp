@@ -74,7 +74,7 @@ bool HireDirective::validate() const
     
 bool HireDirective::update() const
 {
-	    if(DbManager::manager().checkConnection())
+    if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
         query->prepare("UPDATE `hire_directive` SET hire_date = :hire_date , fio = :fio, payform = :payform, salary= :salary, employee_id= :employee_id WHERE id = :id");
@@ -128,7 +128,7 @@ int HireDirective::insert() const
 }
 bool HireDirective::createDbTable()
 {
-     if(DbManager::manager().checkConnection())
+    if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
         if(query->exec("CREATE TABLE IF NOT EXISTS `hire_directive` (`id` INT(11) NOT NULL AUTO_INCREMENT, `hire_date` DATE, `fio` CHAR(30) ,`payform` INT(11),`salary` FLOAT(11),`employee_id` INT(11), PRIMARY KEY(`id`))"))
