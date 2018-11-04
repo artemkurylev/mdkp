@@ -16,10 +16,12 @@ DbManager::DbManager(QString hostName, QString dbName, int port,QString userName
     this->db.setHostName(hostName);
     this->db.setPort(port);
     this->db.setPassword(pass);
-    if(db.open()){
+    if(db.open())
+    {
         QString str;
     }
-    else{
+    else
+    {
         QString str = db.lastError().text();
         str+= "as";
     }
