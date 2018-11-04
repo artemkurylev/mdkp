@@ -123,6 +123,32 @@ bool LaborSheet::fetch(){
     return false;
 }
 bool LaborSheet::update() const{
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+        query->prepare("UPDATE `labor_sheet` SET begin_date = :begin_date , employee_id = :employee_id, dutychart_id = :dutychart_id WHERE `id` =:id");
+        query->bindValue(":begin_date",this->_beginDate);
+        query->bindValue(":employee_id",this->_employeeId);
+        query->bindValue(":dutychart_id",this->_dutyChart->id());
+        query->bindValue(":id",this->id());
+        if(query->exec())
+        {
+            for(int i = 0; i < _grid.size(); ++i)
+            {
+                if(!_grid[i].update())
+                {
+                    //Ошибка!!!
+                }
+            }
+            delete query;
+            return true;
+        }
+        else
+        {
+            delete query;
+            return false;
+        }
+    }
     return false;
 }
 bool LaborSheet::createDbTable() {
