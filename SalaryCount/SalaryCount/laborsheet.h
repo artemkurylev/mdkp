@@ -6,6 +6,7 @@
 #include "dutychart.h"
 #include "qdatetime.h"
 #include "employee.h"
+#include "BillingPeriod.h"
 
 /*Ћичный табель на один мес€ц
 */
@@ -26,7 +27,7 @@ public:
     /*
         getter дл€ вз€ти€ даты
     */
-    const QDate beginDate() const{return this->_beginDate;}
+    const QDate beginDate() const{return this->_billingPeriod->startDate();}
     /*
         getter дл€ вз€ти€ графика
     */
@@ -53,8 +54,8 @@ public:
     static bool createDbTable();
 
 private:
-    QDate _beginDate;
 
+    BillingPeriod* _billingPeriod;
     int _employeeId;
     QList<Mark> _grid;
     DutyChart* _dutyChart;

@@ -15,14 +15,14 @@ bool LaborSheet::fillWithDefaults()
 	// Вычислить относительное смещение наложения графика на месяц
     QDate buffer_date = this->_dutyChart->anchorDate();
     int count_diff_days = 0;
-    count_diff_days = abs(buffer_date.daysTo(this->_beginDate));
+    count_diff_days = abs(buffer_date.daysTo(this->_billingPeriod->startDate()));
     int length = _dutyChart->length();
     int bias = count_diff_days % length;
     int dutychart_index = bias;
 	
 	this->_grid.clear();
 	// Заполнить табель отметками по умолчанию
-    int month_length = this->_beginDate.daysInMonth();
+    int month_length = this->_billingPeriod->startDate().daysInMonth();
     for(int i = 0; i < month_length; ++i,dutychart_index++)
     {
         if(dutychart_index >= length)
@@ -90,8 +90,8 @@ int LaborSheet::insert() const{
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        query->prepare("INSERT INTO `labor_sheet` (begin_date,employee_id,dutychart_id, closed) VALUES(:begin_date,:employee_id,:dutychart_id");
-        query->bindValue(":begin_date",this->_beginDate);
+        query->prepare("INSERT INTO `labor_sheet` (billing_period_id,employee_id,dutychart_id, closed) VALUES(:begin_date,:employee_id,:dutychart_id");
+        query->bindValue(":begin_date",this->_billingPeriod->id());
         query->bindValue(":employee_id",this->_employeeId);
         query->bindValue(":dutychart_id", this->_dutyChart->id());
         if(query->exec())
@@ -126,8 +126,8 @@ bool LaborSheet::update() const{
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        query->prepare("UPDATE `labor_sheet` SET begin_date = :begin_date , employee_id = :employee_id, dutychart_id = :dutychart_id WHERE `id` =:id");
-        query->bindValue(":begin_date",this->_beginDate);
+        query->prepare("UPDATE `labor_sheet` SET billing_period_id = :billing_period_id , employee_id = :employee_id, dutychart_id = :dutychart_id WHERE `id` =:id");
+        query->bindValue(":billing_period_id",this->_billingPeriod->id());
         query->bindValue(":employee_id",this->_employeeId);
         query->bindValue(":dutychart_id",this->_dutyChart->id());
         query->bindValue(":id",this->id());
@@ -155,7 +155,7 @@ bool LaborSheet::createDbTable() {
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        if(query->exec("CREATE TABLE IF NOT EXISTS `labor_sheet` (`id` INT(11) NOT NULL AUTO_INCREMENT, `begin_date` DATE, `employee_id` INT(11),`dutychart_id` INT(11), PRIMARY KEY(`id`))"))
+        if(query->exec("CREATE TABLE IF NOT EXISTS `labor_sheet` (`id` INT(11) NOT NULL AUTO_INCREMENT, `billing_period_id` INT(11), `employee_id` INT(11),`dutychart_id` INT(11), PRIMARY KEY(`id`))"))
             return true;
         else
         {
