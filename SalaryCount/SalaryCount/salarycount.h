@@ -38,5 +38,4 @@ private slots:
 	void showDutyChartsPage();//страница графиков работы 
 	void showHireDirectivesPage();//страница приказов
 };
-
 #endif // SALARYCOUNT_H
