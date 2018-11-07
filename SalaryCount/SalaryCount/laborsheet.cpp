@@ -176,4 +176,19 @@ bool LaborSheet::createDbTable() {
     {
         return false;
     }
+}    
+QList <LaborSheet*> LaborSheet::getAll()
+{
+    QList <LaborSheet*> result;
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+        if(query->exec("SELECT * FROM `labor_sheet`"))
+        {
+            while(query->next())
+            {;
+            }
+        }
+    }
+    return result;
 }

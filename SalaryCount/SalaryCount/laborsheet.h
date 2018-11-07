@@ -18,6 +18,7 @@ public:
     LaborSheet();
     ~LaborSheet();
     LaborSheet(int employeeId);
+    LaborSheet(BillingPeriod* billingPeriod,int employeeId,QList<Mark> grid,DutyChart* _dutyChart);
 	bool fillWithDefaults();
     /*
         Getter для взятия всех отметок табеля.
@@ -49,6 +50,7 @@ public:
     bool LaborSheet::validate() const;
     //Статические методы
     static bool createDbTable();
+    static QList <LaborSheet*> getAll();
 private:
     BillingPeriod* _billingPeriod;
     int _employeeId;
