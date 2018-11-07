@@ -50,5 +50,4 @@ private slots:
 	//переходы по страницам приложения
 	void showPage(QAction* actionEmited);
 };
-
 #endif // SALARYCOUNT_H
