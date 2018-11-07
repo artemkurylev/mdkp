@@ -25,6 +25,26 @@ SalaryCount::SalaryCount(QWidget *parent)
         {
 
         }
+        table_created = DutyChart::createDbTable();
+        if(!table_created)
+        {
+
+        }
+        table_created = LaborSheet::createDbTable();
+        if(!table_created)
+        {
+
+        }
+        table_created = HireDirective::createDbTable();
+        if(!table_created)
+        {
+
+        }
+        table_created = Mark::createDbTable();
+        if(!table_created)
+        {
+
+        }
     }
     else
     {

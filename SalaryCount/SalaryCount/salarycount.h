@@ -4,6 +4,7 @@
 #include <QtWidgets/QMainWindow>
 #include <qmessagebox.h>
 #include "employee.h"
+#include"laborsheet.h"
 #include "ui_salarycount.h"
 
 class SalaryCount : public QMainWindow
