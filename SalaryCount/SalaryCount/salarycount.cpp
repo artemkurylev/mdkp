@@ -42,9 +42,17 @@
     }
 
 	// запуск тестирования
-	QTest::qExec( new DirectiveGeneratorTest(0) , NULL , NULL);
+	DirectiveGeneratorTest dir_gen_test(0);
+	QTest::qExec( &dir_gen_test , NULL , NULL);
 
 
+	//заполнение шаблона редактирования графика
+	for(int i=0; i<7;++i)
+	{
+		QComboBox* combo = new QComboBox();
+
+		QTextCodec* codec = QTextCodec::codecForLocale();
+	}
 	//
 	this->dutyChart = new salarycountDutyChart(&this->ui);
 	connect(this->dutyChart,SIGNAL(changeState(bool)),this,SLOT(rememberState(bool)));
