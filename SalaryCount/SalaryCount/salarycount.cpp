@@ -6,15 +6,41 @@
 #include"qsqldatabase.h"
 
 #include "unittest/DirectiveGeneratorTest.h"
-
-
     : QMainWindow(parent)
 {
     ui.setupUi(this);
 
+
     initialDBManager();
 	this->editState = false;
-	
+
+        }
+        table_created = DutyChart::createDbTable();
+        if(!table_created)
+        {
+
+        }
+        table_created = LaborSheet::createDbTable();
+        if(!table_created)
+        {
+
+        }
+        table_created = HireDirective::createDbTable();
+        if(!table_created)
+        {
+
+        }
+        table_created = Mark::createDbTable();
+        if(!table_created)
+        {
+
+        }
+    }
+    else
+    {
+
+    }
+
 	// запуск тестирования
 	QTest::qExec( new DirectiveGeneratorTest(0) , NULL , NULL);
 

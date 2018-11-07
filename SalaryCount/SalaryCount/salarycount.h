@@ -5,6 +5,7 @@
 
 #include <qmessagebox.h>
 #include "employee.h"
+#include"laborsheet.h"
 #include "ui_salarycount.h"
 #include "BookKeeper.h"
 #include "mark.h"
