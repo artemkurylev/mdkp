@@ -8,6 +8,7 @@
     <y>0</y>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     <width>737</width>
 =======
     <width>709</width>
@@ -16,6 +17,10 @@
     <width>687</width>
 >>>>>>> 13be8f9... Добавлена возможность добавления новых графиков
     <height>474</height>
+=======
+    <width>719</width>
+    <height>559</height>
+>>>>>>> 87d3f2b... Правки формы: поле ввода телефона: Label, увеличена ширина ScrollArea
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,95 +43,6 @@
       </property>
       <widget class="QWidget" name="EmployeesPage">
        <layout class="QGridLayout" name="gridLayout_8">
-        <item row="0" column="0">
-         <widget class="QGroupBox" name="groupBox_5">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-            <horstretch>2</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>300</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="title">
-           <string>Сотрудники</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_3">
-           <item row="0" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout">
-             <item>
-              <widget class="QLabel" name="label_4">
-               <property name="text">
-                <string>Поиск сотрудников</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit_4"/>
-             </item>
-            </layout>
-           </item>
-           <item row="1" column="0">
-            <widget class="QListWidget" name="listWidget">
-             <item>
-              <property name="text">
-               <string>Сотрудник 1        ИНН</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Сотрудник 2       ИНН</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Сотрудник 3        ИНН</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Сотрудник 4        ИНН</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Сотрудник 5        ИНН</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_8">
-             <item>
-              <widget class="QPushButton" name="pushButton">
-               <property name="text">
-                <string>Редактировать</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_3">
-               <property name="text">
-                <string>Удалить</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item row="4" column="0">
-            <widget class="QPushButton" name="pushButton_2">
-             <property name="text">
-              <string>Добавить сотрудника</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
         <item row="0" column="1">
          <widget class="QScrollArea" name="scrollArea">
           <property name="enabled">
@@ -140,7 +56,7 @@
           </property>
           <property name="minimumSize">
            <size>
-            <width>237</width>
+            <width>280</width>
             <height>0</height>
            </size>
           </property>
@@ -155,9 +71,14 @@
              <y>-176</y>
 =======
              <y>0</y>
+<<<<<<< HEAD
 >>>>>>> 788c143... Добавлена возможность постраничного перехода в приложении
              <width>218</width>
              <height>559</height>
+=======
+             <width>257</width>
+             <height>564</height>
+>>>>>>> 87d3f2b... Правки формы: поле ввода телефона: Label, увеличена ширина ScrollArea
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_2">
@@ -253,20 +174,6 @@
                 </layout>
                </item>
                <item>
-                <layout class="QVBoxLayout" name="verticalLayout_5">
-                 <item>
-                  <widget class="QLabel" name="label_6">
-                   <property name="text">
-                    <string>Адрес проживания</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLineEdit" name="lineEdit_6"/>
-                 </item>
-                </layout>
-               </item>
-               <item>
                 <layout class="QVBoxLayout" name="verticalLayout_2">
                  <item>
                   <widget class="QLabel" name="label_9">
@@ -304,36 +211,7 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QSpinBox" name="spinBox_6"/>
-                 </item>
-                </layout>
-               </item>
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_2">
-                 <item>
-                  <widget class="QLabel" name="label_7">
-                   <property name="text">
-                    <string>пол</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_11">
-                   <item>
-                    <widget class="QRadioButton" name="radioButton_2">
-                     <property name="text">
-                      <string>Ж</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QRadioButton" name="radioButton">
-                     <property name="text">
-                      <string>М</string>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
+                  <widget class="QLineEdit" name="lineEdit_2"/>
                  </item>
                 </layout>
                </item>
@@ -358,7 +236,7 @@
                  <bool>false</bool>
                 </property>
                 <property name="text">
-                 <string>Отменить</string>
+                 <string>Сбросить</string>
                 </property>
                </widget>
               </item>
@@ -366,6 +244,95 @@
             </item>
            </layout>
           </widget>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="groupBox_5">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+            <horstretch>2</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>300</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="title">
+           <string>Сотрудники</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_3">
+           <item row="0" column="0">
+            <layout class="QHBoxLayout" name="horizontalLayout">
+             <item>
+              <widget class="QLabel" name="label_4">
+               <property name="text">
+                <string>Поиск сотрудников</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="lineEdit_4"/>
+             </item>
+            </layout>
+           </item>
+           <item row="1" column="0">
+            <widget class="QListWidget" name="listWidget">
+             <item>
+              <property name="text">
+               <string>Сотрудник 1        ИНН</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Сотрудник 2       ИНН</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Сотрудник 3        ИНН</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Сотрудник 4        ИНН</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Сотрудник 5        ИНН</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <layout class="QHBoxLayout" name="horizontalLayout_8">
+             <item>
+              <widget class="QPushButton" name="pushButton">
+               <property name="text">
+                <string>Редактировать</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_3">
+               <property name="text">
+                <string>Удалить</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="4" column="0">
+            <widget class="QPushButton" name="pushButton_2">
+             <property name="text">
+              <string>Добавить сотрудника</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
        </layout>
@@ -817,6 +784,7 @@
      <y>0</y>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
      <width>737</width>
 =======
      <width>709</width>
@@ -833,6 +801,10 @@
 =======
      <height>21</height>
 >>>>>>> e58b09a... Изменено названия виджета с табелями учета труда
+=======
+     <width>719</width>
+     <height>26</height>
+>>>>>>> 87d3f2b... Правки формы: поле ввода телефона: Label, увеличена ширина ScrollArea
     </rect>
    </property>
    <widget class="QMenu" name="menu">
