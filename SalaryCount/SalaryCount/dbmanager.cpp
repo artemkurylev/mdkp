@@ -7,7 +7,7 @@ DbManager::DbManager()
 }
 /*static*/bool DbManager::singletonExists = false;
 /*static*/DbManager* DbManager::globalManager = 0;
-DbManager::DbManager(QString hostName, QString dbName, int port,QString userName, QString pass)
+DbManager::DbManager(const QString& hostName, const QString& dbName, int port,const QString& userName, const QString& pass)
 {
     this->db = QSqlDatabase::addDatabase("QMYSQL");
     this->db.setUserName(userName);
@@ -46,10 +46,11 @@ bool DbManager::checkConnection()
 {
     if(!singletonExists)
     {
-        if(true)
+        if(false)
             DbManager::globalManager = new DbManager("localhost","salarycount",3306,"root","root");
         else
-            DbManager::globalManager = new DbManager("109.206.169.214","salary_count",3306,"remote","!E3f5c712");
+            DbManager::globalManager = new DbManager("109.206.169.214","salary_count",81,"remote","!E3f5c712");
+			// telnet 109.206.169.214 81
         DbManager::singletonExists = 1;
     }
     return *(DbManager::globalManager);
