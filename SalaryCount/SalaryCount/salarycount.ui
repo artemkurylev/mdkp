@@ -18,7 +18,7 @@
     <item row="0" column="1">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="EmployeesPage">
        <layout class="QGridLayout" name="gridLayout_8">
@@ -365,7 +365,7 @@
           </property>
           <layout class="QGridLayout" name="gridLayout_4">
            <item row="2" column="0">
-            <widget class="QTableWidget" name="tableWidget"/>
+            <widget class="QTableWidget" name="employeeLaborSheetTable"/>
            </item>
            <item row="1" column="0">
             <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -761,7 +761,7 @@
      <x>0</x>
      <y>0</y>
      <width>687</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">

@@ -113,7 +113,7 @@ public:
     QGridLayout *gridLayout_10;
     QGroupBox *groupBox_6;
     QGridLayout *gridLayout_4;
-    QTableWidget *tableWidget;
+    QTableWidget *employeeLaborSheetTable;
     QHBoxLayout *horizontalLayout_3;
     QLabel *label_14;
     QLineEdit *lineEdit_9;
@@ -509,10 +509,10 @@ public:
         gridLayout_4->setSpacing(6);
         gridLayout_4->setContentsMargins(11, 11, 11, 11);
         gridLayout_4->setObjectName(QStringLiteral("gridLayout_4"));
-        tableWidget = new QTableWidget(groupBox_6);
-        tableWidget->setObjectName(QStringLiteral("tableWidget"));
+        employeeLaborSheetTable = new QTableWidget(groupBox_6);
+        employeeLaborSheetTable->setObjectName(QStringLiteral("employeeLaborSheetTable"));
 
-        gridLayout_4->addWidget(tableWidget, 2, 0, 1, 1);
+        gridLayout_4->addWidget(employeeLaborSheetTable, 2, 0, 1, 1);
 
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setSpacing(6);
@@ -816,7 +816,7 @@ public:
         SalaryCount->addToolBar(Qt::TopToolBarArea, mainToolBar);
         menuBar = new QMenuBar(SalaryCount);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 687, 20));
+        menuBar->setGeometry(QRect(0, 0, 687, 21));
         menu = new QMenu(menuBar);
         menu->setObjectName(QStringLiteral("menu"));
         CompanyMenu = new QMenu(menuBar);
@@ -840,7 +840,7 @@ public:
 
         retranslateUi(SalaryCount);
 
-        stackedWidget->setCurrentIndex(0);
+        stackedWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(SalaryCount);
