@@ -52,12 +52,12 @@ SalaryCount::SalaryCount(QWidget *parent)
     }
 	
 	// запуск тестирования
-	QTest::qExec( new DirectiveGeneratorTest(0) , NULL , NULL);
+	DirectiveGeneratorTest dir_gen_test(0);
+	QTest::qExec( &dir_gen_test , NULL , NULL);
 
 	//заполнение шаблона редактирования графика
 	for(int i=0; i<7;++i)
 	{
-
 		QComboBox* combo = new QComboBox();
 
 		QTextCodec* codec = QTextCodec::codecForLocale();

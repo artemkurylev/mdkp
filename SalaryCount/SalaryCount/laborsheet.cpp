@@ -46,7 +46,14 @@ const Employee* LaborSheet::employee() const
 
 PayForm LaborSheet::payForm() const
 {
-	return employee()->hireDirective()->payForm();
+	const Employee* e = employee();
+	const HireDirective* h = e->hireDirective();
+	PayForm p = h->payForm();
+
+	delete e;
+	delete h;
+
+	return p;
 }
 
 
