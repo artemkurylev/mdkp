@@ -30,7 +30,11 @@
     <item row="0" column="1">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
+<<<<<<< HEAD
        <number>2</number>
+=======
+       <number>1</number>
+>>>>>>> e58b09a... Изменено названия виджета с табелями учета труда
       </property>
       <widget class="QWidget" name="EmployeesPage">
        <layout class="QGridLayout" name="gridLayout_8">
@@ -381,7 +385,7 @@
           </property>
           <layout class="QGridLayout" name="gridLayout_4">
            <item row="2" column="0">
-            <widget class="QTableWidget" name="tableWidget"/>
+            <widget class="QTableWidget" name="employeeLaborSheetTable"/>
            </item>
            <item row="1" column="0">
             <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -820,11 +824,15 @@
 =======
      <width>687</width>
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 13be8f9... Добавлена возможность добавления новых графиков
      <height>21</height>
 =======
      <height>20</height>
 >>>>>>> ee66e86... Переименованы объекты действий меню "Файл", добавлена реакция на меню "Файл->Выход из программы"
+=======
+     <height>21</height>
+>>>>>>> e58b09a... Изменено названия виджета с табелями учета труда
     </rect>
    </property>
    <widget class="QMenu" name="menu">
