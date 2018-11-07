@@ -15,7 +15,7 @@ class DbManager : public QObject
 public:
     DbManager();
 
-    DbManager(QString hostName, QString dbName, int port,QString userName, QString pass);
+    DbManager(const QString& hostName, const QString& dbName, int port,const QString& userName, const QString& pass);
 
     ~DbManager();
 
