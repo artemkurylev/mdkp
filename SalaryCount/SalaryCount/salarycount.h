@@ -6,6 +6,9 @@
 #include "employee.h"
 #include "ui_salarycount.h"
 
+#include "salarycountDutyChart.h"
+
+
 class SalaryCount : public QMainWindow
 {
     Q_OBJECT
@@ -19,22 +22,27 @@ public:
 
 private:
     Ui_SalaryCount ui;
-	void updateWorkListActions();
-	void showStacketItem(int indexPage, QString namePage);
+
+	salarycountDutyChart* dutyChart;
+	bool editState;
+
+private:
+	bool isEditable();
+	void showStackedItem(QString namePage);
+
+	//конструкторы
+	void initialDBManager();
+
+signals:
+	void cancelChanges();
+	void saveChanges();
 
 private slots:
-	//поведение на странице создания графиков
-	void addDutyChart();//добавление нового графика
-	void changePayForm(int index);
 
-	void saveNewDutyChart();
-	void cancelNewDutyChart();
+	void rememberState(bool state);
 
 	//переходы по страницам приложения
-	void showEmployeesPage();//страница со списком сотрудников
-	void showLaborSheetsPage();//страница табелей учета труда
-	void showDutyChartsPage();//страница графиков работы 
-	void showHireDirectivesPage();//страница приказов
+	void showPage(QAction* actionEmited);
 };
 
 #endif // SALARYCOUNT_H

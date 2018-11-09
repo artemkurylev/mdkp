@@ -11,7 +11,35 @@ SalaryCount::SalaryCount(QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
-    DbManager& manager = DbManager::manager();
+
+    initialDBManager();
+	this->editState = false;
+	
+	// запуск тестирования
+	QTest::qExec( new DirectiveGeneratorTest(0) , NULL , NULL);
+
+	//
+	this->dutyChart = new salarycountDutyChart(&this->ui);
+	connect(this->dutyChart,SIGNAL(changeState(bool)),this,SLOT(rememberState(bool)));
+	connect(this,SIGNAL(saveChanges()),this->dutyChart,SLOT(saveNewDutyChart()));
+	connect(this,SIGNAL(cancelChanges()),this->dutyChart,SLOT(cancelNewDutyChart()));
+
+	//постраничный переход
+	ui.stackedWidget->setCurrentIndex(0);//устанавлиаем видимость на странице с сотрудниками
+	this->currentAction = ui.EmployeeListAction;
+	this->currentAction->setEnabled(false);
+
+	connect(ui.CompanyMenu,SIGNAL(triggered(QAction*)), this,SLOT(showPage(QAction*)));
+}
+
+SalaryCount::~SalaryCount()
+{
+
+}
+
+void SalaryCount::initialDBManager()
+{
+	DbManager& manager = DbManager::manager();
     if(manager.checkConnection())
     {
         //Создание таблиц
@@ -30,162 +58,76 @@ SalaryCount::SalaryCount(QWidget *parent)
     {
 
     }
-	
-	// запуск тестирования
-	QTest::qExec( new DirectiveGeneratorTest(0) , NULL , NULL);
 
-	//заполнение шаблона редактирования графика
-	for(int i=0; i<7;++i)
+	//return??
+}
+
+bool SalaryCount::isEditable()
+{
+	if(this->editState)
 	{
+		QTextCodec* c = QTextCodec::codecForLocale();
+		QMessageBox::StandardButton btn = QMessageBox::question(this, QString(c->toUnicode("Данные не сохранены")), 
+																		QString(c->toUnicode("Сохранить изменения перед выходом?")), 
+																		QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
+		switch(btn)
+		{
+			case QMessageBox::StandardButton(QMessageBox::Yes):
+				emit saveChanges();
+				return false;
 
-		QComboBox* combo = new QComboBox();
+			case QMessageBox::StandardButton(QMessageBox::No):
+				emit cancelChanges();
+				return true;
 
-		QTextCodec* codec = QTextCodec::codecForLocale();
-
-		combo->insertItem(0, codec->toUnicode("Выходной"));
-		combo->insertItem(1, codec->toUnicode("Рабочий"));
-
-		combo->setCurrentIndex(1);
-
-		ui.DutyChartMarksEdit->setCellWidget(i,0,combo);
+			case QMessageBox::StandardButton(QMessageBox::Cancel):
+			default:
+				return true;
+		}
 	}
-	
-	ui.saveDutyChartBtn->setEnabled(true);
-	ui.cancelDutyChartBtn->setEnabled(true);
 
-	connect(ui.addDutyChart,SIGNAL(pressed()), this,SLOT(addDutyChart()));
-	connect(ui.payFormChoice,SIGNAL(currentIndexChanged(int)), this,SLOT(changePayForm(int)));
-	connect(ui.ExitAction,SIGNAL(triggered()), this,SLOT(close()));
-
-	//постраничный переход
-	this->currentAction = ui.EmployeeListAction;
-	this->currentAction->setEnabled(false);
-
-	connect(ui.EmployeeListAction,SIGNAL(triggered()), this,SLOT(showEmployeesPage()));
-	connect(ui.LaborSheetAction,SIGNAL(triggered()), this,SLOT(showLaborSheetsPage()));
-	connect(ui.DutyCharAction,SIGNAL(triggered()), this,SLOT(showDutyChartsPage()));
-	connect(ui.HireDirectiveAction,SIGNAL(triggered()), this,SLOT(showHireDirectivesPage()));
+	return false;
 }
 
-SalaryCount::~SalaryCount()
+/*!
+*\
+*/
+void SalaryCount::showPage(QAction* actionEmited)
 {
-
-}
-
-void SalaryCount::addDutyChart()
-{
-	ui.dutyChartEdit->setEnabled(true);
-}
-
-void SalaryCount::changePayForm(int index)
-{
-	if(index)
+	if(!isEditable())
 	{
-		ui.workTimeEdit->setEnabled(true);
-	}
-	else
-	{
-		ui.workTimeEdit->setEnabled(false);
-	}
-}
+		QString namePage = actionEmited->whatsThis();
 
-void SalaryCount::saveNewDutyChart()
-{
-	QList<Mark> marks;
+		this->currentAction->setEnabled(true);
+		this->currentAction = actionEmited;
+		this->currentAction->setEnabled(false);
 
-	for(int i=0;i<7;++i)
-	{
-		QComboBox* combo = (QComboBox*)ui.DutyChartMarksEdit->cellWidget(i,0);
-		
-		int mark_value = combo->currentIndex();
-		int choice_value = ui.payFormChoice->currentIndex();
-
-
-		Mark m(mark_value);
-		DutyChart dch(marks);
-		dch.set();
+		showStackedItem(namePage);
 	}
 }
 
 /*!
 *\
 */
-void SalaryCount::cancelNewDutyChart()
+void SalaryCount::showStackedItem(QString namePage)
 {
-
-}
-
-/*!Переход на страницу учета сотрудников
-*\
-*/
-void SalaryCount::showEmployeesPage()
-{
-	int indexPage = 0;
-	QString namePage = QString("EmployeesPage");
-
-	this->currentAction->setEnabled(true);
-	this->currentAction = ui.EmployeeListAction;
-	this->currentAction->setEnabled(false);
-
-	showStacketItem(indexPage, namePage);
-}
-
-/*!Переход на страницу табелей учета труда
-*\
-*/
-void SalaryCount::showLaborSheetsPage()
-{
-	int indexPage = 1;
-	QString namePage = QString("LaborSheetsPage");
-
-	this->currentAction->setEnabled(true);
-	this->currentAction = ui.LaborSheetAction;
-	this->currentAction->setEnabled(false);
-
-	showStacketItem(indexPage, namePage);
-}
-
-/*!Переход на страницу графиков
-*\
-*/
-void SalaryCount::showDutyChartsPage()
-{
-	int indexPage = 2;
-	QString namePage = QString("DutyChartsPage");
-
-	this->currentAction->setEnabled(true);
-	this->currentAction = ui.DutyCharAction;
-	this->currentAction->setEnabled(false);
-
-	showStacketItem(indexPage, namePage);
-}
-
-/*!Переход на страницу приказов
-*\
-*/
-void SalaryCount::showHireDirectivesPage()
-{
-	int indexPage = 3;
-	QString namePage = QString("HireDirectivesPage");
-
-	this->currentAction->setEnabled(true);
-	this->currentAction = ui.HireDirectiveAction;
-	this->currentAction->setEnabled(false);
-
-	showStacketItem(indexPage, namePage);
-}
-
-void SalaryCount::showStacketItem(int indexPage, QString namePage)
-{
-	const QWidget* searchPage = ui.stackedWidget->widget(indexPage);
+	QWidget* searchPage = ui.stackedWidget->findChild<QWidget*>(namePage);
 
 	if(searchPage && namePage.compare( searchPage->accessibleName() ))
 	{
-		ui.stackedWidget->setCurrentIndex(indexPage);
+		ui.stackedWidget->setCurrentWidget(searchPage);
 	}
 	else
 	{
 		QTextCodec* c = QTextCodec::codecForLocale();
 		QMessageBox::critical(this,c->toUnicode(""), c->toUnicode("Страница не существует"));
 	}
+}
+
+/*!
+*\
+*/
+void SalaryCount::rememberState(bool state)
+{
+	this->editState = state;
 }
