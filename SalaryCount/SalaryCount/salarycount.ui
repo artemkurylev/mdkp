@@ -13,12 +13,16 @@
   <property name="windowTitle">
    <string>SalaryPayApp</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>topodkazy.png</normaloff>topodkazy.png</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="1">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="EmployeesPage">
        <layout class="QGridLayout" name="gridLayout_8">
@@ -505,7 +509,7 @@
       <widget class="QWidget" name="DutyChartsPage">
        <layout class="QGridLayout" name="gridLayout_7">
         <item row="0" column="0" rowspan="2">
-         <widget class="QGroupBox" name="groupBox_4">
+         <widget class="QGroupBox" name="dutyChartBox">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
             <horstretch>2</horstretch>
@@ -535,7 +539,18 @@
             </layout>
            </item>
            <item row="0" column="0">
-            <widget class="QListWidget" name="listWidget_2"/>
+            <widget class="QListWidget" name="dutyChartList">
+             <item>
+              <property name="text">
+               <string>5/2</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>3/2</string>
+              </property>
+             </item>
+            </widget>
            </item>
            <item row="2" column="0">
             <widget class="QPushButton" name="addDutyChart">
@@ -556,7 +571,7 @@
            <string>Панель редактирования графиков</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_6">
-           <item row="0" column="0">
+           <item row="1" column="0">
             <layout class="QHBoxLayout" name="horizontalLayout_6">
              <item>
               <widget class="QLabel" name="label_13">
@@ -567,6 +582,12 @@
              </item>
              <item>
               <widget class="QDateEdit" name="dateEdit_3">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="displayFormat">
                 <string>dd.MM</string>
                </property>
@@ -574,7 +595,7 @@
              </item>
             </layout>
            </item>
-           <item row="1" column="0">
+           <item row="2" column="0">
             <widget class="QTableWidget" name="DutyChartMarksEdit">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Ignored" vsizetype="Expanding">
@@ -624,7 +645,7 @@
              </column>
             </widget>
            </item>
-           <item row="2" column="0">
+           <item row="3" column="0">
             <layout class="QVBoxLayout" name="verticalLayout_13">
              <item>
               <widget class="QLabel" name="label_19">
@@ -649,7 +670,7 @@
              </item>
             </layout>
            </item>
-           <item row="3" column="0">
+           <item row="4" column="0">
             <layout class="QHBoxLayout" name="horizontalLayout_5">
              <item>
               <widget class="QTimeEdit" name="workTimeEdit">
@@ -674,20 +695,7 @@
              </item>
             </layout>
            </item>
-           <item row="4" column="0">
-            <spacer name="verticalSpacer">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="5" column="0">
+           <item row="6" column="0">
             <layout class="QHBoxLayout" name="horizontalLayout_10">
              <item>
               <widget class="QPushButton" name="saveDutyChartBtn">
@@ -708,6 +716,33 @@
                 <string>Отменить</string>
                </property>
               </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="5" column="0">
+            <spacer name="verticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="0" column="0">
+            <layout class="QHBoxLayout" name="horizontalLayout_7">
+             <item>
+              <widget class="QLabel" name="label_17">
+               <property name="text">
+                <string>Название</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="lineEdit_2"/>
              </item>
             </layout>
            </item>
@@ -791,30 +826,57 @@
    <property name="text">
     <string>Создать предприятие</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
+   </property>
   </action>
   <action name="OpenCompanyAction">
    <property name="text">
     <string>Открыть предприятие</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
    </property>
   </action>
   <action name="LogOffAction">
    <property name="text">
     <string>Выйти</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+E</string>
+   </property>
   </action>
   <action name="EmployeeListAction">
    <property name="text">
     <string>Сотрудники</string>
+   </property>
+   <property name="whatsThis">
+    <string>EmployeesPage</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+E</string>
    </property>
   </action>
   <action name="LaborSheetAction">
    <property name="text">
     <string>Табели учета труда</string>
    </property>
+   <property name="whatsThis">
+    <string>LaborSheetsPage</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
+   </property>
   </action>
   <action name="DutyCharAction">
    <property name="text">
     <string>Графики работы</string>
+   </property>
+   <property name="whatsThis">
+    <string>DutyChartsPage</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
    </property>
   </action>
   <action name="ExitAction">
@@ -825,6 +887,12 @@
   <action name="HireDirectiveAction">
    <property name="text">
     <string>Приказы</string>
+   </property>
+   <property name="whatsThis">
+    <string>HireDirectivesPage</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
    </property>
   </action>
  </widget>
