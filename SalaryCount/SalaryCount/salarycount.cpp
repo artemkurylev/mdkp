@@ -12,17 +12,22 @@ SalaryCount::SalaryCount(QWidget *parent)
 {
     ui.setupUi(this);
 
-    initialDBManager();
+	initialDBManager();
+
 	this->editState = false;
 	
 	// запуск тестирования
-	QTest::qExec( new DirectiveGeneratorTest(0) , NULL , NULL);
+	DirectiveGeneratorTest dir_gen_test(0);
+	QTest::qExec( &dir_gen_test , NULL , NULL);
 
 	//
 	this->dutyChart = new salarycountDutyChart(&this->ui);
 	connect(this->dutyChart,SIGNAL(changeState(bool)),this,SLOT(rememberState(bool)));
 	connect(this,SIGNAL(saveChanges()),this->dutyChart,SLOT(saveNewDutyChart()));
 	connect(this,SIGNAL(cancelChanges()),this->dutyChart,SLOT(cancelNewDutyChart()));
+	
+	ui.saveDutyChartBtn->setEnabled(true);
+	ui.cancelDutyChartBtn->setEnabled(true);
 
 	//постраничный переход
 	ui.stackedWidget->setCurrentIndex(0);//устанавлиаем видимость на странице с сотрудниками
@@ -53,11 +58,31 @@ void SalaryCount::initialDBManager()
         {
 
         }
-    }
-    else
-    {
+        table_created = DutyChart::createDbTable();
+        if(!table_created)
+        {
 
+        }
+        table_created = LaborSheet::createDbTable();
+        if(!table_created)
+        {
+
+        }
+        table_created = HireDirective::createDbTable();
+        if(!table_created)
+        {
+
+        }
+        table_created = Mark::createDbTable();
+        if(!table_created)
+        {
+
+        }
     }
+	else
+	{
+		//TODO
+	}
 
 	//return??
 }
@@ -78,7 +103,7 @@ bool SalaryCount::isEditable()
 
 			case QMessageBox::StandardButton(QMessageBox::No):
 				emit cancelChanges();
-				return true;
+				return false;
 
 			case QMessageBox::StandardButton(QMessageBox::Cancel):
 			default:

@@ -17,7 +17,7 @@ public:
 		HOLIDAY = 100,
 		ATTENDS = 1, // удобно при суммировании посещённых дней для помесячной формы оплаты
 		MISS = 0,
-		USUAL = 8, // стандартный 8-часовой день (предлегать по умолчанию)
+		USUAL = 8, // стандартный 8-часовой день (предлагать по умолчанию)
 		INVALID = 999,
 	};
 
@@ -37,8 +37,8 @@ public:
 private:
     int _base;
     int _altered;
-    int _position;
-    int foreign_id;
+    int _dutychartId;
+    int _laborsheetId;
 };
 
 #endif // MARK_H

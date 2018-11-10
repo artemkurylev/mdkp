@@ -4,6 +4,7 @@
 #include <QtWidgets/QMainWindow>
 #include <qmessagebox.h>
 #include "employee.h"
+#include"laborsheet.h"
 #include "ui_salarycount.h"
 
 #include "salarycountDutyChart.h"
@@ -44,5 +45,4 @@ private slots:
 	//переходы по страницам приложения
 	void showPage(QAction* actionEmited);
 };
-
 #endif // SALARYCOUNT_H

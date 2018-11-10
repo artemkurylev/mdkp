@@ -27,7 +27,6 @@
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QRadioButton>
 #include <QtWidgets/QScrollArea>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QSpinBox>
@@ -57,16 +56,6 @@ public:
     QStackedWidget *stackedWidget;
     QWidget *EmployeesPage;
     QGridLayout *gridLayout_8;
-    QGroupBox *groupBox_5;
-    QGridLayout *gridLayout_3;
-    QHBoxLayout *horizontalLayout;
-    QLabel *label_4;
-    QLineEdit *lineEdit_4;
-    QListWidget *listWidget;
-    QHBoxLayout *horizontalLayout_8;
-    QPushButton *pushButton;
-    QPushButton *pushButton_3;
-    QPushButton *pushButton_2;
     QScrollArea *scrollArea;
     QWidget *scrollAreaWidgetContents;
     QGridLayout *gridLayout_2;
@@ -89,9 +78,6 @@ public:
     QVBoxLayout *verticalLayout;
     QLabel *label;
     QLineEdit *lineEdit;
-    QVBoxLayout *verticalLayout_5;
-    QLabel *label_6;
-    QLineEdit *lineEdit_6;
     QVBoxLayout *verticalLayout_2;
     QLabel *label_9;
     QDateEdit *dateEdit;
@@ -100,20 +86,25 @@ public:
     QSpinBox *spinBox_5;
     QVBoxLayout *verticalLayout_7;
     QLabel *label_8;
-    QSpinBox *spinBox_6;
-    QHBoxLayout *horizontalLayout_2;
-    QLabel *label_7;
-    QHBoxLayout *horizontalLayout_11;
-    QRadioButton *radioButton_2;
-    QRadioButton *radioButton;
+    QLineEdit *lineEdit_2;
     QHBoxLayout *horizontalLayout_12;
     QPushButton *pushButton_11;
     QPushButton *pushButton_12;
+    QGroupBox *groupBox_5;
+    QGridLayout *gridLayout_3;
+    QHBoxLayout *horizontalLayout;
+    QLabel *label_4;
+    QLineEdit *lineEdit_4;
+    QListWidget *listWidget;
+    QHBoxLayout *horizontalLayout_8;
+    QPushButton *pushButton;
+    QPushButton *pushButton_3;
+    QPushButton *pushButton_2;
     QWidget *LaborSheetsPage;
     QGridLayout *gridLayout_10;
     QGroupBox *groupBox_6;
     QGridLayout *gridLayout_4;
-    QTableWidget *tableWidget;
+    QTableWidget *employeeLaborSheetTable;
     QHBoxLayout *horizontalLayout_3;
     QLabel *label_14;
     QLineEdit *lineEdit_9;
@@ -158,7 +149,7 @@ public:
     QSpacerItem *verticalSpacer;
     QHBoxLayout *horizontalLayout_7;
     QLabel *label_17;
-    QLineEdit *lineEdit_2;
+    QLineEdit *lineEdit_21;
     QWidget *HireDirectivesPage;
     QGridLayout *gridLayout_11;
     QPushButton *pushButton_15;
@@ -174,7 +165,7 @@ public:
     {
         if (SalaryCount->objectName().isEmpty())
             SalaryCount->setObjectName(QStringLiteral("SalaryCount"));
-        SalaryCount->resize(687, 474);
+        SalaryCount->resize(719, 559);
         QIcon icon;
         icon.addFile(QStringLiteral("topodkazy.png"), QSize(), QIcon::Normal, QIcon::Off);
         SalaryCount->setWindowIcon(icon);
@@ -208,81 +199,19 @@ public:
         gridLayout_8->setSpacing(6);
         gridLayout_8->setContentsMargins(11, 11, 11, 11);
         gridLayout_8->setObjectName(QStringLiteral("gridLayout_8"));
-        groupBox_5 = new QGroupBox(EmployeesPage);
-        groupBox_5->setObjectName(QStringLiteral("groupBox_5"));
-        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-        sizePolicy.setHorizontalStretch(2);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(groupBox_5->sizePolicy().hasHeightForWidth());
-        groupBox_5->setSizePolicy(sizePolicy);
-        groupBox_5->setMinimumSize(QSize(300, 0));
-        gridLayout_3 = new QGridLayout(groupBox_5);
-        gridLayout_3->setSpacing(6);
-        gridLayout_3->setContentsMargins(11, 11, 11, 11);
-        gridLayout_3->setObjectName(QStringLiteral("gridLayout_3"));
-        horizontalLayout = new QHBoxLayout();
-        horizontalLayout->setSpacing(6);
-        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        label_4 = new QLabel(groupBox_5);
-        label_4->setObjectName(QStringLiteral("label_4"));
-
-        horizontalLayout->addWidget(label_4);
-
-        lineEdit_4 = new QLineEdit(groupBox_5);
-        lineEdit_4->setObjectName(QStringLiteral("lineEdit_4"));
-
-        horizontalLayout->addWidget(lineEdit_4);
-
-
-        gridLayout_3->addLayout(horizontalLayout, 0, 0, 1, 1);
-
-        listWidget = new QListWidget(groupBox_5);
-        new QListWidgetItem(listWidget);
-        new QListWidgetItem(listWidget);
-        new QListWidgetItem(listWidget);
-        new QListWidgetItem(listWidget);
-        new QListWidgetItem(listWidget);
-        listWidget->setObjectName(QStringLiteral("listWidget"));
-
-        gridLayout_3->addWidget(listWidget, 1, 0, 1, 1);
-
-        horizontalLayout_8 = new QHBoxLayout();
-        horizontalLayout_8->setSpacing(6);
-        horizontalLayout_8->setObjectName(QStringLiteral("horizontalLayout_8"));
-        pushButton = new QPushButton(groupBox_5);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-
-        horizontalLayout_8->addWidget(pushButton);
-
-        pushButton_3 = new QPushButton(groupBox_5);
-        pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
-
-        horizontalLayout_8->addWidget(pushButton_3);
-
-
-        gridLayout_3->addLayout(horizontalLayout_8, 3, 0, 1, 1);
-
-        pushButton_2 = new QPushButton(groupBox_5);
-        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-
-        gridLayout_3->addWidget(pushButton_2, 4, 0, 1, 1);
-
-
-        gridLayout_8->addWidget(groupBox_5, 0, 0, 1, 1);
-
         scrollArea = new QScrollArea(EmployeesPage);
         scrollArea->setObjectName(QStringLiteral("scrollArea"));
         scrollArea->setEnabled(true);
-        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Expanding);
-        sizePolicy1.setHorizontalStretch(1);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(scrollArea->sizePolicy().hasHeightForWidth());
-        scrollArea->setSizePolicy(sizePolicy1);
-        scrollArea->setMinimumSize(QSize(237, 0));
+        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy.setHorizontalStretch(1);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(scrollArea->sizePolicy().hasHeightForWidth());
+        scrollArea->setSizePolicy(sizePolicy);
+        scrollArea->setMinimumSize(QSize(280, 0));
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 218, 559));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 257, 564));
         gridLayout_2 = new QGridLayout(scrollAreaWidgetContents);
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -384,22 +313,6 @@ public:
 
         verticalLayout_15->addLayout(verticalLayout);
 
-        verticalLayout_5 = new QVBoxLayout();
-        verticalLayout_5->setSpacing(6);
-        verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
-        label_6 = new QLabel(groupBox);
-        label_6->setObjectName(QStringLiteral("label_6"));
-
-        verticalLayout_5->addWidget(label_6);
-
-        lineEdit_6 = new QLineEdit(groupBox);
-        lineEdit_6->setObjectName(QStringLiteral("lineEdit_6"));
-
-        verticalLayout_5->addWidget(lineEdit_6);
-
-
-        verticalLayout_15->addLayout(verticalLayout_5);
-
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
@@ -440,40 +353,13 @@ public:
 
         verticalLayout_7->addWidget(label_8);
 
-        spinBox_6 = new QSpinBox(groupBox);
-        spinBox_6->setObjectName(QStringLiteral("spinBox_6"));
+        lineEdit_2 = new QLineEdit(groupBox);
+        lineEdit_2->setObjectName(QStringLiteral("lineEdit_2"));
 
-        verticalLayout_7->addWidget(spinBox_6);
+        verticalLayout_7->addWidget(lineEdit_2);
 
 
         verticalLayout_15->addLayout(verticalLayout_7);
-
-        horizontalLayout_2 = new QHBoxLayout();
-        horizontalLayout_2->setSpacing(6);
-        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        label_7 = new QLabel(groupBox);
-        label_7->setObjectName(QStringLiteral("label_7"));
-
-        horizontalLayout_2->addWidget(label_7);
-
-        horizontalLayout_11 = new QHBoxLayout();
-        horizontalLayout_11->setSpacing(6);
-        horizontalLayout_11->setObjectName(QStringLiteral("horizontalLayout_11"));
-        radioButton_2 = new QRadioButton(groupBox);
-        radioButton_2->setObjectName(QStringLiteral("radioButton_2"));
-
-        horizontalLayout_11->addWidget(radioButton_2);
-
-        radioButton = new QRadioButton(groupBox);
-        radioButton->setObjectName(QStringLiteral("radioButton"));
-
-        horizontalLayout_11->addWidget(radioButton);
-
-
-        horizontalLayout_2->addLayout(horizontalLayout_11);
-
-
-        verticalLayout_15->addLayout(horizontalLayout_2);
 
 
         gridLayout_2->addWidget(groupBox, 0, 0, 1, 1);
@@ -500,6 +386,68 @@ public:
 
         gridLayout_8->addWidget(scrollArea, 0, 1, 1, 1);
 
+        groupBox_5 = new QGroupBox(EmployeesPage);
+        groupBox_5->setObjectName(QStringLiteral("groupBox_5"));
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        sizePolicy1.setHorizontalStretch(2);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(groupBox_5->sizePolicy().hasHeightForWidth());
+        groupBox_5->setSizePolicy(sizePolicy1);
+        groupBox_5->setMinimumSize(QSize(300, 0));
+        gridLayout_3 = new QGridLayout(groupBox_5);
+        gridLayout_3->setSpacing(6);
+        gridLayout_3->setContentsMargins(11, 11, 11, 11);
+        gridLayout_3->setObjectName(QStringLiteral("gridLayout_3"));
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        label_4 = new QLabel(groupBox_5);
+        label_4->setObjectName(QStringLiteral("label_4"));
+
+        horizontalLayout->addWidget(label_4);
+
+        lineEdit_4 = new QLineEdit(groupBox_5);
+        lineEdit_4->setObjectName(QStringLiteral("lineEdit_4"));
+
+        horizontalLayout->addWidget(lineEdit_4);
+
+
+        gridLayout_3->addLayout(horizontalLayout, 0, 0, 1, 1);
+
+        listWidget = new QListWidget(groupBox_5);
+        new QListWidgetItem(listWidget);
+        new QListWidgetItem(listWidget);
+        new QListWidgetItem(listWidget);
+        new QListWidgetItem(listWidget);
+        new QListWidgetItem(listWidget);
+        listWidget->setObjectName(QStringLiteral("listWidget"));
+
+        gridLayout_3->addWidget(listWidget, 1, 0, 1, 1);
+
+        horizontalLayout_8 = new QHBoxLayout();
+        horizontalLayout_8->setSpacing(6);
+        horizontalLayout_8->setObjectName(QStringLiteral("horizontalLayout_8"));
+        pushButton = new QPushButton(groupBox_5);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+
+        horizontalLayout_8->addWidget(pushButton);
+
+        pushButton_3 = new QPushButton(groupBox_5);
+        pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
+
+        horizontalLayout_8->addWidget(pushButton_3);
+
+
+        gridLayout_3->addLayout(horizontalLayout_8, 3, 0, 1, 1);
+
+        pushButton_2 = new QPushButton(groupBox_5);
+        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
+
+        gridLayout_3->addWidget(pushButton_2, 4, 0, 1, 1);
+
+
+        gridLayout_8->addWidget(groupBox_5, 0, 0, 1, 1);
+
         stackedWidget->addWidget(EmployeesPage);
         LaborSheetsPage = new QWidget();
         LaborSheetsPage->setObjectName(QStringLiteral("LaborSheetsPage"));
@@ -509,16 +457,16 @@ public:
         gridLayout_10->setObjectName(QStringLiteral("gridLayout_10"));
         groupBox_6 = new QGroupBox(LaborSheetsPage);
         groupBox_6->setObjectName(QStringLiteral("groupBox_6"));
-        sizePolicy.setHeightForWidth(groupBox_6->sizePolicy().hasHeightForWidth());
-        groupBox_6->setSizePolicy(sizePolicy);
+        sizePolicy1.setHeightForWidth(groupBox_6->sizePolicy().hasHeightForWidth());
+        groupBox_6->setSizePolicy(sizePolicy1);
         gridLayout_4 = new QGridLayout(groupBox_6);
         gridLayout_4->setSpacing(6);
         gridLayout_4->setContentsMargins(11, 11, 11, 11);
         gridLayout_4->setObjectName(QStringLiteral("gridLayout_4"));
-        tableWidget = new QTableWidget(groupBox_6);
-        tableWidget->setObjectName(QStringLiteral("tableWidget"));
+        employeeLaborSheetTable = new QTableWidget(groupBox_6);
+        employeeLaborSheetTable->setObjectName(QStringLiteral("employeeLaborSheetTable"));
 
-        gridLayout_4->addWidget(tableWidget, 2, 0, 1, 1);
+        gridLayout_4->addWidget(employeeLaborSheetTable, 2, 0, 1, 1);
 
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setSpacing(6);
@@ -800,10 +748,10 @@ public:
 
         horizontalLayout_7->addWidget(label_17);
 
-        lineEdit_2 = new QLineEdit(dutyChartEdit);
-        lineEdit_2->setObjectName(QStringLiteral("lineEdit_2"));
+        lineEdit_21 = new QLineEdit(dutyChartEdit);
+        lineEdit_21->setObjectName(QStringLiteral("lineEdit_21"));
 
-        horizontalLayout_7->addWidget(lineEdit_2);
+        horizontalLayout_7->addWidget(lineEdit_21);
 
 
         gridLayout_6->addLayout(horizontalLayout_7, 0, 0, 1, 1);
@@ -845,7 +793,7 @@ public:
         SalaryCount->addToolBar(Qt::TopToolBarArea, mainToolBar);
         menuBar = new QMenuBar(SalaryCount);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 687, 21));
+        menuBar->setGeometry(QRect(0, 0, 719, 26));
         menu = new QMenu(menuBar);
         menu->setObjectName(QStringLiteral("menu"));
         CompanyMenu = new QMenu(menuBar);
@@ -869,7 +817,7 @@ public:
 
         retranslateUi(SalaryCount);
 
-        stackedWidget->setCurrentIndex(2);
+        stackedWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(SalaryCount);
@@ -905,6 +853,18 @@ public:
         HireDirectiveAction->setWhatsThis(QApplication::translate("SalaryCount", "HireDirectivesPage", 0));
 #endif // QT_NO_WHATSTHIS
         HireDirectiveAction->setShortcut(QApplication::translate("SalaryCount", "Ctrl+D", 0));
+        groupBox_2->setTitle(QApplication::translate("SalaryCount", "\320\240\320\260\320\261\320\276\321\207\320\270\320\265 \320\264\320\260\320\275\320\275\321\213\320\265", 0));
+        label_11->setText(QApplication::translate("SalaryCount", "\320\235\320\276\320\274\320\265\321\200 \320\277\321\200\320\270\320\272\320\260\320\267\320\260 \320\276 \320\277\321\200\320\270\320\265\320\274\320\265 \320\275\320\260 \321\200\320\260\320\261\320\276\321\202\321\203", 0));
+        label_5->setText(QApplication::translate("SalaryCount", "\320\236\320\272\320\273\320\260\320\264", 0));
+        label_10->setText(QApplication::translate("SalaryCount", "\320\244\320\276\321\200\320\274\320\260 \320\276\320\277\320\273\320\260\321\202\321\213 \321\202\321\200\321\203\320\264\320\260", 0));
+        label_12->setText(QApplication::translate("SalaryCount", "\320\223\321\200\320\260\321\204\320\270\320\272 \321\200\320\260\320\261\320\276\321\202\321\213", 0));
+        groupBox->setTitle(QApplication::translate("SalaryCount", "\320\233\320\270\321\207\320\275\321\213\320\265 \320\264\320\260\320\275\320\275\321\213\320\265", 0));
+        label->setText(QApplication::translate("SalaryCount", "\320\244\320\230\320\236", 0));
+        label_9->setText(QApplication::translate("SalaryCount", "\320\224\320\260\321\202\320\260 \321\200\320\276\320\266\320\264\320\265\320\275\320\270\321\217", 0));
+        label_3->setText(QApplication::translate("SalaryCount", "\320\230\320\235\320\235", 0));
+        label_8->setText(QApplication::translate("SalaryCount", "\320\242\320\265\320\273\320\265\321\204\320\276\320\275", 0));
+        pushButton_11->setText(QApplication::translate("SalaryCount", "\320\241\320\276\321\205\321\200\320\260\320\275\320\270\321\202\321\214", 0));
+        pushButton_12->setText(QApplication::translate("SalaryCount", "\320\241\320\261\321\200\320\276\321\201\320\270\321\202\321\214", 0));
         groupBox_5->setTitle(QApplication::translate("SalaryCount", "\320\241\320\276\321\202\321\200\321\203\320\264\320\275\320\270\320\272\320\270", 0));
         label_4->setText(QApplication::translate("SalaryCount", "\320\237\320\276\320\270\321\201\320\272 \321\201\320\276\321\202\321\200\321\203\320\264\320\275\320\270\320\272\320\276\320\262", 0));
 
@@ -925,22 +885,6 @@ public:
         pushButton->setText(QApplication::translate("SalaryCount", "\320\240\320\265\320\264\320\260\320\272\321\202\320\270\321\200\320\276\320\262\320\260\321\202\321\214", 0));
         pushButton_3->setText(QApplication::translate("SalaryCount", "\320\243\320\264\320\260\320\273\320\270\321\202\321\214", 0));
         pushButton_2->setText(QApplication::translate("SalaryCount", "\320\224\320\276\320\261\320\260\320\262\320\270\321\202\321\214 \321\201\320\276\321\202\321\200\321\203\320\264\320\275\320\270\320\272\320\260", 0));
-        groupBox_2->setTitle(QApplication::translate("SalaryCount", "\320\240\320\260\320\261\320\276\321\207\320\270\320\265 \320\264\320\260\320\275\320\275\321\213\320\265", 0));
-        label_11->setText(QApplication::translate("SalaryCount", "\320\235\320\276\320\274\320\265\321\200 \320\277\321\200\320\270\320\272\320\260\320\267\320\260 \320\276 \320\277\321\200\320\270\320\265\320\274\320\265 \320\275\320\260 \321\200\320\260\320\261\320\276\321\202\321\203", 0));
-        label_5->setText(QApplication::translate("SalaryCount", "\320\236\320\272\320\273\320\260\320\264", 0));
-        label_10->setText(QApplication::translate("SalaryCount", "\320\244\320\276\321\200\320\274\320\260 \320\276\320\277\320\273\320\260\321\202\321\213 \321\202\321\200\321\203\320\264\320\260", 0));
-        label_12->setText(QApplication::translate("SalaryCount", "\320\223\321\200\320\260\321\204\320\270\320\272 \321\200\320\260\320\261\320\276\321\202\321\213", 0));
-        groupBox->setTitle(QApplication::translate("SalaryCount", "\320\233\320\270\321\207\320\275\321\213\320\265 \320\264\320\260\320\275\320\275\321\213\320\265", 0));
-        label->setText(QApplication::translate("SalaryCount", "\320\244\320\230\320\236", 0));
-        label_6->setText(QApplication::translate("SalaryCount", "\320\220\320\264\321\200\320\265\321\201 \320\277\321\200\320\276\320\266\320\270\320\262\320\260\320\275\320\270\321\217", 0));
-        label_9->setText(QApplication::translate("SalaryCount", "\320\224\320\260\321\202\320\260 \321\200\320\276\320\266\320\264\320\265\320\275\320\270\321\217", 0));
-        label_3->setText(QApplication::translate("SalaryCount", "\320\230\320\235\320\235", 0));
-        label_8->setText(QApplication::translate("SalaryCount", "\320\242\320\265\320\273\320\265\321\204\320\276\320\275", 0));
-        label_7->setText(QApplication::translate("SalaryCount", "\320\277\320\276\320\273", 0));
-        radioButton_2->setText(QApplication::translate("SalaryCount", "\320\226", 0));
-        radioButton->setText(QApplication::translate("SalaryCount", "\320\234", 0));
-        pushButton_11->setText(QApplication::translate("SalaryCount", "\320\241\320\276\321\205\321\200\320\260\320\275\320\270\321\202\321\214", 0));
-        pushButton_12->setText(QApplication::translate("SalaryCount", "\320\236\321\202\320\274\320\265\320\275\320\270\321\202\321\214", 0));
         groupBox_6->setTitle(QApplication::translate("SalaryCount", "\320\242\320\260\320\261\320\265\320\273\321\214 \321\203\321\207\320\265\321\202\320\260 \321\202\321\200\321\203\320\264\320\260", 0));
         label_14->setText(QApplication::translate("SalaryCount", "\320\237\320\276\320\270\321\201\320\272 \321\201\320\276\321\202\321\200\321\203\320\264\320\275\320\270\320\272\320\276\320\262", 0));
         pushButton_7->setText(QApplication::translate("SalaryCount", "\320\230\320\267\320\274\320\265\320\275\320\270\321\202\321\214", 0));
