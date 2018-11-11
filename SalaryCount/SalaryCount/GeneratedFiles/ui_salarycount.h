@@ -163,6 +163,7 @@ public:
     QHBoxLayout *horizontalLayout_7;
     QLabel *label_17;
 <<<<<<< HEAD
+<<<<<<< HEAD
     QLineEdit *lineEdit_2;
 >>>>>>> 157dcdb... Добавлено поле для имени нового графика, добавлена иконка приложения 64х64
     QWidget *HireDirectivesPage;
@@ -173,6 +174,9 @@ public:
 =======
     QLineEdit *nameDutyChart;
 >>>>>>> ee8954d... Добавлен метод отчистки полей для секции редактирования графиков
+=======
+    QLineEdit *nameDutyChart;
+>>>>>>> b19fbbe... Добавлен метод отчистки полей для секции редактирования графиков
     QWidget *HireDirectivesPage;
 >>>>>>> 788c143... Добавлена возможность постраничного перехода в приложении
     QGridLayout *gridLayout_11;
@@ -190,10 +194,14 @@ public:
         if (SalaryCount->objectName().isEmpty())
             SalaryCount->setObjectName(QStringLiteral("SalaryCount"));
 <<<<<<< HEAD
+<<<<<<< HEAD
         SalaryCount->resize(687, 474);
 =======
         SalaryCount->resize(732, 552);
 >>>>>>> ee8954d... Добавлен метод отчистки полей для секции редактирования графиков
+=======
+        SalaryCount->resize(732, 552);
+>>>>>>> b19fbbe... Добавлен метод отчистки полей для секции редактирования графиков
         QIcon icon;
         icon.addFile(QStringLiteral("topodkazy.png"), QSize(), QIcon::Normal, QIcon::Off);
         SalaryCount->setWindowIcon(icon);
@@ -303,6 +311,7 @@ public:
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         scrollAreaWidgetContents->setGeometry(QRect(0, -176, 218, 559));
 =======
         scrollAreaWidgetContents->setGeometry(QRect(0, 0, 218, 559));
@@ -310,6 +319,9 @@ public:
 =======
         scrollAreaWidgetContents->setGeometry(QRect(0, 0, 217, 485));
 >>>>>>> ee8954d... Добавлен метод отчистки полей для секции редактирования графиков
+=======
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 217, 485));
+>>>>>>> b19fbbe... Добавлен метод отчистки полей для секции редактирования графиков
         gridLayout_2 = new QGridLayout(scrollAreaWidgetContents);
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -831,16 +843,22 @@ public:
         horizontalLayout_7->addWidget(label_17);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         lineEdit_2 = new QLineEdit(dutyChartEdit);
         lineEdit_2->setObjectName(QStringLiteral("lineEdit_2"));
 
         horizontalLayout_7->addWidget(lineEdit_2);
 =======
+=======
+>>>>>>> b19fbbe... Добавлен метод отчистки полей для секции редактирования графиков
         nameDutyChart = new QLineEdit(dutyChartEdit);
         nameDutyChart->setObjectName(QStringLiteral("nameDutyChart"));
 
         horizontalLayout_7->addWidget(nameDutyChart);
+<<<<<<< HEAD
 >>>>>>> ee8954d... Добавлен метод отчистки полей для секции редактирования графиков
+=======
+>>>>>>> b19fbbe... Добавлен метод отчистки полей для секции редактирования графиков
 
 
         gridLayout_6->addLayout(horizontalLayout_7, 0, 0, 1, 1);
@@ -883,10 +901,14 @@ public:
         menuBar = new QMenuBar(SalaryCount);
         menuBar->setObjectName(QStringLiteral("menuBar"));
 <<<<<<< HEAD
+<<<<<<< HEAD
         menuBar->setGeometry(QRect(0, 0, 687, 21));
 =======
         menuBar->setGeometry(QRect(0, 0, 732, 21));
 >>>>>>> ee8954d... Добавлен метод отчистки полей для секции редактирования графиков
+=======
+        menuBar->setGeometry(QRect(0, 0, 732, 21));
+>>>>>>> b19fbbe... Добавлен метод отчистки полей для секции редактирования графиков
         menu = new QMenu(menuBar);
         menu->setObjectName(QStringLiteral("menu"));
         CompanyMenu = new QMenu(menuBar);
@@ -912,6 +934,7 @@ public:
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         stackedWidget->setCurrentIndex(2);
 =======
         stackedWidget->setCurrentIndex(1);
@@ -919,6 +942,9 @@ public:
 =======
         stackedWidget->setCurrentIndex(2);
 >>>>>>> ee8954d... Добавлен метод отчистки полей для секции редактирования графиков
+=======
+        stackedWidget->setCurrentIndex(2);
+>>>>>>> b19fbbe... Добавлен метод отчистки полей для секции редактирования графиков
 
 
         QMetaObject::connectSlotsByName(SalaryCount);

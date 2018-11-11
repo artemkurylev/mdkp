@@ -10,6 +10,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     <width>737</width>
 =======
     <width>709</width>
@@ -26,6 +27,10 @@
     <width>732</width>
     <height>552</height>
 >>>>>>> ee8954d... Добавлен метод отчистки полей для секции редактирования графиков
+=======
+    <width>732</width>
+    <height>552</height>
+>>>>>>> b19fbbe... Добавлен метод отчистки полей для секции редактирования графиков
    </rect>
   </property>
   <property name="windowTitle">
@@ -43,11 +48,14 @@
 <<<<<<< HEAD
        <number>2</number>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
        <number>1</number>
 >>>>>>> e58b09a... Изменено названия виджета с табелями учета труда
 =======
 >>>>>>> ee8954d... Добавлен метод отчистки полей для секции редактирования графиков
+=======
+>>>>>>> b19fbbe... Добавлен метод отчистки полей для секции редактирования графиков
       </property>
       <widget class="QWidget" name="EmployeesPage">
        <layout class="QGridLayout" name="gridLayout_8">
@@ -81,6 +89,7 @@
              <y>0</y>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 788c143... Добавлена возможность постраничного перехода в приложении
              <width>218</width>
              <height>559</height>
@@ -92,6 +101,10 @@
              <width>217</width>
              <height>485</height>
 >>>>>>> ee8954d... Добавлен метод отчистки полей для секции редактирования графиков
+=======
+             <width>217</width>
+             <height>485</height>
+>>>>>>> b19fbbe... Добавлен метод отчистки полей для секции редактирования графиков
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_2">
@@ -811,6 +824,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
      <width>737</width>
 =======
      <width>709</width>
@@ -835,6 +849,10 @@
      <width>732</width>
      <height>21</height>
 >>>>>>> ee8954d... Добавлен метод отчистки полей для секции редактирования графиков
+=======
+     <width>732</width>
+     <height>21</height>
+>>>>>>> b19fbbe... Добавлен метод отчистки полей для секции редактирования графиков
     </rect>
    </property>
    <widget class="QMenu" name="menu">
