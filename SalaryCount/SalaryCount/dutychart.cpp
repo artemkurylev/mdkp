@@ -110,7 +110,7 @@ bool DutyChart::fetch(){
         return false;
     }
 }
-QMap<int,QString> getAll()
+QMap<int,QString> DutyChart::getAll()
 {
     QMap<int,QString> records;
     if(DbManager::manager().checkConnection())
@@ -130,7 +130,7 @@ QMap<int,QString> getAll()
 
     return records;
 }
-long countEntries()
+long DutyChart::countEntries()
 {
     int counter = 0;
     if(DbManager::manager().checkConnection())

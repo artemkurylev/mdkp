@@ -27,7 +27,7 @@ public:
     const int length()       const	{return _grid.size();}
     QString name()           const  {return _name;} 
     const QList<Mark>& grid() const	{return _grid;}
-    static QList<DutyChart> getAll();
+    static QMap<int,QString> getAll();
     static long countEntries();
     ~DutyChart();
 
