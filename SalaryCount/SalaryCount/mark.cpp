@@ -14,6 +14,14 @@ Mark::Mark(int baseMark)
 	_altered = INVALID;
 } 
 
+Mark::Mark(int base, int altered, int dutychartId,int laborsheetId)
+    : DbRecord(NULL)
+{
+	_base = base;
+	_altered = altered;
+    _dutychartId = dutychartId;
+    _laborsheetId = laborsheetId;
+}
 
 bool Mark::fetch()
 {

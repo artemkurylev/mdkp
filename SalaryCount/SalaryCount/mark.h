@@ -9,8 +9,11 @@ class Mark : public DbRecord
     Q_OBJECT
 
 public:
-    Mark(QObject *parent);
-    Mark(int baseMark=0);
+
+    Mark();
+    Mark(int baseMark);
+    Mark(int base, int altered, int dutychartId,int laborsheetId);
+
     ~Mark();
 
     bool fetch();
