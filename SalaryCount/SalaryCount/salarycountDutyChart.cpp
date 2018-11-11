@@ -39,7 +39,7 @@ salarycountDutyChart::~salarycountDutyChart()
 */
 void salarycountDutyChart::addDutyChart()
 {
-	//clear fields
+	clearFields();//clear fields
 
 	editDutyChart();
 }
@@ -62,7 +62,7 @@ void salarycountDutyChart::cancelNewDutyChart()
 {
 	this->currentState = app_states::USUAL;
 	emit changeState(false);
-	//clear fields
+	clearFields();//clear fields
 
 	ui->dutyChartEdit->setEnabled(false);
 	ui->dutyChartBox->setEnabled(true);
@@ -113,5 +113,22 @@ void salarycountDutyChart::validateData() const
 
 void salarycountDutyChart::clearFields()
 {
+	this->ui->nameDutyChart->clear();
+	this->ui->startDate->setDateTime(QDateTime(QDate::currentDate()));
+	this->ui->workTimeEdit->setTime(QTime(0,0));
 
+	for(int i=this->ui->DutyChartMarksEdit->rowCount()-1; i>=0; --i)
+	{
+		QComboBox* combo = (QComboBox*)ui->DutyChartMarksEdit->cellWidget(i,0);
+		
+		if(combo->count()>=2)
+		{
+			combo->setCurrentIndex(1);
+		}
+	}
+
+	if(this->ui->payFormChoice->count()>=1)
+	{
+		this->ui->payFormChoice->setCurrentIndex(0);
+	}
 }

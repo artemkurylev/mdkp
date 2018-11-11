@@ -26,8 +26,8 @@ private slots:
 	//поведение на странице создания графиков
 	void addDutyChart();//добавление нового графика
 	void editDutyChart();
-	void saveNewDutyChart();
 	void cancelNewDutyChart();
+	void saveNewDutyChart();//метод работает с бд
 
 	void changePayForm(int index);
 
