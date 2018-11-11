@@ -10,6 +10,7 @@ class Mark : public DbRecord
 public:
     Mark();
     Mark(int baseMark);
+    Mark(int base, int altered, int dutychartId,int laborsheetId);
     ~Mark();
 
 	enum Type
