@@ -9,6 +9,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     <width>737</width>
 =======
     <width>709</width>
@@ -21,6 +22,10 @@
     <width>719</width>
     <height>559</height>
 >>>>>>> 87d3f2b... Правки формы: поле ввода телефона: Label, увеличена ширина ScrollArea
+=======
+    <width>732</width>
+    <height>552</height>
+>>>>>>> ee8954d... Добавлен метод отчистки полей для секции редактирования графиков
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,9 +42,12 @@
       <property name="currentIndex">
 <<<<<<< HEAD
        <number>2</number>
+<<<<<<< HEAD
 =======
        <number>1</number>
 >>>>>>> e58b09a... Изменено названия виджета с табелями учета труда
+=======
+>>>>>>> ee8954d... Добавлен метод отчистки полей для секции редактирования графиков
       </property>
       <widget class="QWidget" name="EmployeesPage">
        <layout class="QGridLayout" name="gridLayout_8">
@@ -72,6 +80,7 @@
 =======
              <y>0</y>
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 788c143... Добавлена возможность постраничного перехода в приложении
              <width>218</width>
              <height>559</height>
@@ -79,6 +88,10 @@
              <width>257</width>
              <height>564</height>
 >>>>>>> 87d3f2b... Правки формы: поле ввода телефона: Label, увеличена ширина ScrollArea
+=======
+             <width>217</width>
+             <height>485</height>
+>>>>>>> ee8954d... Добавлен метод отчистки полей для секции редактирования графиков
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_2">
@@ -554,6 +567,12 @@
           <property name="enabled">
            <bool>false</bool>
           </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="title">
            <string>Панель редактирования графиков</string>
           </property>
@@ -563,12 +582,12 @@
              <item>
               <widget class="QLabel" name="label_13">
                <property name="text">
-                <string>TextLabel</string>
+                <string>Дата начала графика</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QDateEdit" name="dateEdit_3">
+              <widget class="QDateEdit" name="startDate">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -589,6 +608,12 @@
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>240</height>
+              </size>
              </property>
              <row>
               <property name="text">
@@ -729,7 +754,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_2"/>
+              <widget class="QLineEdit" name="nameDutyChart"/>
              </item>
             </layout>
            </item>
@@ -785,6 +810,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
      <width>737</width>
 =======
      <width>709</width>
@@ -805,6 +831,10 @@
      <width>719</width>
      <height>26</height>
 >>>>>>> 87d3f2b... Правки формы: поле ввода телефона: Label, увеличена ширина ScrollArea
+=======
+     <width>732</width>
+     <height>21</height>
+>>>>>>> ee8954d... Добавлен метод отчистки полей для секции редактирования графиков
     </rect>
    </property>
    <widget class="QMenu" name="menu">
