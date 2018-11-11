@@ -15,7 +15,7 @@ public:
     
 	DutyChart(QList<Mark> marks, enum PayForm payForm=PER_HOUR)	{_grid = marks;_payForm=payForm;}
 
-	bool fetch()	{return false;}
+	bool fetch();
 	bool set()		{return false;}
 	bool validate() const {return false;}
 	bool update()	const {return false;}
@@ -24,16 +24,19 @@ public:
 
     const int payForm()		 const	{return _payForm;}
     const QDate anchorDate() const	{return _anchorDate;}
-    const int length()		 const	{return _grid.size();}
+    const int length()       const	{return _grid.size();}
+    QString name()           const  {return _name;} 
     const QList<Mark>& grid() const	{return _grid;}
-
+    static QList<DutyChart> getAll();
+    static long countEntries();
     ~DutyChart();
 
    
 private:
     
-	//! Форма оплаты, для которой создаётся график 
-	int _payForm;
+    QString _name;
+	//! Форма оплаты, для которой создаётся график
+    int _payForm;
     QList<Mark> _grid;
     QDate _anchorDate;
 };
