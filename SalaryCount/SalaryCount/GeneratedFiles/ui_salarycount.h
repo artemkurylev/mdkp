@@ -135,7 +135,7 @@ public:
     QGridLayout *gridLayout_6;
     QHBoxLayout *horizontalLayout_6;
     QLabel *label_13;
-    QDateEdit *dateEdit_3;
+    QDateEdit *startDate;
     QTableWidget *DutyChartMarksEdit;
     QVBoxLayout *verticalLayout_13;
     QLabel *label_19;
@@ -149,7 +149,7 @@ public:
     QSpacerItem *verticalSpacer;
     QHBoxLayout *horizontalLayout_7;
     QLabel *label_17;
-    QLineEdit *lineEdit_21;
+    QLineEdit *nameDutyChart;
     QWidget *HireDirectivesPage;
     QGridLayout *gridLayout_11;
     QPushButton *pushButton_15;
@@ -165,7 +165,7 @@ public:
     {
         if (SalaryCount->objectName().isEmpty())
             SalaryCount->setObjectName(QStringLiteral("SalaryCount"));
-        SalaryCount->resize(719, 559);
+        SalaryCount->resize(732, 552);
         QIcon icon;
         icon.addFile(QStringLiteral("topodkazy.png"), QSize(), QIcon::Normal, QIcon::Off);
         SalaryCount->setWindowIcon(icon);
@@ -211,7 +211,7 @@ public:
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 257, 564));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 217, 485));
         gridLayout_2 = new QGridLayout(scrollAreaWidgetContents);
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -629,6 +629,8 @@ public:
         dutyChartEdit = new QGroupBox(DutyChartsPage);
         dutyChartEdit->setObjectName(QStringLiteral("dutyChartEdit"));
         dutyChartEdit->setEnabled(false);
+        sizePolicy2.setHeightForWidth(dutyChartEdit->sizePolicy().hasHeightForWidth());
+        dutyChartEdit->setSizePolicy(sizePolicy2);
         gridLayout_6 = new QGridLayout(dutyChartEdit);
         gridLayout_6->setSpacing(6);
         gridLayout_6->setContentsMargins(11, 11, 11, 11);
@@ -641,15 +643,15 @@ public:
 
         horizontalLayout_6->addWidget(label_13);
 
-        dateEdit_3 = new QDateEdit(dutyChartEdit);
-        dateEdit_3->setObjectName(QStringLiteral("dateEdit_3"));
+        startDate = new QDateEdit(dutyChartEdit);
+        startDate->setObjectName(QStringLiteral("startDate"));
         QSizePolicy sizePolicy5(QSizePolicy::Expanding, QSizePolicy::Fixed);
         sizePolicy5.setHorizontalStretch(0);
         sizePolicy5.setVerticalStretch(0);
-        sizePolicy5.setHeightForWidth(dateEdit_3->sizePolicy().hasHeightForWidth());
-        dateEdit_3->setSizePolicy(sizePolicy5);
+        sizePolicy5.setHeightForWidth(startDate->sizePolicy().hasHeightForWidth());
+        startDate->setSizePolicy(sizePolicy5);
 
-        horizontalLayout_6->addWidget(dateEdit_3);
+        horizontalLayout_6->addWidget(startDate);
 
 
         gridLayout_6->addLayout(horizontalLayout_6, 1, 0, 1, 1);
@@ -681,6 +683,7 @@ public:
         sizePolicy6.setVerticalStretch(0);
         sizePolicy6.setHeightForWidth(DutyChartMarksEdit->sizePolicy().hasHeightForWidth());
         DutyChartMarksEdit->setSizePolicy(sizePolicy6);
+        DutyChartMarksEdit->setMinimumSize(QSize(0, 240));
 
         gridLayout_6->addWidget(DutyChartMarksEdit, 2, 0, 1, 1);
 
@@ -748,10 +751,10 @@ public:
 
         horizontalLayout_7->addWidget(label_17);
 
-        lineEdit_21 = new QLineEdit(dutyChartEdit);
-        lineEdit_21->setObjectName(QStringLiteral("lineEdit_21"));
+        nameDutyChart = new QLineEdit(dutyChartEdit);
+        nameDutyChart->setObjectName(QStringLiteral("nameDutyChart"));
 
-        horizontalLayout_7->addWidget(lineEdit_21);
+        horizontalLayout_7->addWidget(nameDutyChart);
 
 
         gridLayout_6->addLayout(horizontalLayout_7, 0, 0, 1, 1);
@@ -793,7 +796,7 @@ public:
         SalaryCount->addToolBar(Qt::TopToolBarArea, mainToolBar);
         menuBar = new QMenuBar(SalaryCount);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 719, 26));
+        menuBar->setGeometry(QRect(0, 0, 732, 21));
         menu = new QMenu(menuBar);
         menu->setObjectName(QStringLiteral("menu"));
         CompanyMenu = new QMenu(menuBar);
@@ -817,7 +820,7 @@ public:
 
         retranslateUi(SalaryCount);
 
-        stackedWidget->setCurrentIndex(1);
+        stackedWidget->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(SalaryCount);
@@ -909,8 +912,8 @@ public:
 
         addDutyChart->setText(QApplication::translate("SalaryCount", "\320\224\320\276\320\261\320\260\320\262\320\270\321\202\321\214 \320\275\320\276\320\262\321\213\320\271 \320\263\321\200\320\260\321\204\320\270\320\272", 0));
         dutyChartEdit->setTitle(QApplication::translate("SalaryCount", "\320\237\320\260\320\275\320\265\320\273\321\214 \321\200\320\265\320\264\320\260\320\272\321\202\320\270\321\200\320\276\320\262\320\260\320\275\320\270\321\217 \320\263\321\200\320\260\321\204\320\270\320\272\320\276\320\262", 0));
-        label_13->setText(QApplication::translate("SalaryCount", "TextLabel", 0));
-        dateEdit_3->setDisplayFormat(QApplication::translate("SalaryCount", "dd.MM", 0));
+        label_13->setText(QApplication::translate("SalaryCount", "\320\224\320\260\321\202\320\260 \320\275\320\260\321\207\320\260\320\273\320\260 \320\263\321\200\320\260\321\204\320\270\320\272\320\260", 0));
+        startDate->setDisplayFormat(QApplication::translate("SalaryCount", "dd.MM", 0));
         QTableWidgetItem *___qtablewidgetitem = DutyChartMarksEdit->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QApplication::translate("SalaryCount", "\320\236\321\202\320\274\320\265\321\202\320\272\320\260", 0));
         QTableWidgetItem *___qtablewidgetitem1 = DutyChartMarksEdit->verticalHeaderItem(0);
