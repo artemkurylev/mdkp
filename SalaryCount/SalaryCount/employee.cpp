@@ -123,6 +123,43 @@ int Employee::insert() const
         return -1;
     }
 }
+QMap<int,QString> Employee::getAll()
+{
+    QMap<int,QString> records;
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+
+        query->prepare("SELECT id,name FROM `employee`");
+        if(query->exec())
+        {
+            while(query->next())
+            {
+                records.insert(query->value(0).toInt(), query->value(0).toString()); 
+            }
+        }
+        delete query;
+    }
+
+    return records;
+}
+long Employee::countEntries()
+{
+    int counter = 0;
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+
+        query->prepare("SELECT COUNT(*) FROM `employee`");
+        if(query->exec())
+        {
+            if(query->next())
+                counter = query->value(0).toInt();
+        }
+        delete query;
+    }
+    return counter;
+}
 
 Employee::~Employee()
 {
