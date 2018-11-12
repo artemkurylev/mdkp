@@ -10,7 +10,12 @@ BillingPeriod::~BillingPeriod()
 {
 
 }
-
+BillingPeriod::BillingPeriod(const QDate& startDate,Status status)
+    :DbRecord(0)
+{
+    _status = status;
+    _startDate = startDate;
+}
 bool BillingPeriod::fetch()
 {
     if(DbManager::manager().checkConnection())
