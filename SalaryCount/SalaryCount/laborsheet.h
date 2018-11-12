@@ -56,6 +56,8 @@ public:
 
     static QMap <int,int> getAll();
 
+    static long countEntries();
+
 private:
 
     BillingPeriod* _billingPeriod;
