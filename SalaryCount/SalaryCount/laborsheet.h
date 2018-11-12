@@ -50,7 +50,7 @@ public:
     bool LaborSheet::validate() const;
     //Статические методы
     static bool createDbTable();
-    static QList <LaborSheet*> getAll();
+    static QMap <int,int> getAll();
 private:
     BillingPeriod* _billingPeriod;
     int _employeeId;
