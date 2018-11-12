@@ -8,6 +8,12 @@
 #include <qsqlquery.h>
 #include "qsqlerror.h"
 
+struct DbConf
+{
+	QString hostName, dbName, userName, pass;
+	int port;
+};
+
 class DbManager : public QObject
 {
     Q_OBJECT

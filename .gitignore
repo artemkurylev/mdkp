@@ -6,6 +6,7 @@
 *.user
 *.filters
 *.pdf
+*.ini
 
 debug
 Debug

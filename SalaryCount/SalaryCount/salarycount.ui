@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>719</width>
-    <height>559</height>
+    <width>732</width>
+    <height>552</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,7 +23,6 @@
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
        <number>2</number>
-       <number>1</number>
       </property>
       <widget class="QWidget" name="EmployeesPage">
        <layout class="QGridLayout" name="gridLayout_8">
@@ -52,8 +51,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>257</width>
-             <height>564</height>
+             <width>217</width>
+             <height>485</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_2">
@@ -525,6 +524,12 @@
           <property name="enabled">
            <bool>false</bool>
           </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="title">
            <string>Панель редактирования графиков</string>
           </property>
@@ -534,12 +539,12 @@
              <item>
               <widget class="QLabel" name="label_13">
                <property name="text">
-                <string>TextLabel</string>
+                <string>Дата начала графика</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QDateEdit" name="dateEdit_3">
+              <widget class="QDateEdit" name="startDate">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -560,6 +565,12 @@
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>240</height>
+              </size>
              </property>
              <row>
               <property name="text">
@@ -700,7 +711,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_2"/>
+              <widget class="QLineEdit" name="nameDutyChart"/>
              </item>
             </layout>
            </item>
@@ -753,10 +764,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>687</width>
+     <width>732</width>
      <height>21</height>
-     <width>719</width>
-     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
