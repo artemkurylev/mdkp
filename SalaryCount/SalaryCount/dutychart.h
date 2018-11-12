@@ -11,7 +11,8 @@ class DutyChart : public DbRecord
     Q_OBJECT
 
 public:
-    DutyChart(/* int id ?? */);
+    DutyChart();
+    DutyChart(int id);
     
 	DutyChart(QList<Mark> marks, enum PayForm payForm=PER_HOUR)	{_grid = marks;_payForm=payForm;}
 
