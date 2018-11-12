@@ -20,7 +20,8 @@ public:
     bool update() const;
     int insert() const;
     static bool createDbTable();
-
+    static QMap<int,QString> getAll();
+    static long countEntries();
     const HireDirective* hireDirective() const;
 
 private:
