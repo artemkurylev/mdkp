@@ -51,6 +51,7 @@ public:
     //Статические методы
     static bool createDbTable();
     static QMap <int,int> getAll();
+    static long countEntries();
 private:
     BillingPeriod* _billingPeriod;
     int _employeeId;
