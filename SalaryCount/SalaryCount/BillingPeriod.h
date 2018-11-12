@@ -10,15 +10,18 @@ class BillingPeriod : public DbRecord
 
 public:
     BillingPeriod(const QDate& startDate);
-    ~BillingPeriod();
-
-	enum Status
+    enum Status
 	{
 		NOT_OPENED,	/*< Ещё не был открыт */
 		OPEN,		/*< Открыт в настоящий момент (активен) */
 		CLOSED,		/*< Закрыт */
 		MODIFIED	/*< Изменён после закрытия и ожидает повторного закрытия */
 	};
+
+    BillingPeriod(const QDate& startDate, Status status);
+    ~BillingPeriod();
+
+	
 
 	// getters
     enum Status status()		{	return _status;		}
