@@ -13,7 +13,33 @@ BillingPeriod::~BillingPeriod()
 
 bool BillingPeriod::fetch()
 {
-    return false;
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+
+        query->prepare("SELECT * FROM `billing_period` WHERE `id` = :id");
+        int id = this->id();
+        query->bindValue(":id",id);
+        if(query->exec())
+        {
+            if(query->next())
+            {
+                _startDate = query->value(1).toDate();
+                _status = (Status)query->value(2).toInt();
+            }
+        }
+        else
+        {
+            QString s = query->lastError().text();
+            s+="as";
+            return false;
+        }
+        delete query;
+    }
+    else
+    {
+        return false;
+    }
 }
 bool BillingPeriod::set()
 {
