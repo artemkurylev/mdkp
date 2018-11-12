@@ -54,7 +54,7 @@ public:
     //Статические методы
     static bool createDbTable();
 
-    static QList <LaborSheet*> getAll();
+    static QMap <int,int> getAll();
 
 private:
 

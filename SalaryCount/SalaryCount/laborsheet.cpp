@@ -97,8 +97,8 @@ int LaborSheet::insert() const{
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        query->prepare("INSERT INTO `labor_sheet` (billing_period_id,employee_id,dutychart_id, closed) VALUES(:begin_date,:employee_id,:dutychart_id");
-        query->bindValue(":begin_date",this->_billingPeriod->id());
+        query->prepare("INSERT INTO `labor_sheet` (billing_period_id,employee_id,dutychart_id, closed) VALUES(:billing_period_id,:employee_id,:dutychart_id");
+        query->bindValue(":billing_period_id",this->_billingPeriod->id());
         query->bindValue(":employee_id",this->_employeeId);
         query->bindValue(":dutychart_id", this->_dutyChart->id());
         if(query->exec())
@@ -125,9 +125,6 @@ int LaborSheet::insert() const{
     else{
         return -1;
     }
-}
-bool LaborSheet::fetch(){
-    return false;
 }
 bool LaborSheet::update() const{
     if(DbManager::manager().checkConnection())
@@ -177,18 +174,71 @@ bool LaborSheet::createDbTable() {
         return false;
     }
 }    
-QList <LaborSheet*> LaborSheet::getAll()
+QMap <int, int> LaborSheet::getAll()
 {
-    QList <LaborSheet*> result;
+    QMap <int, int> result;
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        if(query->exec("SELECT * FROM `labor_sheet`"))
+        if(query->exec("SELECT id,employee_id FROM `labor_sheet`"))
         {
             while(query->next())
-            {;
+            {
+                result.insert(query->value(0).toInt(),query->value(1).toInt());
             }
         }
     }
     return result;
+}
+bool LaborSheet::fetch(){
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+
+        query->prepare("SELECT * FROM `dutychart` WHERE `id` = :id");
+        int id = this->id();
+        query->bindValue(":id",id);
+        if(query->exec())
+        {
+            if(query->next())
+            {
+                this->_employeeId = query->value(2).toInt();
+                QSqlQuery query_b = *(DbManager::manager().makeQuery());
+                query_b.prepare("SELECT * FROM `billing_period` WHERE `id` = :billing_period_id");
+                query_b.bindValue(":billing_period_id",query->value(1).toInt());
+                if(query->exec() && query->next())
+                {
+                    BillingPeriod* period = new BillingPeriod(query->value(1).toDate(),(BillingPeriod::Status)query->value(2).toInt());
+                    this->_billingPeriod = period;
+                }
+                if(query->exec() && query->next())
+                {
+                    DutyChart* dutychart = new DutyChart(query->value(3).toInt());
+                    this->_dutyChart = dutychart;
+                }
+                QSqlQuery query_m = *(DbManager::manager().makeQuery());
+                query_m.prepare("SELECT * FROM `mark` WHERE `laborsheet_id` = :id");
+                query_m.bindValue(":id", id);
+                if(query_m.exec())
+                {
+                    while(query_m.next())
+                    {
+                        Mark m(query_m.value(1).toInt(),query_m.value(2).toInt(),query_m.value(3).toInt(),query_m.value(4).toInt());
+                        _grid.append(m);
+                    }
+                }
+            }
+        }
+        else
+        {
+            QString s = query->lastError().text();
+            s+="as";
+            return false;
+        }
+        delete query;
+    }
+    else
+    {
+        return false;
+    }
 }
