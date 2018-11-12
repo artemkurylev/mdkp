@@ -14,7 +14,11 @@ DutyChart::DutyChart(QObject *parent)
 			_grid.push_back(Mark::Type::HOLIDAY);
 	}
 }
-
+DutyChart::DutyChart(int id)
+    : DbRecord(0)
+{
+    _id = id;
+}
 bool DutyChart::createDbTable()
 {
     if(DbManager::manager().checkConnection())
