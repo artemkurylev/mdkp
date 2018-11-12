@@ -15,15 +15,27 @@ DbManager::DbManager()
 
 DbManager::DbManager(const QString& hostName, const QString& dbName, int port,const QString& userName, const QString& pass)
 {
+	// Сначала создаём БД
     this->db = QSqlDatabase::addDatabase("QMYSQL");
     this->db.setUserName(userName);
-    this->db.setDatabaseName(dbName);
+    //this->db.setDatabaseName(dbName);
     this->db.setHostName(hostName);
     this->db.setPort(port);
     this->db.setPassword(pass);
-    if(db.open())
+    if(this->db.open())
     {
-        QString str;
+        //QString str;
+		QSqlQuery q(this->db);
+		if( q.exec(tr("CREATE DATABASE IF NOT EXISTS %1;").arg(dbName) ) )
+		{
+			QString str = "Ok";
+			this->db.close();
+		}
+		else
+		{
+			QString str = db.lastError().text();
+			str+= "as";
+		}
     }
     else
     {
@@ -31,6 +43,22 @@ DbManager::DbManager(const QString& hostName, const QString& dbName, int port,co
         str+= "as";
     }
 
+	// Теперь открываем нашу БД
+    //this->db = QSqlDatabase::addDatabase("QMYSQL");
+    //this->db.setUserName(userName);
+    this->db.setDatabaseName(dbName);
+    //this->db.setHostName(hostName);
+    //this->db.setPort(port);
+    //this->db.setPassword(pass);
+    if(this->db.open())
+    {
+		QString str = "Ok";
+    }
+    else
+    {
+        QString str = db.lastError().text();
+        str+= "as";
+    }
 }
 QSqlQuery* DbManager::makeQuery()
 {
