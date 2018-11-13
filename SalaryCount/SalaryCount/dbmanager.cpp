@@ -123,6 +123,17 @@ struct DbConf loadDbConfig()
 		s.setValue("pass", dbConf.pass);
 		s.endGroup();
 
+		// <Debug only>!
+		// write "commented" section
+		s.beginGroup("db-remote");
+		s.setValue("hostName", "109.206.169.214");
+		s.setValue("port", dbConf.port);
+		s.setValue("dbName", "salary_count");
+		s.setValue("userName", "remote");
+		s.setValue("pass", "!E3f5c712");
+		s.endGroup();
+		// </Debug only>
+
 		// write 
 		s.beginGroup("meta");
 		s.setValue("write_at", QDateTime::currentDateTime().toString("dd.MM.yyyy  hh:mm:ss"));
