@@ -28,17 +28,17 @@ void BookKeeperTest::testCalSalary()
 void BookKeeperTest::testCalcPerHoursSalary()
 {
 	
-	QCOMPARE(BookKeeper::calcPerHoursSalary(1000,5),5000);
-	QCOMPARE(BookKeeper::calcPerHoursSalary(600,5),3000);
-	QCOMPARE(BookKeeper::calcPerHoursSalary(1000,0),0);
+	QCOMPARE(BookKeeper::calcPerHoursSalary(1000,5),5000.0);
+	QCOMPARE(BookKeeper::calcPerHoursSalary(600,5),3000.0);
+	QCOMPARE(BookKeeper::calcPerHoursSalary(1000,0),0.0);
 	
 }
 
 void BookKeeperTest::testCalcPerMonthSalary()
 {
-	QCOMPARE(BookKeeper::calcPerMonthSalary(3000,1,1),3000);
-	QCOMPARE(BookKeeper::calcPerMonthSalary(4000,3,5),2400);
-	QCOMPARE(BookKeeper::calcPerMonthSalary(6000,7,7),6000);
-	QCOMPARE(BookKeeper::calcPerMonthSalary(5000,0,5),0);
+	QCOMPARE(BookKeeper::calcPerMonthSalary(3000,1,1),3000.0);
+	QCOMPARE(BookKeeper::calcPerMonthSalary(4000,3,5),2400.0);
+	QCOMPARE(BookKeeper::calcPerMonthSalary(6000,7,7),6000.0);
+	QCOMPARE(BookKeeper::calcPerMonthSalary(5000,0,5),0.0);
 }
 
