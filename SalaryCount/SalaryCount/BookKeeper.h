@@ -23,7 +23,9 @@ public:
 	*/
 	static bool calcAwardFor(LaborSheet & laborSheet);
 
+
 	static bool openBillingPeriod(BillingPeriod & billingPeriod);
+
 
 private:
 
@@ -35,5 +37,5 @@ private:
 	*/
 	static float awardPerMonthForm(float monthSalary, int days, int workDays);
 
-
+	
 };

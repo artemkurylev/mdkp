@@ -5,6 +5,7 @@
 #include <QPainter>
 #include <QtPrintSupport/QPrinter>
 #include <QDate>
+#include <qtextcodec.h>
 
 class DirectiveGenerator 
 {

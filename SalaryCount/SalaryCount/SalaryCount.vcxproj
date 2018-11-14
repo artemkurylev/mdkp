@@ -71,6 +71,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+
     <ClCompile Include="BillingPeriod.cpp" />
     <ClCompile Include="delegateStates.cpp" />
     <ClCompile Include="DirectiveGenerator.cpp" />
@@ -79,6 +80,7 @@
     <ClCompile Include="dbrecord.cpp" />
     <ClCompile Include="dutychart.cpp" />
     <ClCompile Include="employee.cpp" />
+   
     <ClCompile Include="GeneratedFiles\Debug\moc_BillingPeriod.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>

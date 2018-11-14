@@ -7,6 +7,7 @@ DirectiveGenerator::DirectiveGenerator()
 
 void DirectiveGenerator::pdf(const HireDirective* hireDirective, const QString& filename)
 {
+	QTextCodec * codec=QTextCodec::codecForLocale();
 	QPdfWriter writer(filename);
     writer.setPageSize(QPagedPaintDevice::A4);
     writer.setPageMargins(QMargins(30, 30, 30, 30));
@@ -16,24 +17,22 @@ void DirectiveGenerator::pdf(const HireDirective* hireDirective, const QString& 
     painter.setFont(QFont("Times", 8));
 
     QRect r = painter.viewport();
-
    // drawing the place for name and surname
-   painter.drawText(3000,5700,"(фамилия,имя,отчество)");
+   painter.drawText(3000,5700,codec->toUnicode("(фамилия,имя,отчество)"));
    QString nameSurPat=hireDirective->fio();
    painter.drawText(3000,5400,nameSurPat);
+   painter.drawText(1500,7000,codec->toUnicode("(должность (специальность, профессия), разряд, класс (категория) квалификации)"));
+   painter.drawText(2500,8000,codec->toUnicode("(условия приема на работу, характер работы)"));
 
-   painter.drawText(1500,7000,"(должность (специальность, профессия), разряд, класс (категория) квалификации)");
-   painter.drawText(2500,8000,"(условия приема на работу, характер работы)");
-
-   painter.drawText(2800,10600,"  (должность)                              (личная подпись)                 (расшировка подписи)");
+   painter.drawText(2800,10600,codec->toUnicode("  (должность)                              (личная подпись)                 (расшировка подписи)"));
 
 
    painter.setFont(QFont("Times", 10));
-   painter.drawText(40,8500,"с тарифной ставкой (окладом)       ___________________________ руб._____ коп.");
-   painter.drawText(1600,9000,"надбавкой       ___________________________ руб._____ коп.");
-   painter.drawText(40,9300,"с испытанием на срок _________________________________________________         месяца(ев)");
-   painter.drawText(40,9500,"Основание:");
-   painter.drawText(60,9700,"   Трудовой договор от “_____ ”___________  ______ г. №_________");
+   painter.drawText(40,8500,codec->toUnicode("с тарифной ставкой (окладом)       ___________________________ руб._____ коп."));
+   painter.drawText(1600,9000,codec->toUnicode("надбавкой       ___________________________ руб._____ коп."));
+   painter.drawText(40,9300,codec->toUnicode("с испытанием на срок _________________________________________________         месяца(ев)"));
+   painter.drawText(40,9500,codec->toUnicode("Основание:"));
+   painter.drawText(60,9700,codec->toUnicode("   Трудовой договор от “_____ ”___________  ______ г. №_________"));
    QDate hiredate=hireDirective->hireDate();
    QString docId=QString::number(hireDirective->id());
    QString day=QString::number(hiredate.day());
@@ -44,17 +43,17 @@ void DirectiveGenerator::pdf(const HireDirective* hireDirective, const QString& 
    painter.drawText(3800,9700,year);
    painter.drawText(4800,9700,"1");
   
-   painter.drawText(40,10100,"Руководитель организации");
-   painter.drawText(1800,10400,"             _______________________    ________________  _______________________");
+   painter.drawText(40,10100,codec->toUnicode("Руководитель организации"));
+   painter.drawText(1800,10400,codec->toUnicode("             _______________________    ________________  _______________________"));
    painter.drawText(40,11000,"С приказом (распоряжением) работник ознакомлен");
-   painter.drawText(3500,11060,"            _____________________ “_____ ” __________ 20____г.");
+   painter.drawText(3500,11060,codec->toUnicode("            _____________________ “_____ ” __________ 20____г."));
 
-   painter.drawText(3200,3000,"(распоряжение)");
-   painter.drawText(2800,3200,"о приеме работника на работу");
-   painter.drawText(3200,3600,"Принять на работу");
+   painter.drawText(3200,3000,codec->toUnicode("(распоряжение)"));
+   painter.drawText(2800,3200,codec->toUnicode("о приеме работника на работу"));
+   painter.drawText(3200,3600,codec->toUnicode("Принять на работу"));
 
    painter.setFont(QFont("Times", 12));
-   painter.drawText(3500,2800,"ПРИКАЗ");
+   painter.drawText(3500,2800,codec->toUnicode("ПРИКАЗ"));
 
    constructMainHeader(&painter,"0301001");
 
@@ -100,13 +99,14 @@ void DirectiveGenerator::writeTextAtleftTop(QPainter* painter, QString text)
 
 void DirectiveGenerator::constructMainHeader(QPainter *painter,QString tableCode)
 {
+	QTextCodec * codec=QTextCodec::codecForLocale();
     setFontBigText(painter);
-    painter->drawText(6700,1700,"Форма по ОКУД");
-    painter->drawText(7200,2000,"по ОКПО");
+    painter->drawText(6700,1700,codec->toUnicode("Форма по ОКУД"));
+    painter->drawText(7200,2000,codec->toUnicode("по ОКПО"));
     painter->drawLine(40,2000,7000,2000);
     setFontSmallUnderText(painter);
-    painter->drawText(3000,2200,"(наименование организации)");
-    drawTableOne(painter,"Код",tableCode);
+    painter->drawText(3000,2200,codec->toUnicode("(наименование организации)"));
+    drawTableOne(painter,codec->toUnicode("Код"),tableCode);
 
 }
 
