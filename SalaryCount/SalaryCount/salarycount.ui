@@ -100,6 +100,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 788c143... Добавлена возможность постраничного перехода в приложении
              <width>218</width>
              <height>559</height>
@@ -115,6 +116,8 @@
              <height>485</height>
 >>>>>>> ee8954d... Добавлен метод отчистки полей для секции редактирования графиков
 =======
+=======
+>>>>>>> 68868c6... Обновлен ui-интерфейс
              <width>217</width>
              <height>485</height>
 >>>>>>> b19fbbe... Добавлен метод отчистки полей для секции редактирования графиков
@@ -418,20 +421,48 @@
              </item>
             </layout>
            </item>
+<<<<<<< HEAD
            <item row="2" column="0">
             <widget class="QTableWidget" name="employeeLaborSheetTable"/>
            </item>
+=======
+>>>>>>> 68868c6... Обновлен ui-интерфейс
            <item row="1" column="0">
             <layout class="QHBoxLayout" name="horizontalLayout_3">
              <item>
               <widget class="QLabel" name="label_14">
                <property name="text">
+<<<<<<< HEAD
                 <string>Поиск сотрудников</string>
+=======
+                <string>Состояние периода</string>
                </property>
               </widget>
              </item>
              <item>
+              <widget class="QLabel" name="LaborSheetStatus_label">
+               <property name="text">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; text-decoration: underline;&quot;&gt;Закрыт&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+               <property name="textFormat">
+                <enum>Qt::RichText</enum>
+>>>>>>> 68868c6... Обновлен ui-интерфейс
+               </property>
+              </widget>
+             </item>
+             <item>
+<<<<<<< HEAD
               <widget class="QLineEdit" name="lineEdit_9"/>
+=======
+              <widget class="QPushButton" name="LaborSheetClose_button">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="text">
+                <string>Закрыть...</string>
+               </property>
+              </widget>
+>>>>>>> 68868c6... Обновлен ui-интерфейс
              </item>
             </layout>
            </item>
@@ -455,6 +486,18 @@
              </property>
             </widget>
            </item>
+<<<<<<< HEAD
+=======
+           <item row="2" column="0">
+            <widget class="QTableWidget" name="employeeLaborSheetTable">
+             <column>
+              <property name="text">
+               <string>Фамилия сотрудника</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+>>>>>>> 68868c6... Обновлен ui-интерфейс
           </layout>
          </widget>
         </item>
@@ -473,7 +516,7 @@
            <string>Редактирование отметок</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_9">
-           <item row="1" column="0">
+           <item row="3" column="0">
             <layout class="QHBoxLayout" name="horizontalLayout_13">
              <item>
               <widget class="QPushButton" name="pushButton_13">
@@ -496,6 +539,16 @@
               </widget>
              </item>
             </layout>
+           </item>
+           <item row="2" column="0">
+            <widget class="QDoubleSpinBox" name="doubleSpinBox">
+             <property name="decimals">
+              <number>2</number>
+             </property>
+             <property name="maximum">
+              <double>1000000.989999999990687</double>
+             </property>
+            </widget>
            </item>
            <item row="0" column="0">
             <widget class="QTableWidget" name="laborSheet">
@@ -561,6 +614,7 @@
              </column>
             </widget>
            </item>
+<<<<<<< HEAD
           </layout>
          </widget>
         </item>
@@ -606,65 +660,21 @@
              </item>
             </layout>
            </item>
+=======
+>>>>>>> 68868c6... Обновлен ui-интерфейс
            <item row="1" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_3">
-             <item>
-              <widget class="QLabel" name="label_14">
-               <property name="text">
-                <string>Состояние периода</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="LaborSheetStatus_label">
-               <property name="text">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; text-decoration: underline;&quot;&gt;Закрыт&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-               </property>
-               <property name="textFormat">
-                <enum>Qt::RichText</enum>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="LaborSheetClose_button">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="text">
-                <string>Закрыть...</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item row="3" column="0">
-            <widget class="QPushButton" name="pushButton_7">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
+            <widget class="QLabel" name="label_2">
              <property name="text">
-              <string>Изменить</string>
+              <string>Рассчитанная зарплата</string>
              </property>
             </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QPushButton" name="pushButton_6">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="text">
-              <string>Рассчитать З/П</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QTableWidget" name="employeeLaborSheetTable"/>
            </item>
           </layout>
          </widget>
         </item>
 >>>>>>> 128dddf... Виджеты управления периодами со страницы табелей
        </layout>
+<<<<<<< HEAD
 <<<<<<< HEAD
        <zorder>groupBox_6</zorder>
        <zorder>LabourGroupEdit</zorder>
@@ -673,6 +683,8 @@
        <zorder>groupBox_7</zorder>
        <zorder>groupBox_6</zorder>
 >>>>>>> c359fe5... файлы в GeneratedFiles удалены из под версионирования
+=======
+>>>>>>> 68868c6... Обновлен ui-интерфейс
       </widget>
       <widget class="QWidget" name="DutyChartsPage">
        <layout class="QGridLayout" name="gridLayout_7">
@@ -1003,12 +1015,16 @@
 =======
      <width>817</width>
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 98c7fe7... Добавил связь с окном табелй
      <height>21</height>
 >>>>>>> b19fbbe... Добавлен метод отчистки полей для секции редактирования графиков
 =======
      <height>20</height>
 >>>>>>> c359fe5... файлы в GeneratedFiles удалены из под версионирования
+=======
+     <height>21</height>
+>>>>>>> 68868c6... Обновлен ui-интерфейс
     </rect>
    </property>
    <widget class="QMenu" name="menu">
