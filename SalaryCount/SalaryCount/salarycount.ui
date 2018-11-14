@@ -407,9 +407,6 @@
                <property name="calendarPopup">
                 <bool>false</bool>
                </property>
-               <property name="currentSectionIndex">
-                <number>0</number>
-               </property>
                <property name="date">
                 <date>
                  <year>2000</year>
@@ -568,9 +565,14 @@
          </widget>
         </item>
        </layout>
+<<<<<<< HEAD
        <zorder>groupBox_6</zorder>
        <zorder>LabourGroupEdit</zorder>
        <zorder></zorder>
+=======
+       <zorder>groupBox_7</zorder>
+       <zorder>groupBox_6</zorder>
+>>>>>>> c359fe5... файлы в GeneratedFiles удалены из под версионирования
       </widget>
       <widget class="QWidget" name="DutyChartsPage">
        <layout class="QGridLayout" name="gridLayout_7">
@@ -900,9 +902,13 @@
      <width>732</width>
 =======
      <width>817</width>
+<<<<<<< HEAD
 >>>>>>> 98c7fe7... Добавил связь с окном табелй
      <height>21</height>
 >>>>>>> b19fbbe... Добавлен метод отчистки полей для секции редактирования графиков
+=======
+     <height>20</height>
+>>>>>>> c359fe5... файлы в GeneratedFiles удалены из под версионирования
     </rect>
    </property>
    <widget class="QMenu" name="menu">
