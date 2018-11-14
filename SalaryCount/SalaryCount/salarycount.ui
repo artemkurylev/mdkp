@@ -464,7 +464,7 @@
              <item>
               <widget class="QLabel" name="label_14">
                <property name="text">
-                <string>Состояние</string>
+                <string>Состояние периода</string>
                </property>
               </widget>
              </item>
@@ -484,7 +484,7 @@
                 <bool>false</bool>
                </property>
                <property name="text">
-                <string>Закрыть</string>
+                <string>Закрыть...</string>
                </property>
               </widget>
              </item>
