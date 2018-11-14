@@ -45,19 +45,18 @@
 	DirectiveGeneratorTest dir_gen_test(0);
 	QTest::qExec( &dir_gen_test , NULL , NULL);
 
+	//соединение со страницей создания графиков
+	this->dutyChart = new salarycountDutyChart(&this->ui,ui.DutyCharAction->objectName());
 
-	//заполнение шаблона редактирования графика
-	for(int i=0; i<7;++i)
-	{
-		QComboBox* combo = new QComboBox();
+	connect(this, SIGNAL(showPage(QString)),this->dutyChart,SLOT(updateInfo(QString)));//обновить информацию на странице
+	connect(this->dutyChart,SIGNAL(changeState(bool)),this,SLOT(rememberState(bool)));//на странице может быть два режима: просмотр и изменение записей
+	connect(this,SIGNAL(saveChanges()),this->dutyChart,SLOT(saveNewDutyChart()));//приложение посылает сигнал на сохранение страницы
+	connect(this,SIGNAL(cancelChanges()),this->dutyChart,SLOT(cancelNewDutyChart()));//приложение посылает сигнал отмены редактирования
+	
+	//TODO
 
-		QTextCodec* codec = QTextCodec::codecForLocale();
-	}
-	//
-	this->dutyChart = new salarycountDutyChart(&this->ui);
-	connect(this->dutyChart,SIGNAL(changeState(bool)),this,SLOT(rememberState(bool)));
-	connect(this,SIGNAL(saveChanges()),this->dutyChart,SLOT(saveNewDutyChart()));
-	connect(this,SIGNAL(cancelChanges()),this->dutyChart,SLOT(cancelNewDutyChart()));
+	ui.saveDutyChartBtn->setEnabled(true);
+	ui.cancelDutyChartBtn->setEnabled(true);
 
 	//постраничный переход
 	ui.stackedWidget->setCurrentIndex(0);//устанавлиаем видимость на странице с сотрудниками
@@ -69,7 +68,7 @@
 
 SalaryCount::~SalaryCount()
 {
-
+	delete this->dutyChart;
 }
 
 
@@ -133,6 +132,8 @@ void SalaryCount::showPage(QAction* actionEmited)
 	if(!isEditable())
 	{
 		QString namePage = actionEmited->whatsThis();
+
+		emit showPage(namePage);
 
 		this->currentAction->setEnabled(true);
 		this->currentAction = actionEmited;

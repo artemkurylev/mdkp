@@ -42,6 +42,7 @@ private:
 signals:
 	void cancelChanges();
 	void saveChanges();
+	void showPage(QString name);
 
 private slots:
 
