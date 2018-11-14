@@ -28,6 +28,16 @@ DutyChart::DutyChart(QString name, QList<Mark> marks, QDate anchorDate,enum PayF
     _name = name;
     _anchorDate = anchorDate;
 }
+
+DutyChart::DutyChart(int id, QString name, QList<Mark> marks,QDate anchorDate, enum PayForm payForm)
+{
+	_id = id;
+	_grid = marks;
+    _payForm=payForm;
+    _name = name;
+    _anchorDate = anchorDate;
+}
+
 bool DutyChart::createDbTable()
 {
     if(DbManager::manager().checkConnection())

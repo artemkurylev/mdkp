@@ -99,11 +99,14 @@ void salarycountDutyChart::deleteDutyChart(int row)
 
 		DutyChart* curChart = new DutyChart( ID );
 
-		if(/*curChart->*/0)
-		{
-			//типа удалили из бд
+		if(/*curChart->del()*/0)
+		{//типа удалили из бд
 			ui->dutyChartList->setCurrentRow(row-1);
 			ui->dutyChartList->removeItemWidget(ui->dutyChartList->item(row));
+		}
+		else
+		{
+			//cообщили об ошибке
 		}
 	}
 }
@@ -163,23 +166,43 @@ void salarycountDutyChart::saveEditableEntries(DutyChart* obj)
 
 DutyChart* salarycountDutyChart::shapeDataObject()
 {
-	DutyChart* obj = new DutyChart();//в зависимости от состояния редактирования запомнит ID
+	int id = 0;//в зависимости от состояния редактирования запомнит ID
+    
+	if(this->currentState == app_states::EDIT)
+	{
+		id = ui->dutyChartList->currentItem()->type();
+	}
 
-	//занести имя
-	//запомнить якорную дату
-	//запомнить платежную форму
-	//в зависимости от платежной формы запомнить рабочее время
+	QString name = ui->nameDutyChart->text();//занести имя
+	QDate ancDate = ui->startDate->date();//запомнить якорную дату
+	PayForm pf = (ui->payFormChoice->currentIndex()==0 ? PayForm::PER_MONTH : PayForm::PER_HOUR);//запомнить платежную форму
+	QTime* workTime = new QTime(ui->workTimeEdit->time());//в зависимости от платежной формы запомнить рабочее время
 
 	//запомнить отметки
-	/*QList<Mark> m = obj->grid();
-	for(int i=this->ui->DutyChartMarksEdit->rowCount()-1; i>=0; --i)
+	QList<Mark> *ms = new QList<Mark>();
+	for(int i=0; i< this->ui->DutyChartMarksEdit->rowCount(); ++i)
 	{
+		QComboBox* combo = (QComboBox*)ui->DutyChartMarksEdit->cellWidget(i,0);
+
+		Mark *m;// = new Mark( () );
+
+		/*if(pf==PayForm::PER_MONTH)
+		{
+			m = new Mark( (combo->currentIndex()==1 ? Mark::Type::ATTENDS : Mark::Type::HOLIDAY) );
+		}
+
+		if(pf==PayForm::PER_HOUR)
+		{
+			m = new Mark( ui->workTimeEdit->time().hour() );
+		}
+
 		if(m[i].base() == Mark::Type.HOLIDAY)
 		{
 			QComboBox* combo = (QComboBox*)ui->DutyChartMarksEdit->cellWidget(i,0);
 			combo->setCurrentIndex(1);
-		}
-	}*/
+		}*/
+	}
+	DutyChart* obj = new DutyChart(1);
 
 	return obj;
 }
