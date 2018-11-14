@@ -1,7 +1,7 @@
 #include "BillingPeriod.h"
 
 BillingPeriod::BillingPeriod(const QDate& startDate)
-    : DbRecord(0)
+    : DbRecord()
 {
 	_status = NOT_OPENED;
 	_startDate = startDate;
@@ -11,14 +11,15 @@ BillingPeriod::~BillingPeriod()
 
 }
 BillingPeriod::BillingPeriod(const QDate& startDate,Status status)
-    :DbRecord(0)
+    :DbRecord()
 {
     _status = status;
     _startDate = startDate;
 }
 BillingPeriod::BillingPeriod(int id, const QDate& startDate,Status status)
-    :DbRecord(0)
+    :DbRecord(id)
 {
+	throw("It`s wrong to fetch record & then set it`s fields");
     _id = id;
     _status = status;
     _startDate = startDate;
