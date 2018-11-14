@@ -32,7 +32,6 @@ void salarycountLaborSheet::showAllLabors()
     for(auto it = laborData.begin(); it!= laborData.end(); ++it)
     {
         ui->employeeLaborSheetTable->insertRow(row);
-
         ++row;
     }
 }
