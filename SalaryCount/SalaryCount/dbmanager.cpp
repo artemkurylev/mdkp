@@ -88,7 +88,7 @@ bool DbManager::checkConnection()
         //    DbManager::globalManager = new DbManager("localhost","salarycount",3306,"root","root");
         //else
         //    DbManager::globalManager = new DbManager("109.206.169.214","salary_count",81,"remote","!E3f5c712");
-			// test ports: cmd>telnet 109.206.169.214 81
+		// test ports: cmd>telnet 109.206.169.214 81
         DbManager::singletonExists = 1;
     }
     return *(DbManager::globalManager);

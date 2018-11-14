@@ -20,12 +20,16 @@ SalaryCount::SalaryCount(QWidget *parent)
 	DirectiveGeneratorTest dir_gen_test(0);
 	QTest::qExec( &dir_gen_test , NULL , NULL);
 
-	//
-	this->dutyChart = new salarycountDutyChart(&this->ui);
-	connect(this->dutyChart,SIGNAL(changeState(bool)),this,SLOT(rememberState(bool)));
-	connect(this,SIGNAL(saveChanges()),this->dutyChart,SLOT(saveNewDutyChart()));
-	connect(this,SIGNAL(cancelChanges()),this->dutyChart,SLOT(cancelNewDutyChart()));
+	//соединение со страницей создания графиков
+	this->dutyChart = new salarycountDutyChart(&this->ui,ui.DutyCharAction->objectName());
+
+	connect(this, SIGNAL(showPage(QString)),this->dutyChart,SLOT(updateInfo(QString)));//обновить информацию на странице
+	connect(this->dutyChart,SIGNAL(changeState(bool)),this,SLOT(rememberState(bool)));//на странице может быть два режима: просмотр и изменение записей
+	connect(this,SIGNAL(saveChanges()),this->dutyChart,SLOT(saveNewDutyChart()));//приложение посылает сигнал на сохранение страницы
+	connect(this,SIGNAL(cancelChanges()),this->dutyChart,SLOT(cancelNewDutyChart()));//приложение посылает сигнал отмены редактирования
 	
+	//TODO
+
 	ui.saveDutyChartBtn->setEnabled(true);
 	ui.cancelDutyChartBtn->setEnabled(true);
 
@@ -39,7 +43,7 @@ SalaryCount::SalaryCount(QWidget *parent)
 
 SalaryCount::~SalaryCount()
 {
-
+	delete this->dutyChart;
 }
 
 void SalaryCount::initialDBManager()
@@ -122,6 +126,8 @@ void SalaryCount::showPage(QAction* actionEmited)
 	if(!isEditable())
 	{
 		QString namePage = actionEmited->whatsThis();
+
+		emit showPage(namePage);
 
 		this->currentAction->setEnabled(true);
 		this->currentAction = actionEmited;
