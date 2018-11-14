@@ -80,12 +80,12 @@ int BillingPeriod::insert()
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        query->prepare("INSERT INTO `billing_period` (start_date,status) VALUES(:start_date,:status");
+        query->prepare("INSERT INTO `billing_period` (start_date,status) VALUES(:start_date,:status)");
         query->bindValue(":start_date",this->_startDate);
-        query->bindValue(":phone_number",this->_status);
+        query->bindValue(":status",this->_status);
         if(query->exec())
         {
-            query->prepare("SELECT id FROM `billing_period` WHERE `startDate` = :start_date");
+            query->prepare("SELECT id FROM `billing_period` WHERE `start_date` = :start_date");
             query->bindValue(":start_date",this->_startDate);
             if(query->exec() && query->next())
                 this->_id = query->value(0).toInt();
@@ -153,7 +153,7 @@ void BillingPeriod::set_modified()
 {
 	_status = MODIFIED;
 }
-static BillingPeriod* getByDate(const QDate& date)
+BillingPeriod* BillingPeriod::getByDate(const QDate& date)
 {
 	BillingPeriod* billing_period = NULL;
     if(DbManager::manager().checkConnection())
