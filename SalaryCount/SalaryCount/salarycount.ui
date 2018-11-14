@@ -342,9 +342,6 @@
                <property name="calendarPopup">
                 <bool>false</bool>
                </property>
-               <property name="currentSectionIndex">
-                <number>0</number>
-               </property>
                <property name="date">
                 <date>
                  <year>2000</year>
@@ -503,9 +500,8 @@
          </widget>
         </item>
        </layout>
-       <zorder>groupBox_6</zorder>
        <zorder>groupBox_7</zorder>
-       <zorder></zorder>
+       <zorder>groupBox_6</zorder>
       </widget>
       <widget class="QWidget" name="DutyChartsPage">
        <layout class="QGridLayout" name="gridLayout_7">
@@ -798,7 +794,7 @@
      <x>0</x>
      <y>0</y>
      <width>817</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
