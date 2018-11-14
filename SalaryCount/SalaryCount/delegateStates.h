@@ -21,11 +21,12 @@ protected:
 	app_states currentState;
 
 protected:
+
 	template <class T>
 	T* shapeDataObject() = 0;
-	virtual void validateData() const = 0;
-	virtual void loadListItems() const = 0;
-	virtual void updateListItems() const = 0;
+
+	template <class T>
+	void parseDataObject(T *obj) = 0;
 
 signals:
 	void changeState(bool isChanging);
