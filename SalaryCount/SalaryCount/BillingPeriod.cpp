@@ -47,6 +47,7 @@ bool BillingPeriod::fetch()
             if(query->next())
             {
                 _startDate = query->value(1).toDate();
+				//_startDate = QDate::fromString("yyyy-MM-dd", query->value(1).toString() );
                 _status = (Status)query->value(2).toInt();
             }
         }
@@ -77,6 +78,7 @@ bool BillingPeriod::update() const
 }
 int BillingPeriod::insert()
 {
+	int insert_id = -1;
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
@@ -89,19 +91,20 @@ int BillingPeriod::insert()
             query->bindValue(":start_date",this->_startDate);
             if(query->exec() && query->next())
                 this->_id = query->value(0).toInt();
-                return this->_id;
+                insert_id = this->_id;
         }
         else
         {
             QString s = query->lastError().text();
             s+="as";
-            return -1;
+			s = query->executedQuery();
         }
         delete query;
     }
-    else{
-        return -1;
+    else
+	{
     }
+	return insert_id;
 }
 bool BillingPeriod::createDbTable()
 {
