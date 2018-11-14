@@ -50,7 +50,9 @@ int DutyChart::insert() const
                 }
             }
             if(query->exec("SELECT LAST_INSERT_ID()") && query->next())
+            {   
                 return query->value(0).toInt();
+            }
         }
         else
         {

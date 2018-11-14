@@ -19,7 +19,7 @@ public:
 	bool set()		{return false;}
 	bool validate() const {return false;}
 	bool update()	const {return false;}
-    int insert()	const ;
+    int insert()	const;
     static bool createDbTable();
 
     const int payForm()		 const	{return _payForm;}
