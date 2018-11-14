@@ -40,6 +40,8 @@ SalaryCount::SalaryCount(QWidget *parent)
 	this->currentAction->setEnabled(false);
 
 	connect(ui.CompanyMenu,SIGNAL(triggered(QAction*)), this,SLOT(showPage(QAction*)));
+
+	connect(ui.ExitAction,SIGNAL(triggered()), this,SLOT(close()));
 }
 
 SalaryCount::~SalaryCount()
