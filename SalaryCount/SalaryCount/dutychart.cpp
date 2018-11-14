@@ -44,6 +44,7 @@ bool DutyChart::createDbTable()
 }
 int DutyChart::insert()
 {
+	int insert_id = -1;
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
@@ -53,16 +54,17 @@ int DutyChart::insert()
         query->bindValue(":name",this->_name);
         if(query->exec())
         {
+            if(query->exec("SELECT LAST_INSERT_ID()") && query->next())
+            {   
+                this->_id = query->value(0).toInt();
+				insert_id = this->_id;
+            }
             for(int i = 0; i < this->length(); ++i)
             {
-                if(this->_grid[i].insert()== - 1)
+                if(this->_grid[i].insert() == -1)
                 {
                     //Îøèáêà!!
                 }
-            }
-            if(query->exec("SELECT LAST_INSERT_ID()") && query->next())
-            {   
-                return query->value(0).toInt();
             }
         }
         else
@@ -70,13 +72,13 @@ int DutyChart::insert()
             //Îøèáêà!
             QString s = query->lastError().text();
             s+="as";
-            return -1;
         }
         delete query;
     }
-    return -1;
+    return insert_id;
 }
-bool DutyChart::fetch(){
+bool DutyChart::fetch()
+{
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
