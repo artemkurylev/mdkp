@@ -8,6 +8,8 @@
 #include "unittest/DirectiveGeneratorTest.h"
 #include "ui_salarycount.h"
 
+/*! Ќужно описание класса и его предназначени€
+*/
 class delegateStates : public QObject
 {
 	Q_OBJECT
