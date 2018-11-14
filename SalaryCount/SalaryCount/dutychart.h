@@ -13,7 +13,7 @@ class DutyChart : public DbRecord
 public:
     DutyChart();
     DutyChart(int id);    
-	DutyChart(QList<Mark> marks, enum PayForm payForm=PER_HOUR)	{_grid = marks;_payForm=payForm;}
+    DutyChart(QString name, QList<Mark> marks, enum PayForm payForm=PER_HOUR);
 
 	bool fetch();
 	bool set()		{return false;}

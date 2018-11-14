@@ -5,6 +5,12 @@ DutyChart::DutyChart(int id)
 {
     _id = id;
 }
+DutyChart::DutyChart(QString name, QList<Mark> marks, enum PayForm payForm)	
+{
+    _grid = marks;
+    _payForm=payForm;
+    _name = name;
+}
 bool DutyChart::createDbTable()
 {
     if(DbManager::manager().checkConnection())
