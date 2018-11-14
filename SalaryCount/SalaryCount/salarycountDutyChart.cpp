@@ -248,7 +248,7 @@ void salarycountDutyChart::updateInfo(QString name)
 		QMap<int,QString> allEntries = DutyChart::getAll();
 		ui->dutyChartList->clear();
 
-		if(allEntries.count())
+		if(allEntries.count() > 0)
 		{
 			QList<int> keys = allEntries.keys();
 			qSort(keys);
