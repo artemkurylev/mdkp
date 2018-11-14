@@ -19,7 +19,7 @@ public:
     ~LaborSheet();
 
     LaborSheet(int employeeId);
-    LaborSheet(BillingPeriod* billingPeriod,int employeeId,QList<Mark> grid,DutyChart* _dutyChart);
+   // ? LaborSheet(BillingPeriod* billingPeriod,int employeeId,QList<Mark> grid,DutyChart* _dutyChart);
 	bool fillWithDefaults();
     /*
         Getter для взятия всех отметок табеля.
@@ -34,35 +34,45 @@ public:
     */
     const DutyChart* dutyChart() const{return this->_dutyChart;}
 	bool fillWithDefaults(int empploeeId, QDate date,DutyChart* dutyChart);
-    const Employee* employee() const;
 
-    PayForm payForm() const;
+    const Employee* employee();
+    const BillingPeriod* billingPeriod();
+    PayForm payForm();
 
 	/*! Подсчитать плановое рабочее время за период
 	*/
-	int countDefaultTimeUnits() const;
+	int countDefaultTimeUnits();
 
 	/*! Подсчитать отработанное время за период
 	*/
-	int countActualTimeUnits () const;
+
+	int countActualTimeUnits ();
 
     //Наследуемые методы
     int LaborSheet::insert();
     bool LaborSheet::update() const;
     bool LaborSheet::fetch();
     bool LaborSheet::validate() const;
-    //Статические методы
+    
+	// Статические методы
     static bool createDbTable();
 
     static QMap <int,int> getAll();
 
     static long countEntries();
 
+    static QList<LaborSheet> getByPeriodId();
 private:
+	// столбцы
+    int _employeeId, _billingPeriodId;
+	int _dutyChartId; // я считаю, это поле не нужно (дублирование графика из цепочки `табель-чел-приказ-график`)
 
-    BillingPeriod* _billingPeriod;
-    int _employeeId;
+	// отметки (привязанные по внешнему ключу)
     QList<Mark> _grid;
+
+	// singleton-указатели на связанные записи
+    BillingPeriod* _billingPeriod;
+	Employee* _employee;
     DutyChart* _dutyChart;
 };
 

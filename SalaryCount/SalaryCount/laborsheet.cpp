@@ -1,13 +1,20 @@
 #include "laborsheet.h"
 
-LaborSheet::LaborSheet(QObject *parent)
-    : DbRecord(parent)
-{
 
-}
-LaborSheet::LaborSheet(QObject *parent, int employeeId)
-    : DbRecord(parent)
+LaborSheet::LaborSheet()
+    : DbRecord()
 {
+    _billingPeriod = NULL;
+    _employee = NULL;
+    _dutyChart = NULL;
+}
+
+LaborSheet::LaborSheet(int employeeId)
+    : DbRecord()
+{
+    _billingPeriod = NULL;
+    _employee = NULL;
+    _dutyChart = NULL;
     this->_employeeId = employeeId;
 }
 bool LaborSheet::fillWithDefaults()
@@ -36,21 +43,45 @@ bool LaborSheet::fillWithDefaults()
 }
 LaborSheet::~LaborSheet()
 {
-
+	// free allocated record
+	if(_employee != NULL)
+	{
+		delete _employee;
+	}
+	if(_billingPeriod != NULL)
+	{
+		delete _billingPeriod;
+	}
+	if(_dutyChart != NULL)
+	{
+		throw("Всё-таки он оказался кому-то нужен?!");
+		delete _dutyChart;
+	}
 }
 
-const Employee* LaborSheet::employee() const
+const Employee* LaborSheet::employee()
 {
-	return NULL; // TODO: create from id & return
+	if(_employee == NULL)
+	{
+		_employee = new Employee(_employeeId);
+	}
+	return _employee;
 }
-
-PayForm LaborSheet::payForm() const
+const BillingPeriod* LaborSheet::billingPeriod()
+{
+	if(_billingPeriod == NULL)
+	{
+		_billingPeriod = new BillingPeriod(_billingPeriodId);
+	}
+	return _billingPeriod;
+}
+PayForm LaborSheet::payForm()
 {
 	const Employee* e = employee();
 	const HireDirective* h = e->hireDirective();
 	PayForm p = h->payForm();
 
-	delete e;
+	//delete e;
 	delete h;
 
 	return p;
@@ -64,7 +95,7 @@ int inline markMeasure(int mark_val, enum PayForm pay_form)
 	return (pay_form == PER_HOUR)? (mark_val) : (mark_val > 0);
 }
 
-int LaborSheet::countDefaultTimeUnits() const
+int LaborSheet::countDefaultTimeUnits()
 {
 	int total = 0;
 	enum PayForm pay_form;
@@ -77,7 +108,7 @@ int LaborSheet::countDefaultTimeUnits() const
 
 	return total;
 }
-int LaborSheet::countActualTimeUnits () const
+int LaborSheet::countActualTimeUnits()
 {
 	int total = 0;
 	enum PayForm pay_form;
@@ -156,7 +187,8 @@ bool LaborSheet::update() const{
     }
     return false;
 }
-bool LaborSheet::createDbTable() {
+bool LaborSheet::createDbTable()
+{
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
@@ -191,43 +223,61 @@ QMap <int, int> LaborSheet::getAll()
     }
     return result;
 }
-bool LaborSheet::fetch(){
+bool LaborSheet::fetch()
+{
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
 
-        query->prepare("SELECT * FROM `dutychart` WHERE `id` = :id");
+        query->prepare("SELECT * FROM `labor_sheet` WHERE `id` = :id");
         int id = this->id();
         query->bindValue(":id",id);
         if(query->exec())
         {
             if(query->next())
             {
+				// получить ID сотрудника
                 this->_employeeId = query->value(2).toInt();
-                QSqlQuery query_b = *(DbManager::manager().makeQuery());
-                query_b.prepare("SELECT * FROM `billing_period` WHERE `id` = :billing_period_id");
-                query_b.bindValue(":billing_period_id",query->value(1).toInt());
-                if(query->exec() && query->next())
+
+				// получить ID периода
+                this->_employeeId = query->value(1).toInt();
+				
+				// получить ID графика
+                this->_dutyChartId = query->value(3).toInt();
+
+     //           QSqlQuery query_b = *(DbManager::manager().makeQuery());
+     //           query_b.prepare("SELECT * FROM `billing_period` WHERE `id` = :billing_period_id");
+     //           query_b.bindValue(":billing_period_id",query->value(1).toInt());
+     //           if(query->exec() && query->next())
+     //           {
+					//this->_billingPeriodId = 
+     //               BillingPeriod* period = new BillingPeriod(query->value(1).toDate(),(BillingPeriod::Status)query->value(2).toInt());
+     //               this->_billingPeriod = period;
+     //           }
+     //           if(query->exec() && query->next())
+     //           {
+     //               DutyChart* dutychart = new DutyChart(query->value(3).toInt());
+     //               this->_dutyChart = dutychart;
+     //			  }
+
+                QSqlQuery* query_m = DbManager::manager().makeQuery();
+                query_m->prepare("SELECT * FROM `mark` WHERE `laborsheet_id` = :id");
+                query_m->bindValue(":id", id);
+                if(query_m->exec())
                 {
-                    BillingPeriod* period = new BillingPeriod(query->value(1).toDate(),(BillingPeriod::Status)query->value(2).toInt());
-                    this->_billingPeriod = period;
-                }
-                if(query->exec() && query->next())
-                {
-                    DutyChart* dutychart = new DutyChart(query->value(3).toInt());
-                    this->_dutyChart = dutychart;
-                }
-                QSqlQuery query_m = *(DbManager::manager().makeQuery());
-                query_m.prepare("SELECT * FROM `mark` WHERE `laborsheet_id` = :id");
-                query_m.bindValue(":id", id);
-                if(query_m.exec())
-                {
-                    while(query_m.next())
+                    while(query_m->next())
                     {
-                        Mark m(query_m.value(1).toInt(),query_m.value(2).toInt(),query_m.value(3).toInt(),query_m.value(4).toInt(),query->value(5).toInt(),query->value(6).toInt());
+                        Mark m(query_m->value(1).toInt(),
+							query_m->value(2).toInt(),
+							query_m->value(3).toInt(),
+							query_m->value(4).toInt(),
+							query->value(5).toInt(),
+							query->value(6).toInt()
+							);
                         _grid.append(m);
                     }
                 }
+				delete query_m;
             }
         }
         else
