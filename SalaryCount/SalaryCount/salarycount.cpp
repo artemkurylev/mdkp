@@ -10,8 +10,17 @@
 {
     ui.setupUi(this);
 
+	// test>
+	BillingPeriod* bp = BillingPeriod::getCurrentPeriod();
+	for(int i=0 ; i<3 ; ++i)
+	{
+		BookKeeper::openBillingPeriod(*bp);
+		bp = bp->nextPeriod();
+	}
 
-    initialDBManager();
+
+	// <test
+
 	this->editState = false;
 
         }
