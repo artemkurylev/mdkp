@@ -496,18 +496,7 @@
             </layout>
            </item>
            <item row="0" column="0">
-            <widget class="QListWidget" name="dutyChartList">
-             <item>
-              <property name="text">
-               <string>5/2</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>3/2</string>
-              </property>
-             </item>
-            </widget>
+            <widget class="QListWidget" name="dutyChartList"/>
            </item>
            <item row="2" column="0">
             <widget class="QPushButton" name="addDutyChart">
