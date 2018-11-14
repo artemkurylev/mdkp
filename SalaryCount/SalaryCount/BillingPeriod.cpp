@@ -16,6 +16,13 @@ BillingPeriod::BillingPeriod(const QDate& startDate,Status status)
     _status = status;
     _startDate = startDate;
 }
+BillingPeriod::BillingPeriod(int id, const QDate& startDate,Status status)
+    :DbRecord(0)
+{
+    _id = id;
+    _status = status;
+    _startDate = startDate;
+}
 bool BillingPeriod::fetch()
 {
     if(DbManager::manager().checkConnection())
@@ -113,4 +120,19 @@ void BillingPeriod::close()
 void BillingPeriod::set_modified()
 {
 	_status = MODIFIED;
+}
+static BillingPeriod* getByDate(QDate date)
+{
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+        query->prepare("SELECT * FROM billing_period WHERE start_date = :start_date");
+        query->bindValue(":start_date",date);
+        if(query->exec() && query->next())
+        {
+            BillingPeriod* billing_period = new BillingPeriod(query->value(0).toInt(),query->value(1).toDate(),(BillingPeriod::Status)query->value(2).toInt());
+            return billing_period;
+        }
+    }
+    return NULL;
 }
