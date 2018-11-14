@@ -5,11 +5,12 @@ DutyChart::DutyChart(int id)
 {
     _id = id;
 }
-DutyChart::DutyChart(QString name, QList<Mark> marks, enum PayForm payForm)	
+DutyChart::DutyChart(QString name, QList<Mark> marks, QDate anchorDate,enum PayForm payForm)	
 {
     _grid = marks;
     _payForm=payForm;
     _name = name;
+    _anchorDate = anchorDate;
 }
 bool DutyChart::createDbTable()
 {
