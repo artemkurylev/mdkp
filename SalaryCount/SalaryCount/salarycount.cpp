@@ -14,6 +14,17 @@ SalaryCount::SalaryCount(QWidget *parent)
 
 	initialDBManager();
 
+	// test>
+	BillingPeriod* bp = BillingPeriod::getCurrentPeriod();
+	for(int i=0 ; i<3 ; ++i)
+	{
+		BookKeeper::openBillingPeriod(*bp);
+		bp = bp->nextPeriod();
+	}
+
+
+	// <test
+
 	this->editState = false;
 	
 	// запуск тестирования
