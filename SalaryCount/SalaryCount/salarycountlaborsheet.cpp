@@ -16,7 +16,7 @@ salarycountLaborSheet::salarycountLaborSheet(Ui_SalaryCount *ui, QString name){
         ui->laborSheet->setCellWidget(i/7,i % 7,combo);
 	}
     ui->LabourGroupEdit->setEnabled(false);
-
+    ui->employeeLaborSheetTable->setColumnWidth(0,0);
     showAllLabors();
 
 }
@@ -34,8 +34,19 @@ void salarycountLaborSheet::showAllLabors()
         ui->employeeLaborSheetTable->insertRow(row);
         Employee employee(it.value());
         employee.fetch();
-
-        ui->employeeLaborSheetTable->setItem(row,0,new QTableWidgetItem(employee.fio()));
+        ui->employeeLaborSheetTable->setItem(row,1,new QTableWidgetItem(employee.fio()));
+        ui->employeeLaborSheetTable->setItem(row,0,new QTableWidgetItem(QString(it.key())));
         ++row;
+    }
+}
+void salarycountLaborSheet::showLabor()
+{
+    int row = ui->employeeLaborSheetTable->currentIndex();
+    int id = ui->employeeLaborSheetTable->item(row,0)->text().toInt();
+    LaborSheet labor_sheet(id);
+    labor_sheet.fetch();
+    if(labor_sheet.payForm() == PayForm::PER_MONTH)
+    {
+        ;
     }
 }
