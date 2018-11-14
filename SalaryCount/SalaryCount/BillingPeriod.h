@@ -19,6 +19,7 @@ public:
 	};
 
     BillingPeriod(const QDate& startDate, Status status);
+    BillingPeriod(int id, const QDate& startDate, Status status);
     ~BillingPeriod();
 
 	
@@ -32,14 +33,15 @@ public:
 	bool set() ;
 	bool validate() const;
 	bool update() const;
+    
     static bool createDbTable();
     int insert() const;
-
+    static BillingPeriod* getByDate(QDate date);
 	//! Управление статусом
 	void open();
 	void close();
 	void set_modified();
-
+    
 private:
 
     enum Status _status;
