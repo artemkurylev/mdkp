@@ -13,3 +13,5 @@ Debug
 Win32
 ipch
 GeneratedFiles
+/SalaryCount/SalaryCount/GeneratedFiles/qrc_salarycount.cpp
+/SalaryCount/SalaryCount/GeneratedFiles/ui_salarycount.h
