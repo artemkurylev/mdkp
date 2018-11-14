@@ -32,7 +32,7 @@ bool DutyChart::createDbTable()
         return false;
     }
 }
-int DutyChart::insert() const
+int DutyChart::insert()
 {
     if(DbManager::manager().checkConnection())
     {

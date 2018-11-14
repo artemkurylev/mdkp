@@ -39,7 +39,7 @@ public:
     /*! Создать запись в БД
 	@returns ID созданной записи
     */
-    virtual int insert() const = 0;
+    virtual int insert() = 0;
 
 	/*! Возвращает ID [Primary Key] записи в БД
 	*/

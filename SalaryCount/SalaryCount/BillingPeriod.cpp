@@ -65,7 +65,7 @@ bool BillingPeriod::update() const
 {
     return false;
 }
-int BillingPeriod::insert() const
+int BillingPeriod::insert()
 {
     if(DbManager::manager().checkConnection())
     {
@@ -78,7 +78,7 @@ int BillingPeriod::insert() const
             query->prepare("SELECT id FROM `billing_period` WHERE `startDate` = :start_date");
             query->bindValue(":start_date",this->_startDate);
             if(query->exec() && query->next())
-                return query->value(0).toInt();
+                return this->_id = query->value(0).toInt();
         }
         else
         {

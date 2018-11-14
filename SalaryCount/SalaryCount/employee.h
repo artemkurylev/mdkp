@@ -18,7 +18,7 @@ public:
     ~Employee();
     bool fetch();
     bool update() const;
-    int insert() const;
+    int insert();
     static bool createDbTable();
     static QMap<int,QString> getAll();
     static long countEntries();
