@@ -186,7 +186,27 @@ long BillingPeriod::countEntries()
     }
     return counter;
 }
+BillingPeriod* BillingPeriod::getByDate(const QDate& date)
+{
+    int counter = 0;
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
 
+        query->prepare("SELECT * FROM `billing_period` WHERE start_date = :date");
+        query->bindValue(":date",date);
+        if(query->exec())
+        {
+            if(query->next())
+            {
+                BillingPeriod* period = new BillingPeriod(query->value(0).toInt(),query->value(1).toDate(),(BillingPeriod::Status)query->value(2).toInt());
+                return period;
+            }
+        }
+        delete query;
+    }
+    return NULL;
+}
 // Получить/создать следующий расчётный период
 BillingPeriod* BillingPeriod::nextPeriod()
 {
