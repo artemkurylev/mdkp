@@ -41,7 +41,7 @@ void salarycountLaborSheet::showAllLabors()
 }
 void salarycountLaborSheet::showLabor()
 {
-    int row = ui->employeeLaborSheetTable->currentIndex();
+    int row = ui->employeeLaborSheetTable->currentIndex().row();
     int id = ui->employeeLaborSheetTable->item(row,0)->text().toInt();
     LaborSheet labor_sheet(id);
     labor_sheet.fetch();
