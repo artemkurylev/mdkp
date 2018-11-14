@@ -92,14 +92,10 @@ bool DbManager::checkConnection()
 {
     if(!singletonExists)
     {
-		struct DbConf conf = loadDbConfig();
-		//QString hostName, dbName, userName, pass;
-		//int port;
-		DbManager::globalManager = new DbManager(conf.hostName,conf.dbName,conf.port,conf.userName,conf.pass);
-        //if(false)
-        //    DbManager::globalManager = new DbManager("localhost","salarycount",3306,"root","root");
-        //else
-        //    DbManager::globalManager = new DbManager("109.206.169.214","salary_count",81,"remote","!E3f5c712");
+        if(true)
+            DbManager::globalManager = new DbManager("localhost","salarycount",3306,"root","root");
+        else
+            DbManager::globalManager = new DbManager("109.206.169.214","salary_count",81,"remote","!E3f5c712");
 			// test ports: cmd>telnet 109.206.169.214 81
         DbManager::singletonExists = 1;
     }
