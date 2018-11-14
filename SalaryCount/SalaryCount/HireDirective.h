@@ -31,7 +31,7 @@ public:
 	bool HireDirective::set();
 	bool HireDirective::validate() const;
 	bool HireDirective::update() const;
-    int  HireDirective::insert() const;
+    int  HireDirective::insert();
     
     //static
     bool static createDbTable();

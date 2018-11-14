@@ -97,7 +97,7 @@ bool HireDirective::update() const
     }
     return false;
 }
-int HireDirective::insert() const
+int HireDirective::insert()
 {
     if(DbManager::manager().checkConnection())
     {

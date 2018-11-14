@@ -93,7 +93,8 @@ int LaborSheet::countActualTimeUnits () const
 bool LaborSheet::validate() const{
     return false;
 }
-int LaborSheet::insert() const{
+int LaborSheet::insert()
+{
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
