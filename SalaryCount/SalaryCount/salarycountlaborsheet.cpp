@@ -15,6 +15,7 @@ salarycountLaborSheet::salarycountLaborSheet(Ui_SalaryCount *ui, QString name){
 
         ui->laborSheet->setCellWidget(i/7,i % 7,combo);
 	}
+    
 }
 
 salarycountLaborSheet::~salarycountLaborSheet()

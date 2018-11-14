@@ -14,7 +14,7 @@ public:
 
     DutyChart();
     DutyChart(int id);    
-    DutyChart(QString name, QList<Mark> marks, enum PayForm payForm=PER_HOUR);
+    DutyChart(QString name, QList<Mark> marks,QDate anchorDate, enum PayForm payForm=PER_HOUR);
 
 	bool fetch();
 	bool set()		{return false;}

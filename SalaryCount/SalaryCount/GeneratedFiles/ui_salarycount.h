@@ -122,7 +122,7 @@ public:
     QLineEdit *lineEdit_9;
     QPushButton *pushButton_7;
     QPushButton *pushButton_6;
-    QGroupBox *groupBox_7;
+    QGroupBox *LabourGroupEdit;
     QGridLayout *gridLayout_9;
     QHBoxLayout *horizontalLayout_13;
     QPushButton *pushButton_13;
@@ -614,28 +614,28 @@ public:
 
         gridLayout_10->addWidget(groupBox_6, 0, 0, 1, 1);
 
-        groupBox_7 = new QGroupBox(LaborSheetsPage);
-        groupBox_7->setObjectName(QStringLiteral("groupBox_7"));
-        groupBox_7->setEnabled(true);
+        LabourGroupEdit = new QGroupBox(LaborSheetsPage);
+        LabourGroupEdit->setObjectName(QStringLiteral("LabourGroupEdit"));
+        LabourGroupEdit->setEnabled(true);
         QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy2.setHorizontalStretch(0);
         sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(groupBox_7->sizePolicy().hasHeightForWidth());
-        groupBox_7->setSizePolicy(sizePolicy2);
-        gridLayout_9 = new QGridLayout(groupBox_7);
+        sizePolicy2.setHeightForWidth(LabourGroupEdit->sizePolicy().hasHeightForWidth());
+        LabourGroupEdit->setSizePolicy(sizePolicy2);
+        gridLayout_9 = new QGridLayout(LabourGroupEdit);
         gridLayout_9->setSpacing(6);
         gridLayout_9->setContentsMargins(11, 11, 11, 11);
         gridLayout_9->setObjectName(QStringLiteral("gridLayout_9"));
         horizontalLayout_13 = new QHBoxLayout();
         horizontalLayout_13->setSpacing(6);
         horizontalLayout_13->setObjectName(QStringLiteral("horizontalLayout_13"));
-        pushButton_13 = new QPushButton(groupBox_7);
+        pushButton_13 = new QPushButton(LabourGroupEdit);
         pushButton_13->setObjectName(QStringLiteral("pushButton_13"));
         pushButton_13->setEnabled(false);
 
         horizontalLayout_13->addWidget(pushButton_13);
 
-        pushButton_14 = new QPushButton(groupBox_7);
+        pushButton_14 = new QPushButton(LabourGroupEdit);
         pushButton_14->setObjectName(QStringLiteral("pushButton_14"));
         pushButton_14->setEnabled(false);
 
@@ -644,7 +644,7 @@ public:
 
         gridLayout_9->addLayout(horizontalLayout_13, 1, 0, 1, 1);
 
-        laborSheet = new QTableWidget(groupBox_7);
+        laborSheet = new QTableWidget(LabourGroupEdit);
         if (laborSheet->columnCount() < 7)
             laborSheet->setColumnCount(7);
         QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
@@ -678,11 +678,11 @@ public:
         gridLayout_9->addWidget(laborSheet, 0, 0, 1, 1);
 
 
-        gridLayout_10->addWidget(groupBox_7, 0, 1, 1, 1);
+        gridLayout_10->addWidget(LabourGroupEdit, 0, 1, 1, 1);
 
         stackedWidget->addWidget(LaborSheetsPage);
         groupBox_6->raise();
-        groupBox_7->raise();
+        LabourGroupEdit->raise();
         DutyChartsPage = new QWidget();
         DutyChartsPage->setObjectName(QStringLiteral("DutyChartsPage"));
         gridLayout_7 = new QGridLayout(DutyChartsPage);
@@ -1042,7 +1042,7 @@ public:
         label_14->setText(QApplication::translate("SalaryCount", "\320\237\320\276\320\270\321\201\320\272 \321\201\320\276\321\202\321\200\321\203\320\264\320\275\320\270\320\272\320\276\320\262", 0));
         pushButton_7->setText(QApplication::translate("SalaryCount", "\320\230\320\267\320\274\320\265\320\275\320\270\321\202\321\214", 0));
         pushButton_6->setText(QApplication::translate("SalaryCount", "\320\240\320\260\321\201\321\201\321\207\320\270\321\202\320\260\321\202\321\214 \320\227/\320\237", 0));
-        groupBox_7->setTitle(QApplication::translate("SalaryCount", "\320\240\320\265\320\264\320\260\320\272\321\202\320\270\321\200\320\276\320\262\320\260\320\275\320\270\320\265 \320\276\321\202\320\274\320\265\321\202\320\276\320\272", 0));
+        LabourGroupEdit->setTitle(QApplication::translate("SalaryCount", "\320\240\320\265\320\264\320\260\320\272\321\202\320\270\321\200\320\276\320\262\320\260\320\275\320\270\320\265 \320\276\321\202\320\274\320\265\321\202\320\276\320\272", 0));
         pushButton_13->setText(QApplication::translate("SalaryCount", "\320\241\320\276\321\205\321\200\320\260\320\275\320\270\321\202\321\214", 0));
         pushButton_14->setText(QApplication::translate("SalaryCount", "\320\236\321\202\320\274\320\265\320\275\320\270\321\202\321\214", 0));
         QTableWidgetItem *___qtablewidgetitem = laborSheet->horizontalHeaderItem(0);
