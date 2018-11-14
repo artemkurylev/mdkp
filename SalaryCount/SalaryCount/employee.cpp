@@ -1,7 +1,7 @@
 #include "employee.h"
 
 Employee::Employee()
-    : DbRecord(0)
+    : DbRecord()
 {
 }
 Employee::Employee(int id)

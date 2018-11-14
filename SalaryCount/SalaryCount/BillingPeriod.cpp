@@ -1,29 +1,38 @@
 #include "BillingPeriod.h"
 
+void initalSetupForTable();
+
 BillingPeriod::BillingPeriod(const QDate& startDate)
     : DbRecord()
 {
 	_status = NOT_OPENED;
 	_startDate = startDate;
-} 
+	_next = NULL;
+}
 BillingPeriod::~BillingPeriod()
 {
-
+	// free allocated record
+	if(_next != NULL)
+	{
+		delete _next;
+	}
 }
 BillingPeriod::BillingPeriod(const QDate& startDate,Status status)
     :DbRecord()
 {
     _status = status;
     _startDate = startDate;
+	_next = NULL;
 }
 BillingPeriod::BillingPeriod(int id, const QDate& startDate,Status status)
-    :DbRecord(id)
+    :DbRecord(/*id!*/)
 {
-	throw("It`s wrong to fetch record & then set it`s fields");
     _id = id;
     _status = status;
     _startDate = startDate;
+	_next = NULL;
 }
+
 bool BillingPeriod::fetch()
 {
     if(DbManager::manager().checkConnection())
@@ -79,7 +88,8 @@ int BillingPeriod::insert()
             query->prepare("SELECT id FROM `billing_period` WHERE `startDate` = :start_date");
             query->bindValue(":start_date",this->_startDate);
             if(query->exec() && query->next())
-                return this->_id = query->value(0).toInt();
+                this->_id = query->value(0).toInt();
+                return this->_id;
         }
         else
         {
@@ -95,20 +105,41 @@ int BillingPeriod::insert()
 }
 bool BillingPeriod::createDbTable()
 {
-    if(DbManager::manager().checkConnection()){
+	bool success = false;
+    if(DbManager::manager().checkConnection())
+	{
         QSqlQuery* query = DbManager::manager().makeQuery();
         if(query->exec("CREATE TABLE IF NOT EXISTS `billing_period` (`id` INT(11) NOT NULL AUTO_INCREMENT, `start_date` DATE, `status` INT(11), PRIMARY KEY(`id`))"))
-            return true;
-        else{
+		{
+            success = true;
+			// позже это должно выполняться при создании предприятия
+			initalSetupForTable();
+		}
+        else
+		{
             QString s = query->lastError().text();
             s+="as";
-            return false;
         }
         delete query;
     }
-    else{
-        return false;
+    else
+	{
+        success = false;
     }
+    return success;
+}
+/*! Заполнить пустую таблицу начальными записями
+	для успешного старта бизнес-процесса
+*/
+void initalSetupForTable()
+{
+	if(BillingPeriod::countEntries() == 0)
+	{
+		// insert first rec
+		BillingPeriod bp(QDate(2000,1,1));
+		bp.open();
+		bp.insert();
+	}
 }
 void BillingPeriod::open()
 {
@@ -122,8 +153,9 @@ void BillingPeriod::set_modified()
 {
 	_status = MODIFIED;
 }
-static BillingPeriod* getByDate(QDate date)
+static BillingPeriod* getByDate(const QDate& date)
 {
+	BillingPeriod* billing_period = NULL;
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
@@ -131,9 +163,42 @@ static BillingPeriod* getByDate(QDate date)
         query->bindValue(":start_date",date);
         if(query->exec() && query->next())
         {
-            BillingPeriod* billing_period = new BillingPeriod(query->value(0).toInt(),query->value(1).toDate(),(BillingPeriod::Status)query->value(2).toInt());
-            return billing_period;
+            billing_period = new BillingPeriod(query->value(0).toInt(),query->value(1).toDate(),(BillingPeriod::Status)query->value(2).toInt());
         }
+		delete query;
     }
-    return NULL;
+    return billing_period;
+}
+long BillingPeriod::countEntries()
+{
+    int counter = 0;
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+
+        query->prepare("SELECT COUNT(*) FROM `billing_period`");
+        if(query->exec())
+        {
+            if(query->next())
+                counter = query->value(0).toInt();
+        }
+        delete query;
+    }
+    return counter;
+}
+
+// Получить/создать следующий расчётный период
+BillingPeriod* BillingPeriod::nextPeriod()
+{
+	if(_next == NULL)
+	{
+		QDate next_month_date =  startDate().addMonths(1);
+		_next = BillingPeriod::getByDate(next_month_date);
+		if(_next == NULL)
+		{
+			_next = new BillingPeriod(next_month_date);
+			_next->insert();
+		}
+	}
+	return _next;
 }
