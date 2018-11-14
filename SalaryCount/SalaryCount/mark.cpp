@@ -87,7 +87,7 @@ bool Mark::update() const
     }
     return false;
 }
-int Mark::insert() const
+int Mark::insert()
 {
     if(DbManager::manager().checkConnection())
     {

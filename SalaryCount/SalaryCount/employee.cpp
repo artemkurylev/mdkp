@@ -93,7 +93,7 @@ bool Employee::fetch()
         return false;
     }
 }
-int Employee::insert() const
+int Employee::insert()
 {
     if(DbManager::manager().checkConnection())
     {

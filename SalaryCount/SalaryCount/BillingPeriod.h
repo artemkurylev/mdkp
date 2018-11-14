@@ -35,7 +35,7 @@ public:
 	bool update() const;
     
     static bool createDbTable();
-    int insert() const;
+    int insert();
     static BillingPeriod* getByDate(QDate date);
 	//! Управление статусом
 	void open();

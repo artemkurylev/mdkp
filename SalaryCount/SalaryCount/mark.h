@@ -27,7 +27,7 @@ public:
 	bool set();
 	bool validate() const;
 	bool update() const;
-    int insert() const;
+    int insert();
     static bool createDbTable();
 	// getters
 	int base()		const	{	return _base;		}

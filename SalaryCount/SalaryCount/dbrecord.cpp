@@ -3,7 +3,7 @@
 DbRecord::DbRecord()
     : QObject(0)
 {
-
+	this->_id = -1;
 }
 DbRecord::DbRecord(int id)
 {

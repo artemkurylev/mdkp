@@ -13,8 +13,8 @@ public:
     ~salarycountLaborSheet();
 
 private:
-    Ui_SalaryCount *ui;//не самый при€тный способ, зато все видно из коробки
-    void showAllLabors();
+    Ui_SalaryCount *ui; // не самый при€тный способ, зато все видно из коробки
+	void showAllLabors();
 };
 
 #endif // SALARYCOUNTLABORSHEET_H

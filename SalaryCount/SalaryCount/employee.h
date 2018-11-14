@@ -19,7 +19,7 @@ public:
     bool fetch();
     bool validate() const;
     bool update() const;
-    int insert() const;
+    int insert();
     static bool createDbTable();
     static QMap<int,QString> getAll();
     static long countEntries();

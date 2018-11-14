@@ -14,12 +14,13 @@ public:
     DutyChart();
     DutyChart(int id);    
     DutyChart(QString name, QList<Mark> marks,QDate anchorDate, enum PayForm payForm=PER_HOUR);
+	DutyChart(int id, QString name, QList<Mark> marks,QDate anchorDate, enum PayForm payForm=PER_HOUR);
 
 	bool fetch();
 	bool set()		{return false;}
 	bool validate() const {return false;}
 	bool update()	const {return false;}
-    int insert()	const;
+    int insert();
     static bool createDbTable();
 
     const int payForm()		 const	{return _payForm;}

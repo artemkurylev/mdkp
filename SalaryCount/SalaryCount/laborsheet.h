@@ -44,7 +44,7 @@ public:
 	*/
 	int countActualTimeUnits () const;
     //Наследуемые методы
-    int LaborSheet::insert() const;
+    int LaborSheet::insert();
     bool LaborSheet::update() const;
     bool LaborSheet::fetch();
     bool LaborSheet::validate() const;

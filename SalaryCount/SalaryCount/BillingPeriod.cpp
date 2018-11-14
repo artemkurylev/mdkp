@@ -1,7 +1,7 @@
 #include "BillingPeriod.h"
 
 BillingPeriod::BillingPeriod(const QDate& startDate)
-    : DbRecord(0)
+    : DbRecord()
 {
 	_status = NOT_OPENED;
 	_startDate = startDate;
@@ -11,14 +11,15 @@ BillingPeriod::~BillingPeriod()
 
 }
 BillingPeriod::BillingPeriod(const QDate& startDate,Status status)
-    :DbRecord(0)
+    :DbRecord()
 {
     _status = status;
     _startDate = startDate;
 }
 BillingPeriod::BillingPeriod(int id, const QDate& startDate,Status status)
-    :DbRecord(0)
+    :DbRecord(id)
 {
+	throw("It`s wrong to fetch record & then set it`s fields");
     _id = id;
     _status = status;
     _startDate = startDate;
@@ -65,7 +66,7 @@ bool BillingPeriod::update() const
 {
     return false;
 }
-int BillingPeriod::insert() const
+int BillingPeriod::insert()
 {
     if(DbManager::manager().checkConnection())
     {
@@ -78,7 +79,7 @@ int BillingPeriod::insert() const
             query->prepare("SELECT id FROM `billing_period` WHERE `startDate` = :start_date");
             query->bindValue(":start_date",this->_startDate);
             if(query->exec() && query->next())
-                return query->value(0).toInt();
+                return this->_id = query->value(0).toInt();
         }
         else
         {
