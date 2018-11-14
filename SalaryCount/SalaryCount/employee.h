@@ -17,6 +17,7 @@ public:
 	Employee(int id);
     ~Employee();
     bool fetch();
+    bool validate() const;
     bool update() const;
     int insert() const;
     static bool createDbTable();
@@ -24,6 +25,8 @@ public:
     static long countEntries();
     const HireDirective* hireDirective() const;
 
+    //геттеры
+    QString fio(){return _fio;}
 private:
 	// личные
     QString _fio;
