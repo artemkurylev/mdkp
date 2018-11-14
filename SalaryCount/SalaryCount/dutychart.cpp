@@ -1,8 +1,10 @@
 #include "dutychart.h"
 
-DutyChart::DutyChart(QObject *parent)
-    : DbRecord(parent)
+
+DutyChart::DutyChart(uint id)
+    : DbRecord(0)
 {
+	_id = id;
 	// создать типичный график 5\2
 	_grid.clear();
 	_grid.reserve(7);
@@ -155,3 +157,16 @@ DutyChart::~DutyChart()
 {
 
 }
+
+//DutyChart DutyChart::baseObject()
+//{
+//	QList<Mark> bmarks;
+//
+//	for(int i=0; i<7; ++i)
+//	{
+//		bmarks.append(Mark());
+//	}
+//
+//
+//	DutyChart* obj = new
+//}
