@@ -143,6 +143,10 @@ QMap<int,QString> Employee::getAll()
 
     return records;
 }
+bool Employee::validate() const
+{
+    return false;
+}
 long Employee::countEntries()
 {
     int counter = 0;
