@@ -61,9 +61,7 @@ int DutyChart::insert() const
         }
         delete query;
     }
-    else{
-        return -1;
-    }
+    return -1;
 }
 bool DutyChart::fetch(){
     if(DbManager::manager().checkConnection())
@@ -90,6 +88,7 @@ bool DutyChart::fetch(){
                         Mark m(query_m.value(1).toInt(),query_m.value(2).toInt(),query_m.value(3).toInt(),query_m.value(4).toInt());
                         _grid.append(m);
                     }
+                    return true;
                 }
             }
         }
@@ -101,10 +100,7 @@ bool DutyChart::fetch(){
         }
         delete query;
     }
-    else
-    {
-        return false;
-    }
+    return false;
 }
 QMap<int,QString> DutyChart::getAll()
 {
