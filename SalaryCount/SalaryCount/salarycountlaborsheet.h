@@ -3,6 +3,7 @@
 
 #include "delegateStates.h"
 #include "laborsheet.h"
+#include<qtablewidget.h>
 class salarycountLaborSheet : public delegateStates
 {
     Q_OBJECT

@@ -32,6 +32,10 @@ void salarycountLaborSheet::showAllLabors()
     for(auto it = laborData.begin(); it!= laborData.end(); ++it)
     {
         ui->employeeLaborSheetTable->insertRow(row);
+        Employee employee(it.value());
+        employee.fetch();
+
+        ui->employeeLaborSheetTable->setItem(row,0,new QTableWidgetItem(employee.fio()));
         ++row;
     }
 }
