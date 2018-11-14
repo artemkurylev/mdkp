@@ -1,6 +1,8 @@
 #pragma once
 
-#include "laborsheet.h"
+#include "BillingPeriod.h"
+//#include "laborsheet.h"
+
 
 /*! Форма оплаты труда. (помесячная/почасовая)
 */
@@ -10,40 +12,30 @@ enum PayForm
 	PER_MONTH,
 };
 
-
+class LaborSheet;
 
 /*! Бухгалтер. Инкапсулирует главные функции учёта труда
 */
 class BookKeeper
 {
 public:
-	static bool calcSalary(const LaborSheet & laborSheet);
-	
-	/*! Заполнить табель за период отметками по умолчанию
-	TODO: сделать методом класса LaborSheet
+	/*! Вычислить зарплату за период по закрытому месячному табелю
 	*/
-	static bool fillLaborsheetWithDefaults(LaborSheet & laborSheet);
+	static bool calcAwardFor(LaborSheet & laborSheet);
+
+
+	static bool openBillingPeriod(BillingPeriod & billingPeriod);
+
 
 private:
-	friend class BookKeeperTest;
-
-	/*! Подсчитать плановое рабочее время за период
-	TODO: сделать методом класса LaborSheet
-	*/
-	static int countDefaultLaborTimeUnits(const LaborSheet & laborSheet);
-
-	/*! Подсчитать отработанное время за период
-	TODO: сделать методом класса LaborSheet
-	*/
-	static int countActualLaborTimeUnits (const LaborSheet & laborSheet);
 
 	/*! Подсчитать зарплату за период для почасовой формы оплаты
 	*/
-	static float calcPerHoursSalary(float hourSalary, int hours);
+	static float awardPerHoursForm(float hourSalary, int hours);
 
 	/*! Подсчитать зарплату за период для помесячной формы оплаты
 	*/
-	static float calcPerMonthSalary(float monthSalary, int days, int workDays);
+	static float awardPerMonthForm(float monthSalary, int days, int workDays);
 
 	
 };

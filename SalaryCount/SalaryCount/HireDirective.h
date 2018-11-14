@@ -1,8 +1,10 @@
 #pragma once
 
 #include "dbrecord.h"
-#include "employee.h"
+//#include "employee.h"
 #include "BookKeeper.h"
+
+class Employee;
 
 	/*! Приказ о приёме нового сотрудника. Фиксирует зарплату и форму оплаты труда (помесячная/почасовая)
 */
@@ -10,7 +12,7 @@ class HireDirective :
 	public DbRecord
 {
 public:
-	HireDirective(QObject *parent);
+	HireDirective();
 	HireDirective(QDate hireDate, QString fio, PayForm payForm, float salary, int employeeID);
 	~HireDirective(void);
 
@@ -21,15 +23,18 @@ public:
 	float salary()		const	{	return _salary;		}
 
 	// methods
-	Employee * hiredEmployee();
+	Employee * hiredEmployee()	const;
+    
 
 	// inherited
 	bool HireDirective::fetch();
 	bool HireDirective::set();
 	bool HireDirective::validate() const;
 	bool HireDirective::update() const;
-
-
+    int  HireDirective::insert() const;
+    
+    //static
+    bool static createDbTable();
 private:
 	QDate _hireDate;
 	QString _fio;

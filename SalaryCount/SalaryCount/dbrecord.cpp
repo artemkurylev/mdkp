@@ -1,14 +1,14 @@
 #include "dbrecord.h"
 
-DbRecord::DbRecord(QObject *parent)
-    : QObject(parent)
+DbRecord::DbRecord()
+    : QObject(0)
 {
 
 }
 DbRecord::DbRecord(int id)
 {
 	this->_id = id;
-	//this->fetch();
+	this->fetch();
 }
 DbRecord::DbRecord(const DbRecord & other)
 {

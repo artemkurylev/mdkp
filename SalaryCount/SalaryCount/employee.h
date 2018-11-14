@@ -4,24 +4,41 @@
 #include <QObject>
 #include <qdatetime.h>
 #include <qstring.h>
-#include "dutychart.h"
 #include "dbrecord.h"
+#include "dutychart.h"
+#include "HireDirective.h"
+
 class Employee : public DbRecord
 {
     Q_OBJECT
 
 public:
-    Employee(QObject *parent);
+    Employee();
 	Employee(int id);
     ~Employee();
+    bool fetch();
+    bool update() const;
+    int insert() const;
+    static bool createDbTable();
+    static QMap<int,QString> getAll();
+    static long countEntries();
+    const HireDirective* hireDirective() const;
 
 private:
-    QDate hireDate;
-    QString fio[3];
-    QString phoneNumber;
-    int INN[10];
-    int nextDutyChart;
-    QDate nextDutyChartSince;
+	// личные
+    QString _fio;
+    QString _phoneNumber;
+    int _INN;
+
+	// график
+    int _nextDutyChart;
+    int _currentDutyChart;
+    QDate _nextDutyChartSince;
+
+	// DB links
+	int _hireDirectiveID;
+
+	//const QString& tableName() { return "employee";};
 };
 
 #endif // EMPLOYEE_H
