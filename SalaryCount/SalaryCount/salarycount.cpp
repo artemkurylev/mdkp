@@ -47,7 +47,8 @@
 
 	//соединение со страницей создания графиков
 	this->dutyChart = new salarycountDutyChart(&this->ui,ui.DutyCharAction->objectName());
-
+    //Соедиенение со страницей табелей
+    this->laborSheet = new salarycountLaborSheet(&this->ui,ui.LaborSheetAction->objectName());
 	connect(this, SIGNAL(showPage(QString)),this->dutyChart,SLOT(updateInfo(QString)));//обновить информацию на странице
 	connect(this->dutyChart,SIGNAL(changeState(bool)),this,SLOT(rememberState(bool)));//на странице может быть два режима: просмотр и изменение записей
 	connect(this,SIGNAL(saveChanges()),this->dutyChart,SLOT(saveNewDutyChart()));//приложение посылает сигнал на сохранение страницы
