@@ -9,8 +9,8 @@ class Mark : public DbRecord
 
 public:
     Mark();
-    Mark(int baseMark);
-    Mark(int base, int altered, int countHours, int alteredCountHours, int dutychartId,int laborsheetId);
+    Mark(int id); // create & fetch
+    Mark(int dutychartId,int laborsheetId=NULL, int base=HOLIDAY, int altered=INVALID, int countHours=0, int alteredCountHours=-1);
     ~Mark();
 
 	enum Type

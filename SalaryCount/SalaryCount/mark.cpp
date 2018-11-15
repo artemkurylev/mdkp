@@ -1,25 +1,33 @@
 #include "mark.h"
 
 Mark::Mark()
-    : DbRecord(0)
+    : DbRecord()
 {
 	_base = INVALID;
 	_altered = INVALID;
+    _dutychartId = NULL;
+    _laborsheetId = NULL;
+    _countHours = 0;
+    _alteredCountHours = 0;
 } 
 
-Mark::Mark(int baseMark)
-    : DbRecord(NULL)
+Mark::Mark(int id)
+    : DbRecord(id)
 {
-	_base = baseMark;
+	_base = INVALID;
 	_altered = INVALID;
+    _dutychartId = NULL;
+    _laborsheetId = NULL;
+    _countHours = 0;
+    _alteredCountHours = 0;
 } 
-Mark::Mark(int base, int altered, int countHours, int alteredCountHours, int dutychartId,int laborsheetId)
-    : DbRecord(NULL)
+Mark::Mark(int dutychartId,int laborsheetId/*=NULL*/, int base/*=HOLIDAY*/, int altered/*=INVALID*/, int countHours/*=0*/, int alteredCountHours/*=-1*/)
+    : DbRecord()
 {
-	_base = base;
-	_altered = altered;
     _dutychartId = dutychartId;
     _laborsheetId = laborsheetId;
+	_base = base;
+	_altered = altered;
     _countHours = countHours;
     _alteredCountHours = alteredCountHours;
 }
@@ -89,6 +97,7 @@ bool Mark::update() const
 }
 int Mark::insert()
 {
+	int insert_id = -1;
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
@@ -102,40 +111,44 @@ int Mark::insert()
         if(query->exec())
         {
             if(query->exec("SELECT LAST_INSERT_ID()") && query->next())
-                return query->value(0).toInt();
+            {   
+                this->_id = query->value(0).toInt();
+				insert_id = this->_id;
+            }
         }
         else
         {
             QString s = query->lastError().text();
             s+="as";
-            return -1;
         }
         delete query;
     }
     else
     {
-        return -1;
     }
+	return insert_id;
 }
 bool Mark::createDbTable()
 {
+	bool success = false;
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
         if(query->exec("CREATE TABLE IF NOT EXISTS `mark` (`id` INT(11) NOT NULL AUTO_INCREMENT, `base` INT(11), `altered` INT(11) ,`count_hours` INT(3),`altered_count_hours` INT(3),`dutychart_id` INT(11),`laborsheet_id` INT(11), PRIMARY KEY(`id`))"))
-            return true;
+		{
+            success = true;
+		}
         else
         {
             QString s = query->lastError().text();
             s+="as";
-            return false;
         }
         delete query;
     }
     else
     {
-        return false;
     }
+    return success;
 }
 Mark::~Mark()
 {
