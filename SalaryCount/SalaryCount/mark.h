@@ -34,6 +34,16 @@ public:
 	int altered()	const	{	return _altered;	}
     int countHours()		const	{	return _countHours;		}
     int alteredCountHours()	const	{	return _alteredCountHours;	}
+    int dutyChartId()	const	{	return _dutyChartId;	}
+    int laborsheetId()	const	{	return _laborsheetId;	}
+
+	// setters
+	void setBaseMark(int base)			{	_base = base;			}
+	void setAlteredMark(int altered)	{	_altered = altered;		}
+    void setCountHours(int hrs)			{	_countHours = hrs;		}
+    void setAlteredCountHours(int hrs)	{	_alteredCountHours=hrs;	}
+    void setDutyChartId(int id)			{	_dutyChartId = id;		}
+    void setLaborsheetId(int id)		{	_laborsheetId = id;		}
 
 	// methods
 
