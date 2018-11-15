@@ -3,12 +3,28 @@
 Employee::Employee()
     : DbRecord()
 {
+	throw("it`s wrong constructor!");
 	_hireDirective = NULL;
 }
 Employee::Employee(int id)
     : DbRecord(id)
 {
 	_hireDirective = NULL;
+}
+/*! Конструктор создания новой записи
+Предполагается, что приказ и график уже созданы и имеют ID
+*/
+Employee::Employee(QString _fio,QString _phoneNumber,int _INN,int _currentDutyChartID,int _hireDirectiveID)
+{
+	this->_fio = _fio;
+	this->_phoneNumber = _phoneNumber;
+	this->_INN = _INN;
+	this->_currentDutyChartID = _currentDutyChartID;
+	this->_hireDirectiveID = _hireDirectiveID;
+
+	// оставить пустыми
+	this->_nextDutyChartID = NULL;
+	this->_nextDutyChartSince = QDate(1234,11,22);
 }
 Employee::~Employee()
 {
@@ -29,8 +45,8 @@ bool Employee::update() const
         query->bindValue(":phone_number",this->_phoneNumber);
         query->bindValue(":inn",this->_INN);
         query->bindValue(":hire_directive_id",this->_hireDirectiveID);
-        query->bindValue(":dutychart_id",this->_currentDutyChart);
-        query->bindValue(":next_dutychart_id",this->_nextDutyChart);
+        query->bindValue(":dutychart_id",this->_currentDutyChartID);
+        query->bindValue(":next_dutychart_id",this->_nextDutyChartID);
         query->bindValue(":next_dutychart_since", this->_nextDutyChartSince);
         query->bindValue(":id", this->id());
         if(query->exec())
@@ -86,8 +102,8 @@ bool Employee::fetch()
                 _INN = query->value(3).toInt();
 				// hire_directive_id
 				_hireDirectiveID = query->value(4).toInt();
-                _currentDutyChart = query->value(5).toInt();
-                _nextDutyChart = query->value(6).toInt();
+                _currentDutyChartID = query->value(5).toInt();
+                _nextDutyChartID = query->value(6).toInt();
                 _nextDutyChartSince = query->value(7).toDate();
             }
         }
@@ -106,33 +122,36 @@ bool Employee::fetch()
 }
 int Employee::insert()
 {
+	int insert_id = -1;
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        query->prepare("INSERT INTO `employee` (fio,phone_number,inn,hire_directive_id,dutychart_id) VALUES(:fio,:phone_number,:inn,:hire_directive_id,:dutychart_id");
+        query->prepare("INSERT INTO `employee` (fio,phone_number,inn,hire_directive_id,dutychart_id) VALUES(:fio,:phone_number,:inn,:hire_directive_id,:dutychart_id);");
         query->bindValue(":fio",this->_fio);
         query->bindValue(":phone_number",this->_phoneNumber);
         query->bindValue(":inn",this->_INN);
         query->bindValue(":hire_directive_id",this->_hireDirectiveID);
-        query->bindValue(":dutychart_id",this->_currentDutyChart);
+        query->bindValue(":dutychart_id",this->_currentDutyChartID);
         if(query->exec())
         {
             query->prepare("SELECT id FROM `employee` WHERE `inn` = :inn");
             query->bindValue(":inn",this->_INN);
             if(query->exec() && query->next())
-                return query->value(0).toInt();
+			{
+                this->_id = query->value(0).toInt();
+                insert_id = this->_id;
+			}
         }
         else
         {
             QString s = query->lastError().text();
             s+="as";
-            return -1;
         }
         delete query;
     }
     else{
-        return -1;
     }
+	return insert_id;
 }
 QMap<int,QString> Employee::getAll()
 {
@@ -156,7 +175,34 @@ QMap<int,QString> Employee::getAll()
 }
 bool Employee::validate() const
 {
-    return false;
+	bool success = false;
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+        query->prepare("ISELECT id FROM `employee` WHERE `id` <> :id AND ( `phone_number` = :phone_number OR `inn` = :inn );");
+        query->bindValue(":id",this->_id);
+        query->bindValue(":phone_number",this->_phoneNumber);
+        query->bindValue(":inn",this->_INN);
+        if(query->exec())
+        {
+            if( ! query->next()) // нет ни одной конфликтующей записи
+			{
+				success = true;
+			}
+			else
+			{
+				// извлечь конфликтующие записи
+				// и отправить их куда следует (через сигнал/слот?)
+			}
+        }
+        else
+        {
+            QString s = query->lastError().text();
+            s+="as";
+        }
+        delete query;
+    }
+    return success;
 }
 long Employee::countEntries()
 {
