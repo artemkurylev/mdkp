@@ -28,6 +28,9 @@ public:
 	*/
 	static bool closeBillingPeriod(BillingPeriod & billingPeriod);
 
+
+	static bool hireNewEmployee();
+
 private:
 	friend class BookKeeperTest;
 
