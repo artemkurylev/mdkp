@@ -23,16 +23,16 @@ bool LaborSheet::fillWithDefaults()
     count_diff_days = abs(buffer_date.daysTo(this->_billingPeriod->startDate()));
     int length = _dutyChart->length();
     int bias = count_diff_days % length;
-    int dutychart_index = bias;
+    int dutyChart_index = bias;
 	
 	this->_grid.clear();
 	// Заполнить табель отметками по умолчанию
     int month_length = this->_billingPeriod->startDate().daysInMonth();
-    for(int i = 0; i < month_length; ++i,dutychart_index++)
+    for(int i = 0; i < month_length; ++i,dutyChart_index++)
     {
-        if(dutychart_index >= length)
-            dutychart_index = 0;
-        Mark m(_dutyChart->grid()[dutychart_index]);
+        if(dutyChart_index >= length)
+            dutyChart_index = 0;
+        Mark m(_dutyChart->grid()[dutyChart_index]);
         this->_grid.push_back(m);
     }
 	
@@ -261,8 +261,8 @@ bool LaborSheet::fetch()
      //           }
      //           if(query->exec() && query->next())
      //           {
-     //               DutyChart* dutychart = new DutyChart(query->value(3).toInt());
-     //               this->_dutyChart = dutychart;
+     //               DutyChart* dutyChart = new DutyChart(query->value(3).toInt());
+     //               this->_dutyChart = dutyChart;
      //			  }
 
                 QSqlQuery* query_m = DbManager::manager().makeQuery();

@@ -40,14 +40,14 @@ bool Employee::update() const
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        query->prepare("UPDATE `employee` SET fio = :fio , phone_number = :phone_number, inn = :inn, hire_directive_id = :hire_directive_id, dutychart_id = :dutychart_id, next_dutychart_id = :next_dutychart_id, next_dutychart_since = :next_dutychart_since WHERE `id` = id");
+        query->prepare("UPDATE `employee` SET fio = :fio , phone_number = :phone_number, inn = :inn, hire_directive_id = :hire_directive_id, dutychart_id = :dutychart_id, next_dutyñhart_id = :next_dutyñhart_id, next_dutyñhart_since = :next_dutyñhart_since WHERE `id` = id");
         query->bindValue(":fio",this->_fio);
         query->bindValue(":phone_number",this->_phoneNumber);
         query->bindValue(":inn",this->_INN);
         query->bindValue(":hire_directive_id",this->_hireDirectiveID);
         query->bindValue(":dutychart_id",this->_currentDutyChartID);
-        query->bindValue(":next_dutychart_id",this->_nextDutyChartID);
-        query->bindValue(":next_dutychart_since", this->_nextDutyChartSince);
+        query->bindValue(":next_dutyñhart_id",this->_nextDutyChartID);
+        query->bindValue(":next_dutyñhart_since", this->_nextDutyChartSince);
         query->bindValue(":id", this->id());
         if(query->exec())
         {
@@ -68,7 +68,7 @@ bool Employee::createDbTable()
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        if(query->exec("CREATE TABLE IF NOT EXISTS `employee` (`id` INT(11) NOT NULL AUTO_INCREMENT, `fio` CHAR(30) NOT NULL, `phone_number` CHAR(20),`inn` INT(10),`hire_directive_id` INT(11),`dutychart_id` INT(11),`next_dutychart_id` INT(11),`next_dutychart_since` DATE, PRIMARY KEY(`id`))"))
+        if(query->exec("CREATE TABLE IF NOT EXISTS `employee` (`id` INT(11) NOT NULL AUTO_INCREMENT, `fio` CHAR(30) NOT NULL, `phone_number` CHAR(20),`inn` INT(10),`hire_directive_id` INT(11),`dutychart_id` INT(11),`next_dutyñhart_id` INT(11),`next_dutyñhart_since` DATE, PRIMARY KEY(`id`))"))
 		{
 			success = true;
 		}

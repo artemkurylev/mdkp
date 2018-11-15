@@ -5,7 +5,7 @@ Mark::Mark()
 {
 	_base = INVALID;
 	_altered = INVALID;
-    _dutychartId = NULL;
+    _dutyChartId = NULL;
     _laborsheetId = NULL;
     _countHours = 0;
     _alteredCountHours = 0;
@@ -16,15 +16,15 @@ Mark::Mark(int id)
 {
 	_base = INVALID;
 	_altered = INVALID;
-    _dutychartId = NULL;
+    _dutyChartId = NULL;
     _laborsheetId = NULL;
     _countHours = 0;
     _alteredCountHours = 0;
 } 
-Mark::Mark(int dutychartId,int laborsheetId/*=NULL*/, int base/*=HOLIDAY*/, int altered/*=INVALID*/, int countHours/*=0*/, int alteredCountHours/*=-1*/)
+Mark::Mark(int dutyChartId,int laborsheetId/*=NULL*/, int base/*=HOLIDAY*/, int altered/*=INVALID*/, int countHours/*=0*/, int alteredCountHours/*=-1*/)
     : DbRecord()
 {
-    _dutychartId = dutychartId;
+    _dutyChartId = dutyChartId;
     _laborsheetId = laborsheetId;
 	_base = base;
 	_altered = altered;
@@ -46,7 +46,7 @@ bool Mark::fetch()
             {
                 _base = query->value(1).toInt();
                 _altered = query->value(2).toInt();
-                _dutychartId = query->value(3).toInt();
+                _dutyChartId = query->value(3).toInt();
                 _laborsheetId = query->value(4).toInt();
             }
         }
@@ -102,7 +102,7 @@ int Mark::insert()
         query->bindValue(":altered",this->_altered);
         query->bindValue(":count_hours",this->_countHours);
         query->bindValue(":altered_count_hours",this->_alteredCountHours);
-        query->bindValue(":dutychart_id",this->_dutychartId);
+        query->bindValue(":dutychart_id",this->_dutyChartId);
         query->bindValue(":laborsheet_id",this->_laborsheetId);
         if(query->exec())
         {
