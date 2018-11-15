@@ -15,6 +15,7 @@ class Employee : public DbRecord
 public:
     Employee(QObject *parent);
 	Employee(int id);
+	Employee(QString _fio,QString _phoneNumber,int _INN,int _currentDutyChartID,int _hireDirectiveID);
     ~Employee();
 
     bool fetch();
@@ -37,8 +38,8 @@ private:
     int _INN;
 
 	// график
-    int _currentDutyChart;
-    int _nextDutyChart;
+    int _currentDutyChartID;
+    int _nextDutyChartID;
     QDate _nextDutyChartSince;
 
 	// DB links
