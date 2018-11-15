@@ -33,11 +33,11 @@ public:
 
 	// inherited
 	bool fetch();
-	bool set();
 	bool validate() const;
 	bool update() const;
     int insert();
     static bool createDbTable();
+
 	// getters
 	int base()		const	{	return _base;		}
 	int altered()	const	{	return _altered;	}
