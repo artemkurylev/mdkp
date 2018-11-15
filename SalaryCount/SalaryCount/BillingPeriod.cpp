@@ -47,6 +47,7 @@ bool BillingPeriod::fetch()
             if(query->next())
             {
                 _startDate = query->value(1).toDate();
+				//_startDate = QDate::fromString("yyyy-MM-dd", query->value(1).toString() );
                 _status = (Status)query->value(2).toInt();
             }
         }
@@ -73,35 +74,61 @@ bool BillingPeriod::validate() const
 }
 bool BillingPeriod::update() const
 {
-    return false;
-}
-int BillingPeriod::insert()
-{
+	bool success = false;
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        query->prepare("INSERT INTO `billing_period` (start_date,status) VALUES(:start_date,:status");
+        query->prepare("UPDATE `billing_period` SET `start_date`=:start_date, `status`=:status WHERE  `id`=:id;");
         query->bindValue(":start_date",this->_startDate);
-        query->bindValue(":phone_number",this->_status);
+        query->bindValue(":status",this->_status);
+        query->bindValue(":id",this->_id);
         if(query->exec())
         {
-            query->prepare("SELECT id FROM `billing_period` WHERE `startDate` = :start_date");
-            query->bindValue(":start_date",this->_startDate);
-            if(query->exec() && query->next())
-                this->_id = query->value(0).toInt();
-                return this->_id;
+			success = true;
+		}
+        else
+        {
+            QString s = query->lastError().text();
+            s+="as";
+			s = query->executedQuery();
+        }
+        delete query;
+    }
+    else
+	{
+    }
+    return success;
+}
+int BillingPeriod::insert()
+{
+	int insert_id = -1;
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+        query->prepare("INSERT INTO `billing_period` (start_date,status) VALUES(:start_date,:status)");
+        query->bindValue(":start_date",this->_startDate);
+        query->bindValue(":status",this->_status);
+        if(query->exec())
+        {
+            //query->prepare("SELECT id FROM `billing_period` WHERE `start_date` = :start_date");
+            //query->bindValue(":start_date",this->_startDate);
+			QVariant last_id = query->lastInsertId();
+            if(last_id.isValid())
+                this->_id = last_id.toInt();
+                insert_id = this->_id;
         }
         else
         {
             QString s = query->lastError().text();
             s+="as";
-            return -1;
+			s = query->executedQuery();
         }
         delete query;
     }
-    else{
-        return -1;
+    else
+	{
     }
+	return insert_id;
 }
 bool BillingPeriod::createDbTable()
 {
@@ -153,7 +180,7 @@ void BillingPeriod::set_modified()
 {
 	_status = MODIFIED;
 }
-static BillingPeriod* getByDate(const QDate& date)
+/*static*/ BillingPeriod* BillingPeriod::getByDate(const QDate& date)
 {
 	BillingPeriod* billing_period = NULL;
     if(DbManager::manager().checkConnection())
@@ -169,7 +196,7 @@ static BillingPeriod* getByDate(const QDate& date)
     }
     return billing_period;
 }
-long BillingPeriod::countEntries()
+/*static*/ long BillingPeriod::countEntries()
 {
     int counter = 0;
     if(DbManager::manager().checkConnection())
@@ -186,26 +213,25 @@ long BillingPeriod::countEntries()
     }
     return counter;
 }
-BillingPeriod* BillingPeriod::getByDate(const QDate& date)
+BillingPeriod* BillingPeriod::getCurrentPeriod()
 {
-    int counter = 0;
+	BillingPeriod* billing_period = NULL;
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-
-        query->prepare("SELECT * FROM `billing_period` WHERE start_date = :date");
-        query->bindValue(":date",date);
-        if(query->exec())
+        query->prepare("SELECT * FROM billing_period WHERE status = :status");
+        query->bindValue(":status",OPEN);
+        if(query->exec() && query->next())
         {
-            if(query->next())
-            {
-                BillingPeriod* period = new BillingPeriod(query->value(0).toInt(),query->value(1).toDate(),(BillingPeriod::Status)query->value(2).toInt());
-                return period;
-            }
+            billing_period = new BillingPeriod(
+				query->value(0).toInt(),
+				query->value(1).toDate(),
+				(BillingPeriod::Status)query->value(2).toInt()
+				);
         }
-        delete query;
+		delete query;
     }
-    return NULL;
+    return billing_period;
 }
 // Получить/создать следующий расчётный период
 BillingPeriod* BillingPeriod::nextPeriod()

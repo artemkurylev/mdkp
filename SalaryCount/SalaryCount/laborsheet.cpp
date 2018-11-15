@@ -124,7 +124,8 @@ bool LaborSheet::validate() const{
 }
 int LaborSheet::insert()
 {
-    if(DbManager::manager().checkConnection())
+	int insert_id = -1;
+	if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
         query->prepare("INSERT INTO `labor_sheet` (billing_period_id,employee_id,dutychart_id, closed) VALUES(:billing_period_id,:employee_id,:dutychart_id");
@@ -141,22 +142,27 @@ int LaborSheet::insert()
                 }
             }
             if(query->exec("SELECT LAST_INSERT_ID()") && query->next())
-                return query->value(0).toInt();
+			{
+				this->_id = query->value(0).toInt();
+                insert_id = this->_id;
+			}
         }
         else
         {
             //Ошибка!
             QString s = query->lastError().text();
             s+="as";
-            return -1;
         }
         delete query;
     }
-    else{
-        return -1;
+    else
+	{
     }
+	return insert_id;
 }
-bool LaborSheet::update() const{
+bool LaborSheet::update() const
+{
+	bool success = false;
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
@@ -167,23 +173,22 @@ bool LaborSheet::update() const{
         query->bindValue(":id",this->id());
         if(query->exec())
         {
+            success = true;
             for(int i = 0; i < _grid.size(); ++i)
             {
                 if(!_grid[i].update())
                 {
                     //Ошибка!!!
+			        success = false;
                 }
             }
-            delete query;
-            return true;
         }
         else
         {
-            delete query;
-            return false;
         }
+        delete query;
     }
-    return false;
+    return success;
 }
 bool LaborSheet::createDbTable()
 {

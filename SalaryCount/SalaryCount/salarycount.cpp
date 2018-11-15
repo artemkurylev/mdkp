@@ -14,6 +14,17 @@ SalaryCount::SalaryCount(QWidget *parent)
 
 	initialDBManager();
 
+	// test>
+	BillingPeriod* bp = BillingPeriod::getCurrentPeriod();
+	for(int i=0 ; i<3 ; ++i)
+	{
+		BookKeeper::openBillingPeriod(*bp);
+		bp = bp->nextPeriod();
+	}
+
+
+	// <test
+
 	this->editState = false;
 	
 	// запуск тестирования
@@ -40,6 +51,8 @@ SalaryCount::SalaryCount(QWidget *parent)
 	this->currentAction->setEnabled(false);
 
 	connect(ui.CompanyMenu,SIGNAL(triggered(QAction*)), this,SLOT(showPage(QAction*)));
+
+	connect(ui.ExitAction,SIGNAL(triggered()), this,SLOT(close()));
 }
 
 SalaryCount::~SalaryCount()

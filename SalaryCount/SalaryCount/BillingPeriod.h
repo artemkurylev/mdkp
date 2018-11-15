@@ -41,6 +41,7 @@ public:
     static bool createDbTable();
 	static long countEntries();
     static BillingPeriod* getByDate(const QDate& date);
+    static BillingPeriod* getCurrentPeriod();
 
 	//! Управление статусом
 	void open();
