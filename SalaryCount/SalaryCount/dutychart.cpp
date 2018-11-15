@@ -1,11 +1,14 @@
 #include "dutychart.h"
 
+void initalSetupForTable();
+
 DutyChart::DutyChart(int id)
-    : DbRecord(0)
+    : DbRecord(id)
 {
-    _id = id;
+    //_id = id;
+		/* DbRecord(id) performs: assign id, fetch. */
 }
-DutyChart::DutyChart(QString name, QList<Mark> marks, QDate anchorDate,enum PayForm payForm)	
+DutyChart::DutyChart(const QString& name, const QList<Mark>& marks,const QDate& anchorDate, enum PayForm payForm=PER_HOUR)	
 {
     _grid = marks;
     _payForm=payForm;
@@ -13,7 +16,7 @@ DutyChart::DutyChart(QString name, QList<Mark> marks, QDate anchorDate,enum PayF
     _anchorDate = anchorDate;
 }
 
-DutyChart::DutyChart(int id, QString name, QList<Mark> marks,QDate anchorDate, enum PayForm payForm)
+DutyChart::DutyChart(int id, const QString& name, const QList<Mark>& marks,const QDate& anchorDate, enum PayForm payForm=PER_HOUR)
 {
 	_id = id;
 	_grid = marks;
@@ -24,23 +27,39 @@ DutyChart::DutyChart(int id, QString name, QList<Mark> marks,QDate anchorDate, e
 
 bool DutyChart::createDbTable()
 {
+	bool success = false;
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
         if(query->exec("CREATE TABLE IF NOT EXISTS `dutychart` (`id` INT(11) NOT NULL AUTO_INCREMENT, `payform` INT(11), `anchor_date` DATE,`name` CHAR(10), PRIMARY KEY(`id`))"))
-            return true;
+		{
+            success = true;
+			// позже это должно выполняться при создании предприятия
+			initalSetupForTable();
+		}
         else
         {
             QString s = query->lastError().text();
             s+="as";
-            return false;
         }
         delete query;
     }
     else
     {
-        return false;
     }
+    return success;
+}
+/*! Заполнить пустую таблицу начальными записями
+	для успешного старта бизнес-процесса
+*/
+void initalSetupForTable()
+{
+	if(BillingPeriod::countEntries() == 0)
+	{
+		// insert first rec
+		DutyChart rec = defaultChart();
+		rec.insert();
+	}
 }
 int DutyChart::insert()
 {
@@ -159,15 +178,18 @@ DutyChart::~DutyChart()
 
 }
 
-//DutyChart DutyChart::baseObject()
-//{
-//	QList<Mark> bmarks;
-//
-//	for(int i=0; i<7; ++i)
-//	{
-//		bmarks.append(Mark());
-//	}
-//
-//
-//	DutyChart* obj = new
-//}
+DutyChart defaultChart()
+{
+	// подготовить дату: прошедший ПН
+	QDate monday = QDate::currentDate();
+	monday.addDays( -(dayOfWeek(monday)-1) );
+
+	QList<Mark> bmarks;
+
+	for(int i=0; i<7; ++i)
+	{
+		bmarks.append(Mark( /*!*/ ));
+	}
+
+	return DutyChart("5/2", bmarks, monday, PER_HOUR);
+}
