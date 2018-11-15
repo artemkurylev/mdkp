@@ -43,4 +43,7 @@ private:
 
 	// DB links
 	int _employeeID;
+
+	// singleton-кэш записи
+	Employee* _hiredEmployee; //! <default> = NULL;  приказ
 };

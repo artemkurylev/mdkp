@@ -4,6 +4,7 @@
 HireDirective::HireDirective()
     : DbRecord(0)
 {
+	_hiredEmployee = NULL;
 }
 HireDirective::HireDirective(QDate hireDate, QString fio, PayForm payForm, float salary, int employeeID)
     : DbRecord(NULL)
@@ -14,17 +15,26 @@ HireDirective::HireDirective(QDate hireDate, QString fio, PayForm payForm, float
 	this->_salary = salary;
 
 	this->_employeeID = employeeID;
+	_hiredEmployee = NULL;
 }
 
 
 HireDirective::~HireDirective(void)
 {
+	// free allocated record
+	if(_hiredEmployee != NULL)
+	{
+		delete _hiredEmployee;
+	}
 }
 
 Employee * HireDirective::hiredEmployee() const
 {
-
-	return NULL; // new Employee(_employeeID);
+	if(_hiredEmployee == NULL)
+	{
+		_hiredEmployee = new Employee(_employeeID);
+	}
+	return _hiredEmployee;
 }
 
 
