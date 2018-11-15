@@ -9,7 +9,7 @@ bool BookKeeper::calcAwardFor(LaborSheet & laborSheet)
 	return false;
 }
 
-bool BookKeeper::openBillingPeriod(BillingPeriod & billingPeriod)
+bool BookKeeper::closeBillingPeriod(BillingPeriod & billingPeriod)
 {
 	int bp_status = billingPeriod.status();
 	BillingPeriod & next_period = *billingPeriod.nextPeriod();
