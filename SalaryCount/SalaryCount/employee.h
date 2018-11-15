@@ -16,17 +16,20 @@ public:
     Employee(QObject *parent);
 	Employee(int id);
     ~Employee();
+
     bool fetch();
     bool validate() const;
     bool update() const;
     int insert();
+
     static bool createDbTable();
     static QMap<int,QString> getAll();
     static long countEntries();
-    const HireDirective* hireDirective() const;
+    HireDirective* hireDirective();
 
     //геттеры
-    QString fio(){return _fio;}
+    const QString& fio(){return _fio;}
+
 private:
 	// личные
     QString _fio;
@@ -34,14 +37,15 @@ private:
     int _INN;
 
 	// график
-    int _nextDutyChart;
     int _currentDutyChart;
+    int _nextDutyChart;
     QDate _nextDutyChartSince;
 
 	// DB links
 	int _hireDirectiveID;
 
 	//const QString& tableName() { return "employee";};
+
 	// singleton-кэш записи
 	HireDirective* _hireDirective; //! <default> = NULL;  приказ
 };
