@@ -18,7 +18,7 @@ SalaryCount::SalaryCount(QWidget *parent)
 	BillingPeriod* bp = BillingPeriod::getCurrentPeriod();
 	for(int i=0 ; i<3 ; ++i)
 	{
-		BookKeeper::openBillingPeriod(*bp);
+		BookKeeper::closeBillingPeriod(*bp);
 		bp = bp->nextPeriod();
 	}
 

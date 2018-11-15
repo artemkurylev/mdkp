@@ -23,8 +23,9 @@ public:
 	*/
 	static bool calcAwardFor(LaborSheet & laborSheet);
 
-
-	static bool openBillingPeriod(BillingPeriod & billingPeriod);
+	/*! Закрыть расчётный период, подвести его итоги (з/п и др.) и открыть следующий расчётный период
+	*/
+	static bool closeBillingPeriod(BillingPeriod & billingPeriod);
 
 
 private:
