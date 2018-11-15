@@ -1,6 +1,6 @@
 #include "dutychart.h"
 
-void initalSetupForTable();
+void initalSetupForTableDutyChart();
 DutyChart defaultChart();
 
 DutyChart::DutyChart(int id)
@@ -36,7 +36,7 @@ bool DutyChart::createDbTable()
 		{
             success = true;
 			// позже это должно выполн€тьс€ при создании предпри€ти€
-			initalSetupForTable();
+			initalSetupForTableDutyChart();
 		}
         else
         {
@@ -53,7 +53,7 @@ bool DutyChart::createDbTable()
 /*! «аполнить пустую таблицу начальными запис€ми
 	дл€ успешного старта бизнес-процесса
 */
-void initalSetupForTable()
+void initalSetupForTableDutyChart()
 {
 	if(BillingPeriod::countEntries() == 0)
 	{
