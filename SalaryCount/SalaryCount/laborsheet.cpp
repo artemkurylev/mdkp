@@ -134,8 +134,15 @@ int LaborSheet::insert()
         query->bindValue(":billing_period_id",this->_billingPeriod->id());
         query->bindValue(":employee_id",this->_employeeId);
         query->bindValue(":dutychart_id", this->_dutyChart->id());
+
         if(query->exec())
         {
+            if(query->exec("SELECT LAST_INSERT_ID()") && query->next())
+			{
+				this->_id = query->value(0).toInt();
+                insert_id = this->_id;
+			}
+			// создать все отметки в БД
             for(int i = 0; i < this->_grid.length(); ++i)
             {
                 if(this->_grid[i].insert()== - 1)
@@ -143,11 +150,6 @@ int LaborSheet::insert()
                     //Ошибка!!
                 }
             }
-            if(query->exec("SELECT LAST_INSERT_ID()") && query->next())
-			{
-				this->_id = query->value(0).toInt();
-                insert_id = this->_id;
-			}
         }
         else
         {
