@@ -114,8 +114,10 @@ int BillingPeriod::insert()
             //query->bindValue(":start_date",this->_startDate);
 			QVariant last_id = query->lastInsertId();
             if(last_id.isValid())
+			{
                 this->_id = last_id.toInt();
                 insert_id = this->_id;
+			}
         }
         else
         {

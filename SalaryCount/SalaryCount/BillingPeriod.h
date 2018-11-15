@@ -57,6 +57,7 @@ private:
     enum Status _status;
     QDate _startDate;
 
+	// singleton-кэш записи
 	BillingPeriod* _next; //! <default> = NULL;  следующий расчётный период
 };
 

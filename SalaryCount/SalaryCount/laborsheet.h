@@ -33,8 +33,8 @@ public:
     */
     const DutyChart* dutyChart() const{return this->_dutyChart;}
 	bool fillWithDefaults(int empploeeId, QDate date,DutyChart* dutyChart);
-    const Employee* employee();
-    const BillingPeriod* billingPeriod();
+    Employee* employee();
+    BillingPeriod* billingPeriod();
     PayForm payForm();
 
 	/*! ѕодсчитать плановое рабочее врем€ за период

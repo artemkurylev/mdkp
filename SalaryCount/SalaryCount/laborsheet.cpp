@@ -57,7 +57,7 @@ LaborSheet::~LaborSheet()
 	}
 }
 
-const Employee* LaborSheet::employee()
+Employee* LaborSheet::employee()
 {
 	if(_employee == NULL)
 	{
@@ -65,7 +65,7 @@ const Employee* LaborSheet::employee()
 	}
 	return _employee;
 }
-const BillingPeriod* LaborSheet::billingPeriod()
+BillingPeriod* LaborSheet::billingPeriod()
 {
 	if(_billingPeriod == NULL)
 	{
@@ -75,8 +75,8 @@ const BillingPeriod* LaborSheet::billingPeriod()
 }
 PayForm LaborSheet::payForm()
 {
-	const Employee* e = employee();
-	const HireDirective* h = e->hireDirective();
+	Employee* e = employee();
+	HireDirective* h = e->hireDirective();
 	PayForm p = h->payForm();
 
 	//delete e;
