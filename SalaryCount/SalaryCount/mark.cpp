@@ -63,10 +63,6 @@ bool Mark::fetch()
         return false;
     }
 }
-bool Mark::set()
-{
-    return false;
-}
 bool Mark::validate() const
 {
     return false;
