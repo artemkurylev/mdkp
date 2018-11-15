@@ -13,7 +13,7 @@ public:
     Mark();
 
     Mark(int id); // create & fetch
-    Mark(int dutychartId,int laborsheetId=NULL, int base=HOLIDAY, int altered=INVALID, int countHours=0, int alteredCountHours=-1);
+    Mark(int dutyChartId,int laborsheetId=NULL, int base=HOLIDAY, int altered=INVALID, int countHours=0, int alteredCountHours=-1);
     ~Mark();
 
     bool fetch();
@@ -51,7 +51,7 @@ private:
     int _altered;
     int _countHours;
     int _alteredCountHours;
-    int _dutychartId;
+    int _dutyChartId;
     int _laborsheetId;
 };
 

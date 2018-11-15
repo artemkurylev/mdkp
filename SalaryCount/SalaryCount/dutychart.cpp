@@ -2,6 +2,7 @@
 
 
 void initalSetupForTable();
+DutyChart defaultChart();
 
 DutyChart::DutyChart(int id)
     : DbRecord(id)
@@ -9,7 +10,7 @@ DutyChart::DutyChart(int id)
     //_id = id;
 		/* DbRecord(id) performs: assign id, fetch. */
 }
-DutyChart::DutyChart(const QString& name, const QList<Mark>& marks,const QDate& anchorDate, enum PayForm payForm=PER_HOUR)	
+DutyChart::DutyChart(const QString& name, const QList<Mark>& marks,const QDate& anchorDate, enum PayForm payForm/*=PER_HOUR*/)	
 {
     _grid = marks;
     _payForm=payForm;
@@ -17,7 +18,7 @@ DutyChart::DutyChart(const QString& name, const QList<Mark>& marks,const QDate& 
     _anchorDate = anchorDate;
 }
 
-DutyChart::DutyChart(int id, const QString& name, const QList<Mark>& marks,const QDate& anchorDate, enum PayForm payForm=PER_HOUR)
+DutyChart::DutyChart(int id, const QString& name, const QList<Mark>& marks,const QDate& anchorDate, enum PayForm payForm/*=PER_HOUR*/)
 {
 	_id = id;
 	_grid = marks;
@@ -183,7 +184,7 @@ DutyChart defaultChart()
 {
 	// подготовить дату: прошедший ПН
 	QDate monday = QDate::currentDate();
-	monday.addDays( -(dayOfWeek(monday)-1) );
+	monday.addDays( -(monday.dayOfWeek()-1) );
 
 	QList<Mark> bmarks;
 
