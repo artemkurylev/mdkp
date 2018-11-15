@@ -1,6 +1,6 @@
 #include "BillingPeriod.h"
 
-void initalSetupForTable();
+void initalSetupForTableBillingPeriod();
 
 BillingPeriod::BillingPeriod(const QDate& startDate)
     : DbRecord()
@@ -142,7 +142,7 @@ bool BillingPeriod::createDbTable()
 		{
             success = true;
 			// позже это должно выполн€тьс€ при создании предпри€ти€
-			initalSetupForTable();
+			initalSetupForTableBillingPeriod();
 		}
         else
 		{
@@ -160,7 +160,7 @@ bool BillingPeriod::createDbTable()
 /*! «аполнить пустую таблицу начальными запис€ми
 	дл€ успешного старта бизнес-процесса
 */
-void initalSetupForTable()
+void initalSetupForTableBillingPeriod()
 {
 	if(BillingPeriod::countEntries() == 0)
 	{
