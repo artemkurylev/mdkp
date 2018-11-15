@@ -41,6 +41,8 @@ public:
 	// getters
 	int base()		const	{	return _base;		}
 	int altered()	const	{	return _altered;	}
+    int countHours()		const	{	return _countHours;		}
+    int alteredCountHours()	const	{	return _alteredCountHours;	}
 
 	// methods
 
