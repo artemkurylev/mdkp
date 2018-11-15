@@ -3,11 +3,22 @@
 Employee::Employee()
     : DbRecord()
 {
+	_hireDirective = NULL;
 }
 Employee::Employee(int id)
     : DbRecord(id)
 {
+	_hireDirective = NULL;
 }
+Employee::~Employee()
+{
+	// free allocated record
+	if(_hireDirective != NULL)
+	{
+		delete _hireDirective;
+	}
+}
+
 bool Employee::update() const
 {
     if(DbManager::manager().checkConnection())
@@ -165,14 +176,13 @@ long Employee::countEntries()
     return counter;
 }
 
-Employee::~Employee()
-{
-
-}
 
 const HireDirective * Employee::hireDirective() const
 {
-
-	return NULL; // new HireDirective(_hireDirectiveID);
+	if(_hireDirective == NULL)
+	{
+		_hireDirective = new HireDirective(_hireDirectiveID);
+	}
+	return _hireDirective;
 }
 
