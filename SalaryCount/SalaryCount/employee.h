@@ -42,6 +42,8 @@ private:
 	int _hireDirectiveID;
 
 	//const QString& tableName() { return "employee";};
+	// singleton-кэш записи
+	HireDirective* _hireDirective; //! <default> = NULL;  приказ
 };
 
 #endif // EMPLOYEE_H
