@@ -54,21 +54,21 @@ void salarycountLaborSheet::showLabor()
             combo->insertItem(0,"Выходной");
             combo->insertItem(1,"Рабочий");
             combo->insertItem(2,"Отсутствовал");
-            if(marks[i].altered() == Mark::Type::INVALID)
+            if(marks[i].altered() == Mark::INVALID)
             {
                 switch(marks[i].base())
                 {
-                    case Mark::Type::HOLIDAY:
+                    case Mark::HOLIDAY:
                     {
                         combo->setCurrentIndex(0);
                         break;
                     }
-                    case Mark::Type::ATTENDS:
+                    case Mark::ATTENDS:
                     {
                         combo->setCurrentIndex(1);
                         break;
                     }
-                    case Mark::Type::MISS:
+                    case Mark::MISS:
                     {
                         combo->setCurrentIndex(2);
                         break;
@@ -79,17 +79,17 @@ void salarycountLaborSheet::showLabor()
             {
                 switch(marks[i].altered())
                 {
-                    case Mark::Type::HOLIDAY:
+                    case Mark::HOLIDAY:
                     {
                         combo->setCurrentIndex(0);
                         break;
                     }
-                    case Mark::Type::ATTENDS:
+                    case Mark::ATTENDS:
                     {
                         combo->setCurrentIndex(1);
                         break;
                     }
-                    case Mark::Type::MISS:
+                    case Mark::MISS:
                     {
                         combo->setCurrentIndex(2);
                         break;
@@ -108,7 +108,7 @@ void salarycountLaborSheet::showLabor()
             {
                 combo->insertItem(j,QString(j));
             }
-            if(marks[i].alteredCountHours() == Mark::Type::INVALID) 
+            if(marks[i].alteredCountHours() == Mark::INVALID) 
                 combo->setCurrentIndex(marks[i].countHours());
             else
                 combo->setCurrentIndex(marks[i].alteredCountHours());
