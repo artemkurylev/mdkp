@@ -45,8 +45,73 @@ void salarycountLaborSheet::showLabor()
     int id = ui->employeeLaborSheetTable->item(row,0)->text().toInt();
     LaborSheet labor_sheet(id);
     labor_sheet.fetch();
+    QList<Mark>marks = labor_sheet.marks();
     if(labor_sheet.payForm() == PayForm::PER_MONTH)
     {
-        ;
+        int row = 0;
+        for(int i = 0;i <marks.size();++i){
+            QComboBox* combo = (QComboBox*)ui->DutyChartMarksEdit->cellWidget(i/7,i%7);
+            combo->insertItem(0,"Выходной");
+            combo->insertItem(1,"Рабочий");
+            combo->insertItem(2,"Отсутствовал");
+            if(marks[i].altered() == Mark::Type::INVALID)
+            {
+                switch(marks[i].base())
+                {
+                    case Mark::Type::HOLIDAY:
+                    {
+                        combo->setCurrentIndex(0);
+                        break;
+                    }
+                    case Mark::Type::ATTENDS:
+                    {
+                        combo->setCurrentIndex(1);
+                        break;
+                    }
+                    case Mark::Type::MISS:
+                    {
+                        combo->setCurrentIndex(2);
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                switch(marks[i].altered())
+                {
+                    case Mark::Type::HOLIDAY:
+                    {
+                        combo->setCurrentIndex(0);
+                        break;
+                    }
+                    case Mark::Type::ATTENDS:
+                    {
+                        combo->setCurrentIndex(1);
+                        break;
+                    }
+                    case Mark::Type::MISS:
+                    {
+                        combo->setCurrentIndex(2);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    else
+    {
+        int row = 0;
+        for(int i = 0;i <marks.size();++i)
+        {
+            QComboBox* combo = (QComboBox*)ui->DutyChartMarksEdit->cellWidget(i/7,i%7);
+            for(int j = 0; j <= 12; ++j)
+            {
+                combo->insertItem(j,QString(j));
+            }
+            if(marks[i].alteredCountHours() == Mark::Type::INVALID) 
+                combo->setCurrentIndex(marks[i].countHours());
+            else
+                combo->setCurrentIndex(marks[i].alteredCountHours());
+        }
     }
 }
