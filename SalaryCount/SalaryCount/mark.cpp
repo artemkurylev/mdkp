@@ -12,8 +12,31 @@ Mark::Mark()
     _alteredCountHours = 0;
 }
 
-Mark::Mark(int id)
-    : DbRecord(id)
+
+Mark::Mark(const Mark &mark)
+	: DbRecord(mark.id())
+{
+	this->_base = mark.base();
+	this->_altered = mark.altered();
+	this->_dutyChartId = mark.dutyChartId();
+	this->_laborsheetId = mark.laborsheetId();
+	this->_countHours = mark.countHours();
+	this->_alteredCountHours = mark.alteredCountHours();
+}
+
+//Mark::Mark(int id)
+//    : DbRecord(id)
+//{
+//	_base = INVALID;
+//	_altered = INVALID;
+//    _dutyChartId = NULL;
+//    _laborsheetId = NULL;
+//    _countHours = 0;
+//    _alteredCountHours = 0;
+//}
+Mark::Mark(int baseMark)
+    : DbRecord()
+
 {
 	_base = INVALID;
 	_altered = INVALID;
