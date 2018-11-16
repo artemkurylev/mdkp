@@ -9,7 +9,7 @@ Mark::Mark()
     _laborsheetId = NULL;
     _countHours = 0;
     _alteredCountHours = 0;
-} 
+}
 
 //Mark::Mark(int id)
 //    : DbRecord(id)
