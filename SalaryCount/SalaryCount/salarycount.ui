@@ -12,6 +12,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     <width>737</width>
 =======
     <width>709</width>
@@ -36,6 +37,10 @@
     <width>817</width>
     <height>530</height>
 >>>>>>> 98c7fe7... Добавил связь с окном табелй
+=======
+    <width>732</width>
+    <height>552</height>
+>>>>>>> de0bf41... Исправлены коллизии со связью между страницей и главным окном
    </rect>
   </property>
   <property name="windowTitle">
@@ -52,6 +57,7 @@
       <property name="currentIndex">
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
        <number>2</number>
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -65,6 +71,9 @@
 =======
        <number>1</number>
 >>>>>>> 98c7fe7... Добавил связь с окном табелй
+=======
+       <number>2</number>
+>>>>>>> de0bf41... Исправлены коллизии со связью между страницей и главным окном
       </property>
       <widget class="QWidget" name="EmployeesPage">
        <layout class="QGridLayout" name="gridLayout_8">
@@ -92,6 +101,7 @@
            <property name="geometry">
             <rect>
              <x>0</x>
+<<<<<<< HEAD
 <<<<<<< HEAD
              <y>-176</y>
 =======
@@ -126,6 +136,9 @@
 >>>>>>> 68868c6... Обновлен ui-интерфейс
              <width>217</width>
 =======
+=======
+             <y>-24</y>
+>>>>>>> de0bf41... Исправлены коллизии со связью между страницей и главным окном
              <width>261</width>
 >>>>>>> 7bc1545... GUI: корректирвка таблиц на странице табеля учета: сотрудники и ячейки с дневными отметками
 =======
@@ -556,7 +569,48 @@
           <property name="title">
            <string>Табель учета труда</string>
           </property>
+<<<<<<< HEAD
           <layout class="QGridLayout" name="gridLayout_10">
+=======
+          <layout class="QGridLayout" name="gridLayout_4">
+           <item row="2" column="0">
+            <widget class="QTableWidget" name="employeeLaborSheetTable"/>
+           </item>
+           <item row="1" column="0">
+            <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <item>
+              <widget class="QLabel" name="label_14">
+               <property name="text">
+                <string>Поиск сотрудников</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="lineEdit_9"/>
+             </item>
+            </layout>
+           </item>
+           <item row="3" column="0">
+            <widget class="QPushButton" name="pushButton_7">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>Изменить</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QPushButton" name="pushButton_6">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>Рассчитать З/П</string>
+             </property>
+            </widget>
+           </item>
+>>>>>>> de0bf41... Исправлены коллизии со связью между страницей и главным окном
            <item row="0" column="0">
             <layout class="QHBoxLayout" name="horizontalLayout_14">
              <item>
@@ -568,20 +622,14 @@
              </item>
              <item>
               <widget class="QDateEdit" name="dateEdit_2">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-               </property>
                <property name="displayFormat">
                 <string>MM.yyyy</string>
                </property>
                <property name="calendarPopup">
                 <bool>false</bool>
+               </property>
+               <property name="currentSectionIndex">
+                <number>0</number>
                </property>
                <property name="date">
                 <date>
@@ -592,6 +640,7 @@
                </property>
               </widget>
              </item>
+<<<<<<< HEAD
 <<<<<<< HEAD
             </layout>
            </item>
@@ -790,12 +839,16 @@
             </widget>
            </item>
 >>>>>>> 68868c6... Обновлен ui-интерфейс
+=======
+            </layout>
+           </item>
+>>>>>>> de0bf41... Исправлены коллизии со связью между страницей и главным окном
           </layout>
          </widget>
         </item>
 <<<<<<< HEAD
         <item row="0" column="1">
-         <widget class="QGroupBox" name="LabourGroupEdit">
+         <widget class="QGroupBox" name="groupBox_7">
           <property name="enabled">
            <bool>true</bool>
           </property>
@@ -809,7 +862,30 @@
            <string>Редактирование отметок</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_9">
+           <item row="0" column="0">
+            <layout class="QHBoxLayout" name="horizontalLayout_9">
+             <item>
+              <widget class="QLabel" name="label_2">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>Отметка:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboBox_3"/>
+             </item>
+            </layout>
+           </item>
            <item row="1" column="0">
+            <widget class="QListWidget" name="listWidget_3"/>
+           </item>
+           <item row="2" column="0">
             <layout class="QHBoxLayout" name="horizontalLayout_13">
              <item>
               <widget class="QPushButton" name="pushButton_13">
@@ -827,12 +903,13 @@
                 <bool>false</bool>
                </property>
                <property name="text">
-                <string>Сбросить изменения</string>
+                <string>Отменить</string>
                </property>
               </widget>
              </item>
             </layout>
            </item>
+<<<<<<< HEAD
            <item row="0" column="0">
             <widget class="QTableWidget" name="laborSheet">
              <property name="selectionMode">
@@ -908,6 +985,8 @@
            </item>
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+>>>>>>> de0bf41... Исправлены коллизии со связью между страницей и главным окном
           </layout>
          </widget>
         </item>
@@ -1166,12 +1245,15 @@
                  <second>0</second>
                 </time>
                </property>
+               <property name="displayFormat">
+                <string>H</string>
+               </property>
               </widget>
              </item>
              <item>
               <widget class="QLabel" name="label_16">
                <property name="text">
-                <string>Рабочее время в день</string>
+                <string>Рабочее время в день (час)</string>
                </property>
               </widget>
              </item>
@@ -1283,6 +1365,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
      <width>737</width>
 =======
      <width>709</width>
@@ -1330,6 +1413,10 @@
 =======
      <height>21</height>
 >>>>>>> fcee3f7... Добавил id табеля в таблицу
+=======
+     <width>732</width>
+     <height>21</height>
+>>>>>>> de0bf41... Исправлены коллизии со связью между страницей и главным окном
     </rect>
    </property>
    <widget class="QMenu" name="menu">
