@@ -82,7 +82,8 @@ int DutyChart::insert()
             }
             for(int i = 0; i < this->length(); ++i)
             {
-                if(this->_grid[i].insert() == -1)
+                Mark mark(_grid[i].base(),_grid[i].altered(),_grid[i].countHours(),_grid[i].alteredCountHours(),this->_id);
+                if(mark.insert() == -1)
                 {
                     //Ошибка!!
                 }
