@@ -20,7 +20,7 @@ public:
 	bool set()		{return false;}
 	bool delet()	{return false;}
 	bool validate() const {return true;}
-	bool update()	const {return false;}
+	bool update()	const;
     int insert();
     static bool createDbTable();
 
