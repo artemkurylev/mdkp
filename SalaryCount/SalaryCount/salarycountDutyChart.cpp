@@ -208,12 +208,14 @@ DutyChart* salarycountDutyChart::shapeDataObject()
 		{
 			case PayForm::PER_MONTH:
 				m = new Mark( (combo->currentIndex()==1 ? 
-					Mark::Type::ATTENDS : Mark::Type::HOLIDAY),NULL,NULL,NULL,(grid ? grid->at(i).id():NULL),NULL );
+					Mark::Type::ATTENDS : Mark::Type::HOLIDAY),NULL,NULL,NULL,id,NULL );
+				m->setId((grid ? grid->at(i).id():NULL));
 				break;
 
 			case PayForm::PER_HOUR:
 				m = new Mark( NULL,NULL,(combo->currentIndex()==1 ? 
-					ui->workTimeEdit->time().hour() : Mark::Type::HOLIDAY),NULL,(grid ? grid->at(i).id():NULL), NULL );
+					ui->workTimeEdit->time().hour() : Mark::Type::HOLIDAY),NULL,id, NULL );
+					m->setId((grid ? grid->at(i).id():NULL));
 				break;
 
 			default:
