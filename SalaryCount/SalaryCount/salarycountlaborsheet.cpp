@@ -3,7 +3,7 @@
 salarycountLaborSheet::salarycountLaborSheet(Ui_SalaryCount *ui, QString name){
     this->setObjectName(name);
 	this->ui = ui;//не самый приятный способ
-    for(int i=0; i<31;++i)
+    for(int i=0; i<31+6;++i)
 	{
         QComboBox* combo = new QComboBox();
 
