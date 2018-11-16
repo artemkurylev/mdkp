@@ -37,6 +37,7 @@ Mark::Mark(int in_base, int in_altered, int in_countHours, int in_alteredCountHo
 
 bool Mark::fetch()
 {
+	bool success = false;
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
@@ -52,20 +53,20 @@ bool Mark::fetch()
                 _altered = query->value(2).toInt();
                 _dutyChartId = query->value(3).toInt();
                 _laborsheetId = query->value(4).toInt();
+				success = true;
             }
         }
         else
         {
             QString s = query->lastError().text();
             s+="as";
-            return false;
         }
         delete query;
     }
     else
     {
-        return false;
     }
+    return success;
 }
 
 bool Mark::validate() const
@@ -75,6 +76,7 @@ bool Mark::validate() const
 
 bool Mark::update() const
 {
+	bool success = false;
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
@@ -86,17 +88,15 @@ bool Mark::update() const
         query->bindValue(":altered_count_hours",this->_alteredCountHours);
         if(query->exec())
         {
-            delete query;
-            return true;
+            success = true;
         }
         else
         {
-            QString s = query->lastError().text();
-            delete query;
-            return false;
+
         }
+        delete query;
     }
-    return false;
+    return success;
 }
 int Mark::insert()
 {

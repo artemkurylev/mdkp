@@ -145,6 +145,9 @@ int LaborSheet::insert()
 			// создать все отметки в БД
             for(int i = 0; i < this->_grid.length(); ++i)
             {
+				// записать ID в отметку!
+				this->_grid[i].setLaborsheetId(this->_id);
+
                 if(this->_grid[i].insert()== - 1)
                 {
                     //Ошибка!!
