@@ -143,13 +143,14 @@ bool DutyChart::fetch()
                 _anchorDate = query->value(2).toDate();
                 _name = query->value(3).toString();
                 QSqlQuery query_m = *(DbManager::manager().makeQuery());
-                query_m.prepare("SELECT * FROM `mark` WHERE `dutychart_id` = :id ORDER BY `id`");
+                query_m.prepare("SELECT `id` FROM `mark` WHERE `dutychart_id` = :id ORDER BY `id`");
                 query_m.bindValue(":id", id);
                 if(query_m.exec())
                 {
                     while(query_m.next())
                     {
-                        Mark m(query_m.value(1).toInt(),query_m.value(2).toInt(),query_m.value(3).toInt(),query_m.value(4).toInt(),query_m.value(5).toInt(),query_m.value(6).toInt());
+                        Mark m(query_m.value(0).toInt());
+                        m.fetch();
                         _grid.append(m);
                     }
                     return true;
