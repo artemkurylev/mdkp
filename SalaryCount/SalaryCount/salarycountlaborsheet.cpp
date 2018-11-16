@@ -13,9 +13,9 @@ salarycountLaborSheet::salarycountLaborSheet(Ui_SalaryCount *ui, QString name){
 
 		combo->setCurrentIndex(0);
 
-        ui->laborSheet->setCellWidget(i/7,i % 7,combo);
+        //ui->laborSheet->setCellWidget(i/7,i % 7,combo);
 	}
-    ui->LabourGroupEdit->setEnabled(false);
+    //ui->LabourGroupEdit->setEnabled(false);
 
     showAllLabors();
 
