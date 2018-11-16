@@ -22,7 +22,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="EmployeesPage">
        <layout class="QGridLayout" name="gridLayout_8">
@@ -51,7 +51,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>261</width>
+             <width>217</width>
              <height>485</height>
             </rect>
            </property>
@@ -885,8 +885,22 @@
                  <second>0</second>
                 </time>
                </property>
+               <property name="minimumTime">
+                <time>
+                 <hour>0</hour>
+                 <minute>0</minute>
+                 <second>0</second>
+                </time>
+               </property>
                <property name="displayFormat">
                 <string>H</string>
+               </property>
+               <property name="time">
+                <time>
+                 <hour>0</hour>
+                 <minute>0</minute>
+                 <second>0</second>
+                </time>
                </property>
               </widget>
              </item>
