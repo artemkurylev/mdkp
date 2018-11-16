@@ -181,10 +181,14 @@ DutyChart* salarycountDutyChart::shapeDataObject()
 {
 	int id = 0;//в зависимости от состояния редактирования запомнит ID
     
+	DutyChart* obj = NULL;
+	const QList<Mark> *grid = NULL;
 	if(this->currentState == app_states::EDIT)
 	{
 		id = ui->dutyChartList->currentItem()->type();
-
+		obj = new DutyChart(id);
+		obj->fetch();
+		grid = &obj->grid();
 	}
 
 	QString name = ui->nameDutyChart->text();//занести имя
@@ -193,6 +197,7 @@ DutyChart* salarycountDutyChart::shapeDataObject()
 	QTime workTime(ui->workTimeEdit->time());//в зависимости от платежной формы запомнить рабочее время
 
 	//запомнить отметки
+	//разбить бы на отдельный метод
 	QList<Mark> *ms = new QList<Mark>();
 	for(int i=0; i< this->ui->DutyChartMarksEdit->rowCount(); ++i)
 	{
@@ -205,12 +210,12 @@ DutyChart* salarycountDutyChart::shapeDataObject()
 
 			case PayForm::PER_MONTH:
 				m = new Mark( (combo->currentIndex()==1 ? 
-					Mark::Type::ATTENDS : Mark::Type::HOLIDAY),NULL,NULL,NULL,id,NULL );
+					Mark::Type::ATTENDS : Mark::Type::HOLIDAY),NULL,NULL,NULL,(grid ? grid->at(i).id():NULL),NULL );
 				break;
 
 			case PayForm::PER_HOUR:
 				m = new Mark( NULL,NULL,(combo->currentIndex()==1 ? 
-					ui->workTimeEdit->time().hour() : Mark::Type::HOLIDAY),NULL, id, NULL );
+					ui->workTimeEdit->time().hour() : Mark::Type::HOLIDAY),NULL,(grid ? grid->at(i).id():NULL), NULL );
 				break;
 
 			default:
@@ -221,7 +226,7 @@ DutyChart* salarycountDutyChart::shapeDataObject()
 		delete m;
 	}
 
-	DutyChart* obj = new DutyChart(name,*ms,ancDate,pf);
+	//DutyChart* obj = new DutyChart(name,*ms,ancDate,pf);
 	delete ms;
 
 	return obj;
