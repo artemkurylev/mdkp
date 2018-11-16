@@ -14,8 +14,9 @@ Mark::Mark()
 
 
 Mark::Mark(const Mark &mark)
-	: DbRecord(mark.id())
+	: DbRecord()
 {
+	this->_id = mark.id();
 	this->_base = mark.base();
 	this->_altered = mark.altered();
 	this->_dutyChartId = mark.dutyChartId();
