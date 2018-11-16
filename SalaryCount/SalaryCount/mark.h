@@ -12,9 +12,8 @@ public:
 
     Mark();
 
-    Mark(int baseMark);
-
-    Mark(int base, int altered, int countHours, int alteredCountHours, int dutychartId = 0,int laborsheetId = 0);
+    Mark(int id); // create & fetch
+	Mark(int base, int altered, int countHours, int alteredCountHours, int dutychartId,int laborsheetId);
     ~Mark();
 
     bool fetch();
