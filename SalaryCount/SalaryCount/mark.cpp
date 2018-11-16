@@ -22,9 +22,11 @@ Mark::Mark(int id)
     _countHours = 0;
     _alteredCountHours = 0;
 
-} 
-
-Mark::Mark(int in_base, int in_altered, int in_countHours, int in_alteredCountHours, int in_dutyChartId,int in_laborsheetId)
+}
+//Mark::Mark(int base, int altered, int countHours, int alteredCountHours, int dutyChartId,int laborsheetId)
+//=======
+//} 
+Mark::Mark(int in_base, int in_altered, int in_countHours, int in_alteredCountHours, int in_dutyChartId /*= NULL*/,int in_laborsheetId /*= NULL*/)
     : DbRecord()
 {
     _dutyChartId = in_dutyChartId;
@@ -84,7 +86,7 @@ bool Mark::update() const
         query->bindValue(":base",this->_base);
         query->bindValue(":altered",this->_altered);
         query->bindValue(":id", this->_id);
-         query->bindValue(":count_hours",this->_countHours);
+        query->bindValue(":count_hours",this->_countHours);
         query->bindValue(":altered_count_hours",this->_alteredCountHours);
         if(query->exec())
         {

@@ -53,7 +53,7 @@ public:
     void setAlteredCountHours(int hrs)	{	_alteredCountHours=hrs;	}
     void setDutyChartId(int id)			{	_dutyChartId = id;		}
     void setLaborsheetId(int id)		{	_laborsheetId = id;		}
-
+    void setId(int id)                  {   _id = id;               }
 	// methods
 
 private:
