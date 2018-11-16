@@ -56,7 +56,7 @@ bool DutyChart::createDbTable()
 */
 void initalSetupForTableDutyChart()
 {
-	if(BillingPeriod::countEntries() == 0)
+	if(DutyChart::countEntries() == 0)
 	{
 		// insert first rec
 		DutyChart rec = defaultChart();
@@ -82,11 +82,16 @@ int DutyChart::insert()
             }
             for(int i = 0; i < this->length(); ++i)
             {
-                Mark mark(_grid[i].base(),_grid[i].altered(),_grid[i].countHours(),_grid[i].alteredCountHours(),this->_id);
-                if(mark.insert() == -1)
+
+				// записать ID в отметку!
+				this->_grid[i].setDutyChartId(this->_id);
+
+                if(this->_grid[i].insert() == -1)
                 {
                     //Ошибка!!
-                }
+		            QString s; // = query->lastError().text();
+		            s+="as";
+               }
             }
         }
         else
@@ -191,7 +196,9 @@ DutyChart defaultChart()
 
 	for(int i=0; i<7; ++i)
 	{
-		bmarks.append(Mark( /*!*/ ));
+		int base = i<5? Mark::ATTENDS : Mark::HOLIDAY;
+		int countHours = i<5? Mark::USUAL : 0;
+		bmarks.append(Mark(base, Mark::INVALID, countHours, -1, NULL,NULL));
 	}
 
 	return DutyChart("5/2", bmarks, monday, PER_HOUR);
