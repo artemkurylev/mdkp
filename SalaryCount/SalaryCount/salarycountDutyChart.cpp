@@ -230,11 +230,15 @@ void salarycountDutyChart::changePayForm(int index)
 {
 	if(index)
 	{
+		ui->workTimeEdit->setMinimumTime(QTime(1,0));
 		ui->workTimeEdit->setEnabled(true);
+
 	}
 	else
 	{
+		ui->workTimeEdit->setMinimumTime(QTime(0,0));
 		ui->workTimeEdit->setEnabled(false);
+		ui->workTimeEdit->setTime(QTime(0,0));
 	}
 }
 
@@ -293,12 +297,12 @@ void salarycountDutyChart::parseDataObject(const DutyChart *obj)
 	bool isMonth = obj->payForm() == PayForm::PER_MONTH;
 	ui->payFormChoice->setCurrentIndex( !isMonth );
 
-	if(!isMonth)
-	{
-		ui->workTimeEdit->setTime(QTime(0,0));
-	}
-
 	const QList<Mark> &m = obj->grid();
+
+	if(!isMonth && m.count())
+	{
+		ui->workTimeEdit->setTime(QTime(m[0].countHours(),0));
+	}
 
 	if(m.count()==ui->DutyChartMarksEdit->rowCount())
 	{
@@ -306,7 +310,7 @@ void salarycountDutyChart::parseDataObject(const DutyChart *obj)
 		for(int i=m.count()-1; i>=0; --i)
 		{
 			QComboBox* combo = (QComboBox*)ui->DutyChartMarksEdit->cellWidget(i,0);
-			if(m[i].base() == Mark::Type::HOLIDAY)
+			if(m[i].base() == Mark::Type::HOLIDAY || m[i].countHours() == Mark::Type::HOLIDAY)
 			{
 				combo->setCurrentIndex(1);
 			}

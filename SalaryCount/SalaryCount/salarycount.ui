@@ -58,6 +58,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
        <number>2</number>
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -74,6 +75,9 @@
 =======
        <number>2</number>
 >>>>>>> de0bf41... Исправлены коллизии со связью между страницей и главным окном
+=======
+       <number>2</number>
+>>>>>>> b272b87... страница графиков доделана, исправлены баги
       </property>
       <widget class="QWidget" name="EmployeesPage">
        <layout class="QGridLayout" name="gridLayout_8">
@@ -114,6 +118,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 788c143... Добавлена возможность постраничного перехода в приложении
              <width>218</width>
              <height>559</height>
@@ -144,6 +149,9 @@
 =======
              <width>217</width>
 >>>>>>> fcee3f7... Добавил id табеля в таблицу
+=======
+             <width>217</width>
+>>>>>>> b272b87... страница графиков доделана, исправлены баги
              <height>485</height>
 >>>>>>> b19fbbe... Добавлен метод отчистки полей для секции редактирования графиков
             </rect>
@@ -1245,8 +1253,22 @@
                  <second>0</second>
                 </time>
                </property>
+               <property name="minimumTime">
+                <time>
+                 <hour>0</hour>
+                 <minute>0</minute>
+                 <second>0</second>
+                </time>
+               </property>
                <property name="displayFormat">
                 <string>H</string>
+               </property>
+               <property name="time">
+                <time>
+                 <hour>0</hour>
+                 <minute>0</minute>
+                 <second>0</second>
+                </time>
                </property>
               </widget>
              </item>
