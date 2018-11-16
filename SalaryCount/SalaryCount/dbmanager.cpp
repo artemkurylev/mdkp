@@ -62,7 +62,7 @@ DbManager::DbManager(const QString& hostName, const QString& dbName, int port,co
 }
 QSqlQuery* DbManager::makeQuery()
 {
-    return new QSqlQuery(this->db);;
+    return new QSqlQuery(this->db);
 }
 bool DbManager::checkConnection()
 {
