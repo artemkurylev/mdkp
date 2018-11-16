@@ -12,6 +12,7 @@ public:
 //    Mark(int id); // create & fetch
 //    Mark(int dutyChartId,int laborsheetId=NULL, int base=HOLIDAY, int altered=INVALID, int countHours=0, int alteredCountHours=-1);
     Mark(int baseMark);
+	Mark(const Mark &mark);
     Mark(int base, int altered, int countHours, int alteredCountHours, int dutychartId = 0,int laborsheetId = 0);
     ~Mark();
 
