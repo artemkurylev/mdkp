@@ -22,7 +22,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="EmployeesPage">
        <layout class="QGridLayout" name="gridLayout_8">
@@ -51,7 +51,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>217</width>
+             <width>261</width>
              <height>485</height>
             </rect>
            </property>
@@ -313,13 +313,13 @@
       </widget>
       <widget class="QWidget" name="LaborSheetsPage">
        <layout class="QGridLayout" name="gridLayout">
-        <item row="0" column="1">
+        <item row="1" column="1">
          <widget class="QGroupBox" name="LabourGroupEdit">
           <property name="enabled">
            <bool>true</bool>
           </property>
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
             <horstretch>2</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
@@ -336,6 +336,9 @@
           <layout class="QGridLayout" name="gridLayout_4">
            <item row="1" column="0">
             <layout class="QHBoxLayout" name="horizontalLayout_13">
+             <property name="sizeConstraint">
+              <enum>QLayout::SetFixedSize</enum>
+             </property>
              <item>
               <widget class="QPushButton" name="pushButton_13">
                <property name="enabled">
@@ -361,21 +364,21 @@
            <item row="0" column="0">
             <widget class="QTableWidget" name="laborSheet">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+              <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
              <property name="minimumSize">
               <size>
-               <width>334</width>
-               <height>0</height>
+               <width>333</width>
+               <height>204</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
                <width>335</width>
-               <height>16777215</height>
+               <height>210</height>
               </size>
              </property>
              <property name="selectionMode">
@@ -410,6 +413,11 @@
              <row>
               <property name="text">
                <string>5</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>6</string>
               </property>
              </row>
              <column>
@@ -454,10 +462,13 @@
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Expanding</enum>
+             </property>
              <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
-               <height>177</height>
+               <height>161</height>
               </size>
              </property>
             </spacer>
@@ -465,7 +476,7 @@
           </layout>
          </widget>
         </item>
-        <item row="0" column="0">
+        <item row="1" column="0">
          <widget class="QGroupBox" name="groupBox_6">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -476,42 +487,8 @@
           <property name="title">
            <string>Табель учета труда</string>
           </property>
-          <layout class="QGridLayout" name="gridLayout_4">
-           <item row="2" column="0">
-            <widget class="QPushButton" name="pushButton_7">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="text">
-              <string>Изменить</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QPushButton" name="pushButton_6">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="text">
-              <string>Рассчитать З/П</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_3">
-             <item>
-              <widget class="QLabel" name="label_14">
-               <property name="text">
-                <string>Поиск сотрудников</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit_9"/>
-             </item>
-            </layout>
-           </item>
-           <item row="0" column="0">
+          <layout class="QVBoxLayout" name="verticalLayout_5">
+           <item>
             <layout class="QHBoxLayout" name="horizontalLayout_14">
              <item>
               <widget class="QLabel" name="label_15">
@@ -521,7 +498,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QDateEdit" name="dateEdit_2">
+              <widget class="QDateEdit" name="BillingPeriod_dateEdit">
                <property name="displayFormat">
                 <string>MM.yyyy</string>
                </property>
@@ -540,9 +517,37 @@
                </property>
               </widget>
              </item>
+             <item>
+              <widget class="QPushButton" name="GoToCurrentPeriod_button">
+               <property name="text">
+                <string>к текущему</string>
+               </property>
+              </widget>
+             </item>
             </layout>
            </item>
-           <item row="1" column="0">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <item>
+              <widget class="QLabel" name="label_18">
+               <property name="text">
+                <string>Текущий период учета</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="ClosePeriod_button">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="text">
+                <string>Подвести итоги и закрыть</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
             <widget class="QTableWidget" name="employeeLaborSheetTable">
              <property name="sizePolicy">
               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
@@ -680,26 +685,15 @@
              </item>
             </widget>
            </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QGroupBox" name="groupBox_7">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="title">
-           <string>Редактирование отметок</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_9">
-           <item row="0" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_9"/>
+           <item>
+            <widget class="QPushButton" name="pushButton_7">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>Изменить</string>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>
@@ -1014,7 +1008,7 @@
      <x>0</x>
      <y>0</y>
      <width>732</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
