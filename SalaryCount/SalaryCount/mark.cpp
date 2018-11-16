@@ -87,7 +87,7 @@ bool Mark::update() const
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        query->prepare("UPDATE `mark` SET base = :base , altered = :altered,count_hours= :count_hours, altered_count_hours = :altered_count_hours, WHERE id = :id");
+        query->prepare("UPDATE `mark` SET base = :base , altered = :altered,count_hours= :count_hours, altered_count_hours = :altered_count_hour WHERE id = :id");
         query->bindValue(":base",this->_base);
         query->bindValue(":altered",this->_altered);
         query->bindValue(":id", this->_id);
@@ -100,6 +100,7 @@ bool Mark::update() const
         }
         else
         {
+            QString s = query->lastError().text();
             delete query;
             return false;
         }
