@@ -184,6 +184,7 @@ DutyChart* salarycountDutyChart::shapeDataObject()
 	if(this->currentState == app_states::EDIT)
 	{
 		id = ui->dutyChartList->currentItem()->type();
+
 	}
 
 	QString name = ui->nameDutyChart->text();//занести имя
@@ -204,12 +205,12 @@ DutyChart* salarycountDutyChart::shapeDataObject()
 
 			case PayForm::PER_MONTH:
 				m = new Mark( (combo->currentIndex()==1 ? 
-					Mark::Type::ATTENDS : Mark::Type::HOLIDAY) );
+					Mark::Type::ATTENDS : Mark::Type::HOLIDAY),NULL,NULL,NULL,id,NULL );
 				break;
 
 			case PayForm::PER_HOUR:
 				m = new Mark( NULL,NULL,(combo->currentIndex()==1 ? 
-					ui->workTimeEdit->time().hour() : Mark::Type::HOLIDAY),NULL );
+					ui->workTimeEdit->time().hour() : Mark::Type::HOLIDAY),NULL, id, NULL );
 				break;
 
 			default:
@@ -306,7 +307,6 @@ void salarycountDutyChart::parseDataObject(const DutyChart *obj)
 
 	if(m.count()==ui->DutyChartMarksEdit->rowCount())
 	{
-
 		for(int i=m.count()-1; i>=0; --i)
 		{
 			QComboBox* combo = (QComboBox*)ui->DutyChartMarksEdit->cellWidget(i,0);
