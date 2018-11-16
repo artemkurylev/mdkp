@@ -1,7 +1,11 @@
 #include "salarycountlaborsheet.h"
 
-salarycountLaborSheet::salarycountLaborSheet(Ui_SalaryCount *ui, QString name){
-    this->setObjectName(name);
+salarycountLaborSheet::salarycountLaborSheet(Ui_SalaryCount *ui, QString name)
+{
+	viewedPeriod = BillingPeriod.getCurrentPeriod();
+
+	
+	this->setObjectName(name);
 	this->ui = ui;//не самый при€тный способ
     for(int i=0; i<31+6;++i)
 	{
@@ -18,16 +22,41 @@ salarycountLaborSheet::salarycountLaborSheet(Ui_SalaryCount *ui, QString name){
     //ui->LabourGroupEdit->setEnabled(false);
 
     showAllLabors();
-
 }
 
 salarycountLaborSheet::~salarycountLaborSheet()
 {
 
 }
+
+void salarycountDutyChart::updateInfo(QString name)
+{
+	if(!this->objectName().compare(name) && false /* maybe */ )
+	{
+		//QMap<int,QString> allEntries = DutyChart::getAll();
+		//ui->dutyChartList->clear();
+
+		//if(allEntries.count() > 0)
+		//{
+		//	QList<int> &keys = allEntries.keys();
+		//	QList<QString> &val = allEntries.values();
+		//	qSort(keys);
+
+		//	foreach(const int &iter, keys)
+		//	{
+		//		QString d = allEntries.value( iter );
+		//		QListWidgetItem *item = new QListWidgetItem(allEntries.value( iter ), ui->dutyChartList, iter);
+		//		ui->dutyChartList->addItem(item);
+		//	}
+
+		//	ui->dutyChartList->setCurrentRow(0);
+		//}
+	}
+}
+
 void salarycountLaborSheet::showAllLabors()
 {
-    QMap <int,int> laborData = LaborSheet::getAll();
+    QMap <int,int> laborData = LaborSheet::getAll(); // ! все или за мес€ц ?
     int row = 0;
     for(auto it = laborData.begin(); it!= laborData.end(); ++it)
     {
@@ -48,7 +77,7 @@ void salarycountLaborSheet::showLabor()
     QList<Mark>marks = labor_sheet.marks();
     if(labor_sheet.payForm() == PayForm::PER_MONTH)
     {
-        int row = 0;
+        //int row = 0;
         for(int i = 0;i <marks.size();++i){
             QComboBox* combo = (QComboBox*)ui->DutyChartMarksEdit->cellWidget(i/7,i%7);
             combo->insertItem(0,"¬ыходной");
@@ -100,7 +129,7 @@ void salarycountLaborSheet::showLabor()
     }
     else
     {
-        int row = 0;
+        //int row = 0;
         for(int i = 0;i <marks.size();++i)
         {
             QComboBox* combo = (QComboBox*)ui->DutyChartMarksEdit->cellWidget(i/7,i%7);
