@@ -305,11 +305,11 @@ void salarycountDutyChart::parseDataObject(const DutyChart *obj)
 			QComboBox* combo = (QComboBox*)ui->DutyChartMarksEdit->cellWidget(i,0);
 			if(m[i].base() == Mark::Type::HOLIDAY)
 			{
-				combo->setCurrentIndex(1);
+				combo->setCurrentIndex(0);
 			}
 			else
 			{
-				combo->setCurrentIndex(0);
+				combo->setCurrentIndex(1);
 			}
 		}
 	}
