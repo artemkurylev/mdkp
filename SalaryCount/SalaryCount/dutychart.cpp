@@ -102,6 +102,30 @@ int DutyChart::insert()
     }
     return insert_id;
 }
+bool DutyChart::update() const
+{
+    bool success = false;
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+        query->prepare("UPDATE `dutychart` SET payform = :payform , anchor_date = :anchor_date, name= :name WHERE id = :id");
+        query->bindValue(":payform",this->_payForm);
+        query->bindValue(":anchor_date",this->_anchorDate);
+        query->bindValue(":name", this->_name);
+        query->bindValue(":id",this->_id);
+        if(query->exec())
+        {
+            bool success_mark = true;
+            for(int i = 0; i < this->_grid.size(); ++i)
+			{
+                if(!_grid[i].update())
+                    success_mark = false;
+            }
+            success = success_mark;
+        }
+    }
+    return success;
+}
 bool DutyChart::fetch()
 {
     if(DbManager::manager().checkConnection())
