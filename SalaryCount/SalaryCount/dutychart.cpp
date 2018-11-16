@@ -116,7 +116,8 @@ bool DutyChart::update() const
         if(query->exec())
         {
             bool success_mark = true;
-            for(int i = 0; i < this->_grid.size(); ++i){
+            for(int i = 0; i < this->_grid.size(); ++i)
+			{
                 if(!_grid[i].update())
                     success_mark = false;
             }
@@ -211,7 +212,7 @@ DutyChart defaultChart()
 {
 	// подготовить дату: прошедший ПН
 	QDate monday = QDate::currentDate();
-	monday.addDays( -(monday.dayOfWeek()-1) );
+	monday = monday.addDays( -(monday.dayOfWeek()-1) );
 
 	QList<Mark> bmarks;
 
