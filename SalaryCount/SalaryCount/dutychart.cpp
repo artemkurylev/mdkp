@@ -150,13 +150,9 @@ bool DutyChart::fetch()
                     while(query_m.next())
                     {
                         Mark m(query_m.value(1).toInt(),query_m.value(2).toInt(),query_m.value(3).toInt(),query_m.value(4).toInt(),query_m.value(5).toInt(),query_m.value(6).toInt());
-//<<<<<<< HEAD
                         int x =query_m.value(0).toInt();
 						m.setId(x);
-//=======
-//>>>>>>> c09025639f53fb832bbbb9d41eabbd28b0534860
                         _grid.append(m);
-                        _grid[_grid.size() - 1].setId(query_m.value(0).toInt());
                     }
                     return true;
                 }
