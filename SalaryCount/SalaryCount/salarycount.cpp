@@ -27,19 +27,22 @@ SalaryCount::SalaryCount(QWidget *parent)
 
 	this->editState = false;
 	
-	// запуск тестирования
-	DirectiveGeneratorTest dir_gen_test(0);
-	QTest::qExec( &dir_gen_test , NULL , NULL);
+	//// запуск тестирования
+	//DirectiveGeneratorTest dir_gen_test(0);
+	//QTest::qExec( &dir_gen_test , NULL , NULL);
 
 	//соединение со страницей создания графиков
 	this->dutyChart = new salarycountDutyChart(&this->ui,ui.DutyCharAction->whatsThis());
-    //Соедиенение со страницей табелей
-    this->laborSheet = new salarycountLaborSheet(&this->ui,ui.LaborSheetAction->objectName());
 	connect(this, SIGNAL(showPage(QString)),this->dutyChart,SLOT(updateInfo(QString)));//обновить информацию на странице
 	connect(this->dutyChart,SIGNAL(changeState(bool)),this,SLOT(rememberState(bool)));//на странице может быть два режима: просмотр и изменение записей
 	connect(this,SIGNAL(saveChanges()),this->dutyChart,SLOT(saveNewDutyChart()));//приложение посылает сигнал на сохранение страницы
 	connect(this,SIGNAL(cancelChanges()),this->dutyChart,SLOT(cancelNewDutyChart()));//приложение посылает сигнал отмены редактирования
 	
+    //Соедиенение со страницей табелей
+    this->laborSheet = new salarycountLaborSheet(&this->ui,ui.LaborSheetAction->objectName());
+	connect(this, SIGNAL(showPage(QString)),this->laborSheet,SLOT(updateInfo(QString)));//обновить информацию на странице
+
+
 	//TODO
 
 	ui.saveDutyChartBtn->setEnabled(true);

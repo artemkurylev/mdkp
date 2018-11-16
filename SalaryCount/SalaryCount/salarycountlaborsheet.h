@@ -13,11 +13,19 @@ public:
 	salarycountLaborSheet(Ui_SalaryCount *ui, QString name="");
     ~salarycountLaborSheet();
 
+public slots:
+	void updateInfo(QString name);
+
 private:
     Ui_SalaryCount *ui; // не самый приятный способ, зато все видно из коробки
 	void showAllLabors();
+
+	// текущий отображаемый расчётный период
+	BillingPeriod* _viewedPeriod;
+
 private slots:
     void showLabor();
+	void periodDateChanged(QDate date); // TODO: connect to dateEdit
 };
 
 #endif // SALARYCOUNTLABORSHEET_H
