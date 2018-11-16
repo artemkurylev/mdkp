@@ -18,7 +18,8 @@ public:
 
 	bool fetch();
 	bool set()		{return false;}
-	bool validate() const {return false;}
+	bool delet()	{return false;}
+	bool validate() const {return true;}
 	bool update()	const {return false;}
     int insert();
     static bool createDbTable();

@@ -11,16 +11,26 @@ Mark::Mark()
     _alteredCountHours = 0;
 } 
 
-Mark::Mark(int id)
-    : DbRecord(id)
+//Mark::Mark(int id)
+//    : DbRecord(id)
+//{
+//	_base = INVALID;
+//	_altered = INVALID;
+//    _dutyChartId = NULL;
+//    _laborsheetId = NULL;
+//    _countHours = 0;
+//    _alteredCountHours = 0;
+//}
+Mark::Mark(int baseMark)
+    : DbRecord()
 {
-	_base = INVALID;
+	_base = baseMark;
 	_altered = INVALID;
     _dutyChartId = NULL;
     _laborsheetId = NULL;
     _countHours = 0;
     _alteredCountHours = 0;
-} 
+}
 Mark::Mark(int dutyChartId,int laborsheetId/*=NULL*/, int base/*=HOLIDAY*/, int altered/*=INVALID*/, int countHours/*=0*/, int alteredCountHours/*=-1*/)
     : DbRecord()
 {

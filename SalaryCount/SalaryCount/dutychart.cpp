@@ -68,7 +68,7 @@ int DutyChart::insert()
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        query->prepare("INSERT INTO `dutychart` (payform,anchor_date, name) VALUES(:payform,:anchor_date,:name");
+        query->prepare("INSERT INTO `dutychart` (payform,anchor_date, name) VALUES(:payform,:anchor_date,:name)");
         query->bindValue(":payform",this->_payForm);
         query->bindValue(":anchor_date",this->_anchorDate);
         query->bindValue(":name",this->_name);
@@ -120,8 +120,8 @@ bool DutyChart::fetch()
                 {
                     while(query_m.next())
                     {
-                        Mark m(query_m.value(1).toInt(),query_m.value(2).toInt(),query_m.value(3).toInt(),query_m.value(4).toInt(),query_m.value(5).toInt(),query_m.value(6).toInt());
-                        _grid.append(m);
+                        //Mark m(query_m.value(1).toInt(),query_m.value(2).toInt(),query_m.value(3).toInt(),query_m.value(4).toInt(),query_m.value(5).toInt(),query_m.value(6).toInt());
+                        //_grid.append(m);
                     }
                     return true;
                 }
@@ -149,7 +149,7 @@ QMap<int,QString> DutyChart::getAll()
         {
             while(query->next())
             {
-                records.insert(query->value(0).toInt(), query->value(0).toString()); 
+                records.insert(query->value(0).toInt(), query->value(1).toString()); 
             }
         }
         delete query;
@@ -189,7 +189,7 @@ DutyChart defaultChart()
 
 	for(int i=0; i<7; ++i)
 	{
-		bmarks.append(Mark( /*!*/ ));
+		//bmarks.append(Mark( /*!*/ ));
 	}
 
 	return DutyChart("5/2", bmarks, monday, PER_HOUR);
