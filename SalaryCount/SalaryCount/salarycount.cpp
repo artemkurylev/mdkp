@@ -21,7 +21,7 @@ SalaryCount::SalaryCount(QWidget *parent)
 	QTest::qExec( &dir_gen_test , NULL , NULL);
 
 	//соединение со страницей создания графиков
-	this->dutyChart = new salarycountDutyChart(&this->ui,ui.DutyCharAction->objectName());
+	this->dutyChart = new salarycountDutyChart(&this->ui,ui.DutyCharAction->whatsThis());
     //Соедиенение со страницей табелей
     this->laborSheet = new salarycountLaborSheet(&this->ui,ui.LaborSheetAction->objectName());
 	connect(this, SIGNAL(showPage(QString)),this->dutyChart,SLOT(updateInfo(QString)));//обновить информацию на странице
@@ -104,11 +104,11 @@ bool SalaryCount::isEditable()
 		{
 			case QMessageBox::StandardButton(QMessageBox::Yes):
 				emit saveChanges();
-				return false;
+				return this->editState;
 
 			case QMessageBox::StandardButton(QMessageBox::No):
 				emit cancelChanges();
-				return false;
+				return this->editState;
 
 			case QMessageBox::StandardButton(QMessageBox::Cancel):
 			default:
