@@ -11,17 +11,27 @@ Mark::Mark()
     _alteredCountHours = 0;
 } 
 
-Mark::Mark(int id)
-    : DbRecord(id)
+//Mark::Mark(int id)
+//    : DbRecord(id)
+//{
+//	_base = INVALID;
+//	_altered = INVALID;
+//    _dutyChartId = NULL;
+//    _laborsheetId = NULL;
+//    _countHours = 0;
+//    _alteredCountHours = 0;
+//}
+Mark::Mark(int baseMark)
+    : DbRecord()
 {
-	_base = INVALID;
+	_base = baseMark;
 	_altered = INVALID;
     _dutyChartId = NULL;
     _laborsheetId = NULL;
     _countHours = 0;
     _alteredCountHours = 0;
 } 
-Mark::Mark(int in_base, int in_altered, int in_countHours, int in_alteredCountHours, int in_dutyChartId,int in_laborsheetId)
+Mark::Mark(int in_base, int in_altered, int in_countHours, int in_alteredCountHours, int in_dutyChartId /*= NULL*/,int in_laborsheetId /*= NULL*/)
     : DbRecord()
 {
     _dutyChartId = in_dutyChartId;

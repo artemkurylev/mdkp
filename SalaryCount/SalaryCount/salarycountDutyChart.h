@@ -35,7 +35,7 @@ private slots:
 	void editDutyChart();
 	void cancelNewDutyChart();
 	void saveNewDutyChart();//метод работает с бд
-	void deleteDutyChart(int row);
+	void deleteDutyChart();
 
 	void changePayForm(int index);
 

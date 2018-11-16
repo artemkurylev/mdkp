@@ -26,7 +26,7 @@ DbManager::DbManager(const QString& hostName, const QString& dbName, int port,co
     {
         //QString str;
 		QSqlQuery q(this->db);
-		if( q.exec(tr("CREATE DATABASE IF NOT EXISTS %1;").arg(dbName) ) )
+		if( q.exec(tr("CREATE DATABASE IF NOT EXISTS %1 CHARACTER SET utf8 COLLATE utf8_bin;").arg(dbName) ) )
 		{
 			QString str = "Ok";
 			this->db.close();
