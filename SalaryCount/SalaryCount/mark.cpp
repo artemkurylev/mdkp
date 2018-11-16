@@ -32,7 +32,6 @@ Mark::Mark(int baseMark)
     _alteredCountHours = 0;
 
 }
-
 //Mark::Mark(int base, int altered, int countHours, int alteredCountHours, int dutyChartId,int laborsheetId)
 //=======
 //} 
@@ -93,7 +92,7 @@ bool Mark::update() const
         query->bindValue(":base",this->_base);
         query->bindValue(":altered",this->_altered);
         query->bindValue(":id", this->_id);
-         query->bindValue(":count_hours",this->_countHours);
+        query->bindValue(":count_hours",this->_countHours);
         query->bindValue(":altered_count_hours",this->_alteredCountHours);
         if(query->exec())
         {
