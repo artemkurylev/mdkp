@@ -2,6 +2,7 @@
 #define DELEGATESTATES_H
 
 #include <QtTest/QtTest>
+#include <qmessagebox.h>
 #include "dbmanager.h"
 #include"qsqldatabase.h"
 
@@ -30,6 +31,7 @@ protected:
 	template <class T>
 	void parseDataObject(T *obj) = 0;
 
+	void error_msg(const char* short_description, const char* text);
 signals:
 	void changeState(bool isChanging);
 };
