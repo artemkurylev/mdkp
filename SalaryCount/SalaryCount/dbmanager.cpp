@@ -68,7 +68,16 @@ bool DbManager::checkConnection()
 {
     if(db.isOpen())
     {
-        return true;
+		// проверка активности соединения
+		// источник: http://www.prog.org.ru/topic_6693_0.html Russian Qt Forum >> Базы данных > Lost connection to MySQL server during query QMYSQL: Unable to execute query
+		QSqlQuery qq = db.exec("SET NAMES 'utf8'");
+		if (qq.lastError().type()!=QSqlError::NoError)
+		{
+			db.close();
+			db.open();
+		}
+
+        return db.isOpen();
     }
     else
     {
