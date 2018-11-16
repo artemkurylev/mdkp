@@ -59,6 +59,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
        <number>2</number>
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -78,6 +79,9 @@
 =======
        <number>2</number>
 >>>>>>> b272b87... страница графиков доделана, исправлены баги
+=======
+       <number>1</number>
+>>>>>>> 0489a4b... Виджеты для управления расчетными периодами на странице табелей. Подправлена геометрия таблицы месячных отметок
       </property>
       <widget class="QWidget" name="EmployeesPage">
        <layout class="QGridLayout" name="gridLayout_8">
@@ -110,6 +114,7 @@
              <y>-176</y>
 =======
              <y>0</y>
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -152,6 +157,9 @@
 =======
              <width>217</width>
 >>>>>>> b272b87... страница графиков доделана, исправлены баги
+=======
+             <width>261</width>
+>>>>>>> 0489a4b... Виджеты для управления расчетными периодами на странице табелей. Подправлена геометрия таблицы месячных отметок
              <height>485</height>
 >>>>>>> b19fbbe... Добавлен метод отчистки полей для секции редактирования графиков
             </rect>
@@ -414,13 +422,13 @@
       </widget>
       <widget class="QWidget" name="LaborSheetsPage">
        <layout class="QGridLayout" name="gridLayout">
-        <item row="0" column="1">
+        <item row="1" column="1">
          <widget class="QGroupBox" name="LabourGroupEdit">
           <property name="enabled">
            <bool>true</bool>
           </property>
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
             <horstretch>2</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
@@ -437,6 +445,9 @@
           <layout class="QGridLayout" name="gridLayout_4">
            <item row="1" column="0">
             <layout class="QHBoxLayout" name="horizontalLayout_13">
+             <property name="sizeConstraint">
+              <enum>QLayout::SetFixedSize</enum>
+             </property>
              <item>
               <widget class="QPushButton" name="pushButton_13">
                <property name="enabled">
@@ -462,21 +473,21 @@
            <item row="0" column="0">
             <widget class="QTableWidget" name="laborSheet">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+              <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
              <property name="minimumSize">
               <size>
-               <width>334</width>
-               <height>0</height>
+               <width>333</width>
+               <height>204</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
                <width>335</width>
-               <height>16777215</height>
+               <height>210</height>
               </size>
              </property>
              <property name="selectionMode">
@@ -511,6 +522,11 @@
              <row>
               <property name="text">
                <string>5</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>6</string>
               </property>
              </row>
              <column>
@@ -555,10 +571,13 @@
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Expanding</enum>
+             </property>
              <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
-               <height>177</height>
+               <height>161</height>
               </size>
              </property>
             </spacer>
@@ -566,7 +585,7 @@
           </layout>
          </widget>
         </item>
-        <item row="0" column="0">
+        <item row="1" column="0">
          <widget class="QGroupBox" name="groupBox_6">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -577,6 +596,7 @@
           <property name="title">
            <string>Табель учета труда</string>
           </property>
+<<<<<<< HEAD
 <<<<<<< HEAD
           <layout class="QGridLayout" name="gridLayout_10">
 =======
@@ -620,6 +640,10 @@
            </item>
 >>>>>>> de0bf41... Исправлены коллизии со связью между страницей и главным окном
            <item row="0" column="0">
+=======
+          <layout class="QVBoxLayout" name="verticalLayout_5">
+           <item>
+>>>>>>> 0489a4b... Виджеты для управления расчетными периодами на странице табелей. Подправлена геометрия таблицы месячных отметок
             <layout class="QHBoxLayout" name="horizontalLayout_14">
              <item>
               <widget class="QLabel" name="label_15">
@@ -629,7 +653,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QDateEdit" name="dateEdit_2">
+              <widget class="QDateEdit" name="BillingPeriod_dateEdit">
                <property name="displayFormat">
                 <string>MM.yyyy</string>
                </property>
@@ -648,6 +672,7 @@
                </property>
               </widget>
              </item>
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
             </layout>
@@ -697,9 +722,39 @@
               </widget>
 >>>>>>> 68868c6... Обновлен ui-интерфейс
              </item>
+=======
+             <item>
+              <widget class="QPushButton" name="GoToCurrentPeriod_button">
+               <property name="text">
+                <string>к текущему</string>
+               </property>
+              </widget>
+             </item>
+>>>>>>> 0489a4b... Виджеты для управления расчетными периодами на странице табелей. Подправлена геометрия таблицы месячных отметок
             </layout>
            </item>
-           <item row="1" column="0">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <item>
+              <widget class="QLabel" name="label_18">
+               <property name="text">
+                <string>Текущий период учета</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="ClosePeriod_button">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="text">
+                <string>Подвести итоги и закрыть</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
             <widget class="QTableWidget" name="employeeLaborSheetTable">
              <property name="sizePolicy">
               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
@@ -846,6 +901,7 @@
              </item>
             </widget>
            </item>
+<<<<<<< HEAD
 >>>>>>> 68868c6... Обновлен ui-интерфейс
 =======
             </layout>
@@ -889,6 +945,17 @@
               <widget class="QComboBox" name="comboBox_3"/>
              </item>
             </layout>
+=======
+           <item>
+            <widget class="QPushButton" name="pushButton_7">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>Изменить</string>
+             </property>
+            </widget>
+>>>>>>> 0489a4b... Виджеты для управления расчетными периодами на странице табелей. Подправлена геометрия таблицы месячных отметок
            </item>
            <item row="1" column="0">
             <widget class="QListWidget" name="listWidget_3"/>
@@ -1437,8 +1504,12 @@
 >>>>>>> fcee3f7... Добавил id табеля в таблицу
 =======
      <width>732</width>
+<<<<<<< HEAD
      <height>21</height>
 >>>>>>> de0bf41... Исправлены коллизии со связью между страницей и главным окном
+=======
+     <height>20</height>
+>>>>>>> 0489a4b... Виджеты для управления расчетными периодами на странице табелей. Подправлена геометрия таблицы месячных отметок
     </rect>
    </property>
    <widget class="QMenu" name="menu">
