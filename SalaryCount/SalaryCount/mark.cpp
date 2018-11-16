@@ -21,15 +21,15 @@ Mark::Mark(int id)
     _countHours = 0;
     _alteredCountHours = 0;
 } 
-Mark::Mark(int dutyChartId,int laborsheetId/*=NULL*/, int base/*=HOLIDAY*/, int altered/*=INVALID*/, int countHours/*=0*/, int alteredCountHours/*=-1*/)
+Mark::Mark(int in_base, int in_altered, int in_countHours, int in_alteredCountHours, int in_dutyChartId,int in_laborsheetId)
     : DbRecord()
 {
-    _dutyChartId = dutyChartId;
-    _laborsheetId = laborsheetId;
-	_base = base;
-	_altered = altered;
-    _countHours = countHours;
-    _alteredCountHours = alteredCountHours;
+    _dutyChartId = in_dutyChartId;
+    _laborsheetId = in_laborsheetId;
+	_base = in_base;
+	_altered = in_altered;
+    _countHours = in_countHours;
+    _alteredCountHours = in_alteredCountHours;
 }
 bool Mark::fetch()
 {
