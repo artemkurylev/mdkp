@@ -115,7 +115,7 @@ int HireDirective::insert()
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        query->prepare("INSERT INTO `hire_directive` (hire_date,fio,payform,salary,employee_id) VALUES(:hire_date,:fio,:payform,:salary,:employee_id");
+        query->prepare("INSERT INTO `hire_directive` (hire_date,fio,payform,salary,employee_id) VALUES(:hire_date,:fio,:payform,:salary,:employee_id)");
         query->bindValue(":hire_date",this->_hireDate);
         query->bindValue(":fio",this->_fio);
         query->bindValue(":payform",this->_payForm);
