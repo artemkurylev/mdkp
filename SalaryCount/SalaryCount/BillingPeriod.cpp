@@ -231,6 +231,11 @@ BillingPeriod* BillingPeriod::getCurrentPeriod()
 				(BillingPeriod::Status)query->value(2).toInt()
 				);
         }
+        else
+		{
+            QString s = query->lastError().text();
+            s+="as";
+        }
 		delete query;
     }
     return billing_period;

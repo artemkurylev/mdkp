@@ -9,7 +9,7 @@ Mark::Mark()
     _laborsheetId = NULL;
     _countHours = 0;
     _alteredCountHours = 0;
-} 
+}
 
 //Mark::Mark(int id)
 //    : DbRecord(id)
@@ -107,7 +107,7 @@ int Mark::insert()
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        query->prepare("INSERT INTO `mark` (base,altered,count_hours,altered_count_hours,dutychart_id,laborsheet_id) VALUES(:base,:altered,:count_hours,:altered_count_hours,:dutychart_id,:laborsheet_id");
+        query->prepare("INSERT INTO `mark` (base,altered,count_hours,altered_count_hours,dutychart_id,laborsheet_id) VALUES(:base,:altered,:count_hours,:altered_count_hours,:dutychart_id,:laborsheet_id)");
         query->bindValue(":base",this->_base);
         query->bindValue(":altered",this->_altered);
         query->bindValue(":count_hours",this->_countHours);
