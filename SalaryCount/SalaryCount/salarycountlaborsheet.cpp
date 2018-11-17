@@ -22,7 +22,6 @@ salarycountLaborSheet::salarycountLaborSheet(Ui_SalaryCount *ui, QString name)
 	}
     ui->LabourGroupEdit->setEnabled(false);
     ui->employeeLaborSheetTable->setColumnWidth(0,0);
-    showAllLabors();
 }
 
 salarycountLaborSheet::~salarycountLaborSheet()
@@ -46,43 +45,24 @@ void salarycountLaborSheet::switchMode(app_states state)
 }
 void salarycountLaborSheet::updateInfo(QString name)
 {
-	if(!this->objectName().compare(name) && false /* maybe */ )
+    QList<LaborSheet> labor_data = LaborSheet::getByPeriodId(BillingPeriod::getCurrentPeriod()->id());
+    if(!this->objectName().compare(name) && ui->employeeLaborSheetTable->rowCount() != labor_data.size())
 	{
-		//QMap<int,QString> allEntries = DutyChart::getAll();
-		//ui->dutyChartList->clear();
-
-		//if(allEntries.count() > 0)
-		//{
-		//	QList<int> &keys = allEntries.keys();
-		//	QList<QString> &val = allEntries.values();
-		//	qSort(keys);
-
-		//	foreach(const int &iter, keys)
-		//	{
-		//		QString d = allEntries.value( iter );
-		//		QListWidgetItem *item = new QListWidgetItem(allEntries.value( iter ), ui->dutyChartList, iter);
-		//		ui->dutyChartList->addItem(item);
-		//	}
-
-		//	ui->dutyChartList->setCurrentRow(0);
-		//}
+        ui->employeeLaborSheetTable->clearContents();
+        int row = 0;
+        for(int i = 0; i < labor_data.size(); ++i)
+        {
+            ui->employeeLaborSheetTable->insertRow(row);
+            Employee employee(*(labor_data[i].employee()));
+            ui->employeeLaborSheetTable->setItem(row,0,new QTableWidgetItem(QString(labor_data[i].id())));
+            ui->employeeLaborSheetTable->setItem(row,1,new QTableWidgetItem(employee.fio()));
+            ui->employeeLaborSheetTable->item(row,0)->setData(Qt::UserRole,labor_data[i].id());
+            ++row;
+        }
+        ui->employeeLaborSheetTable->setCurrentCell(0,1);
 	}
 }
 
-void salarycountLaborSheet::showAllLabors()
-{
-    QMap <int,int> laborData = LaborSheet::getAll(); // ! все или за мес€ц ?
-    int row = 0;
-    for(auto it = laborData.begin(); it!= laborData.end(); ++it)
-    {
-        ui->employeeLaborSheetTable->insertRow(row);
-        Employee employee(it.value());
-        employee.fetch();
-        ui->employeeLaborSheetTable->setItem(row,1,new QTableWidgetItem(employee.fio()));
-        ui->employeeLaborSheetTable->setItem(row,0,new QTableWidgetItem(QString(it.key())));
-        ++row;
-    }
-}
 void salarycountLaborSheet::showLabor()
 {
     int row = ui->employeeLaborSheetTable->currentIndex().row();
