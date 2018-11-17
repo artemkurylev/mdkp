@@ -124,6 +124,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 788c143... Добавлена возможность постраничного перехода в приложении
              <width>218</width>
              <height>559</height>
@@ -160,6 +161,9 @@
 =======
              <width>261</width>
 >>>>>>> 0489a4b... Виджеты для управления расчетными периодами на странице табелей. Подправлена геометрия таблицы месячных отметок
+=======
+             <width>217</width>
+>>>>>>> 1f4c259... Небольшие правеи для улучшения вида окна с табебелями учета труда
              <height>485</height>
 >>>>>>> b19fbbe... Добавлен метод отчистки полей для секции редактирования графиков
             </rect>
@@ -481,13 +485,13 @@
              <property name="minimumSize">
               <size>
                <width>333</width>
-               <height>204</height>
+               <height>210</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
                <width>335</width>
-               <height>210</height>
+               <height>220</height>
               </size>
              </property>
              <property name="selectionMode">
@@ -592,6 +596,12 @@
             <horstretch>2</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>500</width>
+            <height>16777215</height>
+           </size>
           </property>
           <property name="title">
            <string>Табель учета труда</string>
@@ -761,6 +771,12 @@
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>470</width>
+               <height>16777215</height>
+              </size>
              </property>
              <property name="editTriggers">
               <set>QAbstractItemView::NoEditTriggers</set>
@@ -1505,11 +1521,15 @@
 =======
      <width>732</width>
 <<<<<<< HEAD
+<<<<<<< HEAD
      <height>21</height>
 >>>>>>> de0bf41... Исправлены коллизии со связью между страницей и главным окном
 =======
      <height>20</height>
 >>>>>>> 0489a4b... Виджеты для управления расчетными периодами на странице табелей. Подправлена геометрия таблицы месячных отметок
+=======
+     <height>21</height>
+>>>>>>> 1f4c259... Небольшие правеи для улучшения вида окна с табебелями учета труда
     </rect>
    </property>
    <widget class="QMenu" name="menu">
