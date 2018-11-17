@@ -15,12 +15,12 @@ SalaryCount::SalaryCount(QWidget *parent)
 	initialDBManager();
 
 	// test>
-	BillingPeriod* bp = BillingPeriod::getCurrentPeriod();
-	for(int i=0 ; i<3 ; ++i)
-	{
-		BookKeeper::closeBillingPeriod(*bp);
-		bp = bp->nextPeriod();
-	}
+	//BillingPeriod* bp = BillingPeriod::getCurrentPeriod();
+	//for(int i=0 ; i<3 ; ++i)
+	//{
+	//	BookKeeper::closeBillingPeriod(*bp);
+	//	bp = bp->nextPeriod();
+	//}
 
 
 	// <test
@@ -39,7 +39,7 @@ SalaryCount::SalaryCount(QWidget *parent)
 	connect(this,SIGNAL(cancelChanges()),this->dutyChart,SLOT(cancelNewDutyChart()));//приложение посылает сигнал отмены редактирования
 	
     //Соедиенение со страницей табелей
-    this->laborSheet = new salarycountLaborSheet(&this->ui,ui.LaborSheetAction->objectName());
+    this->laborSheet = new salarycountLaborSheet(&this->ui,ui.LaborSheetAction->whatsThis());
 	connect(this, SIGNAL(showPage(QString)),this->laborSheet,SLOT(updateInfo(QString)));//обновить информацию на странице
 
 
