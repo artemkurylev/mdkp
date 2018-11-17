@@ -2,12 +2,13 @@
 
 salarycountLaborSheet::salarycountLaborSheet(Ui_SalaryCount *ui, QString name)
 {
-	viewedPeriod = BillingPeriod.getCurrentPeriod();
+	BillingPeriod* viewedPeriod = BillingPeriod::getCurrentPeriod();
 
 	
 	this->setObjectName(name);
 	this->ui = ui;//не самый приятный способ
-    for(int i=0; i<31+6;++i)
+    int startDay = viewedPeriod->startDate().dayOfWeek() - 1;
+    for(int i=startDay; i<31+startDay;++i)
 	{
         QComboBox* combo = new QComboBox();
 
@@ -29,7 +30,7 @@ salarycountLaborSheet::~salarycountLaborSheet()
 
 }
 
-void salarycountDutyChart::updateInfo(QString name)
+void salarycountLaborSheet::updateInfo(QString name)
 {
 	if(!this->objectName().compare(name) && false /* maybe */ )
 	{
@@ -143,4 +144,7 @@ void salarycountLaborSheet::showLabor()
                 combo->setCurrentIndex(marks[i].alteredCountHours());
         }
     }
+}
+void salarycountLaborSheet::periodDateChanged(QDate date)
+{
 }
