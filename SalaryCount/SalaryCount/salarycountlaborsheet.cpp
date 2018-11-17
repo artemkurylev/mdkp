@@ -29,7 +29,21 @@ salarycountLaborSheet::~salarycountLaborSheet()
 {
 
 }
+void salarycountLaborSheet::switchMode(app_states state)
+{
+	this->currentState = state;
 
+	bool triggerState = false;
+	if(state==app_states::EDIT)
+	{
+		triggerState = true;
+	}
+
+	ui->dutyChartEdit->setEnabled(triggerState);
+	ui->dutyChartBox->setEnabled(!triggerState);
+
+	emit changeState(triggerState);
+}
 void salarycountLaborSheet::updateInfo(QString name)
 {
 	if(!this->objectName().compare(name) && false /* maybe */ )
