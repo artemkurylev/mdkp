@@ -25,7 +25,7 @@ private:
 
 private slots:
     void showLabor();
-	void periodDateChanged(QDate date); // TODO: connect to dateEdit
+	void periodDateChanged(const QDate& date); // TODO: connect to dateEdit
 };
 
 #endif // SALARYCOUNTLABORSHEET_H

@@ -2,11 +2,13 @@
 
 salarycountLaborSheet::salarycountLaborSheet(Ui_SalaryCount *ui, QString name)
 {
-	BillingPeriod* viewedPeriod = BillingPeriod::getCurrentPeriod();
-
-	
 	this->setObjectName(name);
 	this->ui = ui;//не самый приятный способ
+
+	BillingPeriod* viewedPeriod = BillingPeriod::getCurrentPeriod();
+	connect(ui.PeriodDateEdit,SIGNAL(dateChanged(const QDate&)), this,SLOT(periodDateChanged(const QDate&))); // обновить дату текущего периода
+
+	
     int startDay = viewedPeriod->startDate().dayOfWeek() - 1;
     for(int i=startDay; i<31+startDay;++i)
 	{
@@ -27,7 +29,7 @@ salarycountLaborSheet::salarycountLaborSheet(Ui_SalaryCount *ui, QString name)
 
 salarycountLaborSheet::~salarycountLaborSheet()
 {
-
+	delete viewedPeriod;
 }
 void salarycountLaborSheet::switchMode(app_states state)
 {
@@ -42,11 +44,11 @@ void salarycountLaborSheet::switchMode(app_states state)
 	ui->dutyChartEdit->setEnabled(triggerState);
 	ui->dutyChartBox->setEnabled(!triggerState);
 
-	emit changeState(triggerState);
+	emit changeState(triggerState); // может быть, лучше сделать наоборот - чтобы переключение происходило по этому сигналу ???
 }
 void salarycountLaborSheet::updateInfo(QString name)
 {
-    QList<LaborSheet> labor_data = LaborSheet::getByPeriodId(BillingPeriod::getCurrentPeriod()->id());
+    QList<LaborSheet> labor_data = LaborSheet::getByPeriodId(viewedPeriod->id());
     if(!this->objectName().compare(name) && ui->employeeLaborSheetTable->rowCount() != labor_data.size())
 	{
         ui->employeeLaborSheetTable->clearContents();
@@ -140,6 +142,6 @@ void salarycountLaborSheet::showLabor()
         }
     }
 }
-void salarycountLaborSheet::periodDateChanged(QDate date)
+void salarycountLaborSheet::periodDateChanged(const QDate& date)
 {
 }
