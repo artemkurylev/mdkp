@@ -61,7 +61,7 @@ public:
 
     static long countEntries();
 
-    static QList<LaborSheet> getByPeriodId();
+    static QList<LaborSheet> getByPeriodId(int id);
 private:
 	// סעמכבצû
     int _employeeId, _billingPeriodId;
