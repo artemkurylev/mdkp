@@ -19,7 +19,6 @@ public slots:
 private:
 
     Ui_SalaryCount *ui; // не самый приятный способ, зато все видно из коробки
-	void showAllLabors();
     void switchMode(app_states state);
 	// текущий отображаемый расчётный период
 	BillingPeriod* _viewedPeriod;
