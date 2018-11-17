@@ -282,6 +282,8 @@ bool LaborSheet::fetch()
 							query->value(5).toInt(),
 							query->value(6).toInt()
 							);
+                        int mark_id = query->value(0).toInt();
+                        m.setId(mark_id);
                         _grid.append(m);
                     }
                 }
@@ -318,3 +320,7 @@ long LaborSheet::countEntries()
     }
     return counter;
 }
+//QList<LaborSheet> LaborSheet::getByPeriodId(int id)
+//{
+//    return NULL;
+//}
