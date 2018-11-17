@@ -344,6 +344,7 @@ QList<LaborSheet> LaborSheet::getByPeriodId(int id)
         {
             while(query->next())
             {
+				// ! этот блок можно заменить на LaborSheet(id) c автоматической выборкой по id (проверить действия метода LaborSheet.fetch())
                 QList <Mark> grid;
                 int labor_id = query->value(0).toInt();
                 QSqlQuery query_m = *(DbManager::manager().makeQuery());
