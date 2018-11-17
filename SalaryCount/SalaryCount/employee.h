@@ -15,6 +15,7 @@ class Employee : public DbRecord
 public:
     Employee();
 	Employee(int id);
+    Employee(const Employee& employee);
 	Employee(QString _fio,QString _phoneNumber,int _INN,int _currentDutyChartID,int _hireDirectiveID);
     ~Employee();
 
@@ -29,8 +30,13 @@ public:
     HireDirective* hireDirective();
 
     //геттеры
-    const QString& fio(){return _fio;}
-
+    const QString& fio() const{return _fio;}
+    const QString& phoneNumber() const {return _phoneNumber;}
+    const int inn()const {return _INN;};
+    const int currentDutyChartID() const{return _currentDutyChartID;}
+    const int nextDutyChartID()const {return _nextDutyChartID;}
+    const QDate& nextDutyChartSince() const{return _nextDutyChartSince;}
+    const int hireDirectiveID() const {return _hireDirectiveID;}
 private:
 	// личные
     QString _fio;
