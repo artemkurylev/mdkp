@@ -18,7 +18,7 @@ public:
     LaborSheet();
     ~LaborSheet();
     LaborSheet(int employeeId);
-   // ? LaborSheet(BillingPeriod* billingPeriod,int employeeId,QList<Mark> grid,DutyChart* _dutyChart);
+    LaborSheet(int id, int billingPeriodId, int employeeId, QList<Mark> grid);
 	bool fillWithDefaults();
     /*
         Getter для взятия всех отметок табеля.
@@ -32,7 +32,7 @@ public:
         getter для взятия графика
     */
     const DutyChart* dutyChart() const{return this->_dutyChart;}
-	bool fillWithDefaults(int empploeeId, QDate date,DutyChart* dutyChart);
+	bool fillWithDefaults(int emploeeId, QDate date,DutyChart* dutyChart);
     Employee* employee();
     BillingPeriod* billingPeriod();
     PayForm payForm();

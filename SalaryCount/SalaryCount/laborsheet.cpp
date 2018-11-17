@@ -15,6 +15,16 @@ LaborSheet::LaborSheet(int employeeId)
     _dutyChart = NULL;
     this->_employeeId = employeeId;
 }
+LaborSheet::LaborSheet(int id, int billingPeriodId, int employeeId, QList<Mark> grid)
+{
+    this->_billingPeriodId = billingPeriodId;
+    this->_employeeId = employeeId;
+    this->_grid = grid;
+    this->_id = id;
+    _billingPeriod = NULL;
+    _employee = NULL;
+    _dutyChart = NULL;
+}
 bool LaborSheet::fillWithDefaults()
 {
 	// Вычислить относительное смещение наложения графика на месяц
@@ -62,6 +72,7 @@ Employee* LaborSheet::employee()
 	if(_employee == NULL)
 	{
 		_employee = new Employee(_employeeId);
+        _employee->fetch();
 	}
 	return _employee;
 }
@@ -320,7 +331,38 @@ long LaborSheet::countEntries()
     }
     return counter;
 }
-//QList<LaborSheet> LaborSheet::getByPeriodId(int id)
-//{
-//    return NULL;
-//}
+QList<LaborSheet> LaborSheet::getByPeriodId(int id)
+{
+    QList<LaborSheet> labor_list;
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+
+        query->prepare("SELECT * FROM `labor_sheet` WHERE `billing_period_id` = :id");
+        query->bindValue(":id",id);
+        if(query->exec())
+        {
+            while(query->next())
+            {
+                QList <Mark> grid;
+                int labor_id = query->value(0).toInt();
+                QSqlQuery query_m = *(DbManager::manager().makeQuery());
+                query_m.prepare("SELECT * from `mark` WHERE laborsheet_id = :id");
+                query_m.bindValue(":id",labor_id);
+                if(query_m.exec())
+                {
+                    while(query_m.next())
+                    {
+                        Mark m(query_m.value(1).toInt(),query_m.value(2).toInt(),query_m.value(3).toInt(),query_m.value(4).toInt(),query_m.value(5).toInt(),query_m.value(6).toInt());
+                        int x =query_m.value(0).toInt();
+						m.setId(x);
+                        grid.append(m);
+                    }
+                }
+                LaborSheet labor(query->value(0).toInt(),query->value(1).toInt(),query->value(2).toInt(),grid);
+                labor_list.append(labor);
+            }
+        }
+    }
+    return labor_list;
+}
