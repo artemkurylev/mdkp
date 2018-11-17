@@ -208,13 +208,13 @@ DutyChart* salarycountDutyChart::shapeDataObject()
 		{
 			case PayForm::PER_MONTH:
 				m = new Mark( (combo->currentIndex()==1 ? 
-					Mark::Type::ATTENDS : Mark::Type::HOLIDAY),NULL,NULL,NULL,id,NULL );
+					Mark::ATTENDS : Mark::HOLIDAY),NULL,NULL,NULL,id,NULL );
 				m->setId((grid ? grid->at(i).id():NULL));
 				break;
 
 			case PayForm::PER_HOUR:
 				m = new Mark( NULL,NULL,(combo->currentIndex()==1 ? 
-					ui->workTimeEdit->time().hour() : Mark::Type::HOLIDAY),NULL,id, NULL );
+					ui->workTimeEdit->time().hour() : Mark::HOLIDAY),NULL,id, NULL );
 					m->setId((grid ? grid->at(i).id():NULL));
 				break;
 
@@ -315,7 +315,7 @@ void salarycountDutyChart::parseDataObject(const DutyChart *obj)
 		for(int i=m.count()-1; i>=0; --i)
 		{
 			QComboBox* combo = (QComboBox*)ui->DutyChartMarksEdit->cellWidget(i,0);
-			if(m[i].base() == Mark::Type::HOLIDAY || m[i].countHours() == Mark::Type::HOLIDAY)
+			if(m[i].base() == Mark::HOLIDAY || m[i].countHours() == Mark::HOLIDAY)
 			{
 				combo->setCurrentIndex(0);
 			}
