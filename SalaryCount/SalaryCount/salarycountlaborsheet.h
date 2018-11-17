@@ -32,7 +32,9 @@ private:
 	/*! ѕеревыдать комбобоксы на €чейки таблицы редактирвани€ отметок */
 	void regenMarksCalendar();
 private slots:
-    void showLabor();
+
+    void showSelectedItem(int row);
+	void periodDateChanged(QDate date); // TODO: connect to dateEdit
 };
 
 #endif // SALARYCOUNTLABORSHEET_H

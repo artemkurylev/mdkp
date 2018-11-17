@@ -64,9 +64,13 @@ void salarycountLaborSheet::regenMarksCalendar()
 		int day = i - startDayOfWeek+monthLength + 1;
 		ui->laborSheet->setItem(i/7,i % 7, makeDateLabel(day) );
 	}
-	
-	this->_startDayOfWeek = startDayOfWeek;
-	this->_monthLength = monthLength;
+
+    ui->LabourGroupEdit->setEnabled(false);
+    ui->employeeLaborSheetTable->setColumnWidth(0,0);
+
+
+    //Connections
+    connect(ui->employeeLaborSheetTable,SIGNAL(currentCellChanged(int,int,int,int)),this, SLOT(showSelectedItem(int)));
 }
 
 /*! 
@@ -99,11 +103,10 @@ void salarycountLaborSheet::switchMode(app_states state)
 }
 void salarycountLaborSheet::updateInfo(QString name)
 {
-    if(!this->objectName().compare(name))
-		return;
 
-    QList<LaborSheet>& labor_data = LaborSheet::getByPeriodId(_viewedPeriod->id());
-    if(ui->employeeLaborSheetTable->rowCount() != labor_data.size())
+    QList<LaborSheet> labor_data = LaborSheet::getByPeriodId(BillingPeriod::getCurrentPeriod()->id());
+    ui->BillingPeriod_dateEdit->setDate(BillingPeriod::getCurrentPeriod()->startDate());
+    if(!this->objectName().compare(name) && ui->employeeLaborSheetTable->rowCount() != labor_data.size())
 	{
         ui->employeeLaborSheetTable->clearContents();
         int row = 0;
@@ -121,81 +124,85 @@ void salarycountLaborSheet::updateInfo(QString name)
 	}
 }
 
-void salarycountLaborSheet::showLabor()
+void salarycountLaborSheet::showSelectedItem(int row)
 {
-    int row = ui->employeeLaborSheetTable->currentIndex().row();
-    int id = ui->employeeLaborSheetTable->item(row,0)->text().toInt();
-    LaborSheet labor_sheet(id);
-    labor_sheet.fetch();
-    QList<Mark>marks = labor_sheet.marks();
-    if(labor_sheet.payForm() == PayForm::PER_MONTH)
+    QTextCodec* codec = QTextCodec::codecForLocale();
+    if(row >= 0)
     {
-        //int row = 0;
-        for(int i = 0; i<marks.size();++i)
-		{
-			// TODO: переделать на обращение к _comboboxes
-            QComboBox* combo = (QComboBox*)ui->DutyChartMarksEdit->cellWidget(i/7,i%7);
-            combo->insertItem(0,"Выходной");
-            combo->insertItem(1,"Рабочий");
-            combo->insertItem(2,"Отсутствовал");
-            if(marks[i].altered() == Mark::INVALID)
-            {
-                switch(marks[i].base())
+
+        int id = ui->employeeLaborSheetTable->item(row,0)->data(Qt::UserRole).toInt();
+        LaborSheet labor_sheet(id,0,0,QList<Mark>());
+        labor_sheet.fetch();
+        QList<Mark>marks = labor_sheet.marks();
+        int start = BillingPeriod::getCurrentPeriod()->startDate().dayOfWeek() - 1;
+        if(labor_sheet.payForm() == PayForm::PER_MONTH)
+        {
+            //int row = 0;
+        
+            for(int i = start;i < marks.size() + start;++i){
+                QComboBox* combo = (QComboBox*)ui->laborSheet->cellWidget(i/7,i%7);
+                combo->insertItem(0,codec->toUnicode("Выходной"));
+                combo->insertItem(1,codec->toUnicode("Рабочий"));
+                combo->insertItem(2,codec->toUnicode("Отсутствовал"));
+                if(marks[i - start].altered() == Mark::INVALID)
                 {
-                    case Mark::HOLIDAY:
+                    switch(marks[i - start].base())
                     {
-                        combo->setCurrentIndex(0);
-                        break;
-                    }
-                    case Mark::ATTENDS:
-                    {
-                        combo->setCurrentIndex(1);
-                        break;
-                    }
-                    case Mark::MISS:
-                    {
-                        combo->setCurrentIndex(2);
-                        break;
+                        case Mark::HOLIDAY:
+                        {
+                            combo->setCurrentIndex(0);
+                            break;
+                        }
+                        case Mark::ATTENDS:
+                        {
+                            combo->setCurrentIndex(1);
+                            break;
+                        }
+                        case Mark::MISS:
+                        {
+                            combo->setCurrentIndex(2);
+                            break;
+                        }
                     }
                 }
-            }
-            else
-            {
-                switch(marks[i].altered())
+                else
                 {
-                    case Mark::HOLIDAY:
+                    switch(marks[i - start].altered())
                     {
-                        combo->setCurrentIndex(0);
-                        break;
-                    }
-                    case Mark::ATTENDS:
-                    {
-                        combo->setCurrentIndex(1);
-                        break;
-                    }
-                    case Mark::MISS:
-                    {
-                        combo->setCurrentIndex(2);
-                        break;
+                        case Mark::HOLIDAY:
+                        {
+                            combo->setCurrentIndex(0);
+                            break;
+                        }
+                        case Mark::ATTENDS:
+                        {
+                            combo->setCurrentIndex(1);
+                            break;
+                        }
+                        case Mark::MISS:
+                        {
+                            combo->setCurrentIndex(2);
+                            break;
+                        }
                     }
                 }
             }
         }
-    }
-    else
-    {
-        //int row = 0;
-        for(int i = 0;i <marks.size();++i)
+        else
         {
-            QComboBox* combo = (QComboBox*)ui->DutyChartMarksEdit->cellWidget(i/7,i%7);
-            for(int j = 0; j <= 12; ++j)
+            //int row = 0;
+            for(int i = start;i <marks.size() + start;++i)
             {
-                combo->insertItem(j,QString(j));
+                QComboBox* combo = (QComboBox*)ui->DutyChartMarksEdit->cellWidget(i/7,i%7);
+                for(int j = 0; j <= 12; ++j)
+                {
+                    combo->insertItem(j,QString(j));
+                }
+                if(marks[i - start].alteredCountHours() == Mark::INVALID) 
+                    combo->setCurrentIndex(marks[i].countHours());
+                else
+                    combo->setCurrentIndex(marks[i].alteredCountHours());
             }
-            if(marks[i].alteredCountHours() == Mark::INVALID) 
-                combo->setCurrentIndex(marks[i].countHours());
-            else
-                combo->setCurrentIndex(marks[i].alteredCountHours());
         }
     }
 }
