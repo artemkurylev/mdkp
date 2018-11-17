@@ -51,7 +51,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>261</width>
+             <width>217</width>
              <height>485</height>
             </rect>
            </property>
@@ -372,13 +372,13 @@
              <property name="minimumSize">
               <size>
                <width>333</width>
-               <height>204</height>
+               <height>210</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
                <width>335</width>
-               <height>210</height>
+               <height>220</height>
               </size>
              </property>
              <property name="selectionMode">
@@ -484,6 +484,12 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="maximumSize">
+           <size>
+            <width>500</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="title">
            <string>Табель учета труда</string>
           </property>
@@ -554,6 +560,12 @@
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>470</width>
+               <height>16777215</height>
+              </size>
              </property>
              <property name="editTriggers">
               <set>QAbstractItemView::NoEditTriggers</set>
@@ -1008,7 +1020,7 @@
      <x>0</x>
      <y>0</y>
      <width>732</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
