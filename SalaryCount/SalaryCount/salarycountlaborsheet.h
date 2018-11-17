@@ -23,7 +23,7 @@ private:
 	BillingPeriod* _viewedPeriod;
 
 private slots:
-    void showLabor();
+    void showSelectedItem(int row);
 	void periodDateChanged(QDate date); // TODO: connect to dateEdit
 };
 
