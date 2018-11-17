@@ -259,7 +259,7 @@ bool LaborSheet::fetch()
                 this->_employeeId = query->value(2).toInt();
 
 				// получить ID периода
-                this->_employeeId = query->value(1).toInt();
+                this->_billingPeriodId = query->value(1).toInt();
 				
 				// получить ID графика
                 this->_dutyChartId = query->value(3).toInt();
