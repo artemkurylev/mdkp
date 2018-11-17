@@ -19,6 +19,7 @@ public:
     ~LaborSheet();
 
     LaborSheet(int employeeId);
+    LaborSheet(const LaborSheet &laborsheet);
     LaborSheet(int id, int billingPeriodId, int employeeId, QList<Mark> grid);
 	bool fillWithDefaults();
     /*
@@ -38,7 +39,6 @@ public:
     Employee* employee();
     BillingPeriod* billingPeriod();
     PayForm payForm();
-
 	/*! ѕодсчитать плановое рабочее врем€ за период
 	*/
 	int countDefaultTimeUnits();
@@ -74,6 +74,12 @@ private:
     BillingPeriod* _billingPeriod;
 	Employee* _employee;
     DutyChart* _dutyChart;
+public:
+    int billingPeriodId()const {return this->_billingPeriodId;}
+    int employeeeId()const {return this->_employeeId;}
+    int dutyChartId()const {return this->_dutyChartId;}
+    QList<Mark> grid() const{return this->_grid;}
+
 };
 
 #endif // LABORSHEET_H
