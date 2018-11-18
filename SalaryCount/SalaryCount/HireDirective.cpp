@@ -197,3 +197,20 @@ int HireDirective::countEntries()
     }
     return counter;
 }
+int HireDirective::lastDirectiveId()
+{
+    int id = 0;
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+
+        query->prepare("SELECT LAST_INSERT_ID() FROM `hire_directive`;");
+        if(query->exec())
+        {
+            if(query->next())
+                id = query->value(0).toInt();
+        }
+        delete query;
+    }
+    return id;
+}
