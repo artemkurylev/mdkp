@@ -33,6 +33,7 @@ public:
 
     static QMap<int,QString> getAll();
 
+    static QMap<int,QString> getAllByPayForm(PayForm payform);
     static long countEntries();
     ~DutyChart();
 
