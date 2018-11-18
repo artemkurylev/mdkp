@@ -16,7 +16,8 @@ salarycountLaborSheet::salarycountLaborSheet(Ui_SalaryCount *ui, QString name)
 	connect(ui->BillingPeriod_dateEdit,SIGNAL(dateChanged(const QDate&)), this,SLOT(periodDateChanged(const QDate&))); // обновить дату текущего периода
 	//connect(ui->ClosePeriod_button,SIGNAL(clicked()), this,SLOT(!!!!())); // закрыть текущий период
     connect(ui->employeeLaborSheetTable,SIGNAL(currentCellChanged(int,int,int,int)),this, SLOT(showSelectedItem(int)));
-
+    //connect(ui->editDutyChart,SIGNAL(pressed()), SLOT(editDutyChart())); Зачем здесь этот коннект??
+    connect(ui->updateLaborBtn,SIGNAL(pressed()),SLOT(editLaborSheet()));
 	regenMarksCalendar();	// обновить ячейки для отметок
 
 	ui->LabourGroupEdit->setEnabled(false);
@@ -98,8 +99,7 @@ void salarycountLaborSheet::switchMode(app_states state)
 		triggerState = true;
 	}
 
-	ui->dutyChartEdit->setEnabled(triggerState);
-	ui->dutyChartBox->setEnabled(!triggerState);
+    ui->LabourGroupEdit->setEnabled(triggerState);
 
 	emit changeState(triggerState); // может быть, лучше сделать наоборот - чтобы переключение происходило по этому сигналу ???
 }
@@ -231,4 +231,8 @@ void salarycountLaborSheet::closePeriod()
 	ui->ClosePeriod_button->setEnabled(this->_viewedPeriod->status() == BillingPeriod::OPEN);
 
 	updateInfo(this->objectName());
+}
+void salarycountLaborSheet::editLaborSheet()
+{
+    switchMode(app_states::EDIT);
 }
