@@ -37,7 +37,9 @@ private:
 private slots:
 
     void showSelectedItem(int row);
-	void periodDateChanged(QDate date); // TODO: connect to dateEdit
+
+    void goToCurrentPeriod();
+
 };
 
 #endif // SALARYCOUNTLABORSHEET_H
