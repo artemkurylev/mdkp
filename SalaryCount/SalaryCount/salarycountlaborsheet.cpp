@@ -146,6 +146,7 @@ void salarycountLaborSheet::showSelectedItem(int row)
         
             for(int i = start;i < marks.size() + start;++i){
                 QComboBox* combo = (QComboBox*)ui->laborSheet->cellWidget(i/7,i%7);
+                combo->clear();
                 combo->insertItem(0,codec->toUnicode("Выходной"));
                 combo->insertItem(1,codec->toUnicode("Рабочий"));
                 combo->insertItem(2,codec->toUnicode("Отсутствовал"));
@@ -199,6 +200,7 @@ void salarycountLaborSheet::showSelectedItem(int row)
             for(int i = start;i <marks.size() + start;++i)
             {
                 QComboBox* combo = (QComboBox*)ui->laborSheet->cellWidget(i/7,i%7);
+                combo->clear();
                 for(int j = 0; j <= 12; ++j)
                 {
                     combo->insertItem(j,QString(j));
