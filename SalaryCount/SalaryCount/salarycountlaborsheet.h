@@ -17,7 +17,7 @@ public slots:
 	void updateInfo(QString name);
 	void periodDateChanged(const QDate& date);
 	void closePeriod();
-
+    void editLaborSheet();
 private:
 
     Ui_SalaryCount *ui; // не самый при€тный способ, зато все видно из коробки

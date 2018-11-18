@@ -937,7 +937,7 @@
            <item>
             <widget class="QPushButton" name="updateLaborBtn">
              <property name="enabled">
-              <bool>false</bool>
+              <bool>true</bool>
              </property>
              <property name="text">
               <string>Изменить</string>
