@@ -180,3 +180,20 @@ QMap<int,QString> HireDirective::getAll()
     }
     return result;
 }
+int HireDirective::countEntries()
+{
+    int counter = 0;
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+
+        query->prepare("SELECT COUNT(*) FROM `hire_directive`");
+        if(query->exec())
+        {
+            if(query->next())
+                counter = query->value(0).toInt();
+        }
+        delete query;
+    }
+    return counter;
+}
