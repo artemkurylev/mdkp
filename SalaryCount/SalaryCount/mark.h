@@ -44,8 +44,10 @@ public:
 	// getters
 	int base()		const	{	return _base;		}
 	int altered()	const	{	return _altered;	}
+	bool isAltered()const	{	return _altered != INVALID;	}
     int countHours()		const	{	return _countHours;		}
     int alteredCountHours()	const	{	return _alteredCountHours;	}
+    bool isAlteredCountHours()const {	return _alteredCountHours != -1;	}
     int dutyChartId()	const	{	return _dutyChartId;	}
     int laborsheetId()	const	{	return _laborsheetId;	}
 
@@ -57,7 +59,15 @@ public:
     void setDutyChartId(int id)			{	_dutyChartId = id;		}
     void setLaborsheetId(int id)		{	_laborsheetId = id;		}
     void setId(int id)                  {   _id = id;               }
+	
 	// methods
+	/*! заносит изменённые поля в основные и сбрасывает изменения */
+	void commitChanges();
+	void resetAltered()
+	{
+		_altered = INVALID;
+		_alteredCountHours = -1;
+	}
 
 private:
     int _base;
