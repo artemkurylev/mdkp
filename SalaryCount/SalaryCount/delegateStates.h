@@ -8,6 +8,7 @@
 
 #include "unittest/DirectiveGeneratorTest.h"
 #include "ui_salarycount.h"
+#include "log_errors.h"
 
 /*! Ќужно описание класса и его предназначени€
 */
@@ -22,6 +23,7 @@ public:
 protected:
 	enum app_states { USUAL, ADD, EDIT};
 	app_states currentState;
+	log_errors* journal;
 
 protected:
 
@@ -32,6 +34,7 @@ protected:
 	void parseDataObject(T *obj) = 0;
 
 	void error_msg(const char* short_description, const char* text);
+	void show_last_error();
 signals:
 	void changeState(bool isChanging);
 
