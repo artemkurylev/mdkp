@@ -37,6 +37,18 @@ Employee::Employee(QString _fio,QString _phoneNumber,int _INN,int _currentDutyCh
 	// оставить пустыми
 	resetNextDutyChart();
 }
+Employee::Employee(int id, QString _fio,QString _phoneNumber,int _INN,int _currentDutyChartID,int _hireDirectiveID)
+{
+    this->_id = id;
+	this->_fio = _fio;
+	this->_phoneNumber = _phoneNumber;
+	this->_INN = _INN;
+	this->_currentDutyChartID = _currentDutyChartID;
+	this->_hireDirectiveID = _hireDirectiveID;
+    this->_hireDirective = NULL;
+	// оставить пустыми
+	resetNextDutyChart();
+}
 Employee::~Employee()
 {
 	// free allocated record
