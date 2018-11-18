@@ -28,8 +28,8 @@ salarycountLaborSheet::~salarycountLaborSheet()
 
 void salarycountLaborSheet::regenMarksCalendar()
 {
-    int startDayOfWeek = _viewedPeriod->startDate().dayOfWeek() - 1;
-    int monthLength = _viewedPeriod->startDate().daysInMonth();
+    int start_day_of_week = _viewedPeriod->startDate().dayOfWeek() - 1;
+    int month_length = _viewedPeriod->startDate().daysInMonth();
     int prev_month_length = _viewedPeriod->startDate().addMonths(-1).daysInMonth();
 	
 	// очистим таблицу с удалением виджетов
@@ -38,17 +38,18 @@ void salarycountLaborSheet::regenMarksCalendar()
 
 	// заполним таблицу заново...
 
-	for(int i=0 ; i<startDayOfWeek ; ++i)
+	for(int i=0 ; i<start_day_of_week ; ++i)
 	{
 		// Нужно вставить лэйблы с числами до начала месяца
-		int day = prev_month_length + 1 - (this->_startDayOfWeek - i);
+
+		int day = prev_month_length + 1 - (start_day_of_week - i);
 		ui->laborSheet->setItem(i/7,i % 7, makeDateLabel(day) );
 	}
 
 	QTextCodec* codec = QTextCodec::codecForLocale();
-	for(int i=startDayOfWeek ; i<startDayOfWeek+monthLength ; ++i)
+	for(int i=start_day_of_week ; i<start_day_of_week+month_length ; ++i)
 	{
-		int day = i - startDayOfWeek + 1;
+		int day = i - start_day_of_week + 1;
 		// Нужно вставить комбобоксы
         QComboBox* combo = new QComboBox();
 		combo->insertItem(0, codec->toUnicode("-"));
@@ -59,10 +60,11 @@ void salarycountLaborSheet::regenMarksCalendar()
 		ui->laborSheet->setCellWidget(i/7,i % 7, combo );
 	}
 
-
-	for(int i=startDayOfWeek+monthLength ; i<42 ; ++i)
+	// 42 = 7 дней * 6 недель
+	for(int i=start_day_of_week+month_length ; i<42 ; ++i)
 	{
 		// Нужно вставить лэйблы с числами после конца месяца
+		int day = i - (start_day_of_week+month_length) + 1;
 
 		int day = i - (startDayOfWeek+monthLength) + 1;
 		ui->laborSheet->setItem(i/7,i % 7, makeDateLabel(day) );
@@ -70,10 +72,6 @@ void salarycountLaborSheet::regenMarksCalendar()
 
     ui->LabourGroupEdit->setEnabled(false);
     ui->employeeLaborSheetTable->setColumnWidth(0,0);
-
-	// ! перемещено в конструктор
-    //Connections
-    //connect(ui->employeeLaborSheetTable,SIGNAL(currentCellChanged(int,int,int,int)),this, SLOT(showSelectedItem(int)));
 }
 
 /*! 
