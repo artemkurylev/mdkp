@@ -21,8 +21,6 @@ SalaryCount::SalaryCount(QWidget *parent)
 	//	BookKeeper::closeBillingPeriod(*bp);
 	//	bp = bp->nextPeriod();
 	//}
-
-
 	// <test
 
 	this->editState = false;
@@ -108,6 +106,7 @@ void SalaryCount::initialDBManager()
 	//return??
 }
 
+//! название метода не отражает сути выполняемых действий
 bool SalaryCount::isEditable()
 {
 	if(this->editState)

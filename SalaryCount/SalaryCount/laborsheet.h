@@ -8,7 +8,7 @@
 #include "employee.h"
 #include "BillingPeriod.h"
 
-/*Ћичный табель на один мес€ц
+/*! Ћичный табель на один мес€ц
 */
 class LaborSheet : public DbRecord
 {
@@ -21,19 +21,17 @@ public:
     LaborSheet(const LaborSheet &laborsheet);
     LaborSheet(int id, int billingPeriodId, int employeeId, QList<Mark> grid);
 	bool fillWithDefaults();
-    /*
-        Getter дл€ вз€ти€ всех отметок табел€.
+    /*! Getter дл€ вз€ти€ всех отметок табел€.
     */
     const QList<Mark>& marks() const{return _grid;}
-    /*
-        getter дл€ вз€ти€ даты
+    /*! getter дл€ вз€ти€ даты
     */
     const QDate beginDate() const{return this->_billingPeriod->startDate();}
-    /*
-        getter дл€ вз€ти€ графика
+    /*! getter дл€ вз€ти€ графика
     */
-    const DutyChart* dutyChart() const{return this->_dutyChart;}
-	bool fillWithDefaults(int emploeeId, QDate date,DutyChart* dutyChart);
+    const DutyChart* dutyChart() const	{return this->_dutyChart;}
+	
+	bool fillWithDefaults(int employeeId, const QDate& date,DutyChart* dutyChart);
     Employee* employee();
     BillingPeriod* billingPeriod();
     PayForm payForm();
@@ -59,7 +57,7 @@ public:
 private:
 	// столбцы
     int _employeeId, _billingPeriodId;
-	int _dutyChartId; // € считаю, это поле не нужно (дублирование графика из цепочки `табель-чел-приказ-график`)
+	int _dutyChartId; //!< график сотрудника дл€ этого мес€ца (в другие может изменитьс€)
 
 	// отметки (прив€занные по внешнему ключу)
     QList<Mark> _grid;
