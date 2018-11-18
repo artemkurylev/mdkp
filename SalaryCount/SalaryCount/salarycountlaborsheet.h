@@ -18,10 +18,12 @@ public slots:
 	void periodDateChanged(const QDate& date);
 	void closePeriod();
     void editLaborSheet();
+    void saveEditedLabor();
 private:
 
     Ui_SalaryCount *ui; // не самый приятный способ, зато все видно из коробки
     void switchMode(app_states state);
+    void saveEditableEntries(LaborSheet* obj);
 	// текущий отображаемый расчётный период
 	BillingPeriod* _viewedPeriod;
 

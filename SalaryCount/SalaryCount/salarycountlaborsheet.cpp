@@ -20,6 +20,7 @@ salarycountLaborSheet::salarycountLaborSheet(Ui_SalaryCount *ui, QString name)
 
     //connect(ui->editDutyChart,SIGNAL(pressed()), SLOT(editDutyChart())); Зачем здесь этот коннект??
     connect(ui->updateLaborBtn,SIGNAL(pressed()),SLOT(editLaborSheet()));
+    connect(ui->saveEditedLaborBtn,SIGNAL(pressed()),SLOT(saveEditedLabor()));
 	regenMarksCalendar();	// обновить ячейки для отметок
 
 	ui->LabourGroupEdit->setEnabled(false);
@@ -240,4 +241,19 @@ void salarycountLaborSheet::closePeriod()
 void salarycountLaborSheet::editLaborSheet()
 {
     switchMode(app_states::EDIT);
+}
+void salarycountLaborSheet::saveEditableEntries(LaborSheet* obj)
+{
+	if(obj->update())
+	{
+		switchMode(app_states::USUAL);
+	}
+	else
+	{
+		error_msg("Оопаньки","Ебать-Копать");//сообщить об ошибке	
+	}
+}
+void salarycountLaborSheet::saveEditedLabor()
+{
+    //saveEditableEntries(NULL);
 }
