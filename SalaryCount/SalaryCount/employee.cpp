@@ -11,9 +11,21 @@ Employee::Employee(int id)
 {
 	_hireDirective = NULL;
 }
+Employee::Employee(const Employee& employee)
+{
+    this->_id = employee.id();
+    this->_fio = employee.fio();
+    this->_phoneNumber = employee.phoneNumber();
+    this->_currentDutyChartID = employee.currentDutyChartID();
+    this->_hireDirectiveID = employee.hireDirectiveID();
+    this->_nextDutyChartID = employee.nextDutyChartID();
+    this->_nextDutyChartSince = employee.nextDutyChartSince();
+    this->_hireDirective = NULL;
+}
 /*! Конструктор создания новой записи
 Предполагается, что приказ и график уже созданы и имеют ID
 */
+
 Employee::Employee(QString _fio,QString _phoneNumber,int _INN,int _currentDutyChartID,int _hireDirectiveID)
 {
 	this->_fio = _fio;
@@ -21,7 +33,7 @@ Employee::Employee(QString _fio,QString _phoneNumber,int _INN,int _currentDutyCh
 	this->_INN = _INN;
 	this->_currentDutyChartID = _currentDutyChartID;
 	this->_hireDirectiveID = _hireDirectiveID;
-
+    this->_hireDirective = NULL;
 	// оставить пустыми
 	this->_nextDutyChartID = NULL;
 	this->_nextDutyChartSince = QDate(1234,11,22);
@@ -105,6 +117,7 @@ bool Employee::fetch()
                 _currentDutyChartID = query->value(5).toInt();
                 _nextDutyChartID = query->value(6).toInt();
                 _nextDutyChartSince = query->value(7).toDate();
+                _hireDirective=NULL;
             }
         }
         else
@@ -228,6 +241,7 @@ HireDirective * Employee::hireDirective()
 	if(_hireDirective == NULL)
 	{
 		_hireDirective = new HireDirective(_hireDirectiveID);
+        _hireDirective->fetch();
 	}
 	return _hireDirective;
 }

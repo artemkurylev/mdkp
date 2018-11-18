@@ -15,6 +15,17 @@ LaborSheet::LaborSheet(int employeeId)
     _dutyChart = NULL;
     this->_employeeId = employeeId;
 }
+LaborSheet::LaborSheet(const LaborSheet& laborsheet)
+{
+    this->_id = laborsheet.id();
+    this->_billingPeriodId = laborsheet.billingPeriodId();
+    this->_dutyChartId = laborsheet.dutyChartId();
+    this->_employeeId = laborsheet.employeeeId();
+    this->_employee = NULL;
+    this->_billingPeriod = NULL;
+    this->_dutyChart = NULL;
+    this->_grid = laborsheet.grid();
+}
 LaborSheet::LaborSheet(int id, int billingPeriodId, int employeeId, QList<Mark> grid)
 {
     this->_billingPeriodId = billingPeriodId;
@@ -90,9 +101,9 @@ PayForm LaborSheet::payForm()
 	HireDirective* h = e->hireDirective();
 	PayForm p = h->payForm();
 
-	//delete e;
-	delete h;
-
+//	delete e;
+//	delete h;
+  
 	return p;
 }
 

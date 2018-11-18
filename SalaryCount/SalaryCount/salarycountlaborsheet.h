@@ -24,14 +24,13 @@ private:
 	// текущий отображаемый расчЄтный период
 	BillingPeriod* _viewedPeriod;
 
-	// текущие параметры мес€ца (дл€ более оптимального обновлени€ виджетов при переключении на новый мес€ц)
-	int _startDayOfWeek , _monthLength;
+	// дл€ текущей конфигурации мес€ца
 	QList<QComboBox*> _comboboxes; // список максимум из 31 комбобоксов дл€ каждого дн€ мес€ца
 
 	/*! ѕеревыдать комбобоксы на €чейки таблицы редактирвани€ отметок */
 	void regenMarksCalendar();
 private slots:
-    void showLabor();
+    void showSelectedItem(int row);
 };
 
 #endif // SALARYCOUNTLABORSHEET_H
