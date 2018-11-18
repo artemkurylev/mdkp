@@ -204,7 +204,7 @@ int HireDirective::lastDirectiveId()
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
 
-        query->prepare("SELECT LAST_INSERT_ID() FROM `hire_directive`;");
+        query->prepare("SELECT MAX(`id`) FROM `hire_directive`;");
         if(query->exec())
         {
             if(query->next())
