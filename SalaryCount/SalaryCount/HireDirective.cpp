@@ -162,3 +162,55 @@ bool HireDirective::createDbTable()
         return false;
     }
 }
+QMap<int,QString> HireDirective::getAll()
+{
+    QMap<int,QString> result;
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+        query->prepare("SELECT `id`,`fio` FROM `hire_directive`");
+        if(query->exec())
+        {
+            while(query->next())
+            {
+                result[query->value(0).toInt()] = query->value(1).toString();
+            }
+        }
+        delete query;
+    }
+    return result;
+}
+int HireDirective::countEntries()
+{
+    int counter = 0;
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+
+        query->prepare("SELECT COUNT(*) FROM `hire_directive`");
+        if(query->exec())
+        {
+            if(query->next())
+                counter = query->value(0).toInt();
+        }
+        delete query;
+    }
+    return counter;
+}
+int HireDirective::lastDirectiveId()
+{
+    int id = 0;
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+
+        query->prepare("SELECT LAST_INSERT_ID() FROM `hire_directive`;");
+        if(query->exec())
+        {
+            if(query->next())
+                id = query->value(0).toInt();
+        }
+        delete query;
+    }
+    return id;
+}

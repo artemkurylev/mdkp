@@ -25,7 +25,7 @@ public:
 
 	// methods
 	Employee * hiredEmployee();
-    
+    int lastDirectiveId();
 
 	// inherited
 	bool HireDirective::fetch();
@@ -35,6 +35,8 @@ public:
     
     //static
     bool static createDbTable();
+    static QMap<int,QString> getAll();
+    static int countEntries();
 private:
 	QDate _hireDate;
 	QString _fio;
