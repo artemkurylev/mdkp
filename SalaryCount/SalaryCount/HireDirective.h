@@ -26,7 +26,7 @@ public:
 
 	// methods
 	Employee * hiredEmployee();
-    
+    int lastDirectiveId();
 
 	// inherited
 	bool HireDirective::fetch();
