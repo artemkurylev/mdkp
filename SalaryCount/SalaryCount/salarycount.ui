@@ -13,6 +13,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     <width>737</width>
 =======
     <width>709</width>
@@ -27,6 +28,9 @@
 >>>>>>> 87d3f2b... Правки формы: поле ввода телефона: Label, увеличена ширина ScrollArea
 =======
     <width>732</width>
+=======
+    <width>685</width>
+>>>>>>> e5dee3a... Изменено имя кнопки для показа приказа
     <height>552</height>
 >>>>>>> ee8954d... Добавлен метод отчистки полей для секции редактирования графиков
 =======
@@ -1421,12 +1425,12 @@
 >>>>>>> f9bbf7c... Добавлен метод countEntries для класса HireDirective, название списка в ui для приказов изменено на адекватное
         </item>
         <item row="2" column="0">
-         <widget class="QPushButton" name="pushButton_16">
+         <widget class="QPushButton" name="showDirectiveBtn">
           <property name="enabled">
            <bool>false</bool>
           </property>
           <property name="text">
-           <string>Просмотрет приказ</string>
+           <string>Просмотреть приказ</string>
           </property>
          </widget>
         </item>
@@ -1456,6 +1460,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
      <width>737</width>
 =======
      <width>709</width>
@@ -1478,6 +1483,9 @@
 >>>>>>> 87d3f2b... Правки формы: поле ввода телефона: Label, увеличена ширина ScrollArea
 =======
      <width>732</width>
+=======
+     <width>685</width>
+>>>>>>> e5dee3a... Изменено имя кнопки для показа приказа
      <height>21</height>
 >>>>>>> ee8954d... Добавлен метод отчистки полей для секции редактирования графиков
 =======
