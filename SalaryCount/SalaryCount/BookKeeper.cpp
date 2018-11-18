@@ -42,7 +42,7 @@ bool BookKeeper::closeBillingPeriod(BillingPeriod & billingPeriod)
 
 /*static*/ bool hireNewEmployee()
 {
-	
+	return false;
 }
 
 float BookKeeper::awardPerHoursForm(float hourSalary, int hours)
