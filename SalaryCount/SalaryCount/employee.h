@@ -16,8 +16,8 @@ public:
     Employee();
 	Employee(int id);
     Employee(const Employee& employee);
-	Employee(QString _fio,QString _phoneNumber,int _INN,int _currentDutyChartID,int _hireDirectiveID);
-    Employee(int id, QString _fio,QString _phoneNumber,int _INN,int _currentDutyChartID,int _hireDirectiveID);
+	Employee(QString _fio,QString _phoneNumber,long long _INN,int _currentDutyChartID,int _hireDirectiveID);
+    Employee(int id, QString _fio,QString _phoneNumber,long long _INN,int _currentDutyChartID,int _hireDirectiveID);
     ~Employee();
 
     bool fetch();
@@ -32,7 +32,7 @@ public:
     //геттеры
     const QString& fio() const{return _fio;}
     const QString& phoneNumber() const {return _phoneNumber;}
-    const int inn()const {return _INN;};
+    const long long inn()const {return _INN;};
     const int currentDutyChartID() const{return _currentDutyChartID;}
     const int nextDutyChartID()const {return _nextDutyChartID;}
     const QDate& nextDutyChartSince() const{return _nextDutyChartSince;}
@@ -62,7 +62,7 @@ private:
 	// личные
     QString _fio;
     QString _phoneNumber;
-    int _INN;
+    long long _INN;
 
 	// график
     int _currentDutyChartID;
