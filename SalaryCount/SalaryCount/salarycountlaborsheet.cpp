@@ -18,6 +18,7 @@ salarycountLaborSheet::salarycountLaborSheet(Ui_SalaryCount *ui, QString name)
 	connect(ui->GoToCurrentPeriod_button,SIGNAL(clicked()), this,SLOT(goToCurrentPeriod())); // закрыть текущий период
     connect(ui->employeeLaborSheetTable,SIGNAL(currentCellChanged(int,int,int,int)),this, SLOT(showSelectedItem(int)));
 
+    connect(ui->updateLaborBtn,SIGNAL(pressed()),SLOT(editLaborSheet()));
 
 	ui->LabourGroupEdit->setEnabled(false);
     ui->employeeLaborSheetTable->setColumnWidth(0,0);
@@ -64,6 +65,7 @@ void salarycountLaborSheet::regenMarksCalendar()
 	{
 		// Нужно вставить лэйблы с числами после конца месяца
 		int day = i - (startDayOfWeek+monthLength) + 1;
+
 		ui->laborSheet->setItem(i/7,i % 7, makeDateLabel(day) );
 	}
     ui->LabourGroupEdit->setEnabled(false);
@@ -97,8 +99,7 @@ void salarycountLaborSheet::switchMode(app_states state)
 		triggerState = true;
 	}
 
-	ui->dutyChartEdit->setEnabled(triggerState);
-	ui->dutyChartBox->setEnabled(!triggerState);
+    ui->LabourGroupEdit->setEnabled(triggerState);
 
 	emit changeState(triggerState); // может быть, лучше сделать наоборот - чтобы переключение происходило по этому сигналу ???
 }
@@ -253,4 +254,8 @@ void salarycountLaborSheet::closePeriod()
 	ui->GoToCurrentPeriod_button->setEnabled(this->_viewedPeriod->status() != BillingPeriod::OPEN);
 
 	updateInfo(this->objectName());
+}
+void salarycountLaborSheet::editLaborSheet()
+{
+    switchMode(app_states::EDIT);
 }
