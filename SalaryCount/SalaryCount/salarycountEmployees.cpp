@@ -27,7 +27,19 @@ salarycountEmployees::~salarycountEmployees()
 
 Employee* salarycountEmployees::shapeDataObject()
 {
-	//Employee *obj = new Employee(
+	int id =0;
+	if(this->currentState == app_states::EDIT)
+	{
+		id = ui->employeeList->currentItem()->type();//проверить как-нибудь это надо
+	}
+
+	QString FIO = ui->eFIO->text();
+	QString phone = ui->eNumberPhone->text();
+	int INN = ui->INN->text().toInt();
+	int dutyChart = ui->eDutyChart->currentData().toInt();
+	int hire_dir = ui->eOrderNum->text().toInt();
+
+	Employee *obj = new Employee();
 	return NULL;
 }
 
@@ -103,7 +115,7 @@ bool salarycountEmployees::fillDutyChartComboBox()
 
 		if(countDutyChart != ui->eDutyChart->count())
 		{
-			QMap<int,QString> &charts = DutyChart::getAll();
+			QMap<int,QString> &charts = DutyChart::getAllByPayForm(ui->ePayFormChoice->currentIndex() ? PayForm::PER_HOUR : PayForm::PER_MONTH);
 
 			if(!charts.count()) throw this->journal->invalidData("Не удалось получить графики работы, возможно они не созданы");
 
@@ -112,10 +124,7 @@ bool salarycountEmployees::fillDutyChartComboBox()
 			QList<int> &keys = charts.keys();
 			foreach(const int iter, keys)
 			{
-				/*switch(charts.value(iter))
-				{
-					ui->eDutyChart->addItem( charts.value(iter),QVariant(iter));
-				}*/
+				ui->eDutyChart->addItem( charts.value(iter),QVariant(iter));
 			}
 		}
 
@@ -156,6 +165,7 @@ QDate salarycountEmployees::getMinimumRecipientDate()
 void salarycountEmployees::switchMode(app_states state)
 {
 	this->currentState = state;//запомним состояние приложения
+	bool isAddState = state==app_states::ADD;
 
 	//приведем состояние к булеву типу для посылки главному окну
 	bool triggerState = false;
@@ -165,19 +175,9 @@ void salarycountEmployees::switchMode(app_states state)
 	}
 
 	//изменение состояния окна
-	if(state==app_states::ADD)
-	{
-		ui->eReceiptDate->setEnabled(true);
-		ui->workingDataBox->setEnabled(true);
-	}
-	else
-	{
-		ui->workingDataBox->setEnabled(false);
-		ui->eReceiptDate->setEnabled(false);
-	}
-
+	ui->eReceiptDate->setEnabled(isAddState);
+	ui->workingDataBox->setEnabled(isAddState);//triggerState
 	ui->personalDataBox->setEnabled(triggerState);
-	ui->workingDataBox->setEnabled(triggerState);
 	ui->saveEmployeeBtn->setEnabled(triggerState);
 	ui->cancelEmployeeBtn->setEnabled(triggerState);
 
