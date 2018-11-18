@@ -136,8 +136,9 @@ void salarycountLaborSheet::showSelectedItem(int row)
         int id = ui->employeeLaborSheetTable->item(row,0)->data(Qt::UserRole).toInt();
         LaborSheet labor_sheet(id,0,0,QList<Mark>());
         labor_sheet.fetch();
-        QList<Mark>marks = labor_sheet.marks();
-        int start = BillingPeriod::getCurrentPeriod()->startDate().dayOfWeek() - 1;
+
+        QList<Mark>marks = labor_sheet.grid();
+        int start = _viewedPeriod->startDate().dayOfWeek() - 1;
         if(labor_sheet.payForm() == PayForm::PER_MONTH)
         {
             //int row = 0;

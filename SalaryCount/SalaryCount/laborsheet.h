@@ -33,9 +33,7 @@ public:
     void setDutyChartId(int dutyChartId)	{ this->_dutyChartId = dutyChartId;}
 	
     /*! Getter для взятия всех отметок табеля. */
-    const QList<Mark>& marks() const{return this->_grid;}
-    /*! Ещё один Getter для взятия всех отметок табеля. */
-    QList<Mark> grid()  const{return this->_grid;}
+    const QList<Mark>& grid()  const{return this->_grid;}
 
     /*! getter для взятия даты
     */

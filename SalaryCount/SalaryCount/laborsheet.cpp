@@ -129,7 +129,7 @@ int LaborSheet::countDefaultTimeUnits()
 	enum PayForm pay_form;
 	pay_form = payForm();
 
-	foreach(Mark mark , this->marks())
+	foreach(Mark mark , this->grid())
 	{
 		total += markMeasure(mark.base(), pay_form);
 	}
@@ -142,7 +142,7 @@ int LaborSheet::countActualTimeUnits()
 	enum PayForm pay_form;
 	pay_form = payForm();
 
-	foreach(Mark mark , this->marks())
+	foreach(Mark mark , this->grid())
 	{
 		total += markMeasure(mark.altered(), pay_form);
 	}
