@@ -26,7 +26,7 @@ Employee::Employee(const Employee& employee)
 Предполагается, что приказ и график уже созданы и имеют ID
 */
 
-Employee::Employee(QString _fio,QString _phoneNumber,int _INN,int _currentDutyChartID,int _hireDirectiveID)
+Employee::Employee(QString _fio,QString _phoneNumber,long long _INN,int _currentDutyChartID,int _hireDirectiveID)
 {
 	this->_fio = _fio;
 	this->_phoneNumber = _phoneNumber;
@@ -37,7 +37,7 @@ Employee::Employee(QString _fio,QString _phoneNumber,int _INN,int _currentDutyCh
 	// оставить пустыми
 	resetNextDutyChart();
 }
-Employee::Employee(int id, QString _fio,QString _phoneNumber,int _INN,int _currentDutyChartID,int _hireDirectiveID)
+Employee::Employee(int id, QString _fio,QString _phoneNumber,long long _INN,int _currentDutyChartID,int _hireDirectiveID)
 {
     this->_id = id;
 	this->_fio = _fio;
@@ -124,7 +124,7 @@ bool Employee::fetch()
                 _phoneNumber = query->value(2).toString();
                 _INN = query->value(3).toInt();
 				// hire_directive_id
-				_hireDirectiveID = query->value(4).toInt();
+                _hireDirectiveID = query->value(4).toLongLong();
                 _currentDutyChartID = query->value(5).toInt();
                 _nextDutyChartID = query->value(6).toInt();
                 _nextDutyChartSince = query->value(7).toDate();
