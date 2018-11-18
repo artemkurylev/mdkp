@@ -61,6 +61,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
        <number>2</number>
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -86,6 +87,9 @@
 =======
        <number>2</number>
 >>>>>>> 6224a27... Дата графиков - включает год
+=======
+       <number>3</number>
+>>>>>>> f9bbf7c... Добавлен метод countEntries для класса HireDirective, название списка в ui для приказов изменено на адекватное
       </property>
       <widget class="QWidget" name="EmployeesPage">
        <layout class="QGridLayout" name="gridLayout_8">
@@ -1410,7 +1414,11 @@
          </widget>
         </item>
         <item row="1" column="0">
+<<<<<<< HEAD
          <widget class="QListWidget" name="listWidget_4"/>
+=======
+         <widget class="QListWidget" name="directiveList"/>
+>>>>>>> f9bbf7c... Добавлен метод countEntries для класса HireDirective, название списка в ui для приказов изменено на адекватное
         </item>
         <item row="2" column="0">
          <widget class="QPushButton" name="pushButton_16">
