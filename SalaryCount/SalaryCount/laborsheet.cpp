@@ -130,7 +130,7 @@ int inline markMeasure(int mark_val, enum PayForm pay_form)
 	return (pay_form == PER_HOUR)? (mark_val) : (mark_val > 0);
 }
 
-int LaborSheet::countDefaultTimeUnits()
+int LaborSheet::countBaseTimeUnits()
 {
 	int total = 0;
 	enum PayForm pay_form;
