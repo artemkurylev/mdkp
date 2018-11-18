@@ -196,9 +196,9 @@ bool LaborSheet::update() const
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
         query->prepare("UPDATE `labor_sheet` SET billing_period_id = :billing_period_id , employee_id = :employee_id, dutychart_id = :dutychart_id WHERE `id` =:id");
-        query->bindValue(":billing_period_id",this->_billingPeriod->id());
+        query->bindValue(":billing_period_id",this->_billingPeriodId);
         query->bindValue(":employee_id",this->_employeeId);
-        query->bindValue(":dutychart_id",this->_dutyChart->id());
+        query->bindValue(":dutychart_id",this->_dutyChartId);
         query->bindValue(":id",this->id());
         if(query->exec())
         {
@@ -292,26 +292,26 @@ bool LaborSheet::fetch()
      //               this->_dutyChart = dutyChart;
      //			  }
 
-                QSqlQuery* query_m = DbManager::manager().makeQuery();
-                query_m->prepare("SELECT * FROM `mark` WHERE `laborsheet_id` = :id");
-                query_m->bindValue(":id", id);
-                if(query_m->exec())
+                QSqlQuery query_m = *(DbManager::manager().makeQuery());
+                query_m.prepare("SELECT * FROM `mark` WHERE `laborsheet_id` = :id");
+                query_m.bindValue(":id", id);
+                if(query_m.exec())
                 {
-                    while(query_m->next())
+                    while(query_m.next())
                     {
-                        Mark m(query_m->value(1).toInt(),
-							query_m->value(2).toInt(),
-							query_m->value(3).toInt(),
-							query_m->value(4).toInt(),
-							query->value(5).toInt(),
-							query->value(6).toInt()
+                        Mark m(query_m.value(1).toInt(),
+							query_m.value(2).toInt(),
+							query_m.value(3).toInt(),
+							query_m.value(4).toInt(),
+							query_m.value(5).toInt(),
+							query_m.value(6).toInt()
 							);
-                        int mark_id = query->value(0).toInt();
+                        int mark_id = query_m.value(0).toInt();
                         m.setId(mark_id);
                         _grid.append(m);
                     }
                 }
-				delete query_m;
+				//delete query_m;
             }
         }
         else
