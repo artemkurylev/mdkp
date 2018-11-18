@@ -21,7 +21,7 @@ class BookKeeper
 public:
 	/*! Вычислить зарплату за период по закрытому месячному табелю
 	*/
-	static bool calcAwardFor(LaborSheet & laborSheet);
+	static float calcBaseAwardFor(LaborSheet & laborSheet, const BillingPeriod & billingPeriod);
 
 	/*! Закрыть расчётный период, подвести его итоги (з/п и др.) и открыть следующий расчётный период
 	*/

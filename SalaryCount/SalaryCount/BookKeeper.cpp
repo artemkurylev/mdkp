@@ -4,11 +4,26 @@
 #include "laborsheet.h"
 
 
-bool BookKeeper::calcAwardFor(LaborSheet & laborSheet)
+float BookKeeper::calcBaseAwardFor(LaborSheet & laborSheet, const BillingPeriod & billingPeriod)
 {
+	float award;
 
+    Employee* emp =  laborSheet.employee();
+    HireDirective* hiredir = emp->hireDirective();
+	int time = laborSheet.countBaseTimeUnits();
+	float time_price = hiredir->salary();
+	PayForm pay_form = hiredir->payForm();
 
-	return false;
+	if(pay_form == PER_HOUR)
+	{
+		award = awardPerHoursForm(time_price, time);
+	}
+	else
+	{
+		award = awardPerMonthForm(time_price, time, billingPeriod.startDate().daysInMonth());
+	}
+
+	return award;
 }
 
 bool BookKeeper::closeBillingPeriod(BillingPeriod & billingPeriod)
@@ -34,8 +49,12 @@ bool BookKeeper::closeBillingPeriod(BillingPeriod & billingPeriod)
 	foreach(LaborSheet lbrsh, lbrsh_list)
 	{
 		// [...]
-		BookKeeper::calcAwardFor(lbrsh);
+		lbrsh.commitChanges();
+		float award = BookKeeper::calcBaseAwardFor(lbrsh, billingPeriod);
+		lbrsh.setAward(award);
+		lbrsh.update();
 	}
+
 
 	next_period.open();
 	next_period.update();
@@ -74,7 +93,7 @@ bool BookKeeper::closeBillingPeriod(BillingPeriod & billingPeriod)
 	return true;
 }
 
-/*static*/ bool hireNewEmployee()
+/*static*/ bool BookKeeper::hireNewEmployee()
 {
 	return false;
 }
