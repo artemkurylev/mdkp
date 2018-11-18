@@ -51,7 +51,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>261</width>
+             <width>217</width>
              <height>485</height>
             </rect>
            </property>
@@ -662,7 +662,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_7">
+            <widget class="QPushButton" name="updateLaborBtn">
              <property name="enabled">
               <bool>false</bool>
              </property>
@@ -984,7 +984,7 @@
      <x>0</x>
      <y>0</y>
      <width>732</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
