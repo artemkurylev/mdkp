@@ -12,8 +12,10 @@ salarycountLaborSheet::salarycountLaborSheet(Ui_SalaryCount *ui, QString name)
 	ui->BillingPeriod_dateEdit->setDate(_viewedPeriod->startDate());
 	ui->ClosePeriod_button->setEnabled(true);
 
+    //Connections
 	connect(ui->BillingPeriod_dateEdit,SIGNAL(dateChanged(const QDate&)), this,SLOT(periodDateChanged(const QDate&))); // обновить дату текущего периода
-	connect(ui->ClosePeriod_button,SIGNAL(dateChanged(const QDate&)), this,SLOT(periodDateChanged(const QDate&))); // обновить дату текущего периода
+	//connect(ui->ClosePeriod_button,SIGNAL(clicked()), this,SLOT(!!!!())); // закрыть текущий период
+    connect(ui->employeeLaborSheetTable,SIGNAL(currentCellChanged(int,int,int,int)),this, SLOT(showSelectedItem(int)));
 
 	regenMarksCalendar();	// обновить €чейки дл€ отметок
 
@@ -61,15 +63,15 @@ void salarycountLaborSheet::regenMarksCalendar()
 	for(int i=startDayOfWeek+monthLength ; i<42 ; ++i)
 	{
 		// Ќужно вставить лэйблы с числами после конца мес€ца
-		int day = i - startDayOfWeek+monthLength + 1;
+		int day = i - (startDayOfWeek+monthLength) + 1;
 		ui->laborSheet->setItem(i/7,i % 7, makeDateLabel(day) );
 	}
     ui->LabourGroupEdit->setEnabled(false);
     ui->employeeLaborSheetTable->setColumnWidth(0,0);
 
-
+	// ! перемещено в конструктор
     //Connections
-    connect(ui->employeeLaborSheetTable,SIGNAL(currentCellChanged(int,int,int,int)),this, SLOT(showSelectedItem(int)));
+    //connect(ui->employeeLaborSheetTable,SIGNAL(currentCellChanged(int,int,int,int)),this, SLOT(showSelectedItem(int)));
 }
 
 /*! 
