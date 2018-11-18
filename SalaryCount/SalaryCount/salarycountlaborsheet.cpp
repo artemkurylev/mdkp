@@ -242,6 +242,12 @@ void salarycountLaborSheet::goToCurrentPeriod()
 	{
 		if(this->_viewedPeriod)
 			delete this->_viewedPeriod;
+		else
+		{
+			// установить границы для DateEdit [В ПЕРВЫЙ РАЗ]
+			QPair<QDate,QDate> date_span = BillingPeriod::getDateSpan();
+			ui->BillingPeriod_dateEdit->setDateRange(date_span.first, date_span.second);
+		}
 
 		this->_viewedPeriod = bp;
 		ui->BillingPeriod_dateEdit->setDate(_viewedPeriod->startDate());
@@ -265,6 +271,10 @@ void salarycountLaborSheet::closePeriod()
 	}
 	ui->ClosePeriod_button->setEnabled(this->_viewedPeriod->status() == BillingPeriod::OPEN);
 	ui->GoToCurrentPeriod_button->setEnabled(this->_viewedPeriod->status() != BillingPeriod::OPEN);
+
+	// установить границы для DateEdit
+	QPair<QDate,QDate> date_span = BillingPeriod::getDateSpan();
+	ui->BillingPeriod_dateEdit->setDateRange(date_span.first, date_span.second);
 
 	updateInfo(this->objectName());
 }
