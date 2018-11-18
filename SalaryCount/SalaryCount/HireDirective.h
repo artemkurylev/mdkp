@@ -35,6 +35,7 @@ public:
     
     //static
     bool static createDbTable();
+    static QMap<int,QString> getAll();
 private:
 	QDate _hireDate;
 	QString _fio;
