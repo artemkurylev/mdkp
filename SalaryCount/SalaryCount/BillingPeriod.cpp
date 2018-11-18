@@ -255,3 +255,26 @@ BillingPeriod* BillingPeriod::nextPeriod()
 	}
 	return _next;
 }
+
+/*static*/ QPair<QDate,QDate> BillingPeriod::getDateSpan()
+{
+	QPair<QDate,QDate> span;
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+        query->prepare("SELECT MIN(start_date),MAX(start_date) FROM billing_period WHERE 1;");
+        if(query->exec() && query->next())
+        {
+			span.first = query->value(0).toDate();
+			span.second = query->value(1).toDate();
+        }
+        else
+		{
+            QString s = query->lastError().text();
+            s+="as";
+        }
+		delete query;
+    }
+	
+	return span;
+}
