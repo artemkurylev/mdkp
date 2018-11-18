@@ -34,6 +34,9 @@ protected:
 	void error_msg(const char* short_description, const char* text);
 signals:
 	void changeState(bool isChanging);
+
+public slots:
+	virtual void updateInfo(QString name) = 0;
 };
 
 #endif // DELEGATESTATES_H
