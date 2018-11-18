@@ -61,7 +61,7 @@ void salarycountLaborSheet::regenMarksCalendar()
 	for(int i=startDayOfWeek+monthLength ; i<42 ; ++i)
 	{
 		// Нужно вставить лэйблы с числами после конца месяца
-		int day = i - startDayOfWeek+monthLength + 1;
+		int day = i - monthLength - startDayOfWeek + 1;
 		ui->laborSheet->setItem(i/7,i % 7, makeDateLabel(day) );
 	}
     ui->LabourGroupEdit->setEnabled(false);
