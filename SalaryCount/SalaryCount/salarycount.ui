@@ -535,9 +535,6 @@
                <property name="calendarPopup">
                 <bool>false</bool>
                </property>
-               <property name="currentSectionIndex">
-                <number>0</number>
-               </property>
                <property name="date">
                 <date>
                  <year>2000</year>

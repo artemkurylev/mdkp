@@ -34,6 +34,7 @@ private:
 	void regenMarksCalendar();
 private slots:
     void showSelectedItem(int row);
+    void goToCurrentPeriod();
 };
 
 #endif // SALARYCOUNTLABORSHEET_H
