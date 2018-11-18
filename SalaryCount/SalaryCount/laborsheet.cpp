@@ -78,6 +78,13 @@ bool LaborSheet::fillWithDefaults()
 	// Обновить табель в БД
     return this->update();
 }
+void LaborSheet::commitChanges()
+{
+	foreach(Mark mark , this->grid())
+	{
+		mark.commitChanges();
+	}
+}
 
 Employee* LaborSheet::employee()
 {
