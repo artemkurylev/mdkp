@@ -178,7 +178,7 @@ QMap<int,QString> DutyChart::getAll()
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
 
-        query->prepare("SELECT id,name FROM `dutychart`");
+        query->prepare("SELECT `id`,`name` FROM `dutychart`");
         if(query->exec())
         {
             while(query->next())
@@ -247,4 +247,25 @@ DutyChart defaultChart2()
 	bmarks.append(Mark(Mark::HOLIDAY, Mark::INVALID, 0, -1, NULL,NULL));
 
 	return DutyChart("2/2/2/1", bmarks, monday, PER_MONTH);
+}
+QMap<int,QString> DutyChart::getAllByPayForm(PayForm payform)
+{
+    QMap<int,QString> records;
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+
+        query->prepare("SELECT `id`,`name` FROM `dutychart` WHERE `payform` = :payform");
+        query->bindValue(":payform", payform);
+        if(query->exec())
+        {
+            while(query->next())
+            {
+                records.insert(query->value(0).toInt(), query->value(1).toString()); 
+            }
+        }
+        delete query;
+    }
+
+    return records;
 }
