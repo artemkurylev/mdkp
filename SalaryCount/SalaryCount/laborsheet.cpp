@@ -7,15 +7,17 @@ LaborSheet::LaborSheet()
     _employee = NULL;
     _dutyChart = NULL;
 }
-LaborSheet::LaborSheet(int employeeId)
+LaborSheet::LaborSheet(int employeeId, int billingPeriodId)
     : DbRecord()
 {
     _billingPeriod = NULL;
     _employee = NULL;
     _dutyChart = NULL;
     this->_employeeId = employeeId;
+    this->_billingPeriodId = billingPeriodId;
 }
 LaborSheet::LaborSheet(const LaborSheet& laborsheet)
+    : DbRecord()
 {
     this->_id = laborsheet.id();
     this->_billingPeriodId = laborsheet.billingPeriodId();
@@ -125,7 +127,7 @@ int LaborSheet::countDefaultTimeUnits()
 	enum PayForm pay_form;
 	pay_form = payForm();
 
-	foreach(Mark mark , this->marks())
+	foreach(Mark mark , this->grid())
 	{
 		total += markMeasure(mark.base(), pay_form);
 	}
@@ -138,7 +140,7 @@ int LaborSheet::countActualTimeUnits()
 	enum PayForm pay_form;
 	pay_form = payForm();
 
-	foreach(Mark mark , this->marks())
+	foreach(Mark mark , this->grid())
 	{
 		total += markMeasure(mark.altered(), pay_form);
 	}
@@ -359,23 +361,29 @@ QList<LaborSheet> LaborSheet::getByPeriodId(int id)
         {
             while(query->next())
             {
+				// необходимо проверить работоспособность
+				LaborSheet labor;
+				int labor_id = query->value(0).toInt();
+				labor._id = labor_id;
+				labor.fetch();
+
 				// ! этот блок можно заменить на LaborSheet(id) c автоматической выборкой по id (проверить действия метода LaborSheet.fetch())
-                QList <Mark> grid;
-                int labor_id = query->value(0).toInt();
-                QSqlQuery query_m = *(DbManager::manager().makeQuery());
-                query_m.prepare("SELECT * from `mark` WHERE laborsheet_id = :id");
-                query_m.bindValue(":id",labor_id);
-                if(query_m.exec())
-                {
-                    while(query_m.next())
-                    {
-                        Mark m(query_m.value(1).toInt(),query_m.value(2).toInt(),query_m.value(3).toInt(),query_m.value(4).toInt(),query_m.value(5).toInt(),query_m.value(6).toInt());
-                        int x =query_m.value(0).toInt();
-						m.setId(x);
-                        grid.append(m);
-                    }
-                }
-                LaborSheet labor(query->value(0).toInt(),query->value(1).toInt(),query->value(2).toInt(),grid);
+      ////          QList <Mark> grid;
+      ////          int labor_id = query->value(0).toInt();
+      ////          QSqlQuery query_m = *(DbManager::manager().makeQuery());
+      ////          query_m.prepare("SELECT * from `mark` WHERE laborsheet_id = :id");
+      ////          query_m.bindValue(":id",labor_id);
+      ////          if(query_m.exec())
+      ////          {
+      ////              while(query_m.next())
+      ////              {
+      ////                  Mark m(query_m.value(1).toInt(),query_m.value(2).toInt(),query_m.value(3).toInt(),query_m.value(4).toInt(),query_m.value(5).toInt(),query_m.value(6).toInt());
+      ////                  int x =query_m.value(0).toInt();
+						////m.setId(x);
+      ////                  grid.append(m);
+      ////              }
+      ////          }
+      ////          LaborSheet labor(query->value(0).toInt(),query->value(1).toInt(),query->value(2).toInt(),grid);
                 labor_list.append(labor);
             }
         }
