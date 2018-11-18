@@ -27,6 +27,7 @@ public:
 	*/
 	static bool closeBillingPeriod(BillingPeriod & billingPeriod);
 
+	/*! ѕрин€ть сотрудника на работу с заполением личных данных, созданием приказа, прив€зкой графика. */
 	static bool hireNewEmployee();
 
 private:
