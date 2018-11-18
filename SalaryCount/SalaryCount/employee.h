@@ -27,7 +27,6 @@ public:
     static bool createDbTable();
     static QMap<int,QString> getAll();
     static long countEntries();
-    HireDirective* hireDirective();
 
     //геттеры
     const QString& fio() const{return _fio;}
@@ -37,6 +36,9 @@ public:
     const int nextDutyChartID()const {return _nextDutyChartID;}
     const QDate& nextDutyChartSince() const{return _nextDutyChartSince;}
     const int hireDirectiveID() const {return _hireDirectiveID;}
+
+    HireDirective* hireDirective();
+	QDate hireDate()	{	return hireDirective()->hireDate();	}
 
 	void setNextDutyChartSince(int nextDutyChartID,const QDate& nextDutyChartSince)
 	{
