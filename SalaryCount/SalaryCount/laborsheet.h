@@ -66,7 +66,8 @@ public:
     bool LaborSheet::update() const;
     bool LaborSheet::fetch();
     bool LaborSheet::validate() const;
-    
+    //Сеттер для оценок
+    void setGrid(QList<Mark> list){_grid = list;}
 	// Статические методы
     static bool createDbTable();
 
