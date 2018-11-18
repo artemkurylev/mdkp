@@ -19,6 +19,7 @@ salarycountLaborSheet::salarycountLaborSheet(Ui_SalaryCount *ui, QString name)
     connect(ui->employeeLaborSheetTable,SIGNAL(currentCellChanged(int,int,int,int)),this, SLOT(showSelectedItem(int)));
 
     connect(ui->updateLaborBtn,SIGNAL(pressed()),SLOT(editLaborSheet()));
+    connect(ui->saveEditedLaborBtn,SIGNAL(pressed()),SLOT(saveEditedLabor()));
 
 	ui->LabourGroupEdit->setEnabled(false);
     ui->employeeLaborSheetTable->setColumnWidth(0,0);
@@ -268,4 +269,19 @@ void salarycountLaborSheet::closePeriod()
 void salarycountLaborSheet::editLaborSheet()
 {
     switchMode(app_states::EDIT);
+}
+void salarycountLaborSheet::saveEditableEntries(LaborSheet* obj)
+{
+	if(obj->update())
+	{
+		switchMode(app_states::USUAL);
+	}
+	else
+	{
+		error_msg("Оопаньки","Ебать-Копать");//сообщить об ошибке	
+	}
+}
+void salarycountLaborSheet::saveEditedLabor()
+{
+    //saveEditableEntries(NULL);
 }
