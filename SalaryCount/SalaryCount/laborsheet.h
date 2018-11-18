@@ -16,7 +16,7 @@ class LaborSheet : public DbRecord
 
 public:
     LaborSheet();
-    LaborSheet(int employeeId);
+    LaborSheet(int employeeId, int billingPeriodId);
     LaborSheet(const LaborSheet &laborsheet);
     LaborSheet(int id, int billingPeriodId, int employeeId, QList<Mark> grid);
     ~LaborSheet();
@@ -34,7 +34,7 @@ public:
     /*! Getter для взятия всех отметок табеля. */
     const QList<Mark>& marks() const{return this->_grid;}
     /*! Ещё один Getter для взятия всех отметок табеля. */
-    const QList<Mark>& grid()  const{return this->_grid;}
+    QList<Mark> grid()  const{return this->_grid;}
 
     /*! getter для взятия даты
     */
