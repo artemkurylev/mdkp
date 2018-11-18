@@ -1,11 +1,10 @@
 #include "salarycountDutyChart.h"
 
 salarycountDutyChart::salarycountDutyChart(Ui_SalaryCount* ui, QString name)
+	:delegateStates()
 {
 	this->setObjectName(name);
 	this->ui = ui;//не самый приятный способ
-
-	journal = new log_errors();//журнал ошибок 
 
 	this->ui->editDutyChart->setEnabled(false);
 	this->ui->deleteDutyChart->setEnabled(false);
