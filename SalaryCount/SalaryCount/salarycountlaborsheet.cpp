@@ -12,6 +12,7 @@ salarycountLaborSheet::salarycountLaborSheet(Ui_SalaryCount *ui, QString name)
 	this->_viewedPeriod = BillingPeriod::getCurrentPeriod();
 	ui->BillingPeriod_dateEdit->setDate(_viewedPeriod->startDate());
 	ui->ClosePeriod_button->setEnabled(true);
+	ui->GoToCurrentPeriod_button->setEnabled(false);
 
     //Connections
 	connect(ui->BillingPeriod_dateEdit,SIGNAL(dateChanged(const QDate&)), this,SLOT(periodDateChanged(const QDate&))); // обновить дату текущего периода

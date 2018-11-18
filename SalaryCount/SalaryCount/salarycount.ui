@@ -127,6 +127,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 788c143... Добавлена возможность постраничного перехода в приложении
              <width>218</width>
              <height>559</height>
@@ -148,6 +149,9 @@
 =======
              <width>217</width>
 >>>>>>> b47fcef... Обновил название кнопки для редактирования табеля
+=======
+             <width>217</width>
+>>>>>>> 8357fb8... Заблокирована кнопка (временно)
              <height>485</height>
 >>>>>>> ee8954d... Добавлен метод отчистки полей для секции редактирования графиков
 =======
@@ -701,9 +705,6 @@
                </property>
                <property name="calendarPopup">
                 <bool>false</bool>
-               </property>
-               <property name="currentSectionIndex">
-                <number>0</number>
                </property>
                <property name="date">
                 <date>
