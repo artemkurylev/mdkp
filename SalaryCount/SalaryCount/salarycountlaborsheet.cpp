@@ -301,7 +301,7 @@ LaborSheet* salarycountLaborSheet::shapeDataObject()
 {
     int id = 0;
     LaborSheet* obj = NULL;
-	QList<Mark> *grid = NULL;
+	const QList<Mark> *grid = NULL;
 	if(this->currentState == app_states::EDIT)
 	{
         int row = ui->employeeLaborSheetTable->currentRow();
@@ -309,7 +309,7 @@ LaborSheet* salarycountLaborSheet::shapeDataObject()
 		QList<Mark> m;
         obj = new LaborSheet(id,0,0,m);
 		obj->fetch();
-		grid = &obj->grid();
+        grid = &obj->grid();
 	}
     int start = _viewedPeriod->startDate().dayOfWeek() - 1; 
     QList<Mark> *ms = new QList<Mark>();
@@ -319,6 +319,8 @@ LaborSheet* salarycountLaborSheet::shapeDataObject()
 
 		int val = 0;
         PayForm pf = obj->payForm();
+        Mark* m;
+        m = new Mark(grid->at(i));
 		switch(pf)
 		{
 			case PayForm::PER_MONTH:
@@ -329,9 +331,13 @@ LaborSheet* salarycountLaborSheet::shapeDataObject()
                 else if(val == 2)
                     val = Mark::Type::HOLIDAY;
                 if(_viewedPeriod->status() == BillingPeriod::Status::OPEN)
-                    (*grid)[i - start].setBaseMark(val);
+                {
+                    m->setBaseMark(val);
+                }
                 else
-                    (*grid)[i - start].setAlteredMark(val);
+                {
+                    m->setAlteredMark(val);
+                }
                 break;
             }
 
@@ -339,15 +345,17 @@ LaborSheet* salarycountLaborSheet::shapeDataObject()
             {
                 val = combo->currentIndex();
                 if(_viewedPeriod->status() == BillingPeriod::Status::OPEN)
-                    (*grid)[i - start].setCountHours(val);
+                    m->setCountHours(val);
                 else
-                    (*grid)[i - start].setAlteredCountHours(val);
+                    m->setAlteredCountHours(val);
             }
 
 			default:
 				throw new nullptr_t;
 		}
+        ms->append(*m);
+        delete m;
 	}
-
+    obj->setGrid(*ms);
 	return obj;
 }

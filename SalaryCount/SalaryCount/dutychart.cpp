@@ -200,7 +200,7 @@ long DutyChart::countEntries()
         {
             if(query->next())
                 counter = query->value(0).toInt();
-        }
+        }       
         delete query;
     }
     return counter;
