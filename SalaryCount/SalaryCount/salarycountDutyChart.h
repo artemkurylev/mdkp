@@ -3,7 +3,6 @@
 
 #include "delegateStates.h"
 #include "dutychart.h"
-#include "log_errors.h"
 
 class salarycountDutyChart : public delegateStates
 {
@@ -15,7 +14,6 @@ public:
 
 private:
 	Ui_SalaryCount *ui;//не самый при€тный способ, зато все видно из коробки
-	log_errors* journal;
 
 private:
 	//@Override

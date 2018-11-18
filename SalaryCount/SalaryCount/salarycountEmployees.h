@@ -2,9 +2,10 @@
 #define SALARYCOUNTEMPLOYEES_H
 
 #include "delegateStates.h"
-#include "log_errors.h"
 #include "employee.h"
 #include "BillingPeriod.h"
+#include "HireDirective.h"
+#include "dutychart.h"
 
 class salarycountEmployees : public delegateStates
 {
@@ -16,7 +17,6 @@ public:
 
 private:
 	Ui_SalaryCount *ui;//не самый при€тный способ, зато все видно из коробки
-	log_errors* journal;
 
 private:
 	//@Override
@@ -25,9 +25,14 @@ private:
 
 	//
 	void clearFields();
+	bool fillDutyChartComboBox();
 	void switchMode(app_states state);
 	void saveNewEntries(Employee* obj);
 	void saveEditableEntries(Employee* obj);
+
+	//
+	QDate getMinimumRecipientDate();
+	int getNewHireDirectiveNumber();
 	
 public slots:
 	void updateInfo(QString name);
