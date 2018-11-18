@@ -9,14 +9,6 @@ BillingPeriod::BillingPeriod(const QDate& startDate)
 	_startDate = startDate;
 	_next = NULL;
 }
-BillingPeriod::~BillingPeriod()
-{
-	// free allocated record
-	if(_next != NULL)
-	{
-		delete _next;
-	}
-}
 BillingPeriod::BillingPeriod(const QDate& startDate,Status status)
     :DbRecord()
 {
@@ -31,6 +23,19 @@ BillingPeriod::BillingPeriod(int id, const QDate& startDate,Status status)
     _status = status;
     _startDate = startDate;
 	_next = NULL;
+}
+BillingPeriod::BillingPeriod(const BillingPeriod& other)
+{
+    this->_status =  other._status;
+    this->_startDate =  other._startDate;
+}
+BillingPeriod::~BillingPeriod()
+{
+	// free allocated record
+	if(_next != NULL)
+	{
+		delete _next;
+	}
 }
 
 bool BillingPeriod::fetch()
