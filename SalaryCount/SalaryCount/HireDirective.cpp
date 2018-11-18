@@ -162,3 +162,21 @@ bool HireDirective::createDbTable()
         return false;
     }
 }
+QMap<int,QString> HireDirective::getAll()
+{
+    QMap<int,QString> result;
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+        query->prepare("SELECT `id`,`fio` FROM `hire_directive`");
+        if(query->exec())
+        {
+            while(query->next())
+            {
+                result[query->value(0).toInt()] = query->value(1).toString();
+            }
+        }
+        delete query;
+    }
+    return result;
+}
