@@ -22,7 +22,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="EmployeesPage">
        <layout class="QGridLayout" name="gridLayout_8">
@@ -535,6 +535,9 @@
                <property name="calendarPopup">
                 <bool>false</bool>
                </property>
+               <property name="currentSectionIndex">
+                <number>0</number>
+               </property>
                <property name="date">
                 <date>
                  <year>2000</year>
@@ -749,9 +752,6 @@
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
-               </property>
-               <property name="displayFormat">
-                <string>dd.MM</string>
                </property>
               </widget>
              </item>
