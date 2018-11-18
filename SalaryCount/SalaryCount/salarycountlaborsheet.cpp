@@ -315,12 +315,12 @@ LaborSheet* salarycountLaborSheet::shapeDataObject()
 	}
     int start = _viewedPeriod->startDate().dayOfWeek() - 1; 
     QList<Mark> *ms = new QList<Mark>();
+    PayForm pf = obj->payForm();
     for(int i = start; i - start < grid->size(); ++i)
 	{
 		QComboBox* combo = (QComboBox*)ui->laborSheet->cellWidget(i/7,i%7);
 
 		int val = 0;
-        PayForm pf = obj->payForm();
         Mark* m;
         m = new Mark(grid->at(i));
 		switch(pf)
@@ -329,24 +329,27 @@ LaborSheet* salarycountLaborSheet::shapeDataObject()
             {
                 val = combo->currentIndex();
                 if(val == 0)
-                    val = Mark::Type::HOLIDAY;
+                    val = Mark::HOLIDAY;
+                else if(val == 1)
+                    val = Mark::ATTENDS;
                 else if(val == 2)
-                    val = Mark::Type::HOLIDAY;
-                if(_viewedPeriod->status() == BillingPeriod::Status::OPEN)
-                {
-                    m->setBaseMark(val);
-                }
-                else
-                {
-                    m->setAlteredMark(val);
-                }
+                    val = Mark::HOLIDAY;
+				m->setAlteredMark(val); // Нужно делать так всегда
+                //if(_viewedPeriod->status() == BillingPeriod::OPEN)
+                //{
+                //    m->setBaseMark(val);
+                //}
+                //else
+                //{
+                //    m->setAlteredMark(val);
+                //}
                 break;
             }
 
 			case PayForm::PER_HOUR:
             {
                 val = combo->currentIndex();
-                if(_viewedPeriod->status() == BillingPeriod::Status::OPEN)
+                if(_viewedPeriod->status() == BillingPeriod::OPEN)
                     m->setCountHours(val);
                 else
                     m->setAlteredCountHours(val);
