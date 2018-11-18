@@ -17,6 +17,7 @@ public:
 	Employee(int id);
     Employee(const Employee& employee);
 	Employee(QString _fio,QString _phoneNumber,int _INN,int _currentDutyChartID,int _hireDirectiveID);
+    Employee(int id, QString _fio,QString _phoneNumber,int _INN,int _currentDutyChartID,int _hireDirectiveID);
     ~Employee();
 
     bool fetch();
