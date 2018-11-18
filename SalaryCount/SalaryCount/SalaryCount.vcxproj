@@ -165,6 +165,7 @@
     </ClCompile>
     <ClCompile Include="HireDirective.cpp" />
     <ClCompile Include="laborsheet.cpp" />
+    <ClCompile Include="log_errors.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mark.cpp" />
     <ClCompile Include="salarycount.cpp" />
@@ -200,6 +201,7 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="log_errors.h" />
     <ClInclude Include="resource.h" />
     <CustomBuild Include="salarycountEmployees.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
