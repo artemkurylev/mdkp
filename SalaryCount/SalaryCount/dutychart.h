@@ -30,6 +30,7 @@ public:
     QString name()           const  {return _name;} 
     const QList<Mark>& grid() const	{return _grid;}
     static QMap<int,QString> getAll();
+    static QMap<int,QString> getAllByPayForm(PayForm payform);
     static long countEntries();
     ~DutyChart();
 

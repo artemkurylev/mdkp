@@ -35,8 +35,19 @@ Employee::Employee(QString _fio,QString _phoneNumber,int _INN,int _currentDutyCh
 	this->_hireDirectiveID = _hireDirectiveID;
     this->_hireDirective = NULL;
 	// оставить пустыми
-	this->_nextDutyChartID = NULL;
-	this->_nextDutyChartSince = QDate(1234,11,22);
+	resetNextDutyChart();
+}
+Employee::Employee(int id, QString _fio,QString _phoneNumber,int _INN,int _currentDutyChartID,int _hireDirectiveID)
+{
+    this->_id = id;
+	this->_fio = _fio;
+	this->_phoneNumber = _phoneNumber;
+	this->_INN = _INN;
+	this->_currentDutyChartID = _currentDutyChartID;
+	this->_hireDirectiveID = _hireDirectiveID;
+    this->_hireDirective = NULL;
+	// оставить пустыми
+	resetNextDutyChart();
 }
 Employee::~Employee()
 {
@@ -246,3 +257,27 @@ HireDirective * Employee::hireDirective()
 	return _hireDirective;
 }
 
+bool Employee::applyDutyChartChange(const QDate& currentPeriodStart)
+{
+	bool reset = false
+		,is_date = this->_nextDutyChartSince.isValid()
+		,is_id = this->_nextDutyChartID >= 1;
+
+	if(is_date != is_id)
+	{
+		// невалидное состояние столбцов
+		reset = true;
+	}
+	else if(is_date && is_id && this->_nextDutyChartSince <= currentPeriodStart)
+	{
+		// назначение есть и время пришло
+		this->_currentDutyChartID = this->_nextDutyChartID;
+		reset = true;
+	}
+
+	if(reset)
+	{
+		resetNextDutyChart();
+	}
+	return reset;
+}
