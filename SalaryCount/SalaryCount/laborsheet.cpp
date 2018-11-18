@@ -38,6 +38,22 @@ LaborSheet::LaborSheet(int id, int billingPeriodId, int employeeId, QList<Mark> 
     _employee = NULL;
     _dutyChart = NULL;
 }
+LaborSheet::~LaborSheet()
+{
+	// free allocated record
+	if(_employee != NULL)
+	{
+		delete _employee;
+	}
+	if(_billingPeriod != NULL)
+	{
+		delete _billingPeriod;
+	}
+	if(_dutyChart != NULL)
+	{
+		delete _dutyChart;
+	}
+}
 bool LaborSheet::fillWithDefaults()
 {
 	// Вычислить относительное смещение наложения графика на месяц
@@ -62,30 +78,13 @@ bool LaborSheet::fillWithDefaults()
 	// Обновить табель в БД
     return this->update();
 }
-LaborSheet::~LaborSheet()
-{
-	// free allocated record
-	if(_employee != NULL)
-	{
-		delete _employee;
-	}
-	if(_billingPeriod != NULL)
-	{
-		delete _billingPeriod;
-	}
-	if(_dutyChart != NULL)
-	{
-		throw("Всё-таки он оказался кому-то нужен?!");
-		delete _dutyChart;
-	}
-}
 
 Employee* LaborSheet::employee()
 {
 	if(_employee == NULL)
 	{
 		_employee = new Employee(_employeeId);
-        _employee->fetch();
+        //_employee->fetch(); // автоматически!
 	}
 	return _employee;
 }
@@ -102,11 +101,16 @@ PayForm LaborSheet::payForm()
 	Employee* e = employee();
 	HireDirective* h = e->hireDirective();
 	PayForm p = h->payForm();
-
-//	delete e;
-//	delete h;
   
 	return p;
+}
+DutyChart* LaborSheet::dutyChart()
+{
+	if(_dutyChart == NULL)
+	{
+		_dutyChart = new DutyChart(_dutyChartId);
+	}
+	return _dutyChart;
 }
 
 
