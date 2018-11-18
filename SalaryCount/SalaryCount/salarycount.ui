@@ -45,45 +45,25 @@
           </property>
           <layout class="QGridLayout" name="gridLayout_3">
            <item row="0" column="0">
-            <widget class="QListWidget" name="listWidget">
-             <item>
-              <property name="text">
-               <string>Сотрудник 1        ИНН</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Сотрудник 2       ИНН</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Сотрудник 3        ИНН</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Сотрудник 4        ИНН</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Сотрудник 5        ИНН</string>
-              </property>
-             </item>
-            </widget>
+            <widget class="QListWidget" name="employeeList"/>
            </item>
            <item row="2" column="0">
             <layout class="QHBoxLayout" name="horizontalLayout_8">
              <item>
-              <widget class="QPushButton" name="pushButton">
+              <widget class="QPushButton" name="editEmployeeBtn">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
                <property name="text">
                 <string>Редактировать</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton_3">
+              <widget class="QPushButton" name="deleteEmployeeBtn">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
                <property name="text">
                 <string>Удалить</string>
                </property>
@@ -92,7 +72,7 @@
             </layout>
            </item>
            <item row="3" column="0">
-            <widget class="QPushButton" name="pushButton_2">
+            <widget class="QPushButton" name="addEmployeeBtn">
              <property name="text">
               <string>Добавить сотрудника</string>
              </property>
@@ -125,7 +105,7 @@
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>0</y>
+             <y>-71</y>
              <width>261</width>
              <height>532</height>
             </rect>
@@ -328,7 +308,7 @@
             <item row="3" column="0">
              <layout class="QHBoxLayout" name="horizontalLayout_12">
               <item>
-               <widget class="QPushButton" name="pushButton_11">
+               <widget class="QPushButton" name="saveEmployeeBtn">
                 <property name="enabled">
                  <bool>false</bool>
                 </property>
@@ -338,7 +318,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButton_12">
+               <widget class="QPushButton" name="cancelEmployeeBtn">
                 <property name="enabled">
                  <bool>false</bool>
                 </property>
