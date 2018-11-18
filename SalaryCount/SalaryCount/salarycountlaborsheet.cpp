@@ -198,7 +198,7 @@ void salarycountLaborSheet::showSelectedItem(int row)
             //int row = 0;
             for(int i = start;i <marks.size() + start;++i)
             {
-                QComboBox* combo = (QComboBox*)ui->DutyChartMarksEdit->cellWidget(i/7,i%7);
+                QComboBox* combo = (QComboBox*)ui->laborSheet->cellWidget(i/7,i%7);
                 for(int j = 0; j <= 12; ++j)
                 {
                     combo->insertItem(j,QString(j));
@@ -250,5 +250,62 @@ void salarycountLaborSheet::saveEditableEntries(LaborSheet* obj)
 }
 void salarycountLaborSheet::saveEditedLabor()
 {
-    //saveEditableEntries(NULL);
+    //Тут еще валидация
+    LaborSheet* labor_sheet = shapeDataObject();
+    saveEditableEntries(labor_sheet);
+    delete labor_sheet;
+}
+LaborSheet* salarycountLaborSheet::shapeDataObject()
+{
+    int id = 0;
+    LaborSheet* obj = NULL;
+	QList<Mark> *grid = NULL;
+	if(this->currentState == app_states::EDIT)
+	{
+        int row = ui->employeeLaborSheetTable->currentRow();
+        id = ui->employeeLaborSheetTable->item(row,0)->data(Qt::UserRole).toInt();
+		QList<Mark> m;
+        obj = new LaborSheet(id,0,0,m);
+		obj->fetch();
+		grid = &obj->grid();
+	}
+    int start = _viewedPeriod->startDate().dayOfWeek() - 1; 
+    QList<Mark> *ms = new QList<Mark>();
+    for(int i = start; i - start < grid->size(); ++i)
+	{
+		QComboBox* combo = (QComboBox*)ui->laborSheet->cellWidget(i/7,i%7);
+
+		int val = 0;
+        PayForm pf = obj->payForm();
+		switch(pf)
+		{
+			case PayForm::PER_MONTH:
+            {
+                val = combo->currentIndex();
+                if(val == 0)
+                    val = Mark::Type::HOLIDAY;
+                else if(val == 2)
+                    val = Mark::Type::HOLIDAY;
+                if(_viewedPeriod->status() == BillingPeriod::Status::OPEN)
+                    (*grid)[i - start].setBaseMark(val);
+                else
+                    (*grid)[i - start].setAlteredMark(val);
+                break;
+            }
+
+			case PayForm::PER_HOUR:
+            {
+                val = combo->currentIndex();
+                if(_viewedPeriod->status() == BillingPeriod::Status::OPEN)
+                    (*grid)[i - start].setCountHours(val);
+                else
+                    (*grid)[i - start].setAlteredCountHours(val);
+            }
+
+			default:
+				throw new nullptr_t;
+		}
+	}
+
+	return obj;
 }

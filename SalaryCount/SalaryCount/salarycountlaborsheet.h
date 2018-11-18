@@ -23,6 +23,7 @@ private:
     Ui_SalaryCount *ui; // не самый приятный способ, зато все видно из коробки
     void switchMode(app_states state);
     void saveEditableEntries(LaborSheet* obj);
+    LaborSheet* shapeDataObject();
 	// текущий отображаемый расчётный период
 	BillingPeriod* _viewedPeriod;
 
