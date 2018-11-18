@@ -15,7 +15,7 @@ salarycountLaborSheet::salarycountLaborSheet(Ui_SalaryCount *ui, QString name)
     //Connections
 	connect(ui->BillingPeriod_dateEdit,SIGNAL(dateChanged(const QDate&)), this,SLOT(periodDateChanged(const QDate&))); // обновить дату текущего периода
 	connect(ui->ClosePeriod_button,SIGNAL(clicked()), this,SLOT(closePeriod())); // закрыть текущий период
-	connect(ui->GoToCurrentPeriod_button,SIGNAL(clicked()), this,SLOT(goToCurrentPeriod())); // закрыть текущий период
+	connect(ui->GoToCurrentPeriod_button,SIGNAL(clicked()), this,SLOT(goToCurrentPeriod())); // перейти на текущий период
     connect(ui->employeeLaborSheetTable,SIGNAL(currentCellChanged(int,int,int,int)),this, SLOT(showSelectedItem(int)));
 
 	ui->LabourGroupEdit->setEnabled(false);
@@ -213,6 +213,12 @@ void salarycountLaborSheet::showSelectedItem(int row)
 }
 void salarycountLaborSheet::periodDateChanged(const QDate& date)
 {
+	if(this->_viewedPeriod->startDate() == date)
+	{
+		// отсеять паразитные вызовы
+		return;
+	}
+
 	BillingPeriod* bp = BillingPeriod::getByDate(date);
 	if(bp)
 	{
@@ -221,6 +227,10 @@ void salarycountLaborSheet::periodDateChanged(const QDate& date)
 		ui->ClosePeriod_button->setEnabled(this->_viewedPeriod->status() == BillingPeriod::OPEN);
 		ui->GoToCurrentPeriod_button->setEnabled(this->_viewedPeriod->status() != BillingPeriod::OPEN);
 		regenMarksCalendar();
+	}
+	else
+	{
+		error_msg("Ошибка","Периода не существует");
 	}
 }
 void salarycountLaborSheet::goToCurrentPeriod()
