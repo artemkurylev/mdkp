@@ -22,7 +22,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="EmployeesPage">
        <layout class="QGridLayout" name="gridLayout_8">
@@ -50,8 +50,8 @@
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>0</y>
-             <width>217</width>
+             <y>-24</y>
+             <width>261</width>
              <height>485</height>
             </rect>
            </property>
@@ -938,20 +938,7 @@
       </widget>
       <widget class="QWidget" name="HireDirectivesPage">
        <layout class="QGridLayout" name="gridLayout_11">
-        <item row="0" column="0">
-         <widget class="QPushButton" name="pushButton_15">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="text">
-           <string>Создать приказ</string>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="0">
-         <widget class="QListWidget" name="listWidget_4"/>
-        </item>
-        <item row="2" column="0">
          <widget class="QPushButton" name="pushButton_16">
           <property name="enabled">
            <bool>false</bool>
@@ -960,6 +947,9 @@
            <string>Просмотрет приказ</string>
           </property>
          </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QListWidget" name="listWidget_4"/>
         </item>
        </layout>
       </widget>

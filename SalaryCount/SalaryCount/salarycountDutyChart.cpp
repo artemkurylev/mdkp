@@ -5,6 +5,8 @@ salarycountDutyChart::salarycountDutyChart(Ui_SalaryCount* ui, QString name)
 	this->setObjectName(name);
 	this->ui = ui;//не самый приятный способ
 
+	journal = new log_errors();//журнал ошибок 
+
 	this->ui->editDutyChart->setEnabled(false);
 	this->ui->deleteDutyChart->setEnabled(false);
 
@@ -39,22 +41,25 @@ salarycountDutyChart::salarycountDutyChart(Ui_SalaryCount* ui, QString name)
 salarycountDutyChart::~salarycountDutyChart()
 {
 	this->ui = NULL;
+	delete this->journal;
 }
 
 void salarycountDutyChart::switchMode(app_states state)
 {
-	this->currentState = state;
+	this->currentState = state;//запомним состояние приложения
 
+	//приведем состояние к булеву типу для посылки главному окну
 	bool triggerState = false;
-	if(state==app_states::ADD || state==app_states::EDIT)
+	if(state!=app_states::USUAL)
 	{
 		triggerState = true;
 	}
 
+	//изменение состояния окна
 	ui->dutyChartEdit->setEnabled(triggerState);
 	ui->dutyChartBox->setEnabled(!triggerState);
 
-	emit changeState(triggerState);
+	emit changeState(triggerState);//посылка состояния в родительское окно
 }
 
 /*!
@@ -93,27 +98,34 @@ void salarycountDutyChart::cancelNewDutyChart()
 
 void salarycountDutyChart::deleteDutyChart()
 {
-	int row = ui->dutyChartList->currentRow();
-
-	int countItems = ui->dutyChartList->count();
-	if(row>-1 && countItems>row)
+	try
 	{
-		int ID = ui->dutyChartList->item(row)->type();
+		int row = ui->dutyChartList->currentRow();
+		int countItems = ui->dutyChartList->count();
 
+		if(row<0 && countItems<=row) throw this->journal->notFound("Элемент виджета не найден");
+
+		//
+		int ID = ui->dutyChartList->item(row)->type();
 		DutyChart curChart(ID);
 
-		if(curChart.delet())
-		{//типа удалили из бд
-			if(countItems!=1 && row!=0) ui->dutyChartList->setCurrentRow(row-1);
-			if(countItems!=1 && row+1!=countItems) ui->dutyChartList->setCurrentRow(row+1);
-			if(countItems==1) ui->dutyChartList->setCurrentRow(-1);
+		if(!curChart.delet()) throw this->journal->deletError("Удаление виджета не произошло");
 
-			delete ui->dutyChartList->takeItem(row);
-		}
-		else
-		{
-			error_msg("Оопаньки","Ебать-Копать");//cообщили об ошибке
-		}
+		//
+		if(countItems!=1 && row!=0) ui->dutyChartList->setCurrentRow(row-1);
+		if(countItems!=1 && row+1!=countItems) ui->dutyChartList->setCurrentRow(row+1);
+		if(countItems==1) ui->dutyChartList->setCurrentRow(-1);
+
+		delete ui->dutyChartList->takeItem(row);
+	}
+	catch(log_errors::exception_states e)
+	{
+		//
+		QByteArray code = QString::number(this->journal->getLastErrorCode()).toLocal8Bit();
+		QByteArray msg = this->journal->getLastError().toLocal8Bit();
+
+		error_msg(code.data(),msg.data());//cообщили об ошибке
+		this->journal->lastConflictNonResolved();
 	}
 }
 
@@ -121,23 +133,15 @@ void salarycountDutyChart::saveNewDutyChart()
 {
 	DutyChart* obj = shapeDataObject();//собрать данные
 
-	if(obj->validate())
-	{//проверить данные
-
-		switch(this->currentState)
-		{
-			case app_states::ADD:
-				saveNewEntries(obj);
-			return;
-
-			case app_states::EDIT:
-				saveEditableEntries(obj);
-			return;
-		}
-	}
-	else
+	switch(this->currentState)
 	{
-		error_msg("Оопаньки","Ебать-Копать");//что-то сделать: выдать сообщение об ошибке
+		case app_states::ADD:
+			saveNewEntries(obj);
+		break;
+
+		case app_states::EDIT:
+			saveEditableEntries(obj);
+		break;
 	}
 
 	delete obj;
@@ -145,9 +149,17 @@ void salarycountDutyChart::saveNewDutyChart()
 
 void salarycountDutyChart::saveNewEntries(DutyChart* obj)
 {
-	int ID;
-	if((ID = obj->insert())!=-1 && obj)
+	try
 	{
+		int ID;
+
+		//
+		if(this->currentState != app_states::ADD) 
+			throw this->journal->compareError("Значения состояния для сохранения не совпадает с состоянием приложения");
+		if(!obj) throw this->journal->nullPtr("Объект для сохранения не существует");
+		if(!obj->validate()) throw this->journal->validateError("Валидация записи не успешна");
+		if((ID = obj->insert())==-1) throw this->journal->insertError("Запись не дошла в бд");
+
 		//добавить значение в конец списка
 		QListWidgetItem *item = new QListWidgetItem(obj->name(), ui->dutyChartList, ID);
 		ui->dutyChartList->addItem(item);
@@ -155,24 +167,58 @@ void salarycountDutyChart::saveNewEntries(DutyChart* obj)
 		ui->dutyChartList->setCurrentRow(ui->dutyChartList->count()-1);
 		switchMode(app_states::USUAL);
 	}
-	else
+	catch(log_errors::exception_states e)
 	{
-		error_msg("Оопаньки","Ебать-Копать");//сообщить об ошибке	
+		if(log_errors::exception_states::VALIDATE_EX)
+		{
+			//достать ошибку из объекта
+			//показать пользователю
+			this->journal->lastConflictResolved();
+		}
+		else
+		{
+			QByteArray code = QString::number(this->journal->getLastErrorCode()).toLocal8Bit();
+			QByteArray msg = this->journal->getLastError().toLocal8Bit();
+
+			error_msg(code.data(),msg.data());//cообщили об ошибке
+			this->journal->lastConflictNonResolved();
+		}
 	}
 }
 
 void salarycountDutyChart::saveEditableEntries(DutyChart* obj)
 {
-	if(obj->update())
+	try
 	{
+		//
+		if(this->currentState != app_states::EDIT) 
+			throw this->journal->compareError("Значения состояния для сохранения не совпадает с состоянием приложения");
+		if(!obj) throw this->journal->nullPtr("Объект для сохранения не существует");
+		if(!obj->validate()) throw this->journal->validateError("Валидация записи не успешна");
+		if(!obj->update()) throw this->journal->updateError("Запись не дошла в бд");
+
+		//
 		switchMode(app_states::USUAL);
 
 		QListWidgetItem *item = ui->dutyChartList->currentItem();
 		if(item) item->setText(obj->name());
 	}
-	else
+	catch(log_errors::exception_states e)
 	{
-		error_msg("Оопаньки","Ебать-Копать");//сообщить об ошибке	
+		if(log_errors::exception_states::VALIDATE_EX)
+		{
+			//достать ошибку из объекта
+			//показать пользователю
+			this->journal->lastConflictResolved();
+		}
+		else
+		{
+			QByteArray code = QString::number(this->journal->getLastErrorCode()).toLocal8Bit();
+			QByteArray msg = this->journal->getLastError().toLocal8Bit();
+
+			error_msg(code.data(),msg.data());//cообщили об ошибке
+			this->journal->lastConflictNonResolved();
+		}
 	}
 }
 
@@ -186,7 +232,9 @@ DutyChart* salarycountDutyChart::shapeDataObject()
 	{
 		id = ui->dutyChartList->currentItem()->type();
 		obj = new DutyChart(id);
-		obj->fetch();
+
+		if(!obj->fetch()) throw this->journal->fetchError("Не сфетчилось что-то((");
+
 		grid = &obj->grid();
 	}
 
@@ -197,6 +245,7 @@ DutyChart* salarycountDutyChart::shapeDataObject()
 
 	//запомнить отметки
 	//разбить бы на отдельный метод
+	//даже трогать не хочу это))
 	QList<Mark> *ms = new QList<Mark>();
 	for(int i=0; i< this->ui->DutyChartMarksEdit->rowCount(); ++i)
 	{
@@ -219,7 +268,7 @@ DutyChart* salarycountDutyChart::shapeDataObject()
 				break;
 
 			default:
-				throw new nullptr_t;
+				throw this->journal->nullPtr();
 		}
 			
 		ms->append(*m);
@@ -297,6 +346,8 @@ void salarycountDutyChart::updateInfo(QString name)
 
 void salarycountDutyChart::parseDataObject(const DutyChart *obj)
 {
+	if(!obj) throw this->journal->nullPtr();
+
 	ui->nameDutyChart->setText( obj->name() );
 	ui->startDate->setDate( obj->anchorDate() );
 
@@ -310,19 +361,20 @@ void salarycountDutyChart::parseDataObject(const DutyChart *obj)
 		ui->workTimeEdit->setTime(QTime(m[0].countHours(),0));
 	}
 
-	if(m.count()==ui->DutyChartMarksEdit->rowCount())
+	//
+	if(m.count()!=ui->DutyChartMarksEdit->rowCount())
+		throw this->journal->compareError("грид не равен рабочей недели");
+
+	for(int i=m.count()-1; i>=0; --i)
 	{
-		for(int i=m.count()-1; i>=0; --i)
+		QComboBox* combo = (QComboBox*)ui->DutyChartMarksEdit->cellWidget(i,0);
+		if(m[i].base() == Mark::Type::HOLIDAY || m[i].countHours() == Mark::Type::HOLIDAY)
 		{
-			QComboBox* combo = (QComboBox*)ui->DutyChartMarksEdit->cellWidget(i,0);
-			if(m[i].base() == Mark::HOLIDAY || m[i].countHours() == Mark::HOLIDAY)
-			{
-				combo->setCurrentIndex(0);
-			}
-			else
-			{
-				combo->setCurrentIndex(1);
-			}
+			combo->setCurrentIndex(0);
+		}
+		else
+		{
+			combo->setCurrentIndex(1);
 		}
 	}
 }
@@ -337,15 +389,8 @@ void salarycountDutyChart::showSelectedItem( int row )
 
 		DutyChart curChart( ID );
 
-		if(curChart.fetch())
-		{
-			parseDataObject(&curChart);
-		}
-		else
-		{
-			error_msg("Оопаньки","Ебать-Копать");//TODO 
-			//error parse
-		}
+		if(!curChart.fetch()) throw this->journal->fetchError("фетч не сфетчил");
+		parseDataObject(&curChart);
 
 		this->ui->editDutyChart->setEnabled(true);
 		this->ui->deleteDutyChart->setEnabled(true);
