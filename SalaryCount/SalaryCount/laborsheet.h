@@ -56,13 +56,19 @@ public:
 	*/
 	int countActualTimeUnits ();
 
+	/*! заносит изменённые поля всех отметок в основные и сбрасывает изменения */
+	void commitChanges();
+
+
     //Наследуемые методы
     int LaborSheet::insert();
     bool LaborSheet::update() const;
     bool LaborSheet::fetch();
     bool LaborSheet::validate() const;
-    //Сеттер для оценок
+
+    //! Сеттер для оценок
     void setGrid(QList<Mark> list){_grid = list;}
+
 	// Статические методы
     static bool createDbTable();
     static QMap <int,int> getAll();
