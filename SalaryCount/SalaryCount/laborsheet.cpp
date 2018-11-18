@@ -120,14 +120,6 @@ DutyChart* LaborSheet::dutyChart()
 	return _dutyChart;
 }
 
-
-int inline markMeasure(int mark_val, enum PayForm pay_form) 
-{
-	// для почасовой вернуть часы;
-	// для помесячной - 1, если отметка ненулевая, иначе 0.
-	return (pay_form == PER_HOUR)? (mark_val) : (mark_val > 0);
-}
-
 int LaborSheet::countBaseTimeUnits()
 {
 	int total = 0;
@@ -136,7 +128,12 @@ int LaborSheet::countBaseTimeUnits()
 
 	foreach(Mark mark , this->grid())
 	{
-		total += markMeasure(mark.base(), pay_form);
+		// для почасовой вернуть часы;
+		// для помесячной - 1, если отметка ненулевая, иначе 0.
+		total += (pay_form == PER_HOUR)? 
+			mark.countHours()
+			:
+			(mark.base() == Mark::ATTENDS);
 	}
 
 	return total;
@@ -149,7 +146,12 @@ int LaborSheet::countActualTimeUnits()
 
 	foreach(Mark mark , this->grid())
 	{
-		total += markMeasure(mark.altered(), pay_form);
+		// для почасовой вернуть часы;
+		// для помесячной - 1, если отметка ненулевая, иначе 0.
+		total += (pay_form == PER_HOUR)? 
+			mark.alteredCountHours()
+			:
+			(mark.altered() == Mark::ATTENDS);
 	}
 
 	return total;
