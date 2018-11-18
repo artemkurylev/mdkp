@@ -2,6 +2,7 @@
 #define SALARYCOUNTDIRECTIVES_H
 
 #include "delegateStates.h"
+#include "DirectiveGenerator.h"
 
 class salarycountDirectives : public delegateStates
 {
@@ -13,6 +14,9 @@ public:
 	~salarycountDirectives();
 private:
     Ui_SalaryCount *ui;//не самый при€тный способ, зато все видно из коробки
+
+private slots:
+    void showDirective();
 
 public slots:
 	void updateInfo(QString name);
