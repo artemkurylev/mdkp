@@ -199,12 +199,12 @@ int HireDirective::countEntries()
 }
 int HireDirective::lastDirectiveId()
 {
-    int id = 0;
+    int id = -1;
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
 
-        query->prepare("SELECT LAST_INSERT_ID() FROM `hire_directive`;");
+        query->prepare("SELECT MAX(`id`) FROM `hire_directive`;");
         if(query->exec())
         {
             if(query->next())
