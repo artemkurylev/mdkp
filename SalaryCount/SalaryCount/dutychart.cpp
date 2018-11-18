@@ -1,79 +1,133 @@
 #include "dutychart.h"
 
-DutyChart::DutyChart()
-    : DbRecord(0)
-{
-	// создать типичный график 5\2
-	_grid.clear();
-	_grid.reserve(7);
-	for(int i=0 ; i<7 ; ++i )
-	{
-		if (i < 5)
-			_grid.push_back(Mark::Type::USUAL);
-		else
-			_grid.push_back(Mark::Type::HOLIDAY);
-	}
-}
+void initalSetupForTableDutyChart();
+DutyChart defaultChart();
+
 DutyChart::DutyChart(int id)
-    : DbRecord(0)
+    : DbRecord(id)
 {
-    _id = id;
+    //_id = id;
+		/* DbRecord(id) performs: assign id, fetch. */
 }
+DutyChart::DutyChart(const QString& name, const QList<Mark>& marks,const QDate& anchorDate, enum PayForm payForm/*=PER_HOUR*/)	
+{
+    _grid = marks;
+    _payForm=payForm;
+    _name = name;
+    _anchorDate = anchorDate;
+}
+
+DutyChart::DutyChart(int id, const QString& name, const QList<Mark>& marks,const QDate& anchorDate, enum PayForm payForm/*=PER_HOUR*/)
+{
+	_id = id;
+	_grid = marks;
+    _payForm=payForm;
+    _name = name;
+    _anchorDate = anchorDate;
+}
+
 bool DutyChart::createDbTable()
 {
+	bool success = false;
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
         if(query->exec("CREATE TABLE IF NOT EXISTS `dutychart` (`id` INT(11) NOT NULL AUTO_INCREMENT, `payform` INT(11), `anchor_date` DATE,`name` CHAR(10), PRIMARY KEY(`id`))"))
-            return true;
+		{
+            success = true;
+			// позже это должно выполняться при создании предприятия
+			initalSetupForTableDutyChart();
+		}
         else
         {
             QString s = query->lastError().text();
             s+="as";
-            return false;
         }
         delete query;
     }
     else
     {
-        return false;
     }
+    return success;
 }
-int DutyChart::insert() const
+/*! Заполнить пустую таблицу начальными записями
+	для успешного старта бизнес-процесса
+*/
+void initalSetupForTableDutyChart()
 {
+	if(DutyChart::countEntries() == 0)
+	{
+		// insert first rec
+		DutyChart rec = defaultChart();
+		rec.insert();
+	}
+}
+int DutyChart::insert()
+{
+	int insert_id = -1;
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        query->prepare("INSERT INTO `dutychart` (payform,anchor_date, name) VALUES(:payform,:anchor_date,:name");
+        query->prepare("INSERT INTO `dutychart` (payform,anchor_date, name) VALUES(:payform,:anchor_date,:name)");
         query->bindValue(":payform",this->_payForm);
         query->bindValue(":anchor_date",this->_anchorDate);
         query->bindValue(":name",this->_name);
         if(query->exec())
         {
+            if(query->exec("SELECT LAST_INSERT_ID()") && query->next())
+            {   
+                this->_id = query->value(0).toInt();
+				insert_id = this->_id;
+            }
             for(int i = 0; i < this->length(); ++i)
             {
-                if(this->_grid[i].insert()== - 1)
+				// записать ID в отметку!
+				this->_grid[i].setDutyChartId(this->_id);
+
+                if(this->_grid[i].insert() == -1)
                 {
                     //Ошибка!!
-                }
+		            QString s; // = query->lastError().text();
+		            s+="as";
+               }
             }
-            if(query->exec("SELECT LAST_INSERT_ID()") && query->next())
-                return query->value(0).toInt();
         }
         else
         {
             //Ошибка!
             QString s = query->lastError().text();
             s+="as";
-            return -1;
         }
         delete query;
     }
-    else{
-        return -1;
-    }
+    return insert_id;
 }
-bool DutyChart::fetch(){
+bool DutyChart::update() const
+{
+    bool success = false;
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+        query->prepare("UPDATE `dutychart` SET payform = :payform , anchor_date = :anchor_date, name= :name WHERE id = :id");
+        query->bindValue(":payform",this->_payForm);
+        query->bindValue(":anchor_date",this->_anchorDate);
+        query->bindValue(":name", this->_name);
+        query->bindValue(":id",this->_id);
+        if(query->exec())
+        {
+            bool success_mark = true;
+            for(int i = 0; i < this->_grid.size(); ++i)
+			{
+                if(!_grid[i].update())
+                    success_mark = false;
+            }
+            success = success_mark;
+        }
+    }
+    return success;
+}
+bool DutyChart::fetch()
+{
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
@@ -89,15 +143,18 @@ bool DutyChart::fetch(){
                 _anchorDate = query->value(2).toDate();
                 _name = query->value(3).toString();
                 QSqlQuery query_m = *(DbManager::manager().makeQuery());
-                query_m.prepare("SELECT * FROM `mark` WHERE `dutychart_id` = :id");
+                query_m.prepare("SELECT * FROM `mark` WHERE `dutychart_id` = :id ORDER BY `id`");
                 query_m.bindValue(":id", id);
                 if(query_m.exec())
                 {
                     while(query_m.next())
                     {
-                        Mark m(query_m.value(1).toInt(),query_m.value(2).toInt(),query_m.value(3).toInt(),query_m.value(4).toInt());
+                        Mark m(query_m.value(1).toInt(),query_m.value(2).toInt(),query_m.value(3).toInt(),query_m.value(4).toInt(),query_m.value(5).toInt(),query_m.value(6).toInt());
+                        int x =query_m.value(0).toInt();
+						m.setId(x);
                         _grid.append(m);
                     }
+                    return true;
                 }
             }
         }
@@ -109,10 +166,7 @@ bool DutyChart::fetch(){
         }
         delete query;
     }
-    else
-    {
-        return false;
-    }
+    return false;
 }
 QMap<int,QString> DutyChart::getAll()
 {
@@ -126,7 +180,7 @@ QMap<int,QString> DutyChart::getAll()
         {
             while(query->next())
             {
-                records.insert(query->value(0).toInt(), query->value(0).toString()); 
+                records.insert(query->value(0).toInt(), query->value(1).toString()); 
             }
         }
         delete query;
@@ -154,4 +208,22 @@ long DutyChart::countEntries()
 DutyChart::~DutyChart()
 {
 
+}
+
+DutyChart defaultChart()
+{
+	// подготовить дату: прошедший ПН
+	QDate monday = QDate::currentDate();
+	monday = monday.addDays( -(monday.dayOfWeek()-1) );
+
+	QList<Mark> bmarks;
+
+	for(int i=0; i<7; ++i)
+	{
+		int base = i<5? Mark::ATTENDS : Mark::HOLIDAY;
+		int countHours = i<5? Mark::USUAL : 0;
+		bmarks.append(Mark(base, Mark::INVALID, countHours, -1, NULL,NULL));
+	}
+
+	return DutyChart("5/2", bmarks, monday, PER_HOUR);
 }

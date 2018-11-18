@@ -8,7 +8,7 @@
 #include "employee.h"
 #include "BillingPeriod.h"
 
-/*Личный табель на один месяц
+/*! Личный табель на один месяц
 */
 class LaborSheet : public DbRecord
 {
@@ -18,45 +18,60 @@ public:
     LaborSheet();
     ~LaborSheet();
     LaborSheet(int employeeId);
-    LaborSheet(BillingPeriod* billingPeriod,int employeeId,QList<Mark> grid,DutyChart* _dutyChart);
+    LaborSheet(const LaborSheet &laborsheet);
+    LaborSheet(int id, int billingPeriodId, int employeeId, QList<Mark> grid);
 	bool fillWithDefaults();
-    /*
-        Getter для взятия всех отметок табеля.
+    /*! Getter для взятия всех отметок табеля.
     */
     const QList<Mark>& marks() const{return _grid;}
-    /*
-        getter для взятия даты
+    /*! getter для взятия даты
     */
     const QDate beginDate() const{return this->_billingPeriod->startDate();}
-    /*
-        getter для взятия графика
+    /*! getter для взятия графика
     */
-    const DutyChart* dutyChart() const{return this->_dutyChart;}
-	bool fillWithDefaults(int empploeeId, QDate date,DutyChart* dutyChart);
-    const Employee* employee() const;
-    PayForm payForm() const;
-
+    const DutyChart* dutyChart() const	{return this->_dutyChart;}
+	
+	bool fillWithDefaults(int employeeId, const QDate& date,DutyChart* dutyChart);
+    Employee* employee();
+    BillingPeriod* billingPeriod();
+    PayForm payForm();
 	/*! Подсчитать плановое рабочее время за период
 	*/
-	int countDefaultTimeUnits() const;
+	int countDefaultTimeUnits();
 
 	/*! Подсчитать отработанное время за период
 	*/
-	int countActualTimeUnits () const;
+	int countActualTimeUnits ();
+
     //Наследуемые методы
-    int LaborSheet::insert() const;
+    int LaborSheet::insert();
     bool LaborSheet::update() const;
     bool LaborSheet::fetch();
     bool LaborSheet::validate() const;
-    //Статические методы
+    
+	// Статические методы
     static bool createDbTable();
     static QMap <int,int> getAll();
     static long countEntries();
+    static QList<LaborSheet> getByPeriodId(int id);
 private:
-    BillingPeriod* _billingPeriod;
-    int _employeeId;
+	// столбцы
+    int _employeeId, _billingPeriodId;
+	int _dutyChartId; //!< график сотрудника для этого месяца (в другие может измениться)
+
+	// отметки (привязанные по внешнему ключу)
     QList<Mark> _grid;
+
+	// singleton-указатели на связанные записи
+    BillingPeriod* _billingPeriod;
+	Employee* _employee;
     DutyChart* _dutyChart;
+public:
+    int billingPeriodId()const {return this->_billingPeriodId;}
+    int employeeeId()const {return this->_employeeId;}
+    int dutyChartId()const {return this->_dutyChartId;}
+    QList<Mark> grid() const{return this->_grid;}
+
 };
 
 #endif // LABORSHEET_H

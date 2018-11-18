@@ -8,7 +8,7 @@
 #include "ui_salarycount.h"
 
 #include "salarycountDutyChart.h"
-
+#include "salarycountlaborsheet.h"
 
 class SalaryCount : public QMainWindow
 {
@@ -25,6 +25,7 @@ private:
     Ui_SalaryCount ui;
 
 	salarycountDutyChart* dutyChart;
+    salarycountLaborSheet* laborSheet;
 	bool editState;
 
 private:
@@ -37,6 +38,7 @@ private:
 signals:
 	void cancelChanges();
 	void saveChanges();
+	void showPage(QString name);
 
 private slots:
 

@@ -4,12 +4,17 @@
 #include <QObject>
 #include<qdatetime.h>
 #include"dbrecord.h"
+
+//! Расчётный период
 class BillingPeriod : public DbRecord
 {
     Q_OBJECT
 
 public:
     BillingPeriod(const QDate& startDate);
+	BillingPeriod(int id) : DbRecord(id) {}
+
+	//! Статус Расчётного периода
     enum Status
 	{
 		NOT_OPENED,	/*< Ещё не был открыт */
@@ -19,9 +24,8 @@ public:
 	};
 
     BillingPeriod(const QDate& startDate, Status status);
+    BillingPeriod(int id, const QDate& startDate, Status status);
     ~BillingPeriod();
-
-	
 
 	// getters
     enum Status status()		{	return _status;		}
@@ -32,18 +36,30 @@ public:
 	bool set() ;
 	bool validate() const;
 	bool update() const;
+    int insert();
+   
     static bool createDbTable();
-    int insert() const;
+	static long countEntries();
+    static BillingPeriod* getByDate(const QDate& date);
+    static BillingPeriod* getCurrentPeriod();
+    static QPair<QDate,QDate> getDateSpan(); /*!< минимальная и максимальная даты периодов */
 
 	//! Управление статусом
 	void open();
 	void close();
 	void set_modified();
 
-private:
+	//! Получить/создать следующий расчётный период
+	BillingPeriod* nextPeriod();
 
+    
+private:
+	// столбцы
     enum Status _status;
     QDate _startDate;
+
+	// singleton-кэш записи
+	BillingPeriod* _next; //! <default> = NULL;  следующий расчётный период
 };
 
 #endif // BILLINGPERIOD_H

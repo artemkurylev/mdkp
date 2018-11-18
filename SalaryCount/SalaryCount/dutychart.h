@@ -12,15 +12,16 @@ class DutyChart : public DbRecord
 
 public:
     DutyChart();
-    DutyChart(int id);
-    
-	DutyChart(QList<Mark> marks, enum PayForm payForm=PER_HOUR)	{_grid = marks;_payForm=payForm;}
+    DutyChart(int id);    
+    DutyChart(const QString& name, const QList<Mark>& marks,const QDate& anchorDate, enum PayForm payForm=PER_HOUR);
+	DutyChart(int id, const QString& name, const QList<Mark>& marks,const QDate& anchorDate, enum PayForm payForm=PER_HOUR);
 
 	bool fetch();
 	bool set()		{return false;}
-	bool validate() const {return false;}
-	bool update()	const {return false;}
-    int insert()	const ;
+	bool delet()	{return false;}
+	bool validate() const {return true;}
+	bool update()	const;
+    int insert();
     static bool createDbTable();
 
     const int payForm()		 const	{return _payForm;}
@@ -32,6 +33,7 @@ public:
     static long countEntries();
     ~DutyChart();
 
+	//static DutyChart baseObject();
    
 private:
     

@@ -14,18 +14,35 @@ SalaryCount::SalaryCount(QWidget *parent)
 
 	initialDBManager();
 
+	// test>
+	//BillingPeriod* bp = BillingPeriod::getCurrentPeriod();
+	//for(int i=0 ; i<3 ; ++i)
+	//{
+	//	BookKeeper::closeBillingPeriod(*bp);
+	//	bp = bp->nextPeriod();
+	//}
+	// <test
+
 	this->editState = false;
 	
-	// запуск тестирования
-	DirectiveGeneratorTest dir_gen_test(0);
-	QTest::qExec( &dir_gen_test , NULL , NULL);
+	//// запуск тестирования
+	//DirectiveGeneratorTest dir_gen_test(0);
+	//QTest::qExec( &dir_gen_test , NULL , NULL);
 
-	//
-	this->dutyChart = new salarycountDutyChart(&this->ui);
-	connect(this->dutyChart,SIGNAL(changeState(bool)),this,SLOT(rememberState(bool)));
-	connect(this,SIGNAL(saveChanges()),this->dutyChart,SLOT(saveNewDutyChart()));
-	connect(this,SIGNAL(cancelChanges()),this->dutyChart,SLOT(cancelNewDutyChart()));
+	//соединение со страницей создания графиков
+	this->dutyChart = new salarycountDutyChart(&this->ui,ui.DutyCharAction->whatsThis());
+	connect(this, SIGNAL(showPage(QString)),this->dutyChart,SLOT(updateInfo(QString)));//обновить информацию на странице
+	connect(this->dutyChart,SIGNAL(changeState(bool)),this,SLOT(rememberState(bool)));//на странице может быть два режима: просмотр и изменение записей
+	connect(this,SIGNAL(saveChanges()),this->dutyChart,SLOT(saveNewDutyChart()));//приложение посылает сигнал на сохранение страницы
+	connect(this,SIGNAL(cancelChanges()),this->dutyChart,SLOT(cancelNewDutyChart()));//приложение посылает сигнал отмены редактирования
 	
+    //Соедиенение со страницей табелей
+    this->laborSheet = new salarycountLaborSheet(&this->ui,ui.LaborSheetAction->whatsThis());
+	connect(this, SIGNAL(showPage(QString)),this->laborSheet,SLOT(updateInfo(QString)));//обновить информацию на странице
+
+
+	//TODO
+
 	ui.saveDutyChartBtn->setEnabled(true);
 	ui.cancelDutyChartBtn->setEnabled(true);
 
@@ -35,11 +52,13 @@ SalaryCount::SalaryCount(QWidget *parent)
 	this->currentAction->setEnabled(false);
 
 	connect(ui.CompanyMenu,SIGNAL(triggered(QAction*)), this,SLOT(showPage(QAction*)));
+
+	connect(ui.ExitAction,SIGNAL(triggered()), this,SLOT(close()));
 }
 
 SalaryCount::~SalaryCount()
 {
-
+	delete this->dutyChart;
 }
 
 void SalaryCount::initialDBManager()
@@ -87,6 +106,7 @@ void SalaryCount::initialDBManager()
 	//return??
 }
 
+//! название метода не отражает сути выполняемых действий
 bool SalaryCount::isEditable()
 {
 	if(this->editState)
@@ -99,11 +119,11 @@ bool SalaryCount::isEditable()
 		{
 			case QMessageBox::StandardButton(QMessageBox::Yes):
 				emit saveChanges();
-				return false;
+				return this->editState;
 
 			case QMessageBox::StandardButton(QMessageBox::No):
 				emit cancelChanges();
-				return false;
+				return this->editState;
 
 			case QMessageBox::StandardButton(QMessageBox::Cancel):
 			default:
@@ -122,6 +142,8 @@ void SalaryCount::showPage(QAction* actionEmited)
 	if(!isEditable())
 	{
 		QString namePage = actionEmited->whatsThis();
+
+		emit showPage(namePage);
 
 		this->currentAction->setEnabled(true);
 		this->currentAction = actionEmited;

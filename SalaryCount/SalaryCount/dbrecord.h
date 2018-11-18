@@ -30,7 +30,7 @@ public:
     
 	/*! Проверить данные записи на корректность (полезно перед отправкой в БД)
 	*/
-    virtual bool validate() const = 0;
+    virtual bool validate() const { return false; };
     
 	/*! Отправить запись в БД [UPDATE]
 	*/
@@ -39,7 +39,7 @@ public:
     /*! Создать запись в БД
 	@returns ID созданной записи
     */
-    virtual int insert() const = 0;
+    virtual int insert() = 0;
 
 	/*! Возвращает ID [Primary Key] записи в БД
 	*/

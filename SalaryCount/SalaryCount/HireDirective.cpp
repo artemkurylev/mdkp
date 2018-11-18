@@ -1,9 +1,16 @@
 #include "HireDirective.h"
+#include "employee.h"
 
 
 HireDirective::HireDirective()
-    : DbRecord(0)
+    : DbRecord()
 {
+	_hiredEmployee = NULL;
+}
+HireDirective::HireDirective(int id)
+    : DbRecord(id)
+{
+	_hiredEmployee = NULL;
 }
 HireDirective::HireDirective(QDate hireDate, QString fio, PayForm payForm, float salary, int employeeID)
     : DbRecord(NULL)
@@ -14,17 +21,27 @@ HireDirective::HireDirective(QDate hireDate, QString fio, PayForm payForm, float
 	this->_salary = salary;
 
 	this->_employeeID = employeeID;
+
+	_hiredEmployee = NULL;
 }
 
 
 HireDirective::~HireDirective(void)
 {
+	// free allocated record
+	if(_hiredEmployee != NULL)
+	{
+		delete _hiredEmployee;
+	}
 }
 
-Employee * HireDirective::hiredEmployee() const
+Employee * HireDirective::hiredEmployee()
 {
-
-	return NULL; // new Employee(_employeeID);
+	if(_hiredEmployee == NULL)
+	{
+		_hiredEmployee = new Employee(_employeeID);
+	}
+	return _hiredEmployee;
 }
 
 
@@ -62,11 +79,6 @@ bool HireDirective::fetch()
     }
 }
     
-bool HireDirective::set()
-{
-	return false;
-}
-    
 bool HireDirective::validate() const
 {
 	return false;
@@ -97,12 +109,13 @@ bool HireDirective::update() const
     }
     return false;
 }
-int HireDirective::insert() const
+int HireDirective::insert()
 {
+	int insert_id = -1;
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        query->prepare("INSERT INTO `hire_directive` (hire_date,fio,payform,salary,employee_id) VALUES(:hire_date,:fio,:payform,:salary,:employee_id");
+        query->prepare("INSERT INTO `hire_directive` (hire_date,fio,payform,salary,employee_id) VALUES(:hire_date,:fio,:payform,:salary,:employee_id)");
         query->bindValue(":hire_date",this->_hireDate);
         query->bindValue(":fio",this->_fio);
         query->bindValue(":payform",this->_payForm);
@@ -110,21 +123,24 @@ int HireDirective::insert() const
         query->bindValue(":employee_id",this->_employeeID);
         if(query->exec())
         {
-            if(query->exec("SELECT LAST_INSERT_ID()") && query->next())
-                return query->value(0).toInt();
+			QVariant last_id = query->lastInsertId();
+            if(last_id.isValid())
+			{
+                this->_id = last_id.toInt();
+                insert_id = this->_id;
+			}
         }
         else
         {
             QString s = query->lastError().text();
             s+="as";
-            return -1;
         }
         delete query;
     }
     else
     {
-        return -1;
     }
+	return insert_id;
 }
 bool HireDirective::createDbTable()
 {

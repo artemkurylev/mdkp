@@ -15,15 +15,28 @@ class Employee : public DbRecord
 public:
     Employee();
 	Employee(int id);
+    Employee(const Employee& employee);
+	Employee(QString _fio,QString _phoneNumber,int _INN,int _currentDutyChartID,int _hireDirectiveID);
     ~Employee();
+
     bool fetch();
+    bool validate() const;
     bool update() const;
-    int insert() const;
+    int insert();
+
     static bool createDbTable();
     static QMap<int,QString> getAll();
     static long countEntries();
-    const HireDirective* hireDirective() const;
+    HireDirective* hireDirective();
 
+    //геттеры
+    const QString& fio() const{return _fio;}
+    const QString& phoneNumber() const {return _phoneNumber;}
+    const int inn()const {return _INN;};
+    const int currentDutyChartID() const{return _currentDutyChartID;}
+    const int nextDutyChartID()const {return _nextDutyChartID;}
+    const QDate& nextDutyChartSince() const{return _nextDutyChartSince;}
+    const int hireDirectiveID() const {return _hireDirectiveID;}
 private:
 	// личные
     QString _fio;
@@ -31,14 +44,17 @@ private:
     int _INN;
 
 	// график
-    int _nextDutyChart;
-    int _currentDutyChart;
+    int _currentDutyChartID;
+    int _nextDutyChartID;
     QDate _nextDutyChartSince;
 
 	// DB links
 	int _hireDirectiveID;
 
 	//const QString& tableName() { return "employee";};
+
+	// singleton-кэш записи
+	HireDirective* _hireDirective; //! <default> = NULL;  приказ
 };
 
 #endif // EMPLOYEE_H

@@ -26,7 +26,7 @@ DbManager::DbManager(const QString& hostName, const QString& dbName, int port,co
     {
         //QString str;
 		QSqlQuery q(this->db);
-		if( q.exec(tr("CREATE DATABASE IF NOT EXISTS %1;").arg(dbName) ) )
+		if( q.exec(tr("CREATE DATABASE IF NOT EXISTS %1 CHARACTER SET utf8 COLLATE utf8_bin;").arg(dbName) ) )
 		{
 			QString str = "Ok";
 			this->db.close();
@@ -62,13 +62,22 @@ DbManager::DbManager(const QString& hostName, const QString& dbName, int port,co
 }
 QSqlQuery* DbManager::makeQuery()
 {
-    return new QSqlQuery(this->db);;
+    return new QSqlQuery(this->db);
 }
 bool DbManager::checkConnection()
 {
     if(db.isOpen())
     {
-        return true;
+		// проверка активности соединения
+		// источник: http://www.prog.org.ru/topic_6693_0.html Russian Qt Forum >> Базы данных > Lost connection to MySQL server during query QMYSQL: Unable to execute query
+		QSqlQuery qq = db.exec("SET NAMES 'utf8'");
+		if (qq.lastError().type()!=QSqlError::NoError)
+		{
+			db.close();
+			db.open();
+		}
+
+        return db.isOpen();
     }
     else
     {
@@ -87,8 +96,8 @@ bool DbManager::checkConnection()
         //if(false)
         //    DbManager::globalManager = new DbManager("localhost","salarycount",3306,"root","root");
         //else
-        //    DbManager::globalManager = new DbManager("109.206.169.214","salary_count",81,"remote","!E3f5c712");
-			// test ports: cmd>telnet 109.206.169.214 81
+        //    DbManager::globalManager = new DbManager("109.206.169.214","salary_count",443,"remote","!E3f5c712");
+		// test ports: cmd>telnet 109.206.169.214 81
         DbManager::singletonExists = 1;
     }
     return *(DbManager::globalManager);
@@ -122,6 +131,17 @@ struct DbConf loadDbConfig()
 		s.setValue("userName", dbConf.userName);
 		s.setValue("pass", dbConf.pass);
 		s.endGroup();
+
+		// <Debug only>!
+		// write "commented" section
+		s.beginGroup("db-remote");
+		s.setValue("hostName", "109.206.169.214");
+		s.setValue("port", dbConf.port);
+		s.setValue("dbName", "salary_count");
+		s.setValue("userName", "remote");
+		s.setValue("pass", "!E3f5c712");
+		s.endGroup();
+		// </Debug only>
 
 		// write 
 		s.beginGroup("meta");

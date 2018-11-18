@@ -6,13 +6,14 @@
 
 class Employee;
 
-	/*! Приказ о приёме нового сотрудника. Фиксирует зарплату и форму оплаты труда (помесячная/почасовая)
+/*! Приказ о приёме нового сотрудника. Фиксирует зарплату и форму оплаты труда (помесячная/почасовая)
 */
 class HireDirective :
 	public DbRecord
 {
 public:
 	HireDirective();
+	HireDirective(int id);
 	HireDirective(QDate hireDate, QString fio, PayForm payForm, float salary, int employeeID);
 	~HireDirective(void);
 
@@ -23,15 +24,14 @@ public:
 	float salary()		const	{	return _salary;		}
 
 	// methods
-	Employee * hiredEmployee()	const;
+	Employee * hiredEmployee();
     
 
 	// inherited
 	bool HireDirective::fetch();
-	bool HireDirective::set();
 	bool HireDirective::validate() const;
 	bool HireDirective::update() const;
-    int  HireDirective::insert() const;
+    int  HireDirective::insert();
     
     //static
     bool static createDbTable();
@@ -43,4 +43,7 @@ private:
 
 	// DB links
 	int _employeeID;
+
+	// singleton-кэш записи
+	Employee* _hiredEmployee; //! <default> = NULL;  приказ
 };

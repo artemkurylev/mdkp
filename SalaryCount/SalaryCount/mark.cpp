@@ -1,28 +1,65 @@
 #include "mark.h"
 
 Mark::Mark()
-    : DbRecord(0)
+    : DbRecord()
 {
 	_base = INVALID;
 	_altered = INVALID;
-} 
+    _dutyChartId = NULL;
+    _laborsheetId = NULL;
+    _countHours = 0;
+    _alteredCountHours = 0;
+}
 
+Mark::Mark(const Mark &mark)
+	: DbRecord()
+{
+	this->_id = mark.id();
+	this->_base = mark.base();
+	this->_altered = mark.altered();
+	this->_dutyChartId = mark.dutyChartId();
+	this->_laborsheetId = mark.laborsheetId();
+	this->_countHours = mark.countHours();
+	this->_alteredCountHours = mark.alteredCountHours();
+}
+
+//Mark::Mark(int id)
+//    : DbRecord(id)
+//{
+//	_base = INVALID;
+//	_altered = INVALID;
+//    _dutyChartId = NULL;
+//    _laborsheetId = NULL;
+//    _countHours = 0;
+//    _alteredCountHours = 0;
+//}
 Mark::Mark(int baseMark)
-    : DbRecord(NULL)
+    : DbRecord()
 {
 	_base = baseMark;
 	_altered = INVALID;
-} 
-Mark::Mark(int base, int altered, int dutychartId,int laborsheetId)
-    : DbRecord(NULL)
+    _dutyChartId = NULL;
+    _laborsheetId = NULL;
+    _countHours = 0;
+    _alteredCountHours = 0;
+
+}
+//Mark::Mark(int base, int altered, int countHours, int alteredCountHours, int dutyChartId,int laborsheetId)
+//=======
+//} 
+Mark::Mark(int in_base, int in_altered, int in_countHours, int in_alteredCountHours, int in_dutyChartId /*= NULL*/,int in_laborsheetId /*= NULL*/)
+    : DbRecord()
 {
-	_base = base;
-	_altered = altered;
-    _dutychartId = dutychartId;
-    _laborsheetId = laborsheetId;
+    _dutyChartId = in_dutyChartId;
+    _laborsheetId = in_laborsheetId;
+	_base = in_base;
+	_altered = in_altered;
+    _countHours = in_countHours;
+    _alteredCountHours = in_alteredCountHours;
 }
 bool Mark::fetch()
 {
+	bool success = false;
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
@@ -36,26 +73,22 @@ bool Mark::fetch()
             {
                 _base = query->value(1).toInt();
                 _altered = query->value(2).toInt();
-                _dutychartId = query->value(3).toInt();
+                _dutyChartId = query->value(3).toInt();
                 _laborsheetId = query->value(4).toInt();
+				success = true;
             }
         }
         else
         {
             QString s = query->lastError().text();
             s+="as";
-            return false;
         }
         delete query;
     }
     else
     {
-        return false;
     }
-}
-bool Mark::set()
-{
-    return false;
+    return success;
 }
 bool Mark::validate() const
 {
@@ -63,73 +96,84 @@ bool Mark::validate() const
 }
 bool Mark::update() const
 {
+	bool success = false;
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        query->prepare("UPDATE `mark` SET base = :base , altered = :altered WHERE id = :id");
+        query->prepare("UPDATE `mark` SET `base` = :base , `altered` = :altered,`count_hours`= :count_hours, `altered_count_hours` = :altered_count_hour WHERE `id` = :id");
         query->bindValue(":base",this->_base);
         query->bindValue(":altered",this->_altered);
         query->bindValue(":id", this->_id);
+        query->bindValue(":count_hours",this->_countHours);
+        query->bindValue(":altered_count_hours",this->_alteredCountHours);
         if(query->exec())
         {
-            delete query;
-            return true;
+            success = true;
         }
         else
         {
+            QString s = query->lastError().text();
             delete query;
             return false;
         }
+        delete query;
     }
-    return false;
+    return success;
 }
-int Mark::insert() const
+int Mark::insert()
 {
+	int insert_id = -1;
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        query->prepare("INSERT INTO `mark` (base,altered,dutychart_id,laborsheet_id) VALUES(:base,:altered,:dutychart_id,:laborsheet_id");
+        query->prepare("INSERT INTO `mark` (base,altered,count_hours,altered_count_hours,dutychart_id,laborsheet_id) VALUES(:base,:altered,:count_hours,:altered_count_hours,:dutychart_id,:laborsheet_id)");
         query->bindValue(":base",this->_base);
         query->bindValue(":altered",this->_altered);
-        query->bindValue(":dutychart_id",this->_dutychartId);
+        query->bindValue(":count_hours",this->_countHours);
+        query->bindValue(":altered_count_hours",this->_alteredCountHours);
+        query->bindValue(":dutychart_id",this->_dutyChartId);
         query->bindValue(":laborsheet_id",this->_laborsheetId);
         if(query->exec())
         {
             if(query->exec("SELECT LAST_INSERT_ID()") && query->next())
-                return query->value(0).toInt();
+            {   
+                this->_id = query->value(0).toInt();
+				insert_id = this->_id;
+            }
         }
         else
         {
             QString s = query->lastError().text();
             s+="as";
-            return -1;
         }
         delete query;
     }
     else
     {
-        return -1;
     }
+	return insert_id;
 }
 bool Mark::createDbTable()
 {
+	bool success = false;
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        if(query->exec("CREATE TABLE IF NOT EXISTS `mark` (`id` INT(11) NOT NULL AUTO_INCREMENT, `base` INT(11), `altered` INT(11) ,`dutychart_id` INT(11),`laborsheet_id` INT(11), PRIMARY KEY(`id`))"))
-            return true;
+        if(query->exec("CREATE TABLE IF NOT EXISTS `mark` (`id` INT(11) NOT NULL AUTO_INCREMENT, `base` INT(11), `altered` INT(11) ,`count_hours` INT(3),`altered_count_hours` INT(3),`dutychart_id` INT(11),`laborsheet_id` INT(11), PRIMARY KEY(`id`))"))
+		{
+            success = true;
+		}
         else
         {
             QString s = query->lastError().text();
             s+="as";
-            return false;
         }
         delete query;
     }
     else
     {
-        return false;
     }
+    return success;
 }
 Mark::~Mark()
 {
