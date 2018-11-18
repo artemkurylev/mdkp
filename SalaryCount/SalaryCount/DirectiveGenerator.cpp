@@ -45,7 +45,7 @@ void DirectiveGenerator::pdf(const HireDirective* hireDirective, const QString& 
   
    painter.drawText(40,10100,codec->toUnicode("Руководитель организации"));
    painter.drawText(1800,10400,codec->toUnicode("             _______________________    ________________  _______________________"));
-   painter.drawText(40,11000,"С приказом (распоряжением) работник ознакомлен");
+   painter.drawText(40,11000,codec->toUnicode("С приказом (распоряжением) работник ознакомлен"));
    painter.drawText(3500,11060,codec->toUnicode("            _____________________ “_____ ” __________ 20____г."));
 
    painter.drawText(3200,3000,codec->toUnicode("(распоряжение)"));
