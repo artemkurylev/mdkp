@@ -14,6 +14,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     <width>737</width>
 =======
     <width>709</width>
@@ -31,6 +32,9 @@
 =======
     <width>685</width>
 >>>>>>> e5dee3a... Изменено имя кнопки для показа приказа
+=======
+    <width>701</width>
+>>>>>>> c7bcf17... рабочая форма
     <height>552</height>
 >>>>>>> ee8954d... Добавлен метод отчистки полей для секции редактирования графиков
 =======
@@ -66,6 +70,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
        <number>2</number>
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -94,9 +99,87 @@
 =======
        <number>3</number>
 >>>>>>> f9bbf7c... Добавлен метод countEntries для класса HireDirective, название списка в ui для приказов изменено на адекватное
+=======
+       <number>0</number>
+>>>>>>> c7bcf17... рабочая форма
       </property>
       <widget class="QWidget" name="EmployeesPage">
        <layout class="QGridLayout" name="gridLayout_8">
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="groupBox_5">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+            <horstretch>2</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>300</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="title">
+           <string>Сотрудники</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_3">
+           <item row="0" column="0">
+            <widget class="QListWidget" name="listWidget">
+             <item>
+              <property name="text">
+               <string>Сотрудник 1        ИНН</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Сотрудник 2       ИНН</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Сотрудник 3        ИНН</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Сотрудник 4        ИНН</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Сотрудник 5        ИНН</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <layout class="QHBoxLayout" name="horizontalLayout_8">
+             <item>
+              <widget class="QPushButton" name="pushButton">
+               <property name="text">
+                <string>Редактировать</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_3">
+               <property name="text">
+                <string>Удалить</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="3" column="0">
+            <widget class="QPushButton" name="pushButton_2">
+             <property name="text">
+              <string>Добавить сотрудника</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
         <item row="0" column="1">
          <widget class="QScrollArea" name="scrollArea">
           <property name="enabled">
@@ -121,6 +204,7 @@
            <property name="geometry">
             <rect>
              <x>0</x>
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
              <y>-176</y>
@@ -190,6 +274,11 @@
 >>>>>>> 1f4c259... Небольшие правеи для улучшения вида окна с табебелями учета труда
              <height>485</height>
 >>>>>>> b19fbbe... Добавлен метод отчистки полей для секции редактирования графиков
+=======
+             <y>0</y>
+             <width>261</width>
+             <height>532</height>
+>>>>>>> c7bcf17... рабочая форма
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_2">
@@ -203,6 +292,20 @@
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_14">
                <item>
+                <layout class="QVBoxLayout" name="verticalLayout_36">
+                 <item>
+                  <widget class="QLabel" name="label_33">
+                   <property name="text">
+                    <string>Дата приема на работу</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QDateEdit" name="dateEdit_6"/>
+                 </item>
+                </layout>
+               </item>
+               <item>
                 <layout class="QVBoxLayout" name="verticalLayout_11">
                  <item>
                   <widget class="QLabel" name="label_11">
@@ -212,7 +315,7 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QSpinBox" name="spinBox_4"/>
+                  <widget class="QLineEdit" name="lineEdit_11"/>
                  </item>
                 </layout>
                </item>
@@ -226,7 +329,17 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QSpinBox" name="spinBox_3"/>
+                  <widget class="QSpinBox" name="spinBox_3">
+                   <property name="minimum">
+                    <number>8000</number>
+                   </property>
+                   <property name="maximum">
+                    <number>9999999</number>
+                   </property>
+                   <property name="singleStep">
+                    <number>1000</number>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>
@@ -240,7 +353,18 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QComboBox" name="comboBox"/>
+                  <widget class="QComboBox" name="comboBox">
+                   <item>
+                    <property name="text">
+                     <string>Помесячная</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Почасовая</string>
+                    </property>
+                   </item>
+                  </widget>
                  </item>
                 </layout>
                </item>
@@ -294,7 +418,22 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QDateEdit" name="dateEdit"/>
+                  <widget class="QDateEdit" name="dateEdit">
+                   <property name="maximumDate">
+                    <date>
+                     <year>2200</year>
+                     <month>12</month>
+                     <day>31</day>
+                    </date>
+                   </property>
+                   <property name="minimumDate">
+                    <date>
+                     <year>1930</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </date>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>
@@ -308,7 +447,11 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QSpinBox" name="spinBox_5"/>
+                  <widget class="QLineEdit" name="lineEdit_12">
+                   <property name="inputMask">
+                    <string>99 9999 9999</string>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>
@@ -322,7 +465,11 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLineEdit" name="lineEdit_2"/>
+                  <widget class="QLineEdit" name="lineEdit_2">
+                   <property name="inputMask">
+                    <string>+9 (999) 999 99 99</string>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>
@@ -355,95 +502,6 @@
             </item>
            </layout>
           </widget>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QGroupBox" name="groupBox_5">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-            <horstretch>2</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>300</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="title">
-           <string>Сотрудники</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_3">
-           <item row="0" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout">
-             <item>
-              <widget class="QLabel" name="label_4">
-               <property name="text">
-                <string>Поиск сотрудников</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit_4"/>
-             </item>
-            </layout>
-           </item>
-           <item row="1" column="0">
-            <widget class="QListWidget" name="listWidget">
-             <item>
-              <property name="text">
-               <string>Сотрудник 1        ИНН</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Сотрудник 2       ИНН</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Сотрудник 3        ИНН</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Сотрудник 4        ИНН</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Сотрудник 5        ИНН</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_8">
-             <item>
-              <widget class="QPushButton" name="pushButton">
-               <property name="text">
-                <string>Редактировать</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_3">
-               <property name="text">
-                <string>Удалить</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item row="4" column="0">
-            <widget class="QPushButton" name="pushButton_2">
-             <property name="text">
-              <string>Добавить сотрудника</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
          </widget>
         </item>
        </layout>
@@ -1408,6 +1466,7 @@
       <widget class="QWidget" name="HireDirectivesPage">
        <layout class="QGridLayout" name="gridLayout_11">
         <item row="0" column="0">
+<<<<<<< HEAD
          <widget class="QPushButton" name="pushButton_15">
           <property name="enabled">
            <bool>false</bool>
@@ -1421,10 +1480,12 @@
 <<<<<<< HEAD
          <widget class="QListWidget" name="listWidget_4"/>
 =======
+=======
+>>>>>>> c7bcf17... рабочая форма
          <widget class="QListWidget" name="directiveList"/>
 >>>>>>> f9bbf7c... Добавлен метод countEntries для класса HireDirective, название списка в ui для приказов изменено на адекватное
         </item>
-        <item row="2" column="0">
+        <item row="1" column="0">
          <widget class="QPushButton" name="showDirectiveBtn">
           <property name="enabled">
            <bool>false</bool>
@@ -1453,6 +1514,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1529,6 +1591,9 @@
      <height>20</height>
 >>>>>>> 115e4a3... Эксперименты с ячейками таблицы (при запуске всё равно затрутся)
 =======
+=======
+     <width>701</width>
+>>>>>>> c7bcf17... рабочая форма
      <height>21</height>
 >>>>>>> b47fcef... Обновил название кнопки для редактирования табеля
     </rect>
