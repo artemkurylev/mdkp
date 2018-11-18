@@ -2,6 +2,7 @@
 
 void initalSetupForTableDutyChart();
 DutyChart defaultChart();
+DutyChart defaultChart2();
 
 DutyChart::DutyChart(int id)
     : DbRecord(id)
@@ -59,6 +60,8 @@ void initalSetupForTableDutyChart()
 	{
 		// insert first rec
 		DutyChart rec = defaultChart();
+		rec.insert();
+		rec = defaultChart2();
 		rec.insert();
 	}
 }
@@ -226,4 +229,22 @@ DutyChart defaultChart()
 	}
 
 	return DutyChart("5/2", bmarks, monday, PER_HOUR);
+}
+DutyChart defaultChart2()
+{
+	// подготовить дату: прошедший ПН
+	QDate monday = QDate::currentDate();
+	monday = monday.addDays( -(monday.dayOfWeek()-1) );
+
+	QList<Mark> bmarks;
+
+	bmarks.append(Mark(Mark::ATTENDS, Mark::INVALID, 0, -1, NULL,NULL));
+	bmarks.append(Mark(Mark::ATTENDS, Mark::INVALID, 0, -1, NULL,NULL));
+	bmarks.append(Mark(Mark::HOLIDAY, Mark::INVALID, 0, -1, NULL,NULL));
+	bmarks.append(Mark(Mark::HOLIDAY, Mark::INVALID, 0, -1, NULL,NULL));
+	bmarks.append(Mark(Mark::ATTENDS, Mark::INVALID, 0, -1, NULL,NULL));
+	bmarks.append(Mark(Mark::ATTENDS, Mark::INVALID, 0, -1, NULL,NULL));
+	bmarks.append(Mark(Mark::HOLIDAY, Mark::INVALID, 0, -1, NULL,NULL));
+
+	return DutyChart("2/2/2/1", bmarks, monday, PER_MONTH);
 }
