@@ -42,6 +42,7 @@ public:
 	static long countEntries();
     static BillingPeriod* getByDate(const QDate& date);
     static BillingPeriod* getCurrentPeriod();
+    static QPair<QDate,QDate> getDateSpan(); /*!< минимальная и максимальная даты периодов */
 
 	//! Управление статусом
 	void open();
