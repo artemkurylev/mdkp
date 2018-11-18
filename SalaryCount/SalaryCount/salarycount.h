@@ -9,7 +9,7 @@
 
 #include "salarycountDutyChart.h"
 #include "salarycountlaborsheet.h"
-
+#include "salarycountdirectives.h"
 class SalaryCount : public QMainWindow
 {
     Q_OBJECT
@@ -26,6 +26,7 @@ private:
 
 	salarycountDutyChart* dutyChart;
     salarycountLaborSheet* laborSheet;
+    salarycountDirectives* directives;
 	bool editState;
 
 private:
