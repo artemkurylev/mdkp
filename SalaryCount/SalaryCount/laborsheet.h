@@ -25,11 +25,13 @@ public:
 	int billingPeriodId()const {return this->_billingPeriodId;}
     int employeeeId()const {return this->_employeeId;}
     int dutyChartId()const {return this->_dutyChartId;}
+    int award()const {return this->_award;}
 	
 	// сеттеры
 	void setBillingPeriodId(int billingPeriodId) { this->_billingPeriodId = billingPeriodId;}
     void setEmployeeeId(int employeeeId)	{ this->_employeeId = employeeeId;}
     void setDutyChartId(int dutyChartId)	{ this->_dutyChartId = dutyChartId;}
+    void setAward(float award)	{ this->_award = award;}
 	
     /*! Getter для взятия всех отметок табеля. */
     const QList<Mark>& grid()  const{return this->_grid;}
@@ -55,6 +57,8 @@ public:
 	/*! Подсчитать отработанное время за период
 	*/
 	int countActualTimeUnits ();
+	
+	// TODO! сделать метод(ы?) для получения рассчитываемой статистики
 
 	/*! заносит изменённые поля всех отметок в основные и сбрасывает изменения */
 	void commitChanges();
@@ -78,6 +82,7 @@ private:
 	// столбцы
     int _employeeId, _billingPeriodId;
 	int _dutyChartId; //!< график сотрудника для этого месяца (в другие может измениться)
+	float _award; /*! выплата за месяц */
 
 	// отметки (привязанные по внешнему ключу)
     QList<Mark> _grid;

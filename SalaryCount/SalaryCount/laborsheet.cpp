@@ -37,6 +37,7 @@ LaborSheet::LaborSheet(int id, int billingPeriodId, int employeeId, QList<Mark> 
     _billingPeriod = NULL;
     _employee = NULL;
     _dutyChart = NULL;
+    this->_award = 0;
 }
 LaborSheet::~LaborSheet()
 {
@@ -165,10 +166,11 @@ int LaborSheet::insert()
 	if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        query->prepare("INSERT INTO `labor_sheet` (billing_period_id,employee_id,dutychart_id, closed) VALUES(:billing_period_id,:employee_id,:dutychart_id");
-        query->bindValue(":billing_period_id",this->_billingPeriod->id());
+        query->prepare("INSERT INTO `labor_sheet` (billing_period_id,employee_id,dutychart_id, award) VALUES(:billing_period_id,:employee_id,:dutychart_id,:award");
+        query->bindValue(":billing_period_id",this->_billingPeriodId);
         query->bindValue(":employee_id",this->_employeeId);
-        query->bindValue(":dutychart_id", this->_dutyChart->id());
+        query->bindValue(":dutychart_id", this->_dutyChartId);
+        query->bindValue(":award",this->_award);
 
         if(query->exec())
         {
@@ -208,10 +210,11 @@ bool LaborSheet::update() const
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        query->prepare("UPDATE `labor_sheet` SET billing_period_id = :billing_period_id , employee_id = :employee_id, dutychart_id = :dutychart_id WHERE `id` =:id");
+        query->prepare("UPDATE `labor_sheet` SET billing_period_id = :billing_period_id , employee_id = :employee_id, dutychart_id = :dutychart_id, award = :award WHERE `id` =:id");
         query->bindValue(":billing_period_id",this->_billingPeriodId);
         query->bindValue(":employee_id",this->_employeeId);
         query->bindValue(":dutychart_id",this->_dutyChartId);
+        query->bindValue(":award",this->_award);
         query->bindValue(":id",this->id());
         if(query->exec())
         {
@@ -237,7 +240,7 @@ bool LaborSheet::createDbTable()
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        if(query->exec("CREATE TABLE IF NOT EXISTS `labor_sheet` (`id` INT(11) NOT NULL AUTO_INCREMENT, `billing_period_id` INT(11), `employee_id` INT(11),`dutychart_id` INT(11), PRIMARY KEY(`id`))"))
+        if(query->exec("CREATE TABLE IF NOT EXISTS `labor_sheet` (`id` INT(11) NOT NULL AUTO_INCREMENT, `billing_period_id` INT(11), `employee_id` INT(11),`dutychart_id` INT(11), `award` FLOAT NULL, PRIMARY KEY(`id`))"))
             return true;
         else
         {
@@ -289,6 +292,9 @@ bool LaborSheet::fetch()
 				
 				// получить ID графика
                 this->_dutyChartId = query->value(3).toInt();
+
+				// получить выплату
+                this->_award = query->value(4).toFloat();
 
      //           QSqlQuery query_b = *(DbManager::manager().makeQuery());
      //           query_b.prepare("SELECT * FROM `billing_period` WHERE `id` = :billing_period_id");
