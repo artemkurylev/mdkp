@@ -199,7 +199,7 @@ int HireDirective::countEntries()
 }
 int HireDirective::lastDirectiveId()
 {
-    int id = 0;
+    int id = -1;
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
