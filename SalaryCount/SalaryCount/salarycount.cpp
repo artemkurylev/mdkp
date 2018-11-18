@@ -35,8 +35,9 @@
     //Соедиенение со страницей табелей
     this->laborSheet = new salarycountLaborSheet(&this->ui,ui.LaborSheetAction->whatsThis());
 	connect(this, SIGNAL(showPage(QString)),this->laborSheet,SLOT(updateInfo(QString)));//обновить информацию на странице
-
-
+    //Соединение со страницей приказов
+    this->directives = new salarycountDirectives(&this->ui,ui.HireDirectiveAction->whatsThis());
+    connect(this, SIGNAL(showPage(QString)),this->directives,SLOT(updateInfo(QString)));
 	//TODO
 
 	ui.saveDutyChartBtn->setEnabled(true);
