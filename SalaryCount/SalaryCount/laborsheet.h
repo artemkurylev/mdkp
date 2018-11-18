@@ -51,7 +51,7 @@ public:
 	
 	/*! ѕодсчитать плановое рабочее врем€ за период
 	*/
-	int countDefaultTimeUnits();
+	int countBaseTimeUnits();
 	/*! ѕодсчитать отработанное врем€ за период
 	*/
 	int countActualTimeUnits ();
