@@ -8,7 +8,7 @@ salarycountLaborSheet::salarycountLaborSheet(Ui_SalaryCount *ui, QString name)
 	this->setObjectName(name);
 	this->ui = ui;//не самый приятный способ
 
-	BillingPeriod* _viewedPeriod = BillingPeriod::getCurrentPeriod();
+	this->_viewedPeriod = BillingPeriod::getCurrentPeriod();
 	ui->BillingPeriod_dateEdit->setDate(_viewedPeriod->startDate());
 	ui->ClosePeriod_button->setEnabled(true);
 
@@ -102,7 +102,7 @@ void salarycountLaborSheet::switchMode(app_states state)
 }
 void salarycountLaborSheet::updateInfo(QString name)
 {
-    if(!this->objectName().compare(name))
+    if(this->objectName().compare(name) != 0)
 		return;
 
     QList<LaborSheet>& labor_data = LaborSheet::getByPeriodId(_viewedPeriod->id());
