@@ -113,6 +113,10 @@ void salarycountLaborSheet::updateInfo(QString name)
     /*if(ui->employeeLaborSheetTable->rowCount() != labor_data.size())
 	{*/
         ui->employeeLaborSheetTable->clearContents();
+        for(int i = 0; i < ui->employeeLaborSheetTable->rowCount();++i)
+        {
+            ui->employeeLaborSheetTable->removeRow(0);
+        }
         int row = 0;
         for(int i = 0; i < labor_data.size(); ++i)
         {
@@ -123,6 +127,8 @@ void salarycountLaborSheet::updateInfo(QString name)
             ui->employeeLaborSheetTable->setItem(row,1,new QTableWidgetItem(employee.fio()));
             ui->employeeLaborSheetTable->item(row,0)->setData(Qt::UserRole,labor_data[i].id());
 			// TODO: добавить инфо по остальным столбцам (прочерки или реальные значени€ дл€ закрытого мес€ца)
+            if(labor_data[i].award() > 0)
+                ui->employeeLaborSheetTable->setItem(row,2,new QTableWidgetItem(QString::number(labor_data[i].award())));
             ++row;
         }
         if(ui->employeeLaborSheetTable->rowCount() > 0)
