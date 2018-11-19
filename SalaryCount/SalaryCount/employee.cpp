@@ -189,7 +189,9 @@ QMap<int,QString> Employee::getAll()
         {
             while(query->next())
             {
-                records.insert(query->value(0).toInt(), query->value(0).toString()); 
+                int id = query->value(0).toInt();
+                QString s = query->value(1).toString();
+                records[id] = s; 
             }
         }
         QString s = query->lastError().text();
