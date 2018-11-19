@@ -101,7 +101,7 @@ bool Employee::createDbTable()
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        if(query->exec("CREATE TABLE IF NOT EXISTS `employee` (`id` INT(11) NOT NULL AUTO_INCREMENT, `fio` CHAR(30) NOT NULL, `phone_number` CHAR(20),`inn` DECIMAL(10),`hire_directive_id` INT(11),`dutychart_id` INT(11),`next_dutyñhart_id` INT(11),`next_dutyñhart_since` DATE, PRIMARY KEY(`id`))"))
+        if(query->exec("CREATE TABLE IF NOT EXISTS `employee` (`id` INT(11) NOT NULL AUTO_INCREMENT, `fio` CHAR(30) NOT NULL, `phone_number` CHAR(20),`inn` DECIMAL(10),`hire_directive_id` INT(11),`dutychart_id` INT(11),`next_dutychart_id` INT(11),`next_dutychart_since` DATE, PRIMARY KEY(`id`))"))
 		{
 			success = true;
 		}
