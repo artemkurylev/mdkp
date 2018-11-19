@@ -81,13 +81,14 @@ bool LaborSheet::fillWithDefaults()
         if(dutyChart_index >= length)
             dutyChart_index = 0;
         Mark m(_dutyChart->grid()[dutyChart_index]);
+
 		// записать ID в отметку!
 		m.setDutyChartId( NULL );
 		m.setLaborsheetId(this->_id);
 		// сбросить изменённые данные
 		m.resetAltered();
 
-        this->_grid.push_back(m);
+		this->_grid.push_back(m);
     }
 	
 	//// не обновляем табель в БД сразу (неизвестно - это update или insert)
