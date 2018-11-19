@@ -307,7 +307,7 @@ void salarycountEmployees::saveEditableEntries(Employee* obj)
 		if(!hd->update()) throw this->journal->updateError();
 
 		//
-		QListWidgetItem *item = ui->dutyChartList->currentItem();
+		QListWidgetItem *item = ui->employeeList->currentItem();
 		if(item) item->setText(obj->fio());//+"\t\t"+QString::number(obj->inn()
 
 		switchMode(app_states::USUAL);
@@ -380,20 +380,31 @@ void salarycountEmployees::saveNewEmployee()
 {
 	if(this->currentState != app_states::USUAL)
 	{
-		Employee* obj = shapeDataObject();//собрать данные
-	
-		switch(this->currentState)
+		try
 		{
-			case app_states::ADD:
-				saveNewEntries(obj);
-			break;
+			Employee* obj = shapeDataObject();//собрать данные
 
-			case app_states::EDIT:
-				saveEditableEntries(obj);
-			break;
+			if(!obj) throw this->journal->nullPtr();
+	
+			switch(this->currentState)
+			{
+				case app_states::ADD:
+					saveNewEntries(obj);
+				break;
+
+				case app_states::EDIT:
+					saveEditableEntries(obj);
+				break;
+			}
+
+			delete obj;
 		}
-
-		delete obj;
+		catch(log_errors::exception_states e)
+		{
+			show_last_error();
+			this->journal->lastConflictNonResolved();
+			switchMode(app_states::USUAL);
+		}
 	}
 }
 
