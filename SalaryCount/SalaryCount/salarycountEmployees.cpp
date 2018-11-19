@@ -274,10 +274,10 @@ void salarycountEmployees::saveNewEntries(Employee* obj)
 		if(hd->insert()==-1) throw this->journal->insertError();
 
 		//добавить значение в конец списка
-		QListWidgetItem *item = new QListWidgetItem(obj->fio()+"\t\t\t\t"+QString::number(obj->inn()), ui->employeeList, id);
+		QListWidgetItem *item = new QListWidgetItem(obj->fio(), ui->employeeList, id);//+"\t\t"+QString::number(obj->inn()
 		ui->employeeList->addItem(item);
 
-		ui->employeeList->setCurrentRow(ui->dutyChartList->count()-1);
+		ui->employeeList->setCurrentRow(ui->employeeList->count()-1);
 		switchMode(app_states::USUAL);
 
 		delete hd;
@@ -308,7 +308,7 @@ void salarycountEmployees::saveEditableEntries(Employee* obj)
 
 		//
 		QListWidgetItem *item = ui->dutyChartList->currentItem();
-		if(item) item->setText(obj->fio()+"\t\t\t\t"+QString::number(obj->inn()));
+		if(item) item->setText(obj->fio());//+"\t\t"+QString::number(obj->inn()
 
 		switchMode(app_states::USUAL);
 	}
