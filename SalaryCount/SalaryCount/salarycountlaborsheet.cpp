@@ -124,7 +124,8 @@ void salarycountLaborSheet::updateInfo(QString name)
 			// TODO: добавить инфо по остальным столбцам (прочерки или реальные значени€ дл€ закрытого мес€ца)
             ++row;
         }
-        ui->employeeLaborSheetTable->setCurrentCell(0,1);
+        if(ui->employeeLaborSheetTable->rowCount() > 0)
+            ui->employeeLaborSheetTable->setCurrentCell(0,1);
 	}
 }
 
