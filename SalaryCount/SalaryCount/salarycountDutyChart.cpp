@@ -83,16 +83,19 @@ void salarycountDutyChart::editDutyChart()
 */
 void salarycountDutyChart::cancelNewDutyChart()
 {
-	switchMode(app_states::USUAL);
-
-	int row = ui->dutyChartList->currentRow();
-	if(row!=-1)
-	{ 
-		showSelectedItem(row);
-	}
-	else
+	if(this->currentState != app_states::USUAL)
 	{
-		clearFields();//clear fields
+		switchMode(app_states::USUAL);
+
+		int row = ui->dutyChartList->currentRow();
+		if(row!=-1)
+		{ 
+			showSelectedItem(row);
+		}
+		else
+		{
+			clearFields();//clear fields
+		}
 	}
 }
 
@@ -131,20 +134,24 @@ void salarycountDutyChart::deleteDutyChart()
 
 void salarycountDutyChart::saveNewDutyChart()
 {
-	DutyChart* obj = shapeDataObject();//собрать данные
 
-	switch(this->currentState)
+	if(this->currentState != app_states::USUAL)
 	{
-		case app_states::ADD:
-			saveNewEntries(obj);
-		break;
+		DutyChart* obj = shapeDataObject();//собрать данные
 
-		case app_states::EDIT:
-			saveEditableEntries(obj);
-		break;
+		switch(this->currentState)
+		{
+			case app_states::ADD:
+				saveNewEntries(obj);
+			break;
+
+			case app_states::EDIT:
+				saveEditableEntries(obj);
+			break;
+		}
+
+		delete obj;
 	}
-
-	delete obj;
 }
 
 void salarycountDutyChart::saveNewEntries(DutyChart* obj)
