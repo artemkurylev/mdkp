@@ -110,9 +110,10 @@ BillingPeriod* LaborSheet::billingPeriod()
 PayForm LaborSheet::payForm()
 {
 	Employee* e = employee();
+    e->fetch();
 	HireDirective* h = e->hireDirective();
+    h->fetch();
 	PayForm p = h->payForm();
-  
 	return p;
 }
 DutyChart* LaborSheet::dutyChart()
