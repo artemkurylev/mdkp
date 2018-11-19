@@ -65,7 +65,7 @@ bool LaborSheet::fillWithDefaults()
 	// Вычислить относительное смещение наложения графика на месяц
     this->dutyChart();
     this->billingPeriod();
-    this->billingPeriod()->fetch();
+    //this->billingPeriod()->fetch();
     const QDate buffer_date = this->_dutyChart->anchorDate();
     int count_diff_days = 0;
     count_diff_days = abs(buffer_date.daysTo(this->_billingPeriod->startDate()));
@@ -85,6 +85,8 @@ bool LaborSheet::fillWithDefaults()
 		// записать ID в отметку!
 		m.setDutyChartId( NULL );
 		m.setLaborsheetId(this->_id);
+		// сбросить изменённые данные
+		m.resetAltered();
 
         this->_grid.push_back(m);
     }
@@ -114,6 +116,7 @@ BillingPeriod* LaborSheet::billingPeriod()
 	if(_billingPeriod == NULL)
 	{
 		_billingPeriod = new BillingPeriod(_billingPeriodId);
+		_billingPeriod->fetch();
 	}
 	return _billingPeriod;
 }

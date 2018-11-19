@@ -283,7 +283,8 @@ DutyChart* salarycountDutyChart::shapeDataObject()
 		delete m;
 	}
 
-	//DutyChart* obj = new DutyChart(name,*ms,ancDate,pf);
+	delete obj;
+	obj = new DutyChart(name,*ms,ancDate,pf);
 	delete ms;
 
 	return obj;
