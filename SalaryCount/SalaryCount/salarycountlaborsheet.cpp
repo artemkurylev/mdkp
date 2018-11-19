@@ -117,6 +117,7 @@ void salarycountLaborSheet::updateInfo(QString name)
         {
             ui->employeeLaborSheetTable->insertRow(row);
             Employee employee(*(labor_data[i].employee()));
+            employee.fetch();
             ui->employeeLaborSheetTable->setItem(row,0,new QTableWidgetItem(QString(labor_data[i].id())));
             ui->employeeLaborSheetTable->setItem(row,1,new QTableWidgetItem(employee.fio()));
             ui->employeeLaborSheetTable->item(row,0)->setData(Qt::UserRole,labor_data[i].id());
@@ -200,12 +201,12 @@ void salarycountLaborSheet::showSelectedItem(int row)
                 combo->clear();
                 for(int j = 0; j <= 12; ++j)
                 {
-                    combo->insertItem(j,QString(j));
+                    combo->insertItem(j,QString::number(j));
                 }
                 if(marks[i - start].alteredCountHours() == Mark::INVALID) 
-                    combo->setCurrentIndex(marks[i].countHours());
+                    combo->setCurrentIndex(marks[i - start].countHours());
                 else
-                    combo->setCurrentIndex(marks[i].alteredCountHours());
+                    combo->setCurrentIndex(marks[i - start].alteredCountHours());
             }
         }
     }
@@ -226,6 +227,7 @@ void salarycountLaborSheet::periodDateChanged(const QDate& date)
 		ui->ClosePeriod_button->setEnabled(this->_viewedPeriod->status() == BillingPeriod::OPEN);
 		ui->GoToCurrentPeriod_button->setEnabled(this->_viewedPeriod->status() != BillingPeriod::OPEN);
 		regenMarksCalendar();
+        updateInfo(this->objectName());
 	}
 	else
 	{

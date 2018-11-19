@@ -70,6 +70,7 @@ bool BookKeeper::closeBillingPeriod(BillingPeriod & billingPeriod)
 	foreach(int id, employees)
 	{
 		Employee emp(id);
+        emp.fetch();
 		if(emp.hireDate() <= next_period.startDate()) // только для принятых сотрудников
 		{
 			// "проапгрейдить" график
@@ -86,6 +87,7 @@ bool BookKeeper::closeBillingPeriod(BillingPeriod & billingPeriod)
 			// заполнить табель отметками по умолчанию
 			// И сохранить в БД
 			lbrsh.fillWithDefaults();
+            lbrsh.insert();
 		}
 
 	}
