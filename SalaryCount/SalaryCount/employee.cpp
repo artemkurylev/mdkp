@@ -10,6 +10,7 @@ Employee::Employee(int id)
     : DbRecord(id)
 {
 	_hireDirective = NULL;
+    _nextDutyChartID = -1;
 }
 Employee::Employee(const Employee& employee)
 {
@@ -21,6 +22,7 @@ Employee::Employee(const Employee& employee)
     this->_nextDutyChartID = employee.nextDutyChartID();
     this->_nextDutyChartSince = employee.nextDutyChartSince();
     this->_hireDirective = NULL;
+    _nextDutyChartID= - 1;
 }
 /*! Êîíñòðóêòîð ñîçäàíèÿ íîâîé çàïèñè
 Ïðåäïîëàãàåòñÿ, ÷òî ïðèêàç è ãðàôèê óæå ñîçäàíû è èìåþò ID
@@ -35,6 +37,7 @@ Employee::Employee(QString _fio,QString _phoneNumber,long long _INN,int _current
 	this->_hireDirectiveID = _hireDirectiveID;
     this->_hireDirective = NULL;
 	// îñòàâèòü ïóñòûìè
+    _nextDutyChartID = - 1;
 	resetNextDutyChart();
 }
 Employee::Employee(int id, QString _fio,QString _phoneNumber,long long _INN,int _currentDutyChartID,int _hireDirectiveID)
@@ -46,6 +49,7 @@ Employee::Employee(int id, QString _fio,QString _phoneNumber,long long _INN,int 
 	this->_currentDutyChartID = _currentDutyChartID;
 	this->_hireDirectiveID = _hireDirectiveID;
     this->_hireDirective = NULL;
+    _nextDutyChartID = -1;
 	// îñòàâèòü ïóñòûìè
 	resetNextDutyChart();
 }
@@ -63,7 +67,7 @@ bool Employee::update() const
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        query->prepare("UPDATE `employee` SET fio = :fio , phone_number = :phone_number, inn = :inn, hire_directive_id = :hire_directive_id, dutychart_id = :dutychart_id, next_dutyñhart_id = :next_dutyñhart_id, next_dutyñhart_since = :next_dutyñhart_since WHERE `id` = id");
+        query->prepare("UPDATE `employee` SET `fio` = :fio , `phone_number` = :phone_number, `inn` = :inn, `hire_directive_id` = :hire_directive_id, `dutychart_id` = :dutychart_id, `next_dutyñhart_id` = :next_dutyñhart_id, `next_dutyñhart_since` = :next_dutyñhart_since WHERE `id` = id");
         query->bindValue(":fio",this->_fio);
         query->bindValue(":phone_number",this->_phoneNumber);
         query->bindValue(":inn",this->_INN);
