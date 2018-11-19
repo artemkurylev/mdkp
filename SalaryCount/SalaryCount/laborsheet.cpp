@@ -66,8 +66,10 @@ bool LaborSheet::fillWithDefaults()
     //this->billingPeriod()->fetch();
     const QDate buffer_date = this->_dutyChart->anchorDate();
     int count_diff_days = 0;
-    count_diff_days = abs(buffer_date.daysTo(this->_billingPeriod->startDate()));
+    count_diff_days = buffer_date.daysTo(this->_billingPeriod->startDate());
     int length = _dutyChart->length();
+	while(count_diff_days < 0)
+		count_diff_days += length;
     int bias = count_diff_days % length;
     int dutyChart_index = bias;
 	
