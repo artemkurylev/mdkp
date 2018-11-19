@@ -109,8 +109,8 @@ void salarycountLaborSheet::updateInfo(QString name)
     QList<LaborSheet> labor_data = LaborSheet::getByPeriodId(_viewedPeriod->id());
 	// > перенесено в конструктор (мен€етс€ единожды)
     //ui->BillingPeriod_dateEdit->setDate(_viewedPeriod->startDate());
-    if(ui->employeeLaborSheetTable->rowCount() != labor_data.size())
-	{
+    /*if(ui->employeeLaborSheetTable->rowCount() != labor_data.size())
+	{*/
         ui->employeeLaborSheetTable->clearContents();
         int row = 0;
         for(int i = 0; i < labor_data.size(); ++i)
@@ -124,8 +124,9 @@ void salarycountLaborSheet::updateInfo(QString name)
 			// TODO: добавить инфо по остальным столбцам (прочерки или реальные значени€ дл€ закрытого мес€ца)
             ++row;
         }
-        ui->employeeLaborSheetTable->setCurrentCell(0,1);
-	}
+        if(ui->employeeLaborSheetTable->rowCount() > 0)
+            ui->employeeLaborSheetTable->setCurrentCell(0,1);
+	//}
 }
 
 void salarycountLaborSheet::showSelectedItem(int row)
@@ -228,6 +229,11 @@ void salarycountLaborSheet::periodDateChanged(const QDate& date)
 		ui->GoToCurrentPeriod_button->setEnabled(this->_viewedPeriod->status() != BillingPeriod::OPEN);
 		regenMarksCalendar();
         updateInfo(this->objectName());
+        if(ui->laborSheet->rowCount() > 0)
+        {
+            ui->laborSheet->setCurrentCell(0,1);
+            showSelectedItem(0);
+        }
 	}
 	else
 	{
@@ -275,7 +281,8 @@ void salarycountLaborSheet::closePeriod()
 	QPair<QDate,QDate> date_span = BillingPeriod::getDateSpan();
 	ui->BillingPeriod_dateEdit->setDateRange(date_span.first, date_span.second);
 
-	updateInfo(this->objectName());
+	//updateInfo(this->objectName());
+        
 }
 void salarycountLaborSheet::editLaborSheet()
 {
