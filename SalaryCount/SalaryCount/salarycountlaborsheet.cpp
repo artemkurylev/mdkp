@@ -107,8 +107,7 @@ void salarycountLaborSheet::updateInfo(QString name)
     if(this->objectName().compare(name) != 0)
 		return;
 
-
-    QList<LaborSheet>& labor_data = LaborSheet::getByPeriodId(_viewedPeriod->id());
+    QList<LaborSheet> labor_data = LaborSheet::getByPeriodId(_viewedPeriod->id());
 	// > перенесено в конструктор (меняется единожды)
     //ui->BillingPeriod_dateEdit->setDate(_viewedPeriod->startDate());
     /*if(ui->employeeLaborSheetTable->rowCount() != labor_data.size())

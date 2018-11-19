@@ -78,7 +78,11 @@ bool LaborSheet::fillWithDefaults()
         if(dutyChart_index >= length)
             dutyChart_index = 0;
         Mark m(_dutyChart->grid()[dutyChart_index]);
-        m.setDutyChartId(0);
+
+		// записать ID в отметку!
+		m.setDutyChartId( NULL );
+		m.setLaborsheetId(this->_id);
+
         this->_grid.push_back(m);
     }
 	
@@ -98,7 +102,7 @@ Employee* LaborSheet::employee()
 	if(_employee == NULL)
 	{
 		_employee = new Employee(_employeeId);
-        //_employee->fetch(); // автоматически!
+        _employee->fetch();
 	}
 	return _employee;
 }
