@@ -78,11 +78,17 @@ bool Employee::update() const
         query->bindValue(":id", this->id());
         if(query->exec())
         {
+			QString s = query->lastError().text();
+s+="as";
+
             delete query;
             return true;
         }
         else
         {
+			QString s = query->lastError().text();
+s+="as";
+
             delete query;
             return false;
         }

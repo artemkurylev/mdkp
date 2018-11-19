@@ -100,12 +100,12 @@ void salarycountEmployees::parseDataObject(const Employee* obj)
 		ui->INN->setText(QString::number(obj->inn()));
 
 		HireDirective *hd = new HireDirective(obj->hireDirectiveID());
-		if(!hd) throw this->journal->nullPtr();
+		if(!hd->fetch()) throw this->journal->fetchError();
 
 		ui->eReceiptDate->setDate(hd->hireDate());
 		ui->eOrderNum->setText(QString::number(hd->id()));
 		ui->eSalary->setValue(hd->salary());
-		ui->ePayFormChoice->setCurrentIndex(hd->payForm()==PayForm::PER_MONTH ? 0 : 1);
+		ui->ePayFormChoice->setCurrentIndex(hd->payForm()==PayForm::PER_MONTH ? 1 : 0);
 
 		int row = ui->eDutyChart->findData(QVariant(obj->currentDutyChartID()));
 		if(row==-1)throw this->journal->invalidData();
@@ -265,7 +265,7 @@ void salarycountEmployees::saveNewEntries(Employee* obj)
 		if(this->currentState != app_states::ADD) 
 			throw this->journal->compareError("Значения состояния для сохранения не совпадает с состоянием приложения");
 		if(!obj) throw this->journal->nullPtr();
-		//if(!obj->validate()) throw this->journal->validateError();
+		if(!obj->validate()) throw this->journal->validateError();
 		if( (id=obj->insert())==-1) throw this->journal->insertError();
 
 		HireDirective* hd = shapeHireDirective(id);
@@ -274,10 +274,10 @@ void salarycountEmployees::saveNewEntries(Employee* obj)
 		if(hd->insert()==-1) throw this->journal->insertError();
 
 		//добавить значение в конец списка
-		QListWidgetItem *item = new QListWidgetItem(obj->fio()+"\t\t\t\t"+obj->inn(), ui->employeeList, id);
+		QListWidgetItem *item = new QListWidgetItem(obj->fio(), ui->employeeList, id);//+"\t\t"+QString::number(obj->inn()
 		ui->employeeList->addItem(item);
 
-		ui->employeeList->setCurrentRow(ui->dutyChartList->count()-1);
+		ui->employeeList->setCurrentRow(ui->employeeList->count()-1);
 		switchMode(app_states::USUAL);
 
 		delete hd;
@@ -307,8 +307,8 @@ void salarycountEmployees::saveEditableEntries(Employee* obj)
 		if(!hd->update()) throw this->journal->updateError();
 
 		//
-		QListWidgetItem *item = ui->dutyChartList->currentItem();
-		if(item) item->setText(obj->fio()+"\t\t\t\t"+obj->inn());
+		QListWidgetItem *item = ui->employeeList->currentItem();
+		if(item) item->setText(obj->fio());//+"\t\t"+QString::number(obj->inn()
 
 		switchMode(app_states::USUAL);
 	}
@@ -336,11 +336,11 @@ void salarycountEmployees::updateInfo(QString name)
 			foreach(const int &iter, keys)
 			{
 				QString d = allEntries.value( iter );
-				QListWidgetItem *item = new QListWidgetItem(allEntries.value( iter ), ui->dutyChartList, iter);
-				ui->dutyChartList->addItem(item);
+				QListWidgetItem *item = new QListWidgetItem(allEntries.value( iter ), ui->employeeList, iter);
+				ui->employeeList->addItem(item);
 			}
 
-			ui->dutyChartList->setCurrentRow(0);
+			ui->employeeList->setCurrentRow(0);
 		}
 	}
 }
@@ -380,20 +380,31 @@ void salarycountEmployees::saveNewEmployee()
 {
 	if(this->currentState != app_states::USUAL)
 	{
-		Employee* obj = shapeDataObject();//собрать данные
-	
-		switch(this->currentState)
+		try
 		{
-			case app_states::ADD:
-				saveNewEntries(obj);
-			break;
+			Employee* obj = shapeDataObject();//собрать данные
 
-			case app_states::EDIT:
-				saveEditableEntries(obj);
-			break;
+			if(!obj) throw this->journal->nullPtr();
+	
+			switch(this->currentState)
+			{
+				case app_states::ADD:
+					saveNewEntries(obj);
+				break;
+
+				case app_states::EDIT:
+					saveEditableEntries(obj);
+				break;
+			}
+
+			delete obj;
 		}
-
-		delete obj;
+		catch(log_errors::exception_states e)
+		{
+			show_last_error();
+			this->journal->lastConflictNonResolved();
+			switchMode(app_states::USUAL);
+		}
 	}
 }
 
