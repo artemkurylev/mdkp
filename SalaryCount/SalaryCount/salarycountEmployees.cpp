@@ -279,7 +279,8 @@ void salarycountEmployees::saveNewEntries(Employee* obj)
 		if(this->currentState != app_states::ADD) 
 			throw this->journal->compareError("Значения состояния для сохранения не совпадает с состоянием приложения");
 		if(!obj) throw this->journal->nullPtr();
-		//if(!obj->validate()) throw this->journal->validateError();
+
+		if(!obj->validate()) throw this->journal->validateError("Кажется вы ввели ИНН или номер телефона который уже есть");
 		if( (id=obj->insert())==-1) throw this->journal->insertError();
 
 		HireDirective* hd = shapeHireDirective(id);
