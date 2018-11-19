@@ -12,9 +12,10 @@ HireDirective::HireDirective(int id)
 {
 	_hiredEmployee = NULL;
 }
-HireDirective::HireDirective(QDate hireDate, QString fio, PayForm payForm, float salary, int employeeID)
+HireDirective::HireDirective(int id, QDate hireDate, QString fio, PayForm payForm, float salary, int employeeID)
     : DbRecord(NULL)
 {
+	this->_id = id;
 	this->_hireDate = hireDate;
 	this->_fio = fio;
 	this->_payForm = payForm;
