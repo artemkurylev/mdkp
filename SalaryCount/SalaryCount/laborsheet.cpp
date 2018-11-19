@@ -173,8 +173,8 @@ int LaborSheet::insert()
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
 
-        query->prepare("INSERT INTO `labor_sheet` (`billing_period_id`,`employee_id`,`dutychart_id`) VALUES(:billing_period_id,:employee_id,:dutychart_id)");
-        query->bindValue(":billing_period_id",this->_billingPeriod->id());
+        query->prepare("INSERT INTO `labor_sheet` (billing_period_id,employee_id,dutychart_id, award) VALUES(:billing_period_id,:employee_id,:dutychart_id,:award)");
+        query->bindValue(":billing_period_id",this->_billingPeriodId);
         query->bindValue(":employee_id",this->_employeeId);
         query->bindValue(":dutychart_id", this->_dutyChartId);
         query->bindValue(":award",this->_award);
