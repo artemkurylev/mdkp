@@ -6,6 +6,7 @@ LaborSheet::LaborSheet()
     _billingPeriod = NULL;
     _employee = NULL;
     _dutyChart = NULL;
+    this->_award = 0;
 }
 LaborSheet::LaborSheet(int employeeId, int billingPeriodId)
     : DbRecord()
@@ -15,6 +16,7 @@ LaborSheet::LaborSheet(int employeeId, int billingPeriodId)
     _dutyChart = NULL;
     this->_employeeId = employeeId;
     this->_billingPeriodId = billingPeriodId;
+    this->_award = 0;
 }
 LaborSheet::LaborSheet(const LaborSheet& laborsheet)
     : DbRecord()
@@ -27,6 +29,7 @@ LaborSheet::LaborSheet(const LaborSheet& laborsheet)
     this->_billingPeriod = NULL;
     this->_dutyChart = NULL;
     this->_grid = laborsheet.grid();
+    this->_award = laborsheet.award();
 }
 LaborSheet::LaborSheet(int id, int billingPeriodId, int employeeId, QList<Mark> grid)
 {
@@ -60,11 +63,13 @@ bool LaborSheet::fillWithDefaults()
 	// Вычислить относительное смещение наложения графика на месяц
     this->dutyChart();
     this->billingPeriod();
-    this->billingPeriod()->fetch();
+    //this->billingPeriod()->fetch();
     const QDate buffer_date = this->_dutyChart->anchorDate();
     int count_diff_days = 0;
-    count_diff_days = abs(buffer_date.daysTo(this->_billingPeriod->startDate()));
+    count_diff_days = buffer_date.daysTo(this->_billingPeriod->startDate());
     int length = _dutyChart->length();
+	while(count_diff_days < 0)
+		count_diff_days += length;
     int bias = count_diff_days % length;
     int dutyChart_index = bias;
 	
@@ -76,7 +81,12 @@ bool LaborSheet::fillWithDefaults()
         if(dutyChart_index >= length)
             dutyChart_index = 0;
         Mark m(_dutyChart->grid()[dutyChart_index]);
-        m.setDutyChartId(0);
+
+		// записать ID в отметку!
+		m.setDutyChartId( NULL );
+		m.setLaborsheetId(this->_id);
+		// сбросить изменённые данные
+		m.resetAltered();
         this->_grid.push_back(m);
     }
 	
@@ -96,7 +106,7 @@ Employee* LaborSheet::employee()
 	if(_employee == NULL)
 	{
 		_employee = new Employee(_employeeId);
-        //_employee->fetch(); // автоматически!
+        _employee->fetch();
 	}
 	return _employee;
 }
@@ -105,6 +115,7 @@ BillingPeriod* LaborSheet::billingPeriod()
 	if(_billingPeriod == NULL)
 	{
 		_billingPeriod = new BillingPeriod(_billingPeriodId);
+		_billingPeriod->fetch();
 	}
 	return _billingPeriod;
 }

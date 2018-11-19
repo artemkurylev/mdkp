@@ -280,7 +280,7 @@ DutyChart* salarycountDutyChart::shapeDataObject()
 		ms->append(*m);
 		delete m;
 	}
-
+	delete obj;
 	obj = new DutyChart(name,*ms,ancDate,pf);
 	delete ms;
 
