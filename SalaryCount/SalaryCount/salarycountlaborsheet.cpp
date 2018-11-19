@@ -148,7 +148,7 @@ void salarycountLaborSheet::showSelectedItem(int row)
                 combo->insertItem(0,codec->toUnicode("Выходной"));
                 combo->insertItem(1,codec->toUnicode("Рабочий"));
                 combo->insertItem(2,codec->toUnicode("Отсутствовал"));
-                if(marks[i - start].altered() == Mark::INVALID)
+                if(marks[i - start].isAltered())
                 {
                     switch(marks[i - start].base())
                     {
@@ -203,7 +203,7 @@ void salarycountLaborSheet::showSelectedItem(int row)
                 {
                     combo->insertItem(j,QString::number(j));
                 }
-                if(marks[i - start].alteredCountHours() == Mark::INVALID) 
+                if(marks[i - start].iaAlteredCountHours()) 
                     combo->setCurrentIndex(marks[i - start].countHours());
                 else
                     combo->setCurrentIndex(marks[i - start].alteredCountHours());
