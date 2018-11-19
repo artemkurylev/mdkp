@@ -287,7 +287,7 @@ void salarycountLaborSheet::closePeriod()
 	QPair<QDate,QDate> date_span = BillingPeriod::getDateSpan();
 	ui->BillingPeriod_dateEdit->setDateRange(date_span.first, date_span.second);
 
-	//updateInfo(this->objectName());
+	updateInfo(this->objectName());
         
 }
 void salarycountLaborSheet::editLaborSheet()
