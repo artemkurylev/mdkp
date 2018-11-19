@@ -6,6 +6,7 @@ LaborSheet::LaborSheet()
     _billingPeriod = NULL;
     _employee = NULL;
     _dutyChart = NULL;
+    this->_award = 0;
 }
 LaborSheet::LaborSheet(int employeeId, int billingPeriodId)
     : DbRecord()
@@ -15,6 +16,7 @@ LaborSheet::LaborSheet(int employeeId, int billingPeriodId)
     _dutyChart = NULL;
     this->_employeeId = employeeId;
     this->_billingPeriodId = billingPeriodId;
+    this->_award = 0;
 }
 LaborSheet::LaborSheet(const LaborSheet& laborsheet)
     : DbRecord()
@@ -27,6 +29,7 @@ LaborSheet::LaborSheet(const LaborSheet& laborsheet)
     this->_billingPeriod = NULL;
     this->_dutyChart = NULL;
     this->_grid = laborsheet.grid();
+    this->_award = laborsheet.award();
 }
 LaborSheet::LaborSheet(int id, int billingPeriodId, int employeeId, QList<Mark> grid)
 {
