@@ -107,10 +107,12 @@ void salarycountLaborSheet::updateInfo(QString name)
     if(this->objectName().compare(name) != 0)
 		return;
 
-    QList<LaborSheet> labor_data = LaborSheet::getByPeriodId(BillingPeriod::getCurrentPeriod()->id());
-    ui->BillingPeriod_dateEdit->setDate(BillingPeriod::getCurrentPeriod()->startDate());
-    if(!this->objectName().compare(name) && ui->employeeLaborSheetTable->rowCount() != labor_data.size())
-	{
+
+    QList<LaborSheet>& labor_data = LaborSheet::getByPeriodId(_viewedPeriod->id());
+	// > перенесено в конструктор (меняется единожды)
+    //ui->BillingPeriod_dateEdit->setDate(_viewedPeriod->startDate());
+    /*if(ui->employeeLaborSheetTable->rowCount() != labor_data.size())
+	{*/
         ui->employeeLaborSheetTable->clearContents();
         int row = 0;
         for(int i = 0; i < labor_data.size(); ++i)
@@ -126,7 +128,7 @@ void salarycountLaborSheet::updateInfo(QString name)
         }
         if(ui->employeeLaborSheetTable->rowCount() > 0)
             ui->employeeLaborSheetTable->setCurrentCell(0,1);
-	}
+	//}
 }
 
 void salarycountLaborSheet::showSelectedItem(int row)
@@ -231,6 +233,11 @@ void salarycountLaborSheet::periodDateChanged(const QDate& date)
 		ui->GoToCurrentPeriod_button->setEnabled(this->_viewedPeriod->status() != BillingPeriod::OPEN);
 		regenMarksCalendar();
         updateInfo(this->objectName());
+        if(ui->laborSheet->rowCount() > 0)
+        {
+            ui->laborSheet->setCurrentCell(0,1);
+            showSelectedItem(0);
+        }
 	}
 	else
 	{
@@ -278,7 +285,8 @@ void salarycountLaborSheet::closePeriod()
 	QPair<QDate,QDate> date_span = BillingPeriod::getDateSpan();
 	ui->BillingPeriod_dateEdit->setDateRange(date_span.first, date_span.second);
 
-	updateInfo(this->objectName());
+	//updateInfo(this->objectName());
+        
 }
 void salarycountLaborSheet::editLaborSheet()
 {
