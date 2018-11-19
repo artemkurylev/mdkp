@@ -60,7 +60,10 @@ LaborSheet::~LaborSheet()
 bool LaborSheet::fillWithDefaults()
 {
 	// Вычислить относительное смещение наложения графика на месяц
-    QDate buffer_date = this->_dutyChart->anchorDate();
+    this->dutyChart();
+    this->billingPeriod();
+    this->billingPeriod()->fetch();
+    const QDate buffer_date = this->_dutyChart->anchorDate();
     int count_diff_days = 0;
     count_diff_days = abs(buffer_date.daysTo(this->_billingPeriod->startDate()));
     int length = _dutyChart->length();
@@ -119,6 +122,7 @@ DutyChart* LaborSheet::dutyChart()
 	if(_dutyChart == NULL)
 	{
 		_dutyChart = new DutyChart(_dutyChartId);
+        _dutyChart->fetch();
 	}
 	return _dutyChart;
 }
@@ -168,8 +172,9 @@ int LaborSheet::insert()
 	if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        query->prepare("INSERT INTO `labor_sheet` (billing_period_id,employee_id,dutychart_id, award) VALUES(:billing_period_id,:employee_id,:dutychart_id,:award");
-        query->bindValue(":billing_period_id",this->_billingPeriodId);
+
+        query->prepare("INSERT INTO `labor_sheet` (`billing_period_id`,`employee_id`,`dutychart_id`) VALUES(:billing_period_id,:employee_id,:dutychart_id)");
+        query->bindValue(":billing_period_id",this->_billingPeriod->id());
         query->bindValue(":employee_id",this->_employeeId);
         query->bindValue(":dutychart_id", this->_dutyChartId);
         query->bindValue(":award",this->_award);
