@@ -82,7 +82,7 @@ bool HireDirective::fetch()
     
 bool HireDirective::validate() const
 {
-	return false;
+	return true;
 }
     
 bool HireDirective::update() const

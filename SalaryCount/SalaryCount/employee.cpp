@@ -150,7 +150,7 @@ int Employee::insert()
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        query->prepare("INSERT INTO `employee` (fio,phone_number,inn,hire_directive_id,dutychart_id) VALUES(:fio,:phone_number,:inn,:hire_directive_id,:dutychart_id);");
+        query->prepare("INSERT INTO `employee` (`fio`,`phone_number`,`inn`,`hire_directive_id`,`dutychart_id`) VALUES(:fio,:phone_number,:inn,:hire_directive_id,:dutychart_id);");
         query->bindValue(":fio",this->_fio);
         query->bindValue(":phone_number",this->_phoneNumber);
         query->bindValue(":inn",this->_INN);
@@ -184,7 +184,7 @@ QMap<int,QString> Employee::getAll()
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
 
-        query->prepare("SELECT id,name FROM `employee`");
+        query->prepare("SELECT `id`,`name` FROM `employee`");
         if(query->exec())
         {
             while(query->next())
@@ -203,7 +203,7 @@ bool Employee::validate() const
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        query->prepare("ISELECT id FROM `employee` WHERE `id` <> :id AND ( `phone_number` = :phone_number OR `inn` = :inn );");
+        query->prepare("SELECT id FROM `employee` WHERE `id` <> :id AND ( `phone_number` = :phone_number OR `inn` = :inn );");
         query->bindValue(":id",this->_id);
         query->bindValue(":phone_number",this->_phoneNumber);
         query->bindValue(":inn",this->_INN);
