@@ -79,8 +79,8 @@ bool LaborSheet::fillWithDefaults()
         this->_grid.push_back(m);
     }
 	
-	// Обновить табель в БД
-    return this->update();
+	//// не обновляем табель в БД сразу (неизвестно - это update или insert)
+    return true; // this->update();
 }
 void LaborSheet::commitChanges()
 {
