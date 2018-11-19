@@ -11,9 +11,6 @@ class BillingPeriod : public DbRecord
     Q_OBJECT
 
 public:
-    BillingPeriod(const QDate& startDate);
-    BillingPeriod(int id) : DbRecord(id) {_next = NULL;}
-
 	//! Статус Расчётного периода
     enum Status
 	{
@@ -23,7 +20,7 @@ public:
 		MODIFIED	/*< Изменён после закрытия и ожидает повторного закрытия */
 	};
 
-	BillingPeriod(int id) : DbRecord(id) {}
+    BillingPeriod(int id) : DbRecord(id) {_next = NULL;}
     BillingPeriod(const QDate& startDate);
     BillingPeriod(const QDate& startDate, Status status);
     BillingPeriod(int id, const QDate& startDate, Status status);
