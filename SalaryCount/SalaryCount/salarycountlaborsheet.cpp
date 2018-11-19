@@ -207,7 +207,7 @@ void salarycountLaborSheet::showSelectedItem(int row)
                 {
                     combo->insertItem(j,QString::number(j));
                 }
-                if(marks[i - start].iaAlteredCountHours()) 
+                if(marks[i - start].isAlteredCountHours()) 
                     combo->setCurrentIndex(marks[i - start].countHours());
                 else
                     combo->setCurrentIndex(marks[i - start].alteredCountHours());
