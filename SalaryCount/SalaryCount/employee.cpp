@@ -91,7 +91,7 @@ bool Employee::createDbTable()
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        if(query->exec("CREATE TABLE IF NOT EXISTS `employee` (`id` INT(11) NOT NULL AUTO_INCREMENT, `fio` CHAR(30) NOT NULL, `phone_number` CHAR(20),`inn` INT(10),`hire_directive_id` INT(11),`dutychart_id` INT(11),`next_dutyñhart_id` INT(11),`next_dutyñhart_since` DATE, PRIMARY KEY(`id`))"))
+        if(query->exec("CREATE TABLE IF NOT EXISTS `employee` (`id` INT(11) NOT NULL AUTO_INCREMENT, `fio` CHAR(30) NOT NULL, `phone_number` CHAR(20),`inn` DECIMAL(10),`hire_directive_id` INT(11),`dutychart_id` INT(11),`next_dutyñhart_id` INT(11),`next_dutyñhart_since` DATE, PRIMARY KEY(`id`))"))
 		{
 			success = true;
 		}
@@ -184,7 +184,7 @@ QMap<int,QString> Employee::getAll()
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
 
-        query->prepare("SELECT `id`,`name` FROM `employee`");
+        query->prepare("SELECT `id`,`fio` FROM `employee`");
         if(query->exec())
         {
             while(query->next())
@@ -192,6 +192,7 @@ QMap<int,QString> Employee::getAll()
                 records.insert(query->value(0).toInt(), query->value(0).toString()); 
             }
         }
+        QString s = query->lastError().text();
         delete query;
     }
 
