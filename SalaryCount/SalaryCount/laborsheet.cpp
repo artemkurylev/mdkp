@@ -78,6 +78,7 @@ bool LaborSheet::fillWithDefaults()
         if(dutyChart_index >= length)
             dutyChart_index = 0;
         Mark m(_dutyChart->grid()[dutyChart_index]);
+        m.setDutyChartId(0);
         this->_grid.push_back(m);
     }
 	
