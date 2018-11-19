@@ -77,7 +77,7 @@ HireDirective* salarycountEmployees::shapeHireDirective(int idEmployee)
 		int id = ui->eOrderNum->text().toInt();
 		QString FIO = ui->eFIO->text();
 		QDate &hd = ui->eReceiptDate->date();
-		PayForm pf = (ui->ePayFormChoice==0 ? PayForm::PER_MONTH : PayForm::PER_HOUR);
+        PayForm pf = (ui->ePayFormChoice->currentIndex()==0 ? PayForm::PER_MONTH : PayForm::PER_HOUR);
 		float sal = ui->eSalary->value();
 
 		HireDirective* obj = new HireDirective(id,hd,FIO,pf,sal,idEmployee);
@@ -106,7 +106,7 @@ void salarycountEmployees::parseDataObject(const Employee* obj)
 		ui->eReceiptDate->setDate(hd->hireDate());
 		ui->eOrderNum->setText(QString::number(hd->id()));
 		ui->eSalary->setValue(hd->salary());
-		ui->ePayFormChoice->setCurrentIndex(hd->payForm()==PayForm::PER_MONTH ? 1 : 0);
+		ui->ePayFormChoice->setCurrentIndex(hd->payForm()==PayForm::PER_MONTH ? 0 : 1);
 
 		int row = ui->eDutyChart->findData(QVariant(obj->currentDutyChartID()));
 		if(row==-1)throw this->journal->invalidData();
