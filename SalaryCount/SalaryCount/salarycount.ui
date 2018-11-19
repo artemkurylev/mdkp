@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>701</width>
+    <width>703</width>
     <height>552</height>
    </rect>
   </property>
@@ -59,16 +59,6 @@
                </property>
               </widget>
              </item>
-             <item>
-              <widget class="QPushButton" name="deleteEmployeeBtn">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="text">
-                <string>Удалить</string>
-               </property>
-              </widget>
-             </item>
             </layout>
            </item>
            <item row="3" column="0">
@@ -105,9 +95,9 @@
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>-71</y>
+             <y>-24</y>
              <width>261</width>
-             <height>532</height>
+             <height>485</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_2">
@@ -153,7 +143,7 @@
                  <item>
                   <widget class="QLabel" name="label_5">
                    <property name="text">
-                    <string>Оклад</string>
+                    <string>Оклад (руб)</string>
                    </property>
                   </widget>
                  </item>
@@ -207,7 +197,11 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QComboBox" name="eDutyChart"/>
+                  <widget class="QComboBox" name="eDutyChart">
+                   <property name="modelColumn">
+                    <number>0</number>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>
@@ -238,35 +232,6 @@
                 </layout>
                </item>
                <item>
-                <layout class="QVBoxLayout" name="verticalLayout_2">
-                 <item>
-                  <widget class="QLabel" name="label_9">
-                   <property name="text">
-                    <string>Дата рождения</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QDateEdit" name="eBDay">
-                   <property name="maximumDate">
-                    <date>
-                     <year>2200</year>
-                     <month>12</month>
-                     <day>31</day>
-                    </date>
-                   </property>
-                   <property name="minimumDate">
-                    <date>
-                     <year>1930</year>
-                     <month>1</month>
-                     <day>1</day>
-                    </date>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-               <item>
                 <layout class="QVBoxLayout" name="verticalLayout_3">
                  <item>
                   <widget class="QLabel" name="label_3">
@@ -278,7 +243,10 @@
                  <item>
                   <widget class="QLineEdit" name="INN">
                    <property name="inputMask">
-                    <string>99 9999 9999</string>
+                    <string>9999999999</string>
+                   </property>
+                   <property name="cursorPosition">
+                    <number>0</number>
                    </property>
                   </widget>
                  </item>
@@ -994,7 +962,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>701</width>
+     <width>703</width>
      <height>21</height>
     </rect>
    </property>
