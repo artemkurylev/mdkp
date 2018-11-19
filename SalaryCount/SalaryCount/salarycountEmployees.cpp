@@ -100,12 +100,12 @@ void salarycountEmployees::parseDataObject(const Employee* obj)
 		ui->INN->setText(QString::number(obj->inn()));
 
 		HireDirective *hd = new HireDirective(obj->hireDirectiveID());
-		if(!hd) throw this->journal->nullPtr();
+		if(!hd->fetch()) throw this->journal->fetchError();
 
 		ui->eReceiptDate->setDate(hd->hireDate());
 		ui->eOrderNum->setText(QString::number(hd->id()));
 		ui->eSalary->setValue(hd->salary());
-		ui->ePayFormChoice->setCurrentIndex(hd->payForm()==PayForm::PER_MONTH ? 0 : 1);
+		ui->ePayFormChoice->setCurrentIndex(hd->payForm()==PayForm::PER_MONTH ? 1 : 0);
 
 		int row = ui->eDutyChart->findData(QVariant(obj->currentDutyChartID()));
 		if(row==-1)throw this->journal->invalidData();
@@ -274,7 +274,7 @@ void salarycountEmployees::saveNewEntries(Employee* obj)
 		if(hd->insert()==-1) throw this->journal->insertError();
 
 		//добавить значение в конец списка
-		QListWidgetItem *item = new QListWidgetItem(obj->fio()+"\t\t\t\t"+obj->inn(), ui->employeeList, id);
+		QListWidgetItem *item = new QListWidgetItem(obj->fio()+"\t\t\t\t"+QString::number(obj->inn()), ui->employeeList, id);
 		ui->employeeList->addItem(item);
 
 		ui->employeeList->setCurrentRow(ui->dutyChartList->count()-1);
@@ -308,7 +308,7 @@ void salarycountEmployees::saveEditableEntries(Employee* obj)
 
 		//
 		QListWidgetItem *item = ui->dutyChartList->currentItem();
-		if(item) item->setText(obj->fio()+"\t\t\t\t"+obj->inn());
+		if(item) item->setText(obj->fio()+"\t\t\t\t"+QString::number(obj->inn()));
 
 		switchMode(app_states::USUAL);
 	}
@@ -336,11 +336,11 @@ void salarycountEmployees::updateInfo(QString name)
 			foreach(const int &iter, keys)
 			{
 				QString d = allEntries.value( iter );
-				QListWidgetItem *item = new QListWidgetItem(allEntries.value( iter ), ui->dutyChartList, iter);
-				ui->dutyChartList->addItem(item);
+				QListWidgetItem *item = new QListWidgetItem(allEntries.value( iter ), ui->employeeList, iter);
+				ui->employeeList->addItem(item);
 			}
 
-			ui->dutyChartList->setCurrentRow(0);
+			ui->employeeList->setCurrentRow(0);
 		}
 	}
 }
