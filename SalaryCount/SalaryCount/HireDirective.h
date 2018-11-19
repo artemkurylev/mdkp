@@ -15,7 +15,7 @@ public:
 
 	HireDirective();
 	HireDirective(int id);
-	HireDirective(QDate hireDate, QString fio, PayForm payForm, float salary, int employeeID);
+	HireDirective(int id,QDate hireDate, QString fio, PayForm payForm, float salary, int employeeID);
 	~HireDirective(void);
 
 	// getters
