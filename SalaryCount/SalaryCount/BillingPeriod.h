@@ -12,7 +12,7 @@ class BillingPeriod : public DbRecord
 
 public:
     BillingPeriod(const QDate& startDate);
-	BillingPeriod(int id) : DbRecord(id) {}
+    BillingPeriod(int id) : DbRecord(id) {_next = NULL;}
 
 	//! Статус Расчётного периода
     enum Status
