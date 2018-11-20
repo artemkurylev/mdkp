@@ -328,7 +328,7 @@ LaborSheet* salarycountLaborSheet::shapeDataObject()
 
 		int val = 0;
         Mark* m;
-        m = new Mark(grid->at(i));
+        m = new Mark(grid->at(i - start));
 		switch(pf)
 		{
 			case PayForm::PER_MONTH:
@@ -355,10 +355,8 @@ LaborSheet* salarycountLaborSheet::shapeDataObject()
 			case PayForm::PER_HOUR:
             {
                 val = combo->currentIndex();
-                if(_viewedPeriod->status() == BillingPeriod::OPEN)
-                    m->setCountHours(val);
-                else
-                    m->setAlteredCountHours(val);
+                m->setAlteredCountHours(val);
+                break;
             }
 
 			default:
