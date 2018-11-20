@@ -170,7 +170,7 @@ void initalSetupForTableBillingPeriod()
 	if(BillingPeriod::countEntries() == 0)
 	{
 		// insert first rec
-		BillingPeriod bp(QDate(2000,1,1));
+        BillingPeriod bp(QDate(QDate::currentDate().year(),QDate::currentDate().month(), 1));
 		bp.open();
 		bp.insert();
 	}
