@@ -3,6 +3,8 @@
 
 #include "delegateStates.h"
 #include "DirectiveGenerator.h"
+#include <qmessagebox.h>
+#include<wchar.h>
 
 class salarycountDirectives : public delegateStates
 {
