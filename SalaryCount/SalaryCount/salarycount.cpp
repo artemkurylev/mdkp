@@ -26,8 +26,8 @@ SalaryCount::SalaryCount(QWidget *parent)
 	this->editState = false;
 	
 	//// запуск тестирования
-	//DirectiveGeneratorTest dir_gen_test(0);
-	//QTest::qExec( &dir_gen_test , NULL , NULL);
+	DirectiveGeneratorTest dir_gen_test(0);
+	QTest::qExec( &dir_gen_test , NULL , NULL);
 
 	//соединение со страницей создания графиков
 	this->dutyChart = new salarycountDutyChart(&this->ui,ui.DutyCharAction->whatsThis());
