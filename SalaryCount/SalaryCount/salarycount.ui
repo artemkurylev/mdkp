@@ -186,6 +186,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
              <y>-176</y>
 =======
              <y>0</y>
@@ -246,6 +247,9 @@
              <width>217</width>
 >>>>>>> b272b87... страница графиков доделана, исправлены баги
 =======
+=======
+             <y>0</y>
+>>>>>>> 5e4c0df... Изменения в интерфейсе - теперь нельзя выбрать для принятия сотрудника число
              <width>261</width>
 >>>>>>> 0489a4b... Виджеты для управления расчетными периодами на странице табелей. Подправлена геометрия таблицы месячных отметок
 =======
@@ -288,7 +292,11 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QDateEdit" name="eReceiptDate"/>
+                  <widget class="QDateEdit" name="eReceiptDate">
+                   <property name="displayFormat">
+                    <string>MM.yyyy</string>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>
