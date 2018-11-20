@@ -26,6 +26,7 @@ void DirectiveGenerator::pdf(const HireDirective* hireDirective, const QString& 
 
    painter.drawText(2800,10600,codec->toUnicode("  (должность)                              (личная подпись)                 (расшировка подписи)"));
 
+   painter.drawText(4500,11260, codec->toUnicode("(личная подпись)"));
 
    painter.setFont(QFont("Times", 10));
    painter.drawText(40,8500,codec->toUnicode("с тарифной ставкой (окладом)       ___________________________ руб._____ коп."));
@@ -47,10 +48,11 @@ void DirectiveGenerator::pdf(const HireDirective* hireDirective, const QString& 
    painter.drawText(1800,10400,codec->toUnicode("             _______________________    ________________  _______________________"));
    painter.drawText(40,11000,codec->toUnicode("С приказом (распоряжением) работник ознакомлен"));
    painter.drawText(3500,11060,codec->toUnicode("            _____________________ “_____ ” __________ 20____г."));
+  
 
    painter.drawText(3200,3000,codec->toUnicode("(распоряжение)"));
    painter.drawText(2800,3200,codec->toUnicode("о приеме работника на работу"));
-   painter.drawText(3200,3600,codec->toUnicode("Принять на работу"));
+   painter.drawText(3400,3600,codec->toUnicode("Принять на работу"));
 
    painter.setFont(QFont("Times", 12));
    painter.drawText(3500,2800,codec->toUnicode("ПРИКАЗ"));
