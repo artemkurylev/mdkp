@@ -245,19 +245,21 @@ void salarycountLaborSheet::goToCurrentPeriod()
 	if(bp)
 	{
 		if(this->_viewedPeriod)
-			delete this->_viewedPeriod;
+			;//delete this->_viewedPeriod;
 		else
 		{
 			// установить границы для DateEdit [В ПЕРВЫЙ РАЗ]
 			QPair<QDate,QDate> date_span = BillingPeriod::getDateSpan();
 			ui->BillingPeriod_dateEdit->setDateRange(date_span.first, date_span.second);
 		}
-
-		this->_viewedPeriod = bp;
-		ui->BillingPeriod_dateEdit->setDate(_viewedPeriod->startDate());
+        if(!this->_viewedPeriod){
+		    this->_viewedPeriod = bp;
+		    regenMarksCalendar();
+        }
+        ui->BillingPeriod_dateEdit->setDate(bp->startDate());
 		ui->ClosePeriod_button->setEnabled(true);
 		ui->GoToCurrentPeriod_button->setEnabled(false);
-		regenMarksCalendar();	// обновить ячейки для отметок
+		//regenMarksCalendar();	// обновить ячейки для отметок(Не надо, т.к. обновляются при смене даты)
 	}
 	else
 	{
