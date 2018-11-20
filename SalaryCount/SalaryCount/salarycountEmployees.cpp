@@ -14,12 +14,12 @@ salarycountEmployees::salarycountEmployees(Ui_SalaryCount *ui, QString name)
 	connect(ui->saveEmployeeBtn,SIGNAL(pressed()),this,SLOT(saveNewEmployee()));
 
 	connect(ui->ePayFormChoice,SIGNAL(currentIndexChanged(int)), SLOT(changePayForm(int)));
-	ui->ePayFormChoice->setCurrentIndex(0);
+	//ui->ePayFormChoice->setCurrentIndex(-1);
 	this->currentPayForm = PayForm::PER_MONTH;
 
 	connect(ui->employeeList,SIGNAL(currentRowChanged(int)), SLOT(showSelectedItem(int)));
 
-	fillDutyChartComboBox(PayForm::PER_MONTH);
+	//fillDutyChartComboBox(PayForm::PER_MONTH);
 	//connect(ui->INN,SIGNAL(textChanged(QString)), SLOT(innField()));
 }
 
@@ -42,7 +42,7 @@ Employee* salarycountEmployees::shapeDataObject()
 		if(this->currentState == app_states::EDIT)
 		{
 			QListWidgetItem *item = ui->employeeList->currentItem();
-			if(!item) throw this->journal->nullPtr();
+			if(!item) throw this->journal->nullPtr("shapeDataObject null obj 'item'");
 
 			id = item->type();//проверить как-нибудь это надо
 		}
@@ -52,7 +52,7 @@ Employee* salarycountEmployees::shapeDataObject()
 		long long INN = ui->INN->text().toLongLong();
 
 		QVariant &var = ui->eDutyChart->currentData();
-		if(!var.isValid()) throw this->journal->invalidData();
+		if(!var.isValid()) throw this->journal->invalidData("shapeDataObject error validation data from dutychart combobox");
 		int dutyChart = ui->eDutyChart->currentData().toInt();
 
 		int hire_dir = ui->eOrderNum->text().toInt();
@@ -76,7 +76,7 @@ HireDirective* salarycountEmployees::shapeHireDirective(int idEmployee)
 		int id = ui->eOrderNum->text().toInt();
 		QString FIO = ui->eFIO->text();
 		QDate &hd = ui->eReceiptDate->date();
-        PayForm pf = (ui->ePayFormChoice->currentIndex()==0 ? PayForm::PER_MONTH : PayForm::PER_HOUR);
+		PayForm pf = (ui->ePayFormChoice->currentIndex()==0 ? PayForm::PER_MONTH : PayForm::PER_HOUR);
 		float sal = ui->eSalary->value();
 
 		HireDirective* obj = new HireDirective(id,hd,FIO,pf,sal,idEmployee);
@@ -100,15 +100,15 @@ void salarycountEmployees::parseDataObject(const Employee* obj)
 		ui->INN->setText(QString::number(obj->inn()));
 
 		HireDirective *hd = new HireDirective(obj->hireDirectiveID());
-		if(!hd->fetch()) throw this->journal->fetchError();
+		if(!hd->fetch()) throw this->journal->fetchError("parseDataObject hiredirective fetch error");
 
 		ui->eReceiptDate->setDate(hd->hireDate());
 		ui->eOrderNum->setText(QString::number(hd->id()));
 		ui->eSalary->setValue(hd->salary());
 		ui->ePayFormChoice->setCurrentIndex(hd->payForm()==PayForm::PER_MONTH ? 0 : 1);
-
+		fillDutyChartComboBox(hd->payForm());
 		int row = ui->eDutyChart->findData(QVariant(obj->currentDutyChartID()));
-		if(row==-1)throw this->journal->invalidData();
+		if(row==-1)throw this->journal->invalidData("parseDataObject error dutychart combobox value");
 
 		ui->eDutyChart->setCurrentIndex(row);
 	}
@@ -129,12 +129,12 @@ void salarycountEmployees::clearFields()
 	{
 		//установить минимальное значение даты приема на работу
 		QDate minDate = getMinimumRecipientDate();
-		if(!minDate.isValid()) throw this->journal->invalidData();
+		if(!minDate.isValid()) throw this->journal->invalidData("clearFields invalid MinimumRecipientDate");
 		ui->eReceiptDate->setMinimumDate(getMinimumRecipientDate());
 
 		//установить номер приказа о приеме на работу
 		int hdID = getNewHireDirectiveNumber();
-		if(hdID==-1) throw this->journal->invalidData();
+		if(hdID==-1) throw this->journal->invalidData("clearFields invalid NewHireDirectiveNumber");
 		ui->eOrderNum->setText(QString::number(hdID));
 
 		//сбросить до минимального значения оклад
@@ -185,7 +185,7 @@ bool salarycountEmployees::fillDutyChartComboBox(PayForm pf)
 
 			QMap<int,QString> &charts = DutyChart::getAllByPayForm(pf);
 
-			if(!charts.count()) throw this->journal->invalidData("Не удалось получить графики работы, возможно они не созданы");
+			if(!charts.count()) throw this->journal->invalidData("Графики не созданы.\nПеред добавлением нового сотрудника необходимо создать графики работы");
 
 			ui->eDutyChart->clear();
 
@@ -199,12 +199,19 @@ bool salarycountEmployees::fillDutyChartComboBox(PayForm pf)
 			this->currentPayForm = pf;
 		}
 
+		ui->addEmployeeBtn->setEnabled(true);
 		return this->currentPayForm!=pf;
 	}
 	catch(log_errors::exception_states e)
 	{
 		show_last_error();
+
 		this->journal->lastConflictNonResolved();
+
+		if(e == log_errors::exception_states::INVALID_DATA_EX)
+		{
+			ui->addEmployeeBtn->setEnabled(false);
+		}
 
 		return false;
 	}
@@ -264,14 +271,14 @@ void salarycountEmployees::saveNewEntries(Employee* obj)
 		int id;
 		if(this->currentState != app_states::ADD) 
 			throw this->journal->compareError("Значения состояния для сохранения не совпадает с состоянием приложения");
-		if(!obj) throw this->journal->nullPtr();
-		if(!obj->validate()) throw this->journal->validateError("Кажется вы ввели ИНН или номер телефона который уже есть");
-		if( (id=obj->insert())==-1) throw this->journal->insertError();
 
+		if(!obj) throw this->journal->nullPtr("saveNewEntries Employee not exist");
+		if(!obj->validate()) throw this->journal->validateError("saveNewEntries Employee fail validate");
+		if( (id=obj->insert())==-1) throw this->journal->insertError("saveNewEntries Employee fail insert entry");
 		HireDirective* hd = shapeHireDirective(id);
-		if(!hd) throw this->journal->nullPtr();
-		if(!hd->validate()) throw this->journal->validateError();
-		if(hd->insert()==-1) throw this->journal->insertError();
+		if(!hd) throw this->journal->nullPtr("saveNewEntries HireDirective not exist");
+		if(!hd->validate()) throw this->journal->validateError("saveNewEntries HireDirective fail validate");
+		if(hd->insert()==-1) throw this->journal->insertError("saveNewEntries HireDirective fail insert entry");
 
 		//добавить значение в конец списка
 		QListWidgetItem *item = new QListWidgetItem(obj->fio(), ui->employeeList, id);//+"\t\t"+QString::number(obj->inn()
@@ -302,9 +309,9 @@ void salarycountEmployees::saveEditableEntries(Employee* obj)
 		if(!obj->update()) throw this->journal->updateError("Запись не дошла в бд");
 
 		HireDirective* hd = shapeHireDirective(obj->id());
-		if(!hd) throw this->journal->nullPtr();
-		if(!hd->validate()) throw this->journal->validateError();
-		if(!hd->update()) throw this->journal->updateError();
+		if(!hd) throw this->journal->nullPtr("saveEditableEntries HireDirective not exist");
+		if(!hd->validate()) throw this->journal->validateError("saveEditableEntries HireDirective fail validate");
+		if(!hd->update()) throw this->journal->updateError("saveEditableEntries HireDirective update error");
 
 		//
 		QListWidgetItem *item = ui->employeeList->currentItem();
@@ -342,6 +349,11 @@ void salarycountEmployees::updateInfo(QString name)
 
 			ui->employeeList->setCurrentRow(0);
 		}
+	}
+
+	if(!this->objectName().compare(name))
+	{
+		fillDutyChartComboBox(PayForm::PER_MONTH);
 	}
 }
 
@@ -384,7 +396,7 @@ void salarycountEmployees::saveNewEmployee()
 		{
 			Employee* obj = shapeDataObject();//собрать данные
 
-			if(!obj) throw this->journal->nullPtr();
+			if(!obj) throw this->journal->nullPtr("saveNewEmployee Employee not exist");
 	
 			switch(this->currentState)
 			{
@@ -427,21 +439,29 @@ void salarycountEmployees::changePayForm(int index)
 
 void salarycountEmployees::showSelectedItem(int row)
 {
-	clearFields();
-
-	if(row!=-1 && ui->employeeList->count() > row)
+	try
 	{
-		int ID = ui->employeeList->currentItem()->type();
+		clearFields();
 
-		Employee curEmp( ID );
+		if(row!=-1 && ui->employeeList->count() > row)
+		{
+			int ID = ui->employeeList->currentItem()->type();
 
-		if(!curEmp.fetch()) throw this->journal->fetchError("фетч не сфетчил");
-		parseDataObject(&curEmp);
+			Employee curEmp( ID );
 
-		this->ui->editEmployeeBtn->setEnabled(true);
+			if(!curEmp.fetch()) throw this->journal->fetchError("showSelectedItem Employee fetch error");
+			parseDataObject(&curEmp);
+
+			this->ui->editEmployeeBtn->setEnabled(true);
+		}
+		else
+		{
+			this->ui->editEmployeeBtn->setEnabled(false);
+		}
 	}
-	else
+	catch(log_errors::exception_states e)
 	{
-		this->ui->editEmployeeBtn->setEnabled(false);
-    }
+		show_last_error();
+		this->journal->lastConflictNonResolved();
+	}
 }
