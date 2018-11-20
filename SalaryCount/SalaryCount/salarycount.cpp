@@ -27,39 +27,39 @@
 
 	//соединение со страницей создания графиков
 	this->dutyChart = new salarycountDutyChart(&this->ui,ui.DutyCharAction->whatsThis());
-	connect(this, SIGNAL(showPage(QString)),this->dutyChart,SLOT(updateInfo(QString)));//обновить информацию на странице
+	connect(this, SIGNAL(showPaget(QString)),this->dutyChart,SLOT(updateInfo(QString)));//обновить информацию на странице
 	connect(this->dutyChart,SIGNAL(changeState(bool)),this,SLOT(rememberState(bool)));//на странице может быть два режима: просмотр и изменение записей
 	connect(this,SIGNAL(saveChanges()),this->dutyChart,SLOT(saveNewDutyChart()));//приложение посылает сигнал на сохранение страницы
 	connect(this,SIGNAL(cancelChanges()),this->dutyChart,SLOT(cancelNewDutyChart()));//приложение посылает сигнал отмены редактирования
 
 	//соединение со страницей кадрового учета
 	this->employees = new salarycountEmployees(&this->ui,ui.EmployeeListAction->whatsThis());
-	connect(this, SIGNAL(showPage(QString)),this->employees,SLOT(updateInfo(QString)));//обновить информацию на странице
+	connect(this, SIGNAL(showPaget(QString)),this->employees,SLOT(updateInfo(QString)));//обновить информацию на странице
 	connect(this->employees,SIGNAL(changeState(bool)),this,SLOT(rememberState(bool)));//на странице может быть два режима: просмотр и изменение записей
 	connect(this,SIGNAL(saveChanges()),this->employees,SLOT(saveNewEmployee()));//приложение посылает сигнал на сохранение страницы
 	connect(this,SIGNAL(cancelChanges()),this->dutyChart,SLOT(cancelNewEmployee()));//приложение посылает сигнал отмены редактирования
 	
     //Соедиенение со страницей табелей
     this->laborSheet = new salarycountLaborSheet(&this->ui,ui.LaborSheetAction->whatsThis());
-	connect(this, SIGNAL(showPage(QString)),this->laborSheet,SLOT(updateInfo(QString)));//обновить информацию на странице
+	connect(this, SIGNAL(showPaget(QString)),this->laborSheet,SLOT(updateInfo(QString)));//обновить информацию на странице
     //Соединение со страницей приказов
     this->directives = new salarycountDirectives(&this->ui,ui.HireDirectiveAction->whatsThis());
-    connect(this, SIGNAL(showPage(QString)),this->directives,SLOT(updateInfo(QString)));
+    connect(this, SIGNAL(showPaget(QString)),this->directives,SLOT(updateInfo(QString)));
 	//TODO
 
 	ui.saveDutyChartBtn->setEnabled(true);
 	ui.cancelDutyChartBtn->setEnabled(true);
 
 	//постраничный переход
-	ui.stackedWidget->setCurrentIndex(0);//устанавлиаем видимость на странице с сотрудниками
-	this->currentAction = ui.EmployeeListAction;
+	ui.stackedWidget->setCurrentIndex(2);//устанавлиаем видимость на странице с сотрудниками
+	this->currentAction = ui.DutyCharAction;
 	this->currentAction->setEnabled(false);
 
 	connect(ui.CompanyMenu,SIGNAL(triggered(QAction*)), this,SLOT(showPage(QAction*)));
 
 	connect(ui.ExitAction,SIGNAL(triggered()), this,SLOT(close()));
 
-	showPage(ui.EmployeeListAction->whatsThis());
+	showPage(ui.DutyCharAction);
 }
 
 SalaryCount::~SalaryCount()
@@ -131,7 +131,7 @@ void SalaryCount::showPage(QAction* actionEmited)
 	{
 		QString namePage = actionEmited->whatsThis();
 
-		emit showPage(namePage);
+		emit showPaget(namePage);
 
 		this->currentAction->setEnabled(true);
 		this->currentAction = actionEmited;
