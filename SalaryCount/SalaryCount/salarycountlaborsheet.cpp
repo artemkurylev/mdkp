@@ -112,10 +112,8 @@ void salarycountLaborSheet::updateInfo(QString name)
     /*if(ui->employeeLaborSheetTable->rowCount() != labor_data.size())
 	{*/
         ui->employeeLaborSheetTable->clearContents();
-        for(int i = 0; i < ui->employeeLaborSheetTable->rowCount();++i)
-        {
+        while(ui->employeeLaborSheetTable->rowCount() > 0)
             ui->employeeLaborSheetTable->removeRow(0);
-        }
         int row = 0;
         for(int i = 0; i < labor_data.size(); ++i)
         {
@@ -235,11 +233,6 @@ void salarycountLaborSheet::periodDateChanged(const QDate& date)
 		ui->GoToCurrentPeriod_button->setEnabled(this->_viewedPeriod->status() != BillingPeriod::OPEN);
 		regenMarksCalendar();
         updateInfo(this->objectName());
-        if(ui->laborSheet->rowCount() > 0)
-        {
-            ui->laborSheet->setCurrentCell(0,1);
-            showSelectedItem(0);
-        }
 	}
 	else
 	{
