@@ -33,9 +33,10 @@ private:
 	void saveEditableEntries(Employee* obj);
 
 	//
-	QDate getMinimumRecipientDate();
-	int getNewHireDirectiveNumber();
 	
+	int getNewHireDirectiveNumber();
+public:
+    QDate getMinimumRecipientDate();
 public slots:
 	void updateInfo(QString name);
 

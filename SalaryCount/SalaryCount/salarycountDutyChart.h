@@ -25,6 +25,7 @@ private:
 	void switchMode(app_states state);
 	void saveNewEntries(DutyChart* obj);
 	void saveEditableEntries(DutyChart* obj);
+    QDate getMaximumAnchorDate();
 	
 public slots:
 	void updateInfo(QString name);
