@@ -4,7 +4,7 @@
 #include "laborsheet.h"
 
 
-float BookKeeper::calcBaseAwardFor(LaborSheet & laborSheet, const BillingPeriod & billingPeriod)
+float BookKeeper::calcBaseAwardFor(LaborSheet & laborSheet)
 {
 	float award;
 
@@ -20,7 +20,10 @@ float BookKeeper::calcBaseAwardFor(LaborSheet & laborSheet, const BillingPeriod 
 	}
 	else
 	{
-		award = awardPerMonthForm(time_price, time, billingPeriod.startDate().daysInMonth());
+		LaborSheet defaultLaborSheet(laborSheet);
+		defaultLaborSheet.fillWithDefaults();
+		int default_days = defaultLaborSheet.countBaseTimeUnits();
+		award = awardPerMonthForm(time_price, time, default_days);
 	}
 
 	return award;
@@ -50,7 +53,7 @@ bool BookKeeper::closeBillingPeriod(BillingPeriod & billingPeriod)
 	{
 		// [...]
 		lbrsh.commitChanges();
-		float award = BookKeeper::calcBaseAwardFor(lbrsh, billingPeriod);
+		float award = BookKeeper::calcBaseAwardFor(lbrsh);
 		lbrsh.setAward(award);
 		lbrsh.update();
 	}
