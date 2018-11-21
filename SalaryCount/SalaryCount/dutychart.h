@@ -18,9 +18,8 @@ public:
 	DutyChart(int id, const QString& name, const QList<Mark>& marks,const QDate& anchorDate, enum PayForm payForm=PER_HOUR);
 
 	bool fetch();
-	bool set()		{return false;}
 	bool delet()	{return false;}
-	bool validate() const {return true;}
+	bool validate() const;
 	bool update()	const;
     int insert();
     static bool createDbTable();

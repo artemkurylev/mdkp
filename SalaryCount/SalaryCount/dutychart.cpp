@@ -66,6 +66,11 @@ void initalSetupForTableDutyChart()
 		rec.insert();
 	}
 }
+bool DutyChart::validate() const
+{
+	return _name.size() <= 10 && true;
+}
+
 int DutyChart::insert()
 {
 	int insert_id = -1;

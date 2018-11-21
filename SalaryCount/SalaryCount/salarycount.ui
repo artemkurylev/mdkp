@@ -6,54 +6,10 @@
    <rect>
     <x>0</x>
     <y>0</y>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <width>737</width>
-=======
-    <width>709</width>
->>>>>>> a0de08c... Исправлены названия кнопок для редактирования и удаления графиков на странице графиков
-=======
-    <width>687</width>
->>>>>>> 13be8f9... Добавлена возможность добавления новых графиков
-    <height>474</height>
-=======
-    <width>719</width>
-    <height>559</height>
->>>>>>> 87d3f2b... Правки формы: поле ввода телефона: Label, увеличена ширина ScrollArea
-=======
-    <width>732</width>
-=======
-    <width>685</width>
->>>>>>> e5dee3a... Изменено имя кнопки для показа приказа
-=======
-    <width>701</width>
->>>>>>> c7bcf17... рабочая форма
-=======
-    <width>703</width>
->>>>>>> 2e1ce06... построена связь с объектом сотрудников
-    <height>552</height>
->>>>>>> ee8954d... Добавлен метод отчистки полей для секции редактирования графиков
-=======
-    <width>732</width>
-    <height>552</height>
->>>>>>> b19fbbe... Добавлен метод отчистки полей для секции редактирования графиков
-=======
+
     <width>817</width>
     <height>530</height>
->>>>>>> 98c7fe7... Добавил связь с окном табелй
-=======
-    <width>732</width>
-    <height>552</height>
->>>>>>> de0bf41... Исправлены коллизии со связью между страницей и главным окном
-   </rect>
+  </rect>
   </property>
   <property name="windowTitle">
    <string>SalaryPayApp</string>
@@ -67,46 +23,10 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-       <number>2</number>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+
        <number>1</number>
->>>>>>> e58b09a... Изменено названия виджета с табелями учета труда
-=======
->>>>>>> ee8954d... Добавлен метод отчистки полей для секции редактирования графиков
-=======
->>>>>>> b19fbbe... Добавлен метод отчистки полей для секции редактирования графиков
-=======
-       <number>1</number>
->>>>>>> 98c7fe7... Добавил связь с окном табелй
-=======
        <number>2</number>
->>>>>>> de0bf41... Исправлены коллизии со связью между страницей и главным окном
-=======
-       <number>2</number>
->>>>>>> b272b87... страница графиков доделана, исправлены баги
-=======
-       <number>1</number>
->>>>>>> 0489a4b... Виджеты для управления расчетными периодами на странице табелей. Подправлена геометрия таблицы месячных отметок
-=======
-       <number>2</number>
->>>>>>> 6224a27... Дата графиков - включает год
-=======
-       <number>3</number>
->>>>>>> f9bbf7c... Добавлен метод countEntries для класса HireDirective, название списка в ui для приказов изменено на адекватное
-=======
-       <number>0</number>
->>>>>>> c7bcf17... рабочая форма
-      </property>
+     </property>
       <widget class="QWidget" name="EmployeesPage">
        <layout class="QGridLayout" name="gridLayout_8">
         <item row="0" column="0">
@@ -181,95 +101,15 @@
            <property name="geometry">
             <rect>
              <x>0</x>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-             <y>-176</y>
-=======
+
              <y>0</y>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 788c143... Добавлена возможность постраничного перехода в приложении
              <width>218</width>
              <height>559</height>
-=======
-             <width>257</width>
-             <height>564</height>
->>>>>>> 87d3f2b... Правки формы: поле ввода телефона: Label, увеличена ширина ScrollArea
-=======
+
              <width>217</width>
-=======
-             <width>261</width>
->>>>>>> 98c7fe7... Добавил связь с окном табелй
-=======
-             <width>261</width>
->>>>>>> 21f2970... Обновлено окно для табелей учета труда(теперь отображаются корректно все дни)
-=======
-             <width>261</width>
->>>>>>> 115e4a3... Эксперименты с ячейками таблицы (при запуске всё равно затрутся)
-=======
-             <width>217</width>
->>>>>>> b47fcef... Обновил название кнопки для редактирования табеля
-=======
-             <width>217</width>
->>>>>>> 8357fb8... Заблокирована кнопка (временно)
-             <height>485</height>
->>>>>>> ee8954d... Добавлен метод отчистки полей для секции редактирования графиков
-=======
-=======
->>>>>>> 68868c6... Обновлен ui-интерфейс
-             <width>217</width>
-=======
-=======
-             <y>-24</y>
->>>>>>> de0bf41... Исправлены коллизии со связью между страницей и главным окном
-             <width>261</width>
->>>>>>> 7bc1545... GUI: корректирвка таблиц на странице табеля учета: сотрудники и ячейки с дневными отметками
-=======
-             <width>217</width>
->>>>>>> fcee3f7... Добавил id табеля в таблицу
-=======
-             <width>217</width>
->>>>>>> b272b87... страница графиков доделана, исправлены баги
-=======
-=======
+
              <y>0</y>
->>>>>>> 5e4c0df... Изменения в интерфейсе - теперь нельзя выбрать для принятия сотрудника число
-             <width>261</width>
->>>>>>> 0489a4b... Виджеты для управления расчетными периодами на странице табелей. Подправлена геометрия таблицы месячных отметок
-=======
-             <width>217</width>
->>>>>>> 1f4c259... Небольшие правеи для улучшения вида окна с табебелями учета труда
-             <height>485</height>
->>>>>>> b19fbbe... Добавлен метод отчистки полей для секции редактирования графиков
-=======
-             <y>0</y>
-=======
-             <y>-71</y>
->>>>>>> ba07c17... изменены названия кнопок для страницы сотрудников и название отображающего списка
-             <width>261</width>
-             <height>532</height>
->>>>>>> c7bcf17... рабочая форма
-=======
-             <y>-24</y>
-             <width>261</width>
-             <height>485</height>
->>>>>>> 2e1ce06... построена связь с объектом сотрудников
+
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_2">
@@ -685,10 +525,7 @@
           <property name="title">
            <string>Табель учета труда</string>
           </property>
-<<<<<<< HEAD
-<<<<<<< HEAD
-          <layout class="QGridLayout" name="gridLayout_10">
-=======
+
           <layout class="QGridLayout" name="gridLayout_4">
            <item row="2" column="0">
             <widget class="QTableWidget" name="employeeLaborSheetTable"/>
@@ -727,12 +564,7 @@
              </property>
             </widget>
            </item>
->>>>>>> de0bf41... Исправлены коллизии со связью между страницей и главным окном
            <item row="0" column="0">
-=======
-          <layout class="QVBoxLayout" name="verticalLayout_5">
-           <item>
->>>>>>> 0489a4b... Виджеты для управления расчетными периодами на странице табелей. Подправлена геометрия таблицы месячных отметок
             <layout class="QHBoxLayout" name="horizontalLayout_14">
              <item>
               <widget class="QLabel" name="label_15">
@@ -761,25 +593,20 @@
                </property>
               </widget>
              </item>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+
             </layout>
            </item>
-<<<<<<< HEAD
+
            <item row="2" column="0">
             <widget class="QTableWidget" name="employeeLaborSheetTable"/>
            </item>
-=======
->>>>>>> 68868c6... Обновлен ui-интерфейс
-           <item row="1" column="0">
+          <item row="1" column="0">
             <layout class="QHBoxLayout" name="horizontalLayout_3">
              <item>
               <widget class="QLabel" name="label_14">
                <property name="text">
-<<<<<<< HEAD
                 <string>Поиск сотрудников</string>
-=======
+
                 <string>Состояние периода</string>
                </property>
               </widget>
@@ -791,16 +618,10 @@
                </property>
                <property name="textFormat">
                 <enum>Qt::RichText</enum>
->>>>>>> 68868c6... Обновлен ui-интерфейс
                </property>
               </widget>
              </item>
-=======
->>>>>>> 7bc1545... GUI: корректирвка таблиц на странице табеля учета: сотрудники и ячейки с дневными отметками
              <item>
-<<<<<<< HEAD
-              <widget class="QLineEdit" name="lineEdit_9"/>
-=======
               <widget class="QPushButton" name="LaborSheetClose_button">
                <property name="enabled">
                 <bool>false</bool>
@@ -809,9 +630,7 @@
                 <string>Период закрыт</string>
                </property>
               </widget>
->>>>>>> 68868c6... Обновлен ui-интерфейс
              </item>
-=======
              <item>
               <widget class="QPushButton" name="GoToCurrentPeriod_button">
                <property name="text">
@@ -819,7 +638,6 @@
                </property>
               </widget>
              </item>
->>>>>>> 0489a4b... Виджеты для управления расчетными периодами на странице табелей. Подправлена геометрия таблицы месячных отметок
             </layout>
            </item>
            <item>
@@ -872,14 +690,10 @@
              <property name="selectionBehavior">
               <enum>QAbstractItemView::SelectItems</enum>
              </property>
-<<<<<<< HEAD
             </widget>
            </item>
-<<<<<<< HEAD
-=======
            <item row="2" column="0">
             <widget class="QTableWidget" name="employeeLaborSheetTable">
-=======
              <property name="cornerButtonEnabled">
               <bool>false</bool>
              </property>
@@ -928,7 +742,6 @@
                <string>Пунктуальность</string>
               </property>
              </column>
->>>>>>> 7bc1545... GUI: корректирвка таблиц на странице табеля учета: сотрудники и ячейки с дневными отметками
              <column>
               <property name="text">
                <string>Корректировка</string>
@@ -936,16 +749,11 @@
              </column>
             </widget>
            </item>
-<<<<<<< HEAD
->>>>>>> 68868c6... Обновлен ui-интерфейс
-=======
             </layout>
            </item>
->>>>>>> de0bf41... Исправлены коллизии со связью между страницей и главным окном
           </layout>
          </widget>
         </item>
-<<<<<<< HEAD
         <item row="0" column="1">
          <widget class="QGroupBox" name="groupBox_7">
           <property name="enabled">
@@ -980,7 +788,6 @@
               <widget class="QComboBox" name="comboBox_3"/>
              </item>
             </layout>
-=======
            <item>
             <widget class="QPushButton" name="updateLaborBtn">
              <property name="enabled">
@@ -990,7 +797,6 @@
               <string>Изменить</string>
              </property>
             </widget>
->>>>>>> 0489a4b... Виджеты для управления расчетными периодами на странице табелей. Подправлена геометрия таблицы месячных отметок
            </item>
            <item row="1" column="0">
             <widget class="QListWidget" name="listWidget_3"/>
@@ -1019,7 +825,6 @@
              </item>
             </layout>
            </item>
-<<<<<<< HEAD
            <item row="0" column="0">
             <widget class="QTableWidget" name="laborSheet">
              <property name="selectionMode">
@@ -1093,15 +898,9 @@
              </column>
             </widget>
            </item>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> de0bf41... Исправлены коллизии со связью между страницей и главным окном
           </layout>
          </widget>
         </item>
-<<<<<<< HEAD
-=======
         <item row="0" column="0">
          <widget class="QGroupBox" name="groupBox_6">
           <property name="sizePolicy">
@@ -1142,8 +941,6 @@
              </item>
             </layout>
            </item>
-=======
->>>>>>> 68868c6... Обновлен ui-интерфейс
            <item row="1" column="0">
             <widget class="QLabel" name="label_2">
              <property name="text">
@@ -1151,26 +948,15 @@
              </property>
             </widget>
            </item>
-=======
->>>>>>> 7bc1545... GUI: корректирвка таблиц на странице табеля учета: сотрудники и ячейки с дневными отметками
           </layout>
          </widget>
         </item>
->>>>>>> 128dddf... Виджеты управления периодами со страницы табелей
-=======
->>>>>>> 21f2970... Обновлено окно для табелей учета труда(теперь отображаются корректно все дни)
        </layout>
-<<<<<<< HEAD
-<<<<<<< HEAD
        <zorder>groupBox_6</zorder>
        <zorder>LabourGroupEdit</zorder>
        <zorder></zorder>
-=======
        <zorder>groupBox_7</zorder>
        <zorder>groupBox_6</zorder>
->>>>>>> c359fe5... файлы в GeneratedFiles удалены из под версионирования
-=======
->>>>>>> 68868c6... Обновлен ui-интерфейс
       </widget>
       <widget class="QWidget" name="DutyChartsPage">
        <layout class="QGridLayout" name="gridLayout_7">
@@ -1217,11 +1003,7 @@
           </layout>
          </widget>
         </item>
-<<<<<<< HEAD
-        <item row="0" column="1">
-=======
         <item row="0" column="1" rowspan="2">
->>>>>>> a0de08c... Исправлены названия кнопок для редактирования и удаления графиков на странице графиков
          <widget class="QGroupBox" name="dutyChartEdit">
           <property name="enabled">
            <bool>false</bool>
@@ -1427,7 +1209,11 @@
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="nameDutyChart"/>
+              <widget class="QLineEdit" name="nameDutyChart">
+               <property name="placeholderText">
+                <string>имя до 10 знаков</string>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -1439,7 +1225,6 @@
       <widget class="QWidget" name="HireDirectivesPage">
        <layout class="QGridLayout" name="gridLayout_11">
         <item row="0" column="0">
-<<<<<<< HEAD
          <widget class="QPushButton" name="pushButton_15">
           <property name="enabled">
            <bool>false</bool>
@@ -1450,13 +1235,8 @@
          </widget>
         </item>
         <item row="1" column="0">
-<<<<<<< HEAD
          <widget class="QListWidget" name="listWidget_4"/>
-=======
-=======
->>>>>>> c7bcf17... рабочая форма
          <widget class="QListWidget" name="directiveList"/>
->>>>>>> f9bbf7c... Добавлен метод countEntries для класса HireDirective, название списка в ui для приказов изменено на адекватное
         </item>
         <item row="1" column="0">
          <widget class="QPushButton" name="showDirectiveBtn">
@@ -1487,96 +1267,9 @@
     <rect>
      <x>0</x>
      <y>0</y>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
      <width>737</width>
-=======
-     <width>709</width>
->>>>>>> a0de08c... Исправлены названия кнопок для редактирования и удаления графиков на странице графиков
-=======
-     <width>687</width>
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 13be8f9... Добавлена возможность добавления новых графиков
+
      <height>21</height>
-=======
-     <height>20</height>
->>>>>>> ee66e86... Переименованы объекты действий меню "Файл", добавлена реакция на меню "Файл->Выход из программы"
-=======
-     <height>21</height>
->>>>>>> e58b09a... Изменено названия виджета с табелями учета труда
-=======
-     <width>719</width>
-     <height>26</height>
->>>>>>> 87d3f2b... Правки формы: поле ввода телефона: Label, увеличена ширина ScrollArea
-=======
-     <width>732</width>
-=======
-     <width>685</width>
->>>>>>> e5dee3a... Изменено имя кнопки для показа приказа
-     <height>21</height>
->>>>>>> ee8954d... Добавлен метод отчистки полей для секции редактирования графиков
-=======
-     <width>732</width>
-<<<<<<< HEAD
-=======
-     <width>817</width>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 98c7fe7... Добавил связь с окном табелй
-     <height>21</height>
->>>>>>> b19fbbe... Добавлен метод отчистки полей для секции редактирования графиков
-=======
-     <height>20</height>
->>>>>>> c359fe5... файлы в GeneratedFiles удалены из под версионирования
-=======
-     <height>21</height>
->>>>>>> 68868c6... Обновлен ui-интерфейс
-=======
-     <height>20</height>
->>>>>>> 7bc1545... GUI: корректирвка таблиц на странице табеля учета: сотрудники и ячейки с дневными отметками
-=======
-     <height>21</height>
->>>>>>> fcee3f7... Добавил id табеля в таблицу
-=======
-     <width>732</width>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-     <height>21</height>
->>>>>>> de0bf41... Исправлены коллизии со связью между страницей и главным окном
-=======
-     <height>20</height>
->>>>>>> 0489a4b... Виджеты для управления расчетными периодами на странице табелей. Подправлена геометрия таблицы месячных отметок
-=======
-     <height>21</height>
->>>>>>> 1f4c259... Небольшие правеи для улучшения вида окна с табебелями учета труда
-=======
-     <height>20</height>
->>>>>>> 115e4a3... Эксперименты с ячейками таблицы (при запуске всё равно затрутся)
-=======
-=======
-     <width>701</width>
->>>>>>> c7bcf17... рабочая форма
-=======
-     <width>703</width>
-<<<<<<< HEAD
->>>>>>> 2e1ce06... построена связь с объектом сотрудников
-     <height>21</height>
->>>>>>> b47fcef... Обновил название кнопки для редактирования табеля
-=======
-     <height>20</height>
->>>>>>> 0679b18... Добавлено сообщение-затычка для действий меню "Файл"
     </rect>
    </property>
    <widget class="QMenu" name="FileMenu">
@@ -1633,9 +1326,6 @@
    <property name="whatsThis">
     <string>EmployeesPage</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+E</string>
-   </property>
   </action>
   <action name="LaborSheetAction">
    <property name="text">
@@ -1644,9 +1334,6 @@
    <property name="whatsThis">
     <string>LaborSheetsPage</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+L</string>
-   </property>
   </action>
   <action name="DutyCharAction">
    <property name="text">
@@ -1654,9 +1341,6 @@
    </property>
    <property name="whatsThis">
     <string>DutyChartsPage</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+D</string>
    </property>
   </action>
   <action name="ExitAction">
@@ -1670,9 +1354,6 @@
    </property>
    <property name="whatsThis">
     <string>HireDirectivesPage</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+D</string>
    </property>
   </action>
  </widget>
