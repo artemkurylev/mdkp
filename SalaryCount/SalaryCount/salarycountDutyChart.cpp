@@ -308,6 +308,7 @@ void salarycountDutyChart::clearFields()
 	this->ui->nameDutyChart->clear();
     QDate minDate = this->getMaximumAnchorDate();
 	this->ui->startDate->setDateTime(QDateTime(minDate));
+    this->ui->startDate->setMaximumDate(QDate(minDate));
 	this->ui->workTimeEdit->setTime(QTime(0,0));
 
 	for(int i=this->ui->DutyChartMarksEdit->rowCount()-1; i>=0; --i)
@@ -416,8 +417,14 @@ QDate salarycountDutyChart::getMaximumAnchorDate()
 		if(!curPer) throw this->journal->nullPtr("объект текущего периода не проинициализирован");
 
 		QDate startDate = curPer->startDate();
-		startDate.setDate(startDate.year(),(startDate.month()!=1 ? startDate.month()-1 : 12),1);
-	
+        if(startDate.month()==1)
+        {
+            startDate.setDate(startDate.year() - 1, 12,1);
+        }
+        else
+        {
+            startDate.setDate(startDate.year(),startDate.month() - 1,1);
+        }
 		delete curPer;
 
 		return startDate;

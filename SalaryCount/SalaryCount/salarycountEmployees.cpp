@@ -227,7 +227,7 @@ QDate salarycountEmployees::getMinimumRecipientDate()
 		QDate startDate = curPer->startDate();
         if(curPer->startDate().month() == 12)
         {
-            startDate.setDate(startDate.year() - 1,1,1);
+            startDate.setDate(startDate.year() + 1,1,1);
         }
         else
         {
