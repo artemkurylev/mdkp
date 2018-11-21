@@ -1,5 +1,6 @@
 #include "salarycountdirectives.h"
 
+
 salarycountDirectives::salarycountDirectives(Ui_SalaryCount* ui, QString name)
 {
     this->setObjectName(name);
@@ -46,5 +47,7 @@ void salarycountDirectives::showDirective()
         directive->fetch();
         DirectiveGenerator generator;
         generator.pdf(directive,directive->fio() + ".pdf");
+        QMessageBox::information(NULL,QString::fromWCharArray(L"Успешно!"),QString::fromWCharArray(L"Создан pdf приказ ")+ directive->fio() + ".pdf");
     }
+    
 }

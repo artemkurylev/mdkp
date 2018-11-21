@@ -3,7 +3,7 @@
 delegateStates::delegateStates()
 {
 	this->currentState = delegateStates::USUAL;
-	journal = new log_errors();//журнал ошибок 
+	this->journal = new log_errors();//журнал ошибок 
 }
 	
 delegateStates::~delegateStates()

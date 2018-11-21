@@ -112,6 +112,8 @@ void salarycountLaborSheet::updateInfo(QString name)
     /*if(ui->employeeLaborSheetTable->rowCount() != labor_data.size())
 	{*/
         ui->employeeLaborSheetTable->clearContents();
+        while(ui->employeeLaborSheetTable->rowCount() > 0)
+            ui->employeeLaborSheetTable->removeRow(0);
         int row = 0;
         for(int i = 0; i < labor_data.size(); ++i)
         {
@@ -122,6 +124,8 @@ void salarycountLaborSheet::updateInfo(QString name)
             ui->employeeLaborSheetTable->setItem(row,1,new QTableWidgetItem(employee.fio()));
             ui->employeeLaborSheetTable->item(row,0)->setData(Qt::UserRole,labor_data[i].id());
 			// TODO: добавить инфо по остальным столбцам (прочерки или реальные значения для закрытого месяца)
+            if(labor_data[i].award() > 0)
+                ui->employeeLaborSheetTable->setItem(row,2,new QTableWidgetItem(QString::number(labor_data[i].award())));
             ++row;
         }
         if(ui->employeeLaborSheetTable->rowCount() > 0)
@@ -149,7 +153,7 @@ void salarycountLaborSheet::showSelectedItem(int row)
                 combo->insertItem(0,codec->toUnicode("Выходной"));
                 combo->insertItem(1,codec->toUnicode("Рабочий"));
                 combo->insertItem(2,codec->toUnicode("Отсутствовал"));
-                if(marks[i - start].isAltered())
+                if(!marks[i - start].isAltered())
                 {
                     switch(marks[i - start].base())
                     {
@@ -204,7 +208,7 @@ void salarycountLaborSheet::showSelectedItem(int row)
                 {
                     combo->insertItem(j,QString::number(j));
                 }
-                if(marks[i - start].isAlteredCountHours()) 
+                if(!marks[i - start].isAlteredCountHours()) 
                     combo->setCurrentIndex(marks[i - start].countHours());
                 else
                     combo->setCurrentIndex(marks[i - start].alteredCountHours());
@@ -229,11 +233,6 @@ void salarycountLaborSheet::periodDateChanged(const QDate& date)
 		ui->GoToCurrentPeriod_button->setEnabled(this->_viewedPeriod->status() != BillingPeriod::OPEN);
 		regenMarksCalendar();
         updateInfo(this->objectName());
-        if(ui->laborSheet->rowCount() > 0)
-        {
-            ui->laborSheet->setCurrentCell(0,1);
-            showSelectedItem(0);
-        }
 	}
 	else
 	{
@@ -246,19 +245,21 @@ void salarycountLaborSheet::goToCurrentPeriod()
 	if(bp)
 	{
 		if(this->_viewedPeriod)
-			delete this->_viewedPeriod;
+			;//delete this->_viewedPeriod;
 		else
 		{
 			// установить границы для DateEdit [В ПЕРВЫЙ РАЗ]
 			QPair<QDate,QDate> date_span = BillingPeriod::getDateSpan();
 			ui->BillingPeriod_dateEdit->setDateRange(date_span.first, date_span.second);
 		}
-
-		this->_viewedPeriod = bp;
-		ui->BillingPeriod_dateEdit->setDate(_viewedPeriod->startDate());
+        if(!this->_viewedPeriod){
+		    this->_viewedPeriod = bp;
+		    regenMarksCalendar();
+        }
+        ui->BillingPeriod_dateEdit->setDate(bp->startDate());
 		ui->ClosePeriod_button->setEnabled(true);
 		ui->GoToCurrentPeriod_button->setEnabled(false);
-		regenMarksCalendar();	// обновить ячейки для отметок
+		//regenMarksCalendar();	// обновить ячейки для отметок(Не надо, т.к. обновляются при смене даты)
 	}
 	else
 	{
@@ -281,7 +282,7 @@ void salarycountLaborSheet::closePeriod()
 	QPair<QDate,QDate> date_span = BillingPeriod::getDateSpan();
 	ui->BillingPeriod_dateEdit->setDateRange(date_span.first, date_span.second);
 
-	//updateInfo(this->objectName());
+	updateInfo(this->objectName());
         
 }
 void salarycountLaborSheet::editLaborSheet()
@@ -329,7 +330,7 @@ LaborSheet* salarycountLaborSheet::shapeDataObject()
 
 		int val = 0;
         Mark* m;
-        m = new Mark(grid->at(i));
+        m = new Mark(grid->at(i - start));
 		switch(pf)
 		{
 			case PayForm::PER_MONTH:
@@ -356,10 +357,8 @@ LaborSheet* salarycountLaborSheet::shapeDataObject()
 			case PayForm::PER_HOUR:
             {
                 val = combo->currentIndex();
-                if(_viewedPeriod->status() == BillingPeriod::OPEN)
-                    m->setCountHours(val);
-                else
-                    m->setAlteredCountHours(val);
+                m->setAlteredCountHours(val);
+                break;
             }
 
 			default:

@@ -306,7 +306,9 @@ void salarycountDutyChart::changePayForm(int index)
 void salarycountDutyChart::clearFields()
 {
 	this->ui->nameDutyChart->clear();
-	this->ui->startDate->setDateTime(QDateTime(QDate::currentDate()));
+    QDate minDate = this->getMaximumAnchorDate();
+	this->ui->startDate->setDateTime(QDateTime(minDate));
+    this->ui->startDate->setMaximumDate(QDate(minDate));
 	this->ui->workTimeEdit->setTime(QTime(0,0));
 
 	for(int i=this->ui->DutyChartMarksEdit->rowCount()-1; i>=0; --i)
@@ -406,4 +408,32 @@ void salarycountDutyChart::showSelectedItem( int row )
 		this->ui->editDutyChart->setEnabled(false);
 		this->ui->deleteDutyChart->setEnabled(false);
     }
+}
+QDate salarycountDutyChart::getMaximumAnchorDate()
+{
+    try
+	{
+		BillingPeriod *curPer = BillingPeriod::getCurrentPeriod();
+		if(!curPer) throw this->journal->nullPtr("объект текущего периода не проинициализирован");
+
+		QDate startDate = curPer->startDate();
+        if(startDate.month()==1)
+        {
+            startDate.setDate(startDate.year() - 1, 12,1);
+        }
+        else
+        {
+            startDate.setDate(startDate.year(),startDate.month() - 1,1);
+        }
+		delete curPer;
+
+		return startDate;
+	}
+	catch(log_errors::exception_states e)
+	{
+		show_last_error();
+		this->journal->lastConflictNonResolved();
+
+		return QDate();
+	}
 }
