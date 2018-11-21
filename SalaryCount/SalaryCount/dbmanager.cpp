@@ -124,7 +124,7 @@ struct DbConf loadDbConfig()
 		dbConf.pass = "root"; // "our366Team";
 
 		// write 
-		s.beginGroup("db");
+		s.beginGroup("db-local");
 		s.setValue("hostName", dbConf.hostName);
 		s.setValue("port", dbConf.port);
 		s.setValue("dbName", dbConf.dbName);
@@ -134,7 +134,7 @@ struct DbConf loadDbConfig()
 
 		// <Debug only>!
 		// write "commented" section
-		s.beginGroup("db-remote");
+		s.beginGroup("db");
 		s.setValue("hostName", "109.206.169.214");
 		s.setValue("port", dbConf.port);
 		s.setValue("dbName", "salary_count");
