@@ -87,7 +87,8 @@ bool LaborSheet::fillWithDefaults()
 		m.setLaborsheetId(this->_id);
 		// сбросить изменённые данные
 		m.resetAltered();
-        this->_grid.push_back(m);
+
+		this->_grid.push_back(m);
     }
 	
 	//// не обновляем табель в БД сразу (неизвестно - это update или insert)
