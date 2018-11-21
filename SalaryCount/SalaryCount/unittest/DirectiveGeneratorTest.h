@@ -22,7 +22,7 @@ private:
 
 private slots:
 	//void cleanup();
-    //void normal();
+    void normal();
 
 };
 
