@@ -30,8 +30,8 @@ void DirectiveGenerator::pdf(const HireDirective* hireDirective, const QString& 
 
    painter.setFont(QFont("Times", 10));
    painter.drawText(40,8500,codec->toUnicode("с тарифной ставкой (окладом)       ___________________________ руб._____ коп."));
-   painter.drawText(1600,9000,codec->toUnicode("надбавкой       ___________________________ руб._____ коп."));
-   painter.drawText(40,9300,codec->toUnicode("с испытанием на срок _________________________________________________         мес€ца(ев)"));
+  
+  
    painter.drawText(40,9500,codec->toUnicode("ќснование:"));
    painter.drawText(60,9700,codec->toUnicode("   “рудовой договор от У_____ Ф___________  ______ г. є_________"));
    QDate hiredate=hireDirective->hireDate();
@@ -62,7 +62,7 @@ void DirectiveGenerator::pdf(const HireDirective* hireDirective, const QString& 
 
     QPen pen(Qt::black, 5, Qt::SolidLine);
     painter.setPen(pen);
-	painter.drawLine(40,2000,7000,2000); // the first line on the page
+	painter.drawLine(40,2000,8500,2000); // the first line on the page
     painter.drawLine(40,5500,8500,5500); // draw line for name and surname
 
     painter.drawLine(40,6800,8500,6800); //должность (специальность, професси€), разр€д, класс (категори€) квалификации
@@ -76,21 +76,6 @@ void DirectiveGenerator::pdf(const HireDirective* hireDirective, const QString& 
 }
 
 
-void DirectiveGenerator::drawTableOne(QPainter *painter,QString text1,QString text2)
-{
-    setFontRectangle(painter);
-    QRectF r1(8300,1200,1000,300);
-    QRectF r2(8300,1500,1000,300);
-    QRectF r3(8300,1800,1000,300);
-    painter->drawRect(r1);
-    painter->drawRect(r2);
-    painter->drawRect(r3);
-    setFontBigText(painter);
-    painter->drawText(8500,1400,text1);
-    painter->drawText(8350,1700,text2);
-
-
-}
 void DirectiveGenerator::writeTextAtleftTop(QPainter* painter, QString text)
 {
     setFontSmallUnderText(painter);
@@ -103,12 +88,10 @@ void DirectiveGenerator::constructMainHeader(QPainter *painter,QString tableCode
 {
 	QTextCodec * codec=QTextCodec::codecForLocale();
     setFontBigText(painter);
-    painter->drawText(6700,1700,codec->toUnicode("‘орма по ќ ”ƒ"));
-    painter->drawText(7200,2000,codec->toUnicode("по ќ ѕќ"));
+  
     painter->drawLine(40,2000,7000,2000);
     setFontSmallUnderText(painter);
     painter->drawText(3000,2200,codec->toUnicode("(наименование организации)"));
-    drawTableOne(painter,codec->toUnicode(" од"),tableCode);
 
 }
 

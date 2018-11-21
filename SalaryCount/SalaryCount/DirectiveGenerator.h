@@ -18,7 +18,6 @@ public:
 
 	// Tables and Headers
     void writeTextAtleftTop(QPainter *painter, QString text);
-    void drawTableOne(QPainter *painter,QString text1,QString text2);
     void constructMainHeader(QPainter *painter,QString tableCode);
 
     //Font setting
