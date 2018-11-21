@@ -24,9 +24,8 @@
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
 
-       <number>1</number>
-       <number>2</number>
-     </property>
+       <number>0</number>
+      </property>
       <widget class="QWidget" name="EmployeesPage">
        <layout class="QGridLayout" name="gridLayout_8">
         <item row="0" column="0">
@@ -103,13 +102,9 @@
              <x>0</x>
 
              <y>0</y>
-             <width>218</width>
-             <height>559</height>
 
-             <width>217</width>
-
-             <y>0</y>
-
+             <width>261</width>
+             <height>454</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_2">
@@ -243,7 +238,11 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLineEdit" name="eFIO"/>
+                  <widget class="QLineEdit" name="eFIO">
+                   <property name="maxLength">
+                    <number>30</number>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>
@@ -289,33 +288,33 @@
               </layout>
              </widget>
             </item>
-            <item row="3" column="0">
-             <layout class="QHBoxLayout" name="horizontalLayout_12">
-              <item>
-               <widget class="QPushButton" name="saveEmployeeBtn">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
-                <property name="text">
-                 <string>Сохранить</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="cancelEmployeeBtn">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
-                <property name="text">
-                 <string>Сбросить</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
            </layout>
           </widget>
          </widget>
+        </item>
+        <item row="1" column="1">
+         <layout class="QHBoxLayout" name="horizontalLayout_12">
+          <item>
+           <widget class="QPushButton" name="saveEmployeeBtn">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="text">
+             <string>Сохранить</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="cancelEmployeeBtn">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="text">
+             <string>Сбросить</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </widget>
@@ -990,15 +989,15 @@
              </item>
             </layout>
            </item>
-           <item row="0" column="0">
-            <widget class="QListWidget" name="dutyChartList"/>
-           </item>
            <item row="2" column="0">
             <widget class="QPushButton" name="addDutyChart">
              <property name="text">
               <string>Добавить новый график</string>
              </property>
             </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QListWidget" name="dutyChartList"/>
            </item>
           </layout>
          </widget>
@@ -1210,6 +1209,9 @@
              </item>
              <item>
               <widget class="QLineEdit" name="nameDutyChart">
+               <property name="maxLength">
+                <number>10</number>
+               </property>
                <property name="placeholderText">
                 <string>имя до 10 знаков</string>
                </property>
@@ -1267,8 +1269,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>737</width>
 
+     <width>703</width>
      <height>21</height>
     </rect>
    </property>
