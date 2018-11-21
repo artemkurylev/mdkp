@@ -223,7 +223,15 @@ QDate salarycountEmployees::getMinimumRecipientDate()
 		if(!curPer) throw this->journal->nullPtr("объект текущего периода не проинициализирован");
 
 		QDate startDate = curPer->startDate();
-		startDate.setDate(startDate.year(),(startDate.month()!=12 ? startDate.month()+1 : 1),1);
+        if(curPer->startDate().month() == 12)
+        {
+            startDate.setDate(startDate.year() - 1,1,1);
+        }
+        else
+        {
+            startDate.setDate(startDate.year(),startDate.month() + 1,1);
+        }
+		
 	
 		delete curPer;
 
