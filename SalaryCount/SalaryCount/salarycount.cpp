@@ -57,6 +57,8 @@
 
 	connect(ui.CompanyMenu,SIGNAL(triggered(QAction*)), this,SLOT(showPage(QAction*)));
 
+	connect(ui.FileMenu,SIGNAL(triggered(QAction*)), this,SLOT(showCompanyDialog(QAction*)));
+
 	connect(ui.ExitAction,SIGNAL(triggered()), this,SLOT(close()));
 
 	showPage(ui.DutyCharAction);
@@ -139,6 +141,19 @@ void SalaryCount::showPage(QAction* actionEmited)
 
 		showStackedItem(namePage);
 	}
+}
+
+/*!
+*\
+*/
+void SalaryCount::showCompanyDialog(QAction* actionEmited)
+{
+	if(actionEmited == ui.ExitAction)
+	{
+		return;
+	}
+
+    QMessageBox::information(NULL,QString::fromWCharArray(L"Это первый релиз"),QString::fromWCharArray(L"Функции переключения предприятий недоступны.\nВ настоящее время Вы можете работать с одним фиксированным предприятием."));
 }
 
 /*!

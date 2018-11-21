@@ -1570,12 +1570,16 @@
 >>>>>>> c7bcf17... рабочая форма
 =======
      <width>703</width>
+<<<<<<< HEAD
 >>>>>>> 2e1ce06... построена связь с объектом сотрудников
      <height>21</height>
 >>>>>>> b47fcef... Обновил название кнопки для редактирования табеля
+=======
+     <height>20</height>
+>>>>>>> 0679b18... Добавлено сообщение-затычка для действий меню "Файл"
     </rect>
    </property>
-   <widget class="QMenu" name="menu">
+   <widget class="QMenu" name="FileMenu">
     <property name="title">
      <string>Файл</string>
     </property>
@@ -1594,7 +1598,7 @@
     <addaction name="DutyCharAction"/>
     <addaction name="HireDirectiveAction"/>
    </widget>
-   <addaction name="menu"/>
+   <addaction name="FileMenu"/>
    <addaction name="CompanyMenu"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
