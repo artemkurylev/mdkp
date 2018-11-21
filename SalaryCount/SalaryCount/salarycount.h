@@ -47,7 +47,9 @@ private slots:
 
 	void rememberState(bool state);
 
-	//переходы по страницам приложения
+	//! переходы по страницам приложения
 	void showPage(QAction* actionEmited);
+	//! меню "Файл"
+	void showCompanyDialog(QAction* actionEmited);
 };
 #endif // SALARYCOUNT_H
