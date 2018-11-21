@@ -12,9 +12,10 @@ HireDirective::HireDirective(int id)
 {
 	_hiredEmployee = NULL;
 }
-HireDirective::HireDirective(QDate hireDate, QString fio, PayForm payForm, float salary, int employeeID)
+HireDirective::HireDirective(int id, QDate hireDate, QString fio, PayForm payForm, float salary, int employeeID)
     : DbRecord(NULL)
 {
+	this->_id = id;
 	this->_hireDate = hireDate;
 	this->_fio = fio;
 	this->_payForm = payForm;
@@ -81,7 +82,7 @@ bool HireDirective::fetch()
     
 bool HireDirective::validate() const
 {
-	return false;
+	return true;
 }
     
 bool HireDirective::update() const
@@ -161,4 +162,56 @@ bool HireDirective::createDbTable()
     {
         return false;
     }
+}
+QMap<int,QString> HireDirective::getAll()
+{
+    QMap<int,QString> result;
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+        query->prepare("SELECT `id`,`fio` FROM `hire_directive`");
+        if(query->exec())
+        {
+            while(query->next())
+            {
+                result[query->value(0).toInt()] = query->value(1).toString();
+            }
+        }
+        delete query;
+    }
+    return result;
+}
+int HireDirective::countEntries()
+{
+    int counter = 0;
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+
+        query->prepare("SELECT COUNT(*) FROM `hire_directive`");
+        if(query->exec())
+        {
+            if(query->next())
+                counter = query->value(0).toInt();
+        }
+        delete query;
+    }
+    return counter;
+}
+int HireDirective::lastDirectiveId()
+{
+    int id = -1;
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+
+        query->prepare("SELECT MAX(`id`) FROM `hire_directive`;");
+        if(query->exec())
+        {
+            if(query->next())
+                id = query->value(0).toInt();
+        }
+        delete query;
+    }
+    return id;
 }

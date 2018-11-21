@@ -2,6 +2,7 @@
 
 void initalSetupForTableDutyChart();
 DutyChart defaultChart();
+DutyChart defaultChart2();
 
 DutyChart::DutyChart(int id)
     : DbRecord(id)
@@ -59,6 +60,8 @@ void initalSetupForTableDutyChart()
 	{
 		// insert first rec
 		DutyChart rec = defaultChart();
+		rec.insert();
+		rec = defaultChart2();
 		rec.insert();
 	}
 }
@@ -175,7 +178,7 @@ QMap<int,QString> DutyChart::getAll()
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
 
-        query->prepare("SELECT id,name FROM `dutychart`");
+        query->prepare("SELECT `id`,`name` FROM `dutychart`");
         if(query->exec())
         {
             while(query->next())
@@ -200,7 +203,7 @@ long DutyChart::countEntries()
         {
             if(query->next())
                 counter = query->value(0).toInt();
-        }
+        }       
         delete query;
     }
     return counter;
@@ -226,4 +229,43 @@ DutyChart defaultChart()
 	}
 
 	return DutyChart("5/2", bmarks, monday, PER_HOUR);
+}
+DutyChart defaultChart2()
+{
+	// подготовить дату: прошедший ПН
+	QDate monday = QDate::currentDate();
+	monday = monday.addDays( -(monday.dayOfWeek()-1) );
+
+	QList<Mark> bmarks;
+
+	bmarks.append(Mark(Mark::ATTENDS, Mark::INVALID, 0, -1, NULL,NULL));
+	bmarks.append(Mark(Mark::ATTENDS, Mark::INVALID, 0, -1, NULL,NULL));
+	bmarks.append(Mark(Mark::HOLIDAY, Mark::INVALID, 0, -1, NULL,NULL));
+	bmarks.append(Mark(Mark::HOLIDAY, Mark::INVALID, 0, -1, NULL,NULL));
+	bmarks.append(Mark(Mark::ATTENDS, Mark::INVALID, 0, -1, NULL,NULL));
+	bmarks.append(Mark(Mark::ATTENDS, Mark::INVALID, 0, -1, NULL,NULL));
+	bmarks.append(Mark(Mark::HOLIDAY, Mark::INVALID, 0, -1, NULL,NULL));
+
+	return DutyChart("2/2/2/1", bmarks, monday, PER_MONTH);
+}
+QMap<int,QString> DutyChart::getAllByPayForm(PayForm payform)
+{
+    QMap<int,QString> records;
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+
+        query->prepare("SELECT `id`,`name` FROM `dutychart` WHERE `payform` = :payform");
+        query->bindValue(":payform", payform);
+        if(query->exec())
+        {
+            while(query->next())
+            {
+                records.insert(query->value(0).toInt(), query->value(1).toString()); 
+            }
+        }
+        delete query;
+    }
+
+    return records;
 }

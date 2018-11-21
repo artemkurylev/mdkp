@@ -16,7 +16,8 @@ public:
     Employee();
 	Employee(int id);
     Employee(const Employee& employee);
-	Employee(QString _fio,QString _phoneNumber,int _INN,int _currentDutyChartID,int _hireDirectiveID);
+	Employee(QString _fio,QString _phoneNumber,long long _INN,int _currentDutyChartID,int _hireDirectiveID);
+    Employee(int id, QString _fio,QString _phoneNumber,long long _INN,int _currentDutyChartID,int _hireDirectiveID);
     ~Employee();
 
     bool fetch();
@@ -27,21 +28,41 @@ public:
     static bool createDbTable();
     static QMap<int,QString> getAll();
     static long countEntries();
-    HireDirective* hireDirective();
 
     //геттеры
     const QString& fio() const{return _fio;}
     const QString& phoneNumber() const {return _phoneNumber;}
-    const int inn()const {return _INN;};
+    const long long inn()const {return _INN;};
     const int currentDutyChartID() const{return _currentDutyChartID;}
     const int nextDutyChartID()const {return _nextDutyChartID;}
     const QDate& nextDutyChartSince() const{return _nextDutyChartSince;}
     const int hireDirectiveID() const {return _hireDirectiveID;}
+
+    HireDirective* hireDirective();
+	QDate hireDate()	{	return hireDirective()->hireDate();	}
+
+	void setNextDutyChartSince(int nextDutyChartID,const QDate& nextDutyChartSince)
+	{
+		this->_nextDutyChartID = nextDutyChartID;
+		this->_nextDutyChartSince = nextDutyChartSince;
+	}
+	void resetNextDutyChart()
+	{
+		this->_nextDutyChartID = 0;
+		this->_nextDutyChartSince = QDate(); // set invalid date
+	}
+
+	/*! Выполняет смену графика сотрудника, если такое назначение есть и время пришло.
+	Отметим, смены графика допустимы только в начале расчётного периода.
+	\returns `true` если запись была изменена и нуждается в сохранении
+	*/
+	bool applyDutyChartChange(const QDate& currentPeriodStart);
+
 private:
 	// личные
     QString _fio;
     QString _phoneNumber;
-    int _INN;
+    long long _INN;
 
 	// график
     int _currentDutyChartID;

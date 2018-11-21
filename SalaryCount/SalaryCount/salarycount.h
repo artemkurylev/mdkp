@@ -8,8 +8,9 @@
 #include "ui_salarycount.h"
 
 #include "salarycountDutyChart.h"
+#include "salarycountEmployees.h"
 #include "salarycountlaborsheet.h"
-
+#include "salarycountdirectives.h"
 class SalaryCount : public QMainWindow
 {
     Q_OBJECT
@@ -25,7 +26,9 @@ private:
     Ui_SalaryCount ui;
 
 	salarycountDutyChart* dutyChart;
+	salarycountEmployees* employees;
     salarycountLaborSheet* laborSheet;
+    salarycountDirectives* directives;
 	bool editState;
 
 private:
@@ -38,7 +41,7 @@ private:
 signals:
 	void cancelChanges();
 	void saveChanges();
-	void showPage(QString name);
+	void showPaget(QString name);
 
 private slots:
 

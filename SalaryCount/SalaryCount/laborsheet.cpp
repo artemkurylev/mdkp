@@ -6,16 +6,20 @@ LaborSheet::LaborSheet()
     _billingPeriod = NULL;
     _employee = NULL;
     _dutyChart = NULL;
+    this->_award = 0;
 }
-LaborSheet::LaborSheet(int employeeId)
+LaborSheet::LaborSheet(int employeeId, int billingPeriodId)
     : DbRecord()
 {
     _billingPeriod = NULL;
     _employee = NULL;
     _dutyChart = NULL;
     this->_employeeId = employeeId;
+    this->_billingPeriodId = billingPeriodId;
+    this->_award = 0;
 }
 LaborSheet::LaborSheet(const LaborSheet& laborsheet)
+    : DbRecord()
 {
     this->_id = laborsheet.id();
     this->_billingPeriodId = laborsheet.billingPeriodId();
@@ -25,6 +29,7 @@ LaborSheet::LaborSheet(const LaborSheet& laborsheet)
     this->_billingPeriod = NULL;
     this->_dutyChart = NULL;
     this->_grid = laborsheet.grid();
+    this->_award = laborsheet.award();
 }
 LaborSheet::LaborSheet(int id, int billingPeriodId, int employeeId, QList<Mark> grid)
 {
@@ -35,30 +40,7 @@ LaborSheet::LaborSheet(int id, int billingPeriodId, int employeeId, QList<Mark> 
     _billingPeriod = NULL;
     _employee = NULL;
     _dutyChart = NULL;
-}
-bool LaborSheet::fillWithDefaults()
-{
-	// Вычислить относительное смещение наложения графика на месяц
-    QDate buffer_date = this->_dutyChart->anchorDate();
-    int count_diff_days = 0;
-    count_diff_days = abs(buffer_date.daysTo(this->_billingPeriod->startDate()));
-    int length = _dutyChart->length();
-    int bias = count_diff_days % length;
-    int dutyChart_index = bias;
-	
-	this->_grid.clear();
-	// Заполнить табель отметками по умолчанию
-    int month_length = this->_billingPeriod->startDate().daysInMonth();
-    for(int i = 0; i < month_length; ++i,dutyChart_index++)
-    {
-        if(dutyChart_index >= length)
-            dutyChart_index = 0;
-        Mark m(_dutyChart->grid()[dutyChart_index]);
-        this->_grid.push_back(m);
-    }
-	
-	// Обновить табель в БД
-    return this->update();
+    this->_award = 0;
 }
 LaborSheet::~LaborSheet()
 {
@@ -73,8 +55,49 @@ LaborSheet::~LaborSheet()
 	}
 	if(_dutyChart != NULL)
 	{
-		throw("Всё-таки он оказался кому-то нужен?!");
 		delete _dutyChart;
+	}
+}
+bool LaborSheet::fillWithDefaults()
+{
+	// Вычислить относительное смещение наложения графика на месяц
+    this->dutyChart();
+    this->billingPeriod();
+    //this->billingPeriod()->fetch();
+    const QDate buffer_date = this->_dutyChart->anchorDate();
+    int count_diff_days = 0;
+    count_diff_days = buffer_date.daysTo(this->_billingPeriod->startDate());
+    int length = _dutyChart->length();
+	while(count_diff_days < 0)
+		count_diff_days += length;
+    int bias = count_diff_days % length;
+    int dutyChart_index = bias;
+	
+	this->_grid.clear();
+	// Заполнить табель отметками по умолчанию
+    int month_length = this->_billingPeriod->startDate().daysInMonth();
+    for(int i = 0; i < month_length; ++i,dutyChart_index++)
+    {
+        if(dutyChart_index >= length)
+            dutyChart_index = 0;
+        Mark m(_dutyChart->grid()[dutyChart_index]);
+
+		// записать ID в отметку!
+		m.setDutyChartId( NULL );
+		m.setLaborsheetId(this->_id);
+		// сбросить изменённые данные
+		m.resetAltered();
+        this->_grid.push_back(m);
+    }
+	
+	//// не обновляем табель в БД сразу (неизвестно - это update или insert)
+    return true; // this->update();
+}
+void LaborSheet::commitChanges()
+{
+	foreach(Mark mark , this->grid())
+	{
+		mark.commitChanges();
 	}
 }
 
@@ -92,38 +115,43 @@ BillingPeriod* LaborSheet::billingPeriod()
 	if(_billingPeriod == NULL)
 	{
 		_billingPeriod = new BillingPeriod(_billingPeriodId);
+		_billingPeriod->fetch();
 	}
 	return _billingPeriod;
 }
 PayForm LaborSheet::payForm()
 {
 	Employee* e = employee();
+    e->fetch();
 	HireDirective* h = e->hireDirective();
+    h->fetch();
 	PayForm p = h->payForm();
-
-//	delete e;
-//	delete h;
-  
 	return p;
 }
-
-
-int inline markMeasure(int mark_val, enum PayForm pay_form) 
+DutyChart* LaborSheet::dutyChart()
 {
-	// для почасовой вернуть часы;
-	// для помесячной - 1, если отметка ненулевая, иначе 0.
-	return (pay_form == PER_HOUR)? (mark_val) : (mark_val > 0);
+	if(_dutyChart == NULL)
+	{
+		_dutyChart = new DutyChart(_dutyChartId);
+        _dutyChart->fetch();
+	}
+	return _dutyChart;
 }
 
-int LaborSheet::countDefaultTimeUnits()
+int LaborSheet::countBaseTimeUnits()
 {
 	int total = 0;
 	enum PayForm pay_form;
 	pay_form = payForm();
 
-	foreach(Mark mark , this->marks())
+	foreach(Mark mark , this->grid())
 	{
-		total += markMeasure(mark.base(), pay_form);
+		// для почасовой вернуть часы;
+		// для помесячной - 1, если отметка ненулевая, иначе 0.
+		total += (pay_form == PER_HOUR)? 
+			mark.countHours()
+			:
+			(mark.base() == Mark::ATTENDS);
 	}
 
 	return total;
@@ -134,9 +162,14 @@ int LaborSheet::countActualTimeUnits()
 	enum PayForm pay_form;
 	pay_form = payForm();
 
-	foreach(Mark mark , this->marks())
+	foreach(Mark mark , this->grid())
 	{
-		total += markMeasure(mark.altered(), pay_form);
+		// для почасовой вернуть часы;
+		// для помесячной - 1, если отметка ненулевая, иначе 0.
+		total += (pay_form == PER_HOUR)? 
+			mark.alteredCountHours()
+			:
+			(mark.altered() == Mark::ATTENDS);
 	}
 
 	return total;
@@ -150,10 +183,11 @@ int LaborSheet::insert()
 	if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        query->prepare("INSERT INTO `labor_sheet` (billing_period_id,employee_id,dutychart_id, closed) VALUES(:billing_period_id,:employee_id,:dutychart_id");
-        query->bindValue(":billing_period_id",this->_billingPeriod->id());
+        query->prepare("INSERT INTO `labor_sheet` (billing_period_id,employee_id,dutychart_id, award) VALUES(:billing_period_id,:employee_id,:dutychart_id,:award)");
+        query->bindValue(":billing_period_id",this->_billingPeriodId);
         query->bindValue(":employee_id",this->_employeeId);
-        query->bindValue(":dutychart_id", this->_dutyChart->id());
+        query->bindValue(":dutychart_id", this->_dutyChartId);
+        query->bindValue(":award",this->_award);
 
         if(query->exec())
         {
@@ -193,10 +227,11 @@ bool LaborSheet::update() const
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        query->prepare("UPDATE `labor_sheet` SET billing_period_id = :billing_period_id , employee_id = :employee_id, dutychart_id = :dutychart_id WHERE `id` =:id");
+        query->prepare("UPDATE `labor_sheet` SET billing_period_id = :billing_period_id , employee_id = :employee_id, dutychart_id = :dutychart_id, award = :award WHERE `id` =:id");
         query->bindValue(":billing_period_id",this->_billingPeriodId);
         query->bindValue(":employee_id",this->_employeeId);
         query->bindValue(":dutychart_id",this->_dutyChartId);
+        query->bindValue(":award",this->_award);
         query->bindValue(":id",this->id());
         if(query->exec())
         {
@@ -222,7 +257,7 @@ bool LaborSheet::createDbTable()
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        if(query->exec("CREATE TABLE IF NOT EXISTS `labor_sheet` (`id` INT(11) NOT NULL AUTO_INCREMENT, `billing_period_id` INT(11), `employee_id` INT(11),`dutychart_id` INT(11), PRIMARY KEY(`id`))"))
+        if(query->exec("CREATE TABLE IF NOT EXISTS `labor_sheet` (`id` INT(11) NOT NULL AUTO_INCREMENT, `billing_period_id` INT(11), `employee_id` INT(11),`dutychart_id` INT(11), `award` FLOAT NULL, PRIMARY KEY(`id`))"))
             return true;
         else
         {
@@ -274,6 +309,9 @@ bool LaborSheet::fetch()
 				
 				// получить ID графика
                 this->_dutyChartId = query->value(3).toInt();
+
+				// получить выплату
+                this->_award = query->value(4).toFloat();
 
      //           QSqlQuery query_b = *(DbManager::manager().makeQuery());
      //           query_b.prepare("SELECT * FROM `billing_period` WHERE `id` = :billing_period_id");
@@ -355,23 +393,29 @@ QList<LaborSheet> LaborSheet::getByPeriodId(int id)
         {
             while(query->next())
             {
+				// необходимо проверить работоспособность
+				LaborSheet labor;
+				int labor_id = query->value(0).toInt();
+				labor._id = labor_id;
+				labor.fetch();
+
 				// ! этот блок можно заменить на LaborSheet(id) c автоматической выборкой по id (проверить действия метода LaborSheet.fetch())
-                QList <Mark> grid;
-                int labor_id = query->value(0).toInt();
-                QSqlQuery query_m = *(DbManager::manager().makeQuery());
-                query_m.prepare("SELECT * from `mark` WHERE laborsheet_id = :id");
-                query_m.bindValue(":id",labor_id);
-                if(query_m.exec())
-                {
-                    while(query_m.next())
-                    {
-                        Mark m(query_m.value(1).toInt(),query_m.value(2).toInt(),query_m.value(3).toInt(),query_m.value(4).toInt(),query_m.value(5).toInt(),query_m.value(6).toInt());
-                        int x =query_m.value(0).toInt();
-						m.setId(x);
-                        grid.append(m);
-                    }
-                }
-                LaborSheet labor(query->value(0).toInt(),query->value(1).toInt(),query->value(2).toInt(),grid);
+      ////          QList <Mark> grid;
+      ////          int labor_id = query->value(0).toInt();
+      ////          QSqlQuery query_m = *(DbManager::manager().makeQuery());
+      ////          query_m.prepare("SELECT * from `mark` WHERE laborsheet_id = :id");
+      ////          query_m.bindValue(":id",labor_id);
+      ////          if(query_m.exec())
+      ////          {
+      ////              while(query_m.next())
+      ////              {
+      ////                  Mark m(query_m.value(1).toInt(),query_m.value(2).toInt(),query_m.value(3).toInt(),query_m.value(4).toInt(),query_m.value(5).toInt(),query_m.value(6).toInt());
+      ////                  int x =query_m.value(0).toInt();
+						////m.setId(x);
+      ////                  grid.append(m);
+      ////              }
+      ////          }
+      ////          LaborSheet labor(query->value(0).toInt(),query->value(1).toInt(),query->value(2).toInt(),grid);
                 labor_list.append(labor);
             }
         }

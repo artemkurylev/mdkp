@@ -10,6 +10,7 @@ Employee::Employee(int id)
     : DbRecord(id)
 {
 	_hireDirective = NULL;
+    _nextDutyChartID = -1;
 }
 Employee::Employee(const Employee& employee)
 {
@@ -21,12 +22,13 @@ Employee::Employee(const Employee& employee)
     this->_nextDutyChartID = employee.nextDutyChartID();
     this->_nextDutyChartSince = employee.nextDutyChartSince();
     this->_hireDirective = NULL;
+    _nextDutyChartID= - 1;
 }
 /*! Êîíñòðóêòîð ñîçäàíèÿ íîâîé çàïèñè
 Ïðåäïîëàãàåòñÿ, ÷òî ïðèêàç è ãðàôèê óæå ñîçäàíû è èìåþò ID
 */
 
-Employee::Employee(QString _fio,QString _phoneNumber,int _INN,int _currentDutyChartID,int _hireDirectiveID)
+Employee::Employee(QString _fio,QString _phoneNumber,long long _INN,int _currentDutyChartID,int _hireDirectiveID)
 {
 	this->_fio = _fio;
 	this->_phoneNumber = _phoneNumber;
@@ -35,8 +37,21 @@ Employee::Employee(QString _fio,QString _phoneNumber,int _INN,int _currentDutyCh
 	this->_hireDirectiveID = _hireDirectiveID;
     this->_hireDirective = NULL;
 	// îñòàâèòü ïóñòûìè
-	this->_nextDutyChartID = NULL;
-	this->_nextDutyChartSince = QDate(1234,11,22);
+    _nextDutyChartID = - 1;
+	resetNextDutyChart();
+}
+Employee::Employee(int id, QString _fio,QString _phoneNumber,long long _INN,int _currentDutyChartID,int _hireDirectiveID)
+{
+    this->_id = id;
+	this->_fio = _fio;
+	this->_phoneNumber = _phoneNumber;
+	this->_INN = _INN;
+	this->_currentDutyChartID = _currentDutyChartID;
+	this->_hireDirectiveID = _hireDirectiveID;
+    this->_hireDirective = NULL;
+    _nextDutyChartID = -1;
+	// îñòàâèòü ïóñòûìè
+	resetNextDutyChart();
 }
 Employee::~Employee()
 {
@@ -52,22 +67,28 @@ bool Employee::update() const
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        query->prepare("UPDATE `employee` SET fio = :fio , phone_number = :phone_number, inn = :inn, hire_directive_id = :hire_directive_id, dutychart_id = :dutychart_id, next_dutyñhart_id = :next_dutyñhart_id, next_dutyñhart_since = :next_dutyñhart_since WHERE `id` = id");
+        query->prepare("UPDATE `employee` SET `fio` = :fio , `phone_number` = :phone_number, `inn` = :inn, `hire_directive_id` = :hire_directive_id, `dutychart_id` = :dutychart_id, `next_dutychart_id` = :next_dutychart_id, `next_dutychart_since` = :next_dutychart_since WHERE `id` = :id");
         query->bindValue(":fio",this->_fio);
         query->bindValue(":phone_number",this->_phoneNumber);
         query->bindValue(":inn",this->_INN);
         query->bindValue(":hire_directive_id",this->_hireDirectiveID);
         query->bindValue(":dutychart_id",this->_currentDutyChartID);
-        query->bindValue(":next_dutyñhart_id",this->_nextDutyChartID);
-        query->bindValue(":next_dutyñhart_since", this->_nextDutyChartSince);
+        query->bindValue(":next_dutychart_id",this->_nextDutyChartID);
+        query->bindValue(":next_dutychart_since", this->_nextDutyChartSince);
         query->bindValue(":id", this->id());
         if(query->exec())
         {
+			QString s = query->lastError().text();
+s+="as";
+
             delete query;
             return true;
         }
         else
         {
+			QString s = query->lastError().text();
+s+="as";
+
             delete query;
             return false;
         }
@@ -80,7 +101,7 @@ bool Employee::createDbTable()
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        if(query->exec("CREATE TABLE IF NOT EXISTS `employee` (`id` INT(11) NOT NULL AUTO_INCREMENT, `fio` CHAR(30) NOT NULL, `phone_number` CHAR(20),`inn` INT(10),`hire_directive_id` INT(11),`dutychart_id` INT(11),`next_dutyñhart_id` INT(11),`next_dutyñhart_since` DATE, PRIMARY KEY(`id`))"))
+        if(query->exec("CREATE TABLE IF NOT EXISTS `employee` (`id` INT(11) NOT NULL AUTO_INCREMENT, `fio` CHAR(30) NOT NULL, `phone_number` CHAR(20),`inn` DECIMAL(10),`hire_directive_id` INT(11),`dutychart_id` INT(11),`next_dutychart_id` INT(11),`next_dutychart_since` DATE, PRIMARY KEY(`id`))"))
 		{
 			success = true;
 		}
@@ -113,7 +134,7 @@ bool Employee::fetch()
                 _phoneNumber = query->value(2).toString();
                 _INN = query->value(3).toInt();
 				// hire_directive_id
-				_hireDirectiveID = query->value(4).toInt();
+                _hireDirectiveID = query->value(4).toLongLong();
                 _currentDutyChartID = query->value(5).toInt();
                 _nextDutyChartID = query->value(6).toInt();
                 _nextDutyChartSince = query->value(7).toDate();
@@ -139,7 +160,7 @@ int Employee::insert()
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        query->prepare("INSERT INTO `employee` (fio,phone_number,inn,hire_directive_id,dutychart_id) VALUES(:fio,:phone_number,:inn,:hire_directive_id,:dutychart_id);");
+        query->prepare("INSERT INTO `employee` (`fio`,`phone_number`,`inn`,`hire_directive_id`,`dutychart_id`) VALUES(:fio,:phone_number,:inn,:hire_directive_id,:dutychart_id);");
         query->bindValue(":fio",this->_fio);
         query->bindValue(":phone_number",this->_phoneNumber);
         query->bindValue(":inn",this->_INN);
@@ -173,14 +194,17 @@ QMap<int,QString> Employee::getAll()
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
 
-        query->prepare("SELECT id,name FROM `employee`");
+        query->prepare("SELECT `id`,`fio` FROM `employee`");
         if(query->exec())
         {
             while(query->next())
             {
-                records.insert(query->value(0).toInt(), query->value(0).toString()); 
+                int id = query->value(0).toInt();
+                QString s = query->value(1).toString();
+                records[id] = s; 
             }
         }
+        QString s = query->lastError().text();
         delete query;
     }
 
@@ -192,7 +216,7 @@ bool Employee::validate() const
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        query->prepare("ISELECT id FROM `employee` WHERE `id` <> :id AND ( `phone_number` = :phone_number OR `inn` = :inn );");
+        query->prepare("SELECT id FROM `employee` WHERE `id` <> :id AND ( `phone_number` = :phone_number OR `inn` = :inn );");
         query->bindValue(":id",this->_id);
         query->bindValue(":phone_number",this->_phoneNumber);
         query->bindValue(":inn",this->_INN);
@@ -246,3 +270,27 @@ HireDirective * Employee::hireDirective()
 	return _hireDirective;
 }
 
+bool Employee::applyDutyChartChange(const QDate& currentPeriodStart)
+{
+	bool reset = false
+		,is_date = this->_nextDutyChartSince.isValid()
+		,is_id = this->_nextDutyChartID >= 1;
+
+	if(is_date != is_id)
+	{
+		// íåâàëèäíîå ñîñòîÿíèå ñòîëáöîâ
+		reset = true;
+	}
+	else if(is_date && is_id && this->_nextDutyChartSince <= currentPeriodStart)
+	{
+		// íàçíà÷åíèå åñòü è âðåìÿ ïðèøëî
+		this->_currentDutyChartID = this->_nextDutyChartID;
+		reset = true;
+	}
+
+	if(reset)
+	{
+		resetNextDutyChart();
+	}
+	return reset;
+}

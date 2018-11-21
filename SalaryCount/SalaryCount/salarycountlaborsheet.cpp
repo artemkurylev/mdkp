@@ -31,8 +31,8 @@ salarycountLaborSheet::~salarycountLaborSheet()
 
 void salarycountLaborSheet::regenMarksCalendar()
 {
-    int startDayOfWeek = _viewedPeriod->startDate().dayOfWeek() - 1;
-    int monthLength = _viewedPeriod->startDate().daysInMonth();
+    int start_day_of_week = _viewedPeriod->startDate().dayOfWeek() - 1;
+    int month_length = _viewedPeriod->startDate().daysInMonth();
     int prev_month_length = _viewedPeriod->startDate().addMonths(-1).daysInMonth();
 	
 	// очистим таблицу с удалением виджетов
@@ -41,17 +41,17 @@ void salarycountLaborSheet::regenMarksCalendar()
 
 	// заполним таблицу заново...
 
-	for(int i=0 ; i<startDayOfWeek ; ++i)
+	for(int i=0 ; i<start_day_of_week ; ++i)
 	{
 		// Нужно вставить лэйблы с числами до начала месяца
-		int day = prev_month_length + 1 - (startDayOfWeek - i);
+		int day = prev_month_length + 1 - (start_day_of_week - i);
 		ui->laborSheet->setItem(i/7,i % 7, makeDateLabel(day) );
 	}
 
 	QTextCodec* codec = QTextCodec::codecForLocale();
-	for(int i=startDayOfWeek ; i<startDayOfWeek+monthLength ; ++i)
+	for(int i=start_day_of_week ; i<start_day_of_week+month_length ; ++i)
 	{
-		int day = i - startDayOfWeek + 1;
+		int day = i - start_day_of_week + 1;
 		// Нужно вставить комбобоксы
         QComboBox* combo = new QComboBox();
 		combo->insertItem(0, codec->toUnicode("-"));
@@ -62,19 +62,16 @@ void salarycountLaborSheet::regenMarksCalendar()
 		ui->laborSheet->setCellWidget(i/7,i % 7, combo );
 	}
 
-	for(int i=startDayOfWeek+monthLength ; i<42 ; ++i)
+	// 42 = 7 дней * 6 недель
+	for(int i=start_day_of_week+month_length ; i<42 ; ++i)
 	{
 		// Нужно вставить лэйблы с числами после конца месяца
-		int day = i - (startDayOfWeek+monthLength) + 1;
+		int day = i - (start_day_of_week+month_length) + 1;
 
 		ui->laborSheet->setItem(i/7,i % 7, makeDateLabel(day) );
 	}
     ui->LabourGroupEdit->setEnabled(false);
     ui->employeeLaborSheetTable->setColumnWidth(0,0);
-
-	// ! перемещено в конструктор
-    //Connections
-    //connect(ui->employeeLaborSheetTable,SIGNAL(currentCellChanged(int,int,int,int)),this, SLOT(showSelectedItem(int)));
 }
 
 /*! 
@@ -109,25 +106,31 @@ void salarycountLaborSheet::updateInfo(QString name)
     if(this->objectName().compare(name) != 0)
 		return;
 
-    QList<LaborSheet>& labor_data = LaborSheet::getByPeriodId(_viewedPeriod->id());
+    QList<LaborSheet> labor_data = LaborSheet::getByPeriodId(_viewedPeriod->id());
 	// > перенесено в конструктор (меняется единожды)
     //ui->BillingPeriod_dateEdit->setDate(_viewedPeriod->startDate());
-    if(ui->employeeLaborSheetTable->rowCount() != labor_data.size())
-	{
+    /*if(ui->employeeLaborSheetTable->rowCount() != labor_data.size())
+	{*/
         ui->employeeLaborSheetTable->clearContents();
+        while(ui->employeeLaborSheetTable->rowCount() > 0)
+            ui->employeeLaborSheetTable->removeRow(0);
         int row = 0;
         for(int i = 0; i < labor_data.size(); ++i)
         {
             ui->employeeLaborSheetTable->insertRow(row);
             Employee employee(*(labor_data[i].employee()));
+            employee.fetch();
             ui->employeeLaborSheetTable->setItem(row,0,new QTableWidgetItem(QString(labor_data[i].id())));
             ui->employeeLaborSheetTable->setItem(row,1,new QTableWidgetItem(employee.fio()));
             ui->employeeLaborSheetTable->item(row,0)->setData(Qt::UserRole,labor_data[i].id());
 			// TODO: добавить инфо по остальным столбцам (прочерки или реальные значения для закрытого месяца)
+            if(labor_data[i].award() > 0)
+                ui->employeeLaborSheetTable->setItem(row,2,new QTableWidgetItem(QString::number(labor_data[i].award())));
             ++row;
         }
-        ui->employeeLaborSheetTable->setCurrentCell(0,1);
-	}
+        if(ui->employeeLaborSheetTable->rowCount() > 0)
+            ui->employeeLaborSheetTable->setCurrentCell(0,1);
+	//}
 }
 
 void salarycountLaborSheet::showSelectedItem(int row)
@@ -138,7 +141,7 @@ void salarycountLaborSheet::showSelectedItem(int row)
         int id = ui->employeeLaborSheetTable->item(row,0)->data(Qt::UserRole).toInt();
         LaborSheet labor_sheet(id,0,0,QList<Mark>());
         labor_sheet.fetch();
-        QList<Mark>marks = labor_sheet.marks();
+        QList<Mark>marks = labor_sheet.grid();
         int start = _viewedPeriod->startDate().dayOfWeek() - 1;
         if(labor_sheet.payForm() == PayForm::PER_MONTH)
         {
@@ -150,7 +153,7 @@ void salarycountLaborSheet::showSelectedItem(int row)
                 combo->insertItem(0,codec->toUnicode("Выходной"));
                 combo->insertItem(1,codec->toUnicode("Рабочий"));
                 combo->insertItem(2,codec->toUnicode("Отсутствовал"));
-                if(marks[i - start].altered() == Mark::INVALID)
+                if(!marks[i - start].isAltered())
                 {
                     switch(marks[i - start].base())
                     {
@@ -203,12 +206,12 @@ void salarycountLaborSheet::showSelectedItem(int row)
                 combo->clear();
                 for(int j = 0; j <= 12; ++j)
                 {
-                    combo->insertItem(j,QString(j));
+                    combo->insertItem(j,QString::number(j));
                 }
-                if(marks[i - start].alteredCountHours() == Mark::INVALID) 
-                    combo->setCurrentIndex(marks[i].countHours());
+                if(!marks[i - start].isAlteredCountHours()) 
+                    combo->setCurrentIndex(marks[i - start].countHours());
                 else
-                    combo->setCurrentIndex(marks[i].alteredCountHours());
+                    combo->setCurrentIndex(marks[i - start].alteredCountHours());
             }
         }
     }
@@ -229,6 +232,7 @@ void salarycountLaborSheet::periodDateChanged(const QDate& date)
 		ui->ClosePeriod_button->setEnabled(this->_viewedPeriod->status() == BillingPeriod::OPEN);
 		ui->GoToCurrentPeriod_button->setEnabled(this->_viewedPeriod->status() != BillingPeriod::OPEN);
 		regenMarksCalendar();
+        updateInfo(this->objectName());
 	}
 	else
 	{
@@ -241,19 +245,21 @@ void salarycountLaborSheet::goToCurrentPeriod()
 	if(bp)
 	{
 		if(this->_viewedPeriod)
-			delete this->_viewedPeriod;
+			;//delete this->_viewedPeriod;
 		else
 		{
 			// установить границы для DateEdit [В ПЕРВЫЙ РАЗ]
 			QPair<QDate,QDate> date_span = BillingPeriod::getDateSpan();
 			ui->BillingPeriod_dateEdit->setDateRange(date_span.first, date_span.second);
 		}
-
-		this->_viewedPeriod = bp;
-		ui->BillingPeriod_dateEdit->setDate(_viewedPeriod->startDate());
+        if(!this->_viewedPeriod){
+		    this->_viewedPeriod = bp;
+		    regenMarksCalendar();
+        }
+        ui->BillingPeriod_dateEdit->setDate(bp->startDate());
 		ui->ClosePeriod_button->setEnabled(true);
 		ui->GoToCurrentPeriod_button->setEnabled(false);
-		regenMarksCalendar();	// обновить ячейки для отметок
+		//regenMarksCalendar();	// обновить ячейки для отметок(Не надо, т.к. обновляются при смене даты)
 	}
 	else
 	{
@@ -277,6 +283,7 @@ void salarycountLaborSheet::closePeriod()
 	ui->BillingPeriod_dateEdit->setDateRange(date_span.first, date_span.second);
 
 	updateInfo(this->objectName());
+        
 }
 void salarycountLaborSheet::editLaborSheet()
 {
@@ -304,7 +311,7 @@ LaborSheet* salarycountLaborSheet::shapeDataObject()
 {
     int id = 0;
     LaborSheet* obj = NULL;
-	QList<Mark> *grid = NULL;
+	const QList<Mark> *grid = NULL;
 	if(this->currentState == app_states::EDIT)
 	{
         int row = ui->employeeLaborSheetTable->currentRow();
@@ -312,45 +319,54 @@ LaborSheet* salarycountLaborSheet::shapeDataObject()
 		QList<Mark> m;
         obj = new LaborSheet(id,0,0,m);
 		obj->fetch();
-		grid = &obj->grid();
+        grid = &obj->grid();
 	}
     int start = _viewedPeriod->startDate().dayOfWeek() - 1; 
     QList<Mark> *ms = new QList<Mark>();
+    PayForm pf = obj->payForm();
     for(int i = start; i - start < grid->size(); ++i)
 	{
 		QComboBox* combo = (QComboBox*)ui->laborSheet->cellWidget(i/7,i%7);
 
 		int val = 0;
-        PayForm pf = obj->payForm();
+        Mark* m;
+        m = new Mark(grid->at(i - start));
 		switch(pf)
 		{
 			case PayForm::PER_MONTH:
             {
                 val = combo->currentIndex();
                 if(val == 0)
-                    val = Mark::Type::HOLIDAY;
+                    val = Mark::HOLIDAY;
+                else if(val == 1)
+                    val = Mark::ATTENDS;
                 else if(val == 2)
-                    val = Mark::Type::HOLIDAY;
-                if(_viewedPeriod->status() == BillingPeriod::Status::OPEN)
-                    (*grid)[i - start].setBaseMark(val);
-                else
-                    (*grid)[i - start].setAlteredMark(val);
+                    val = Mark::HOLIDAY;
+				m->setAlteredMark(val); // Нужно делать так всегда
+                //if(_viewedPeriod->status() == BillingPeriod::OPEN)
+                //{
+                //    m->setBaseMark(val);
+                //}
+                //else
+                //{
+                //    m->setAlteredMark(val);
+                //}
                 break;
             }
 
 			case PayForm::PER_HOUR:
             {
                 val = combo->currentIndex();
-                if(_viewedPeriod->status() == BillingPeriod::Status::OPEN)
-                    (*grid)[i - start].setCountHours(val);
-                else
-                    (*grid)[i - start].setAlteredCountHours(val);
+                m->setAlteredCountHours(val);
+                break;
             }
 
 			default:
 				throw new nullptr_t;
 		}
+        ms->append(*m);
+        delete m;
 	}
-
+    obj->setGrid(*ms);
 	return obj;
 }

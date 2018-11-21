@@ -24,10 +24,6 @@ public:
 	*/
 	virtual bool fetch() { return false; };
     
-	///*! Задать данные записи, не отправляя из в БД (обновить локальную копию)
-	//*/
- //   virtual bool set() = 0;
-    
 	/*! Проверить данные записи на корректность (полезно перед отправкой в БД)
 	*/
     virtual bool validate() const { return false; };
@@ -44,6 +40,8 @@ public:
 	/*! Возвращает ID [Primary Key] записи в БД
 	*/
     int id() const;
+
+	DbRecord &DbRecord::operator =(const DbRecord & other) {_id = other.id(); return *this;};
 
 protected:
     /*! Строка для запроса к базе данных MYSQL */

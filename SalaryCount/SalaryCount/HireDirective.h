@@ -14,7 +14,7 @@ class HireDirective :
 public:
 	HireDirective();
 	HireDirective(int id);
-	HireDirective(QDate hireDate, QString fio, PayForm payForm, float salary, int employeeID);
+	HireDirective(int id,QDate hireDate, QString fio, PayForm payForm, float salary, int employeeID);
 	~HireDirective(void);
 
 	// getters
@@ -25,7 +25,7 @@ public:
 
 	// methods
 	Employee * hiredEmployee();
-    
+    static int lastDirectiveId();
 
 	// inherited
 	bool HireDirective::fetch();
@@ -35,6 +35,8 @@ public:
     
     //static
     bool static createDbTable();
+    static QMap<int,QString> getAll();
+    static int countEntries();
 private:
 	QDate _hireDate;
 	QString _fio;

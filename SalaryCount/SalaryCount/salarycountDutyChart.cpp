@@ -1,11 +1,10 @@
 #include "salarycountDutyChart.h"
 
 salarycountDutyChart::salarycountDutyChart(Ui_SalaryCount* ui, QString name)
+	:delegateStates()
 {
 	this->setObjectName(name);
 	this->ui = ui;//не самый приятный способ
-
-	journal = new log_errors();//журнал ошибок 
 
 	this->ui->editDutyChart->setEnabled(false);
 	this->ui->deleteDutyChart->setEnabled(false);
@@ -83,16 +82,19 @@ void salarycountDutyChart::editDutyChart()
 */
 void salarycountDutyChart::cancelNewDutyChart()
 {
-	switchMode(app_states::USUAL);
-
-	int row = ui->dutyChartList->currentRow();
-	if(row!=-1)
-	{ 
-		showSelectedItem(row);
-	}
-	else
+	if(this->currentState != app_states::USUAL)
 	{
-		clearFields();//clear fields
+		switchMode(app_states::USUAL);
+
+		int row = ui->dutyChartList->currentRow();
+		if(row!=-1)
+		{ 
+			showSelectedItem(row);
+		}
+		else
+		{
+			clearFields();//clear fields
+		}
 	}
 }
 
@@ -131,20 +133,24 @@ void salarycountDutyChart::deleteDutyChart()
 
 void salarycountDutyChart::saveNewDutyChart()
 {
-	DutyChart* obj = shapeDataObject();//собрать данные
 
-	switch(this->currentState)
+	if(this->currentState != app_states::USUAL)
 	{
-		case app_states::ADD:
-			saveNewEntries(obj);
-		break;
+		DutyChart* obj = shapeDataObject();//собрать данные
 
-		case app_states::EDIT:
-			saveEditableEntries(obj);
-		break;
+		switch(this->currentState)
+		{
+			case app_states::ADD:
+				saveNewEntries(obj);
+			break;
+
+			case app_states::EDIT:
+				saveEditableEntries(obj);
+			break;
+		}
+
+		delete obj;
 	}
-
-	delete obj;
 }
 
 void salarycountDutyChart::saveNewEntries(DutyChart* obj)
@@ -274,7 +280,7 @@ DutyChart* salarycountDutyChart::shapeDataObject()
 		ms->append(*m);
 		delete m;
 	}
-
+	delete obj;
 	obj = new DutyChart(name,*ms,ancDate,pf);
 	delete ms;
 
@@ -300,7 +306,9 @@ void salarycountDutyChart::changePayForm(int index)
 void salarycountDutyChart::clearFields()
 {
 	this->ui->nameDutyChart->clear();
-	this->ui->startDate->setDateTime(QDateTime(QDate::currentDate()));
+    QDate minDate = this->getMaximumAnchorDate();
+	this->ui->startDate->setDateTime(QDateTime(minDate));
+    this->ui->startDate->setMaximumDate(QDate(minDate));
 	this->ui->workTimeEdit->setTime(QTime(0,0));
 
 	for(int i=this->ui->DutyChartMarksEdit->rowCount()-1; i>=0; --i)
@@ -400,4 +408,32 @@ void salarycountDutyChart::showSelectedItem( int row )
 		this->ui->editDutyChart->setEnabled(false);
 		this->ui->deleteDutyChart->setEnabled(false);
     }
+}
+QDate salarycountDutyChart::getMaximumAnchorDate()
+{
+    try
+	{
+		BillingPeriod *curPer = BillingPeriod::getCurrentPeriod();
+		if(!curPer) throw this->journal->nullPtr("объект текущего периода не проинициализирован");
+
+		QDate startDate = curPer->startDate();
+        if(startDate.month()==1)
+        {
+            startDate.setDate(startDate.year() - 1, 12,1);
+        }
+        else
+        {
+            startDate.setDate(startDate.year(),startDate.month() - 1,1);
+        }
+		delete curPer;
+
+		return startDate;
+	}
+	catch(log_errors::exception_states e)
+	{
+		show_last_error();
+		this->journal->lastConflictNonResolved();
+
+		return QDate();
+	}
 }
