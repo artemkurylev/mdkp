@@ -234,6 +234,19 @@ void SalaryCount::showCompanyDialog(QAction* actionEmited)
 /*!
 *\
 */
+void SalaryCount::showCompanyDialog(QAction* actionEmited)
+{
+	if(actionEmited == ui.ExitAction)
+	{
+		return;
+	}
+
+    QMessageBox::information(NULL,QString::fromWCharArray(L"Это первый релиз"),QString::fromWCharArray(L"Функции переключения предприятий недоступны.\nВ настоящее время Вы можете работать с одним фиксированным предприятием."));
+}
+
+/*!
+*\
+*/
 void SalaryCount::showStackedItem(QString namePage)
 {
 	QWidget* searchPage = ui.stackedWidget->findChild<QWidget*>(namePage);

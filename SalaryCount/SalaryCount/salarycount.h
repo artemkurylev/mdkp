@@ -67,5 +67,9 @@ private slots:
 	//! меню "Файл"
 	void showCompanyDialog(QAction* actionEmited);
 
+	//! переходы по страницам приложения
+	void showPage(QAction* actionEmited);
+	//! меню "Файл"
+	void showCompanyDialog(QAction* actionEmited);
 };
 #endif // SALARYCOUNT_H
