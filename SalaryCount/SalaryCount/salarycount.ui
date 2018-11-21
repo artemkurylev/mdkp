@@ -22,7 +22,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="EmployeesPage">
        <layout class="QGridLayout" name="gridLayout_8">
@@ -926,7 +926,11 @@
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="nameDutyChart"/>
+              <widget class="QLineEdit" name="nameDutyChart">
+               <property name="placeholderText">
+                <string>имя до 10 знаков</string>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -1027,9 +1031,6 @@
    <property name="whatsThis">
     <string>EmployeesPage</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+E</string>
-   </property>
   </action>
   <action name="LaborSheetAction">
    <property name="text">
@@ -1038,9 +1039,6 @@
    <property name="whatsThis">
     <string>LaborSheetsPage</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+L</string>
-   </property>
   </action>
   <action name="DutyCharAction">
    <property name="text">
@@ -1048,9 +1046,6 @@
    </property>
    <property name="whatsThis">
     <string>DutyChartsPage</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+D</string>
    </property>
   </action>
   <action name="ExitAction">
@@ -1064,9 +1059,6 @@
    </property>
    <property name="whatsThis">
     <string>HireDirectivesPage</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+D</string>
    </property>
   </action>
  </widget>
