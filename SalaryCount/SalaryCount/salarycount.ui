@@ -7,9 +7,9 @@
     <x>0</x>
     <y>0</y>
 
-    <width>817</width>
-    <height>530</height>
-  </rect>
+    <width>685</width>
+    <height>552</height>
+   </rect>
   </property>
   <property name="windowTitle">
    <string>SalaryPayApp</string>
@@ -24,7 +24,7 @@
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
 
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="EmployeesPage">
        <layout class="QGridLayout" name="gridLayout_8">
@@ -326,15 +326,21 @@
            <bool>true</bool>
           </property>
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>2</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
           <property name="maximumSize">
            <size>
-            <width>360</width>
+            <width>700</width>
             <height>16777215</height>
+           </size>
+          </property>
+          <property name="baseSize">
+           <size>
+            <width>700</width>
+            <height>0</height>
            </size>
           </property>
           <property name="title">
@@ -371,21 +377,27 @@
            <item row="0" column="0">
             <widget class="QTableWidget" name="laborSheet">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+              <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
              <property name="minimumSize">
               <size>
-               <width>333</width>
+               <width>570</width>
                <height>210</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
-               <width>335</width>
+               <width>700</width>
                <height>220</height>
+              </size>
+             </property>
+             <property name="baseSize">
+              <size>
+               <width>700</width>
+               <height>210</height>
               </size>
              </property>
              <property name="selectionMode">
@@ -1270,7 +1282,7 @@
      <x>0</x>
      <y>0</y>
 
-     <width>703</width>
+     <width>685</width>
      <height>21</height>
     </rect>
    </property>

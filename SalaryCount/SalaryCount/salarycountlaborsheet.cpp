@@ -1,5 +1,5 @@
 #include "salarycountlaborsheet.h"
-
+#include<qtablewidget.h>
 QTableWidgetItem* makeDateLabel(int day);
 
 
@@ -20,6 +20,13 @@ salarycountLaborSheet::salarycountLaborSheet(Ui_SalaryCount *ui, QString name)
 
 	ui->LabourGroupEdit->setEnabled(false);
     ui->employeeLaborSheetTable->setColumnWidth(0,0);
+    /*ui->laborSheet->setMaximumWidth(500);
+    ui->LabourGroupEdit->setMaximumWidth(550);*/
+    for(int i = 0; i < 7;++i)
+    {
+        ui->laborSheet->setColumnWidth(i,75);
+        
+    }
 }
 salarycountLaborSheet::~salarycountLaborSheet()
 {
