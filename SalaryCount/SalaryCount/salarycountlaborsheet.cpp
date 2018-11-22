@@ -351,7 +351,7 @@ LaborSheet* salarycountLaborSheet::shapeDataObject()
                 else if(val == 1)
                     val = Mark::ATTENDS;
                 else if(val == 2)
-                    val = Mark::HOLIDAY;
+                    val = Mark::MISS;
 				m->setAlteredMark(val); // Нужно делать так всегда
                 //if(_viewedPeriod->status() == BillingPeriod::OPEN)
                 //{
