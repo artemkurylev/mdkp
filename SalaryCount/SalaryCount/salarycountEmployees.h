@@ -31,7 +31,7 @@ private:
 	void switchMode(app_states state);
 	void saveNewEntries(Employee* obj);
 	void saveEditableEntries(Employee* obj);
-
+	void changeCallPayForm(PayForm pf);
 	//
 	
 	int getNewHireDirectiveNumber();
