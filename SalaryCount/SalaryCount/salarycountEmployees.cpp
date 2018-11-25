@@ -232,7 +232,11 @@ bool salarycountEmployees::fillDutyChartComboBox(PayForm pf)
 
 void salarycountEmployees::changeCallPayForm(PayForm pf)
 {
+<<<<<<< HEAD
 	if(pf==PER_MONTH)
+=======
+	if(pf==PayForm::PER_MONTH)
+>>>>>>> 5adcc10... Добавлено изменение названий при смене типа оплаты труда
 	{
 		ui->eSalary_label->setText(QString::fromWCharArray(L"����� (���)"));
 		ui->eSalary->setMinimum(8000);
@@ -512,6 +516,7 @@ void salarycountEmployees::changePayForm(int index)
 {
 	if(index)
 	{
+<<<<<<< HEAD
 		changeCallPayForm(PER_HOUR);
 		fillDutyChartComboBox(PER_HOUR);
 	}
@@ -519,6 +524,15 @@ void salarycountEmployees::changePayForm(int index)
 	{
 		changeCallPayForm(PER_MONTH);
 		fillDutyChartComboBox(PER_MONTH);
+=======
+		changeCallPayForm(PayForm::PER_HOUR);
+		fillDutyChartComboBox(PayForm::PER_HOUR);
+	}
+	else
+	{
+		changeCallPayForm(PayForm::PER_MONTH);
+		fillDutyChartComboBox(PayForm::PER_MONTH);
+>>>>>>> 5adcc10... Добавлено изменение названий при смене типа оплаты труда
 	}
 }
 
