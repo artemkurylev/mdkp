@@ -202,6 +202,8 @@ bool salarycountEmployees::fillDutyChartComboBox(PayForm pf)
 
 			ui->eDutyChart->setCurrentIndex(0);
 			this->currentPayForm = pf;
+
+			ui->addEmployeeBtn->setEnabled(true);
 		}
 
 		return this->currentPayForm!=pf;
@@ -212,6 +214,22 @@ bool salarycountEmployees::fillDutyChartComboBox(PayForm pf)
 		this->journal->lastConflictNonResolved();
 
 		return false;
+	}
+}
+
+void salarycountEmployees::changeCallPayForm(PayForm pf)
+{
+	if(pf==PayForm::PER_MONTH)
+	{
+		ui->eSalary_label->setText(QString::fromWCharArray(L"ќклад (руб)"));
+		ui->eSalary->setMinimum(8000);
+		ui->eSalary->setSingleStep(1000);
+	}
+	else
+	{
+		ui->eSalary_label->setText(QString::fromWCharArray(L"—умма в час (руб)"));
+		ui->eSalary->setMinimum(100);
+		ui->eSalary->setSingleStep(100);
 	}
 }
 
@@ -441,10 +459,12 @@ void salarycountEmployees::changePayForm(int index)
 {
 	if(index)
 	{
+		changeCallPayForm(PayForm::PER_HOUR);
 		fillDutyChartComboBox(PayForm::PER_HOUR);
 	}
 	else
 	{
+		changeCallPayForm(PayForm::PER_MONTH);
 		fillDutyChartComboBox(PayForm::PER_MONTH);
 	}
 }

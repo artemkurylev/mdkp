@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
 
-    <width>685</width>
+    <width>922</width>
     <height>552</height>
    </rect>
   </property>
@@ -23,8 +23,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="EmployeesPage">
        <layout class="QGridLayout" name="gridLayout_8">
@@ -100,10 +99,8 @@
            <property name="geometry">
             <rect>
              <x>0</x>
-
-             <y>0</y>
-
-             <width>261</width>
+             <y>-24</y>
+             <width>274</width>
              <height>454</height>
             </rect>
            </property>
@@ -152,7 +149,7 @@
                <item>
                 <layout class="QVBoxLayout" name="verticalLayout_8">
                  <item>
-                  <widget class="QLabel" name="label_5">
+                  <widget class="QLabel" name="eSalary_label">
                    <property name="text">
                     <string>Оклад (руб)</string>
                    </property>
@@ -1282,8 +1279,8 @@
      <x>0</x>
      <y>0</y>
 
-     <width>685</width>
-     <height>21</height>
+     <width>922</width>
+    <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="FileMenu">
