@@ -206,6 +206,7 @@ QMap<int,QString> Employee::getAll()
 }
 bool Employee::validate() const
 {
+    /*Возвращать неверное поле и сообщение об ощибке*/
 	bool success = false;
     if(DbManager::manager().checkConnection())
     {
