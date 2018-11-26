@@ -685,7 +685,7 @@
            <item row="0" column="0">
             <widget class="QLabel" name="Month_edit">
              <property name="text">
-              <string>Месяц: ***</string>
+              <string>Месяц: ноябрь 2018</string>
              </property>
             </widget>
            </item>
