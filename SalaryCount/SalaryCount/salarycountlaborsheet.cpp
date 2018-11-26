@@ -162,7 +162,7 @@ void salarycountLaborSheet::showSelectedItem(int row)
                 combo->clear();
                 combo->insertItem(0,codec->toUnicode("Выходной"));
                 combo->insertItem(1,codec->toUnicode("Рабочий"));
-                combo->insertItem(2,codec->toUnicode("Отсутствовал"));
+                combo->insertItem(2,codec->toUnicode("Не был"));
                 if(!marks[i - start].isAltered())
                 {
                     switch(marks[i - start].base())
