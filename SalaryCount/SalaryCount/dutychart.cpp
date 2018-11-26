@@ -9,7 +9,6 @@ DutyChart::DutyChart(int id)
     : DbRecord(id)
 {
     //_id = id;
-		/* DbRecord(id) performs: assign id, fetch. */
 }
 DutyChart::DutyChart(const QString& name, const QList<Mark>& marks,const QDate& anchorDate, enum PayForm payForm/*=PER_HOUR*/)	
 {
