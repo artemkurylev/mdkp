@@ -71,53 +71,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
     <ClCompile Include="BookKeeperTest.cpp" />
-=======
-=======
->>>>>>> 98c7fe7... Добавил связь с окном табелй
+
     <ClCompile Include="BillingPeriod.cpp" />
-<<<<<<< HEAD
->>>>>>> aff958a... Новый класс-запись БД: BillingPeriod - расчётный период
-=======
+
     <ClCompile Include="delegateStates.cpp" />
->>>>>>> 157dcdb... Добавлено поле для имени нового графика, добавлена иконка приложения 64х64
     <ClCompile Include="DirectiveGenerator.cpp" />
->>>>>>> 6e4d5b6... Created test class for methods in Bookkeeper class with unimplemented tests.
     <ClCompile Include="BookKeeper.cpp" />
     <ClCompile Include="dbmanager.cpp" />
     <ClCompile Include="dbrecord.cpp" />
-<<<<<<< HEAD
-=======
     <ClCompile Include="dbmanager.cpp" />
     <ClCompile Include="dbrecord.cpp" />
-=======
->>>>>>> 4fe47d6... new class HireDirective:DbRecord & some logic implemented
     <ClCompile Include="dutychart.cpp" />
     <ClCompile Include="employee.cpp" />
-<<<<<<< HEAD
-<<<<<<< HEAD
     <ClCompile Include="GeneratedFiles\Debug\moc_BookKeeperTest.cpp">
-=======
-=======
->>>>>>> 98c7fe7... Добавил связь с окном табелй
     <ClCompile Include="GeneratedFiles\Debug\moc_BillingPeriod.cpp">
->>>>>>> aff958a... Новый класс-запись БД: BillingPeriod - расчётный период
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_dbmanager.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-<<<<<<< HEAD
->>>>>>> 62c96cc... Добавлен класс менеждера базы данных и создан констуктор задающий параметры БД
-=======
->>>>>>> 4fe47d6... new class HireDirective:DbRecord & some logic implemented
     <ClCompile Include="GeneratedFiles\Debug\moc_dbrecord.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -167,31 +141,19 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
+
     <ClCompile Include="GeneratedFiles\Release\moc_BookKeeperTest.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
->>>>>>> 6e4d5b6... Created test class for methods in Bookkeeper class with unimplemented tests.
     <ClCompile Include="GeneratedFiles\Release\moc_dbmanager.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
->>>>>>> 62c96cc... Добавлен класс менеждера базы данных и создан констуктор задающий параметры БД
-=======
-=======
     <ClCompile Include="GeneratedFiles\Release\moc_BillingPeriod.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
->>>>>>> aff958a... Новый класс-запись БД: BillingPeriod - расчётный период
     <ClCompile Include="GeneratedFiles\Release\moc_dbmanager.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
->>>>>>> 4fe47d6... new class HireDirective:DbRecord & some logic implemented
     <ClCompile Include="GeneratedFiles\Release\moc_dbrecord.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -213,43 +175,28 @@
     <ClCompile Include="GeneratedFiles\Release\moc_mark.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-=======
+
     <ClCompile Include="GeneratedFiles\Release\moc_dbrecord.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
->>>>>>> 8707358... пустой метод BookKeeper::calcSalary()
     <ClCompile Include="GeneratedFiles\Release\moc_salarycount.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
-=======
+
     <ClCompile Include="GeneratedFiles\Release\moc_salarycountdirectives.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
->>>>>>> c2bf9aa... Добавлен класс для отображения списка приказов
     <ClCompile Include="GeneratedFiles\Release\moc_salarycountDutyChart.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 157dcdb... Добавлено поле для имени нового графика, добавлена иконка приложения 64х64
-=======
-=======
     <ClCompile Include="GeneratedFiles\Release\moc_salarycountEmployees.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
->>>>>>> e8cfdea... Добавлен класс страницы сотрудников
-    <ClCompile Include="GeneratedFiles\Release\moc_salarycountlaborsheet.cpp">
+   <ClCompile Include="GeneratedFiles\Release\moc_salarycountlaborsheet.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
->>>>>>> 98c7fe7... Добавил связь с окном табелй
     <ClCompile Include="HireDirective.cpp" />
->>>>>>> 4fe47d6... new class HireDirective:DbRecord & some logic implemented
-    <ClCompile Include="laborsheet.cpp" />
+   <ClCompile Include="laborsheet.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mark.cpp" />
     <ClCompile Include="salarycount.cpp" />
@@ -286,16 +233,7 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+
     <CustomBuild Include="BookKeeperTest.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing BookKeeperTest.h...</Message>
@@ -303,10 +241,9 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_WIDGETS_LIB -DQT_TESTLIB_LIB "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtTest"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing BookKeeperTest.h...</Message>
-=======
-=======
-=======
-=======
+
+    <ClInclude Include="GeneratedFiles\ui_companyCreationDialog.h" />
+    <ClInclude Include="log_errors.h" />
     <ClInclude Include="resource.h" />
     <CustomBuild Include="salarycountdirectives.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -328,7 +265,6 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_WIDGETS_LIB -DQT_TESTLIB_LIB "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtTest"</Command>
     </CustomBuild>
->>>>>>> e8cfdea... Добавлен класс страницы сотрудников
     <CustomBuild Include="salarycountlaborsheet.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing salarycountlaborsheet.h...</Message>
@@ -339,7 +275,6 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_WIDGETS_LIB -DQT_TESTLIB_LIB "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtTest"</Command>
     </CustomBuild>
->>>>>>> 98c7fe7... Добавил связь с окном табелй
     <CustomBuild Include="salarycountDutyChart.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);%(AdditionalInputs)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing salarycountDutyChart.h...</Message>
@@ -350,7 +285,6 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_WIDGETS_LIB -DQT_TESTLIB_LIB "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtTest"</Command>
     </CustomBuild>
->>>>>>> 157dcdb... Добавлено поле для имени нового графика, добавлена иконка приложения 64х64
     <CustomBuild Include="BillingPeriod.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing BillingPeriod.h...</Message>
@@ -358,7 +292,6 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_WIDGETS_LIB -DQT_TESTLIB_LIB "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtTest"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing BillingPeriod.h...</Message>
->>>>>>> aff958a... Новый класс-запись БД: BillingPeriod - расчётный период
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_WIDGETS_LIB -DQT_TESTLIB_LIB "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtTest"</Command>
     </CustomBuild>
@@ -373,17 +306,9 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_WIDGETS_LIB -DQT_TESTLIB_LIB "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtTest"</Command>
     </CustomBuild>
     <ClInclude Include="DirectiveGenerator.h" />
->>>>>>> 6e4d5b6... Created test class for methods in Bookkeeper class with unimplemented tests.
     <ClInclude Include="BookKeeper.h" />
-<<<<<<< HEAD
-=======
-=======
-=======
-=======
+
     <ClInclude Include="HireDirective.h" />
-<<<<<<< HEAD
->>>>>>> 4fe47d6... new class HireDirective:DbRecord & some logic implemented
-=======
     <CustomBuild Include="unittest\DirectiveGeneratorTest.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing DirectiveGeneratorTest.h...</Message>
@@ -394,7 +319,6 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_WIDGETS_LIB -DQT_TESTLIB_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtTest"</Command>
     </CustomBuild>
->>>>>>> 9780d68... создан тестовый класс DirectiveGeneratorTest для DirectiveGenerator
     <CustomBuild Include="laborsheet.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing laborsheet.h...</Message>
@@ -405,10 +329,6 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_WIDGETS_LIB -DQT_TESTLIB_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtTest"</Command>
     </CustomBuild>
-<<<<<<< HEAD
->>>>>>> b2a71f3... Добавлен класс графика учета труда
-=======
->>>>>>> 4fe47d6... new class HireDirective:DbRecord & some logic implemented
     <CustomBuild Include="mark.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing mark.h...</Message>
@@ -419,8 +339,6 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_WIDGETS_LIB -DQT_TESTLIB_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtTest"</Command>
     </CustomBuild>
-<<<<<<< HEAD
->>>>>>> 358a4d4... Создан класс Mark, поле id перенесено в класс DbRecord
     <CustomBuild Include="dbmanager.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing dbmanager.h...</Message>
@@ -431,17 +349,11 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_WIDGETS_LIB "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtWidgets"</Command>
     </CustomBuild>
->>>>>>> 62c96cc... Добавлен класс менеждера базы данных и создан констуктор задающий параметры БД
-=======
->>>>>>> 4fe47d6... new class HireDirective:DbRecord & some logic implemented
-=======
     <ClInclude Include="BookKeeper.h" />
->>>>>>> 8707358... пустой метод BookKeeper::calcSalary()
     <CustomBuild Include="dbrecord.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing dbrecord.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-<<<<<<< HEAD
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_WIDGETS_LIB -DQT_TESTLIB_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtTest"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing dbrecord.h...</Message>
@@ -468,8 +380,6 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_WIDGETS_LIB -DQT_TESTLIB_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtTest"</Command>
     </CustomBuild>
-<<<<<<< HEAD
-=======
     <CustomBuild Include="dbmanager.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing dbmanager.h...</Message>
@@ -480,15 +390,12 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_WIDGETS_LIB -DQT_TESTLIB_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtTest"</Command>
     </CustomBuild>
->>>>>>> 4fe47d6... new class HireDirective:DbRecord & some logic implemented
-=======
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_WIDGETS_LIB "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtWidgets"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing dbrecord.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_WIDGETS_LIB "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtWidgets"</Command>
     </CustomBuild>
->>>>>>> 8707358... пустой метод BookKeeper::calcSalary()
     <ClInclude Include="GeneratedFiles\ui_salarycount.h" />
   </ItemGroup>
   <ItemGroup>
@@ -506,6 +413,19 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SalaryCount.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="companyCreationDialog.ui">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+    </CustomBuild>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
