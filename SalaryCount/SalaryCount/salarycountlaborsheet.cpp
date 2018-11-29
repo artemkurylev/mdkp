@@ -13,7 +13,7 @@ salarycountLaborSheet::salarycountLaborSheet(Ui_SalaryCount *ui, QString name)
 	goToCurrentPeriod();
 
     //Connections
-//	connect(ui->BillingPeriod_dateEdit,SIGNAL(dateChanged(const QDate&)), this,SLOT(periodDateChanged(const QDate&))); // обновить дату текущего периода
+	connect(ui->BillingPeriod_dateEdit,SIGNAL(dateChanged(const QDate&)), this,SLOT(periodDateChanged(const QDate&))); // обновить дату текущего периода
 	connect(ui->ClosePeriod_button,SIGNAL(clicked()), this,SLOT(closePeriod())); // закрыть текущий период
 	connect(ui->GoToCurrentPeriod_button,SIGNAL(clicked()), this,SLOT(goToCurrentPeriod())); // перейти на текущий период
     connect(ui->employeeLaborSheetTable,SIGNAL(currentCellChanged(int,int,int,int)),this, SLOT(showSelectedItem(int)));
@@ -257,13 +257,13 @@ void salarycountLaborSheet::goToCurrentPeriod()
 		{
 			// установить границы для DateEdit [В ПЕРВЫЙ РАЗ]
 			QPair<QDate,QDate> date_span = BillingPeriod::getDateSpan();
-			//ui->BillingPeriod_dateEdit->setDateRange(date_span.first, date_span.second);
+			ui->BillingPeriod_dateEdit->setDateRange(date_span.first, date_span.second);
 		}
         if(!this->_viewedPeriod){
 		    this->_viewedPeriod = bp;
 		    regenMarksCalendar();
         }
-       // ui->BillingPeriod_dateEdit->setDate(bp->startDate());
+        ui->BillingPeriod_dateEdit->setDate(bp->startDate());
 		ui->ClosePeriod_button->setEnabled(true);
 		ui->GoToCurrentPeriod_button->setEnabled(false);
 		//regenMarksCalendar();	// обновить ячейки для отметок(Не надо, т.к. обновляются при смене даты)
@@ -287,7 +287,7 @@ void salarycountLaborSheet::closePeriod()
 
 	// установить границы для DateEdit
 	QPair<QDate,QDate> date_span = BillingPeriod::getDateSpan();
-	//ui->BillingPeriod_dateEdit->setDateRange(date_span.first, date_span.second);
+	ui->BillingPeriod_dateEdit->setDateRange(date_span.first, date_span.second);
 
 	updateInfo(this->objectName());
         
