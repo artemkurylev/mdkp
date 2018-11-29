@@ -22,7 +22,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="EmployeesPage">
        <layout class="QHBoxLayout" name="horizontalLayout">
@@ -101,8 +101,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>257</width>
-               <height>527</height>
+               <width>278</width>
+               <height>545</height>
               </rect>
              </property>
              <layout class="QGridLayout" name="gridLayout_2">
@@ -259,7 +259,7 @@
                    <item>
                     <widget class="QLineEdit" name="INN">
                      <property name="inputMask">
-                      <string>9999999999</string>
+                      <string>999999999999</string>
                      </property>
                      <property name="placeholderText">
                       <string>10 цифр ИНН</string>
@@ -471,7 +471,7 @@
                <string>29</string>
               </property>
               <property name="textAlignment">
-               <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+               <set>AlignCenter</set>
               </property>
               <property name="flags">
                <set>NoItemFlags</set>
@@ -536,8 +536,6 @@
                </widget>
               </item>
              </layout>
-             <zorder>Description_label</zorder>
-             <zorder>Description_label</zorder>
             </widget>
            </item>
            <item>
@@ -1050,7 +1048,7 @@
      <x>0</x>
      <y>0</y>
      <width>922</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="FileMenu">
