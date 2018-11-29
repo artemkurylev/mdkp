@@ -6,6 +6,7 @@
 #include "BillingPeriod.h"
 #include "HireDirective.h"
 #include "dutychart.h"
+#include <qregexp.h>
 
 class salarycountEmployees : public delegateStates
 {
@@ -33,6 +34,7 @@ private:
 	void saveEditableEntries(Employee* obj);
 	void changeCallPayForm(PayForm pf);
 	//
+	QString validateData();
 	
 	int getNewHireDirectiveNumber();
 public:

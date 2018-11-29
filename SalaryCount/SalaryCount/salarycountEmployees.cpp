@@ -38,6 +38,9 @@ Employee* salarycountEmployees::shapeDataObject()
 {
 	try
 	{
+		QString str = validateData();
+		if(!str.isEmpty()) throw this->journal->validateError(str.toStdString());
+
 		int id = 0;
 		if(this->currentState == app_states::EDIT)
 		{
@@ -62,6 +65,7 @@ Employee* salarycountEmployees::shapeDataObject()
 	}
 	catch(log_errors::exception_states e)
 	{
+		show_last_error();
 		this->journal->lastConflictNonResolved();
 		return NULL;
 	}
@@ -102,10 +106,11 @@ void salarycountEmployees::parseDataObject(const Employee* obj)
 		HireDirective *hd = new HireDirective(obj->hireDirectiveID());
 		if(!hd->fetch()) throw this->journal->fetchError("parseDataObject hiredirective fetch error");
 
+		ui->ePayFormChoice->setCurrentIndex(hd->payForm()==PayForm::PER_MONTH ? 0 : 1);
 		ui->eReceiptDate->setDate(hd->hireDate());
 		ui->eOrderNum->setText(QString::number(hd->id()));
 		ui->eSalary->setValue(hd->salary());
-		ui->ePayFormChoice->setCurrentIndex(hd->payForm()==PayForm::PER_MONTH ? 0 : 1);
+		
 		fillDutyChartComboBox(hd->payForm());
 		int row = ui->eDutyChart->findData(QVariant(obj->currentDutyChartID()));
 		if(row==-1)throw this->journal->invalidData("parseDataObject error dutychart combobox value");
@@ -265,6 +270,24 @@ QDate salarycountEmployees::getMinimumRecipientDate()
 	}
 }
 
+QString salarycountEmployees::validateData()
+{
+	QTextCodec* c = QTextCodec::codecForLocale();
+	QRegExp FIO(QString::fromWCharArray(L"([a-zA-Zа-яА-ЯёЁ]+[ ]){2}[a-zA-Zа-яА-ЯёЁ]+")), INN("\\d{12}"), phone("\\+\\d \\(\\d{3}\\) \\d{3} \\d{2} \\d{2}");
+
+	bool l = FIO.exactMatch(ui->eFIO->text());
+	if( !FIO.isValid() || !FIO.exactMatch(ui->eFIO->text()) )
+		return QString("Wrong FIO data.\nExample: Ivanov Ivan Ivanovich");
+
+	if( !INN.isValid() || !INN.exactMatch(ui->INN->text()) )
+		return QString("Wrong INN.\nExample: 123456789100");
+
+	if( !phone.isValid() || !phone.exactMatch(ui->eNumberPhone->text()) )
+		return QString("Wrong phone number.\nExample: +7 (111) 111 11 11");
+
+	return QString();
+}
+
 void salarycountEmployees::switchMode(app_states state)
 {
 	this->currentState = state;//запомним состояние приложения
@@ -318,7 +341,8 @@ void salarycountEmployees::saveNewEntries(Employee* obj)
 	{
 		show_last_error();
 		this->journal->lastConflictNonResolved();
-		switchMode(app_states::USUAL);
+
+		if(e!=log_errors::exception_states::VALIDATE_EX) switchMode(app_states::USUAL);
 	}
 }
 
@@ -348,7 +372,8 @@ void salarycountEmployees::saveEditableEntries(Employee* obj)
 	{
 		show_last_error();
 		this->journal->lastConflictNonResolved();
-		switchMode(app_states::USUAL);
+
+		if(e!=log_errors::exception_states::VALIDATE_EX) switchMode(app_states::USUAL);
 	}
 }
 
@@ -439,8 +464,12 @@ void salarycountEmployees::saveNewEmployee()
 		catch(log_errors::exception_states e)
 		{
 			show_last_error();
-			this->journal->lastConflictNonResolved();
-			switchMode(app_states::USUAL);
+
+			if(e!=log_errors::exception_states::VALIDATE_EX)
+			{
+				this->journal->lastConflictNonResolved();
+				//switchMode(app_states::USUAL);
+			}
 		}
 	}
 }
