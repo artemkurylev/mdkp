@@ -102,7 +102,7 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>256</width>
+               <width>257</width>
                <height>527</height>
               </rect>
              </property>
@@ -358,6 +358,9 @@
               </widget>
              </item>
              <item>
+              <widget class="QDateEdit" name="BillingPeriod_dateEdit"/>
+             </item>
+             <item>
               <widget class="QPushButton" name="GoToCurrentPeriod_button">
                <property name="text">
                 <string>к текущему</string>
@@ -508,37 +511,17 @@
            </size>
           </property>
           <property name="title">
-           <string>Редактирование отметок</string>
+           <string>Детали месячного табеля</string>
           </property>
-          <layout class="QGridLayout" name="gridLayout_4">
-           <item row="2" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_13">
-             <property name="sizeConstraint">
-              <enum>QLayout::SetFixedSize</enum>
+          <layout class="QVBoxLayout" name="verticalLayout_10">
+           <item>
+            <widget class="QLabel" name="Month_label">
+             <property name="text">
+              <string>Месяц: ноябрь 2018</string>
              </property>
-             <item>
-              <widget class="QPushButton" name="saveEditedLaborBtn">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="text">
-                <string>Сохранить</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_14">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="text">
-                <string>Сбросить изменения</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
+            </widget>
            </item>
-           <item row="1" column="0">
+           <item>
             <widget class="QTableWidget" name="laborSheet">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -646,7 +629,7 @@
                <string>29</string>
               </property>
               <property name="textAlignment">
-               <set>AlignCenter</set>
+               <set>AlignHCenter|AlignVCenter|AlignCenter</set>
               </property>
               <property name="flags">
                <set>NoItemFlags</set>
@@ -667,28 +650,68 @@
              </item>
             </widget>
            </item>
-           <item row="3" column="0">
-            <spacer name="verticalSpacer_2">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_13">
+             <property name="sizeConstraint">
+              <enum>QLayout::SetFixedSize</enum>
              </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::Expanding</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>161</height>
-              </size>
-             </property>
-            </spacer>
+             <item>
+              <widget class="QPushButton" name="saveEditedLaborBtn">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="text">
+                <string>Сохранить</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_14">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="text">
+                <string>Сбросить изменения</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
 
-           <item row="0" column="0">
-            <widget class="QLabel" name="Month_edit">
-             <property name="text">
-              <string>Месяц: ноябрь 2018</string>
+           <item>
+            <widget class="QGroupBox" name="groupBox">
+             <property name="title">
+              <string>Подробности</string>
              </property>
+             <layout class="QVBoxLayout" name="verticalLayout_6">
+              <item>
+               <widget class="QLabel" name="Description_label">
+                <property name="text">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Desc&lt;br/&gt;iption&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="verticalSpacer_2">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Expanding</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>160</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+             <zorder>Description_label</zorder>
+             <zorder>verticalSpacer_2</zorder>
+             <zorder>Description_label</zorder>
+             <zorder>verticalSpacer_2</zorder>
             </widget>
            </item>
            <item row="1" column="0">
