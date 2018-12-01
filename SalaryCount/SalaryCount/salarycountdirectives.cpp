@@ -1,5 +1,8 @@
 #include "salarycountdirectives.h"
 
+#include <QStandardPaths>
+
+const QString DirectivesDir = QString::fromWCharArray(L"Приказы");
 
 salarycountDirectives::salarycountDirectives(Ui_SalaryCount* ui, QString name)
 {
@@ -45,9 +48,24 @@ void salarycountDirectives::showDirective()
         int id = ui->directiveList->currentItem()->type();
         HireDirective* directive = new HireDirective(id);
         directive->fetch();
+
+		QString filepath = QStandardPaths::writableLocation( QStandardPaths::DocumentsLocation );
+		QDir dir(filepath);
+		bool ok = dir.mkdir(DirectivesDir);
+		if(ok)
+			dir.cd(DirectivesDir);
+		filepath = dir.absoluteFilePath( directive->fio() + ".pdf ");
+
         DirectiveGenerator generator;
-        generator.pdf(directive,directive->fio() + ".pdf");
-        QMessageBox::information(NULL,QString::fromWCharArray(L"Успешно!"),QString::fromWCharArray(L"Создан pdf приказ ")+ directive->fio() + ".pdf");
+        generator.pdf(directive,filepath);
+
+        QMessageBox::information(NULL,QString::fromWCharArray(L"Сохранено!"),QString::fromWCharArray(L"Сохранен приказ в формате PDF на имя %1.\nРасположение: %2 / %3\nФайл:\n%4")
+			.arg(directive->fio())
+			.arg(QStandardPaths::displayName( QStandardPaths::DocumentsLocation ))
+			.arg(DirectivesDir)
+			.arg(filepath));
+		
+		delete directive;
     }
     
 }
