@@ -275,6 +275,7 @@ void salarycountLaborSheet::goToCurrentPeriod()
 		    regenMarksCalendar();
         }
         ui->BillingPeriod_dateEdit->setDate(bp->startDate());
+        ui->CurrentPeriod_dateEdit->setDate(bp->startDate());
 		ui->ClosePeriod_button->setEnabled(true);
 		ui->GoToCurrentPeriod_button->setEnabled(false);
 		//regenMarksCalendar();	// обновить €чейки дл€ отметок(Ќе надо, т.к. обновл€ютс€ при смене даты)
@@ -299,6 +300,7 @@ void salarycountLaborSheet::closePeriod()
 	// установить границы дл€ DateEdit
 	QPair<QDate,QDate> date_span = BillingPeriod::getDateSpan();
 	ui->BillingPeriod_dateEdit->setDateRange(date_span.first, date_span.second);
+    ui->CurrentPeriod_dateEdit->setDate(date_span.second);
 
 	updateInfo(this->objectName());
         
