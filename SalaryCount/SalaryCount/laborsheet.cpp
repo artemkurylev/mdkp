@@ -60,6 +60,50 @@ LaborSheet::~LaborSheet()
 		delete _dutyChart;
 	}
 }
+
+QList<LaborSheetDescriptionLine> LaborSheet::description()
+{
+	QList<LaborSheetDescriptionLine> l;
+	//LaborSheetDescriptionLine dl = { QString::fromUtf8("Сотрудник"), employee().name(), -1.0 };
+	//l.push_back(dl);
+
+	LaborSheetDescriptionLine dl = { QString::fromUtf8("Форма оплаты"), QString::fromUtf8((payForm() == PER_MONTH)? "Помесячная" : "Почасовая"), -1.0 };
+	l.push_back(dl);
+
+	dl.name = QString::fromUtf8("Выплата");
+	if(billingPeriod()->status() == BillingPeriod::OPEN)
+		dl.info = QString::fromUtf8("(закройте месяц для расчета значения)");
+	else
+		dl.info = QString::number(award());
+	l.push_back(dl);
+
+	if(payForm() == PER_HOUR)
+	{
+		dl.name = QString::fromUtf8("Формула");
+		dl.info = QString::fromUtf8("Ставка * Часы");
+		l.push_back(dl);
+
+		dl.name = QString::fromUtf8("Часы\t");
+		dl.info = QString::number(countActualTimeUnits());
+		l.push_back(dl);
+	}
+	if(payForm() == PER_MONTH)
+	{
+		dl.name = QString::fromUtf8("Формула");
+		dl.info = QString::fromUtf8("Оклад * Дней_отработано / Рабочих_дней");
+		l.push_back(dl);
+
+		dl.name = QString::fromUtf8("Дней отработано");
+		dl.info = QString::number(countActualTimeUnits());
+		l.push_back(dl);
+
+		dl.name = QString::fromUtf8("Рабочих дней");
+		dl.info = QString::number(countBaseTimeUnits());
+		l.push_back(dl);
+	}
+	return l;
+}
+
 bool LaborSheet::fillWithDefaults()
 {
 	// Вычислить относительное смещение наложения графика на месяц
@@ -124,12 +168,11 @@ BillingPeriod* LaborSheet::billingPeriod()
 }
 PayForm LaborSheet::payForm()
 {
-	Employee* e = employee();
-    e->fetch();
-	HireDirective* h = e->hireDirective();
-    h->fetch();
-	PayForm p = h->payForm();
-	return p;
+	//Employee* e = employee();
+	//HireDirective* h = e->hireDirective();
+	//PayForm p = h->payForm();
+	//return p;
+	return employee()->hireDirective()->payForm();
 }
 DutyChart* LaborSheet::dutyChart()
 {

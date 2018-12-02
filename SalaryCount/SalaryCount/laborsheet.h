@@ -8,6 +8,12 @@
 #include "employee.h"
 #include "BillingPeriod.h"
 
+struct LaborSheetDescriptionLine
+{
+	QString name , info;
+	float value; // -1 означает отсутствие значени€ в этом поле
+};
+
 /*! Ћичный табель на один мес€ц
 */
 class LaborSheet : public DbRecord
@@ -39,16 +45,17 @@ public:
 
     /*! getter дл€ вз€ти€ даты
     */
-    const QDate& startDate() const{return this->_billingPeriod->startDate();}
+    const QDate& startDate() {return billingPeriod()->startDate();}
     /*! getter дл€ вз€ти€ графика
     */
 
-    const DutyChart* dutyChart() const	{return this->_dutyChart;}
+	DutyChart* dutyChart();
 
     Employee* employee();
     BillingPeriod* billingPeriod();
     PayForm payForm();
-	DutyChart* dutyChart();
+
+	QList<LaborSheetDescriptionLine> description();
 
 	bool fillWithDefaults();
 	bool fillWithDefaults(int employeeId, const QDate& date,DutyChart* dutyChart);
