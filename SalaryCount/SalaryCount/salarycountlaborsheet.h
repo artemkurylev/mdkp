@@ -33,6 +33,8 @@ private:
 
 	/*! Перевыдать комбобоксы на ячейки таблицы редактирвания отметок */
 	void regenMarksCalendar();
+	/*! Перевыдать описание табеля */
+	void setDescription(LaborSheet& laborSheet);
 private slots:
     void showSelectedItem(int row);
     void goToCurrentPeriod();

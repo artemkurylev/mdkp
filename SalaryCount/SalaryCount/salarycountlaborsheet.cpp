@@ -150,6 +150,17 @@ void salarycountLaborSheet::updateInfo(QString name)
 			.arg(this->_viewedPeriod->startDate().year()));
 }
 
+void salarycountLaborSheet::setDescription(LaborSheet& laborSheet)
+{
+	QString text("");
+	foreach(LaborSheetDescriptionLine dl, laborSheet.description())
+	{
+		text += QString("\n%1: \t%2").arg(dl.name).arg(dl.info);
+	}
+	
+	ui->Description_label->setText(text);
+}
+
 void salarycountLaborSheet::showSelectedItem(int row)
 {
     QTextCodec* codec = QTextCodec::codecForLocale();
@@ -158,6 +169,7 @@ void salarycountLaborSheet::showSelectedItem(int row)
         int id = ui->employeeLaborSheetTable->item(row,0)->data(Qt::UserRole).toInt();
         LaborSheet labor_sheet(id,0,0,QList<Mark>());
         labor_sheet.fetch();
+		this->setDescription(labor_sheet);
         QList<Mark>marks = labor_sheet.grid();
         int start = _viewedPeriod->startDate().dayOfWeek() - 1;
         if(labor_sheet.payForm() == PayForm::PER_MONTH)
@@ -168,7 +180,7 @@ void salarycountLaborSheet::showSelectedItem(int row)
                 QComboBox* combo = (QComboBox*)ui->laborSheet->cellWidget(i/7,i%7);
                 combo->clear();
                 combo->insertItem(0,codec->toUnicode("Выходной"));
-                combo->insertItem(1,codec->toUnicode("Рабочий"));
+                combo->insertItem(1,codec->toUnicode("Работал"));
                 combo->insertItem(2,codec->toUnicode("Не был"));
                 if(!marks[i - start].isAltered())
                 {
