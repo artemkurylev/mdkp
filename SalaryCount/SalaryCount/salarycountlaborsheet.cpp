@@ -28,7 +28,7 @@ salarycountLaborSheet::salarycountLaborSheet(Ui_SalaryCount *ui, QString name)
     ui->LabourGroupEdit->setMaximumWidth(550);*/
     for(int i = 0; i < 7;++i)
     {
-        ui->laborSheet->setColumnWidth(i,75);
+        ui->laborSheet->setColumnWidth(i,70);
         
     }
 }
@@ -62,10 +62,10 @@ void salarycountLaborSheet::regenMarksCalendar()
 		int day = i - start_day_of_week + 1;
 		// Нужно вставить комбобоксы
         QComboBox* combo = new QComboBox();
-		combo->insertItem(0, codec->toUnicode("-"));
-		combo->insertItem(1, codec->toUnicode("--"));
+		combo->insertItem(0, codec->toUnicode("-нет-"));
 		combo->setCurrentIndex(0);
 		combo->setToolTip(codec->toUnicode("<html><head/><body><b>%1</b> число</body></html>").arg(day));
+		combo->setEnabled(this->_viewedPeriod->status() == BillingPeriod::OPEN);
 		_comboboxes.push_back(combo);
 		ui->laborSheet->setCellWidget(i/7,i % 7, combo );
 	}
@@ -75,10 +75,9 @@ void salarycountLaborSheet::regenMarksCalendar()
 	{
 		// Нужно вставить лэйблы с числами после конца месяца
 		int day = i - (start_day_of_week+month_length) + 1;
-
 		ui->laborSheet->setItem(i/7,i % 7, makeDateLabel(day) );
 	}
-    ui->LabourGroupEdit->setEnabled(false);
+    ui->LabourGroupEdit->setEnabled(this->_viewedPeriod->status() == BillingPeriod::CLOSED);
     ui->employeeLaborSheetTable->setColumnWidth(0,0);
 }
 
@@ -255,6 +254,8 @@ void salarycountLaborSheet::periodDateChanged(const QDate& newdate)
 		this->_viewedPeriod = bp;
 		ui->ClosePeriod_button->setEnabled(this->_viewedPeriod->status() == BillingPeriod::OPEN);
 		ui->GoToCurrentPeriod_button->setEnabled(this->_viewedPeriod->status() != BillingPeriod::OPEN);
+		// кнопка "Изменить"
+		ui->updateLaborBtn->setEnabled(this->_viewedPeriod->status() == BillingPeriod::OPEN);
 		regenMarksCalendar();
         updateInfo(this->objectName());
 	}
@@ -320,7 +321,7 @@ void salarycountLaborSheet::saveEditableEntries(LaborSheet* obj)
 	}
 	else
 	{
-		error_msg("Произошла ошибка программы","Невозможно сохранить тебель...");
+		error_msg("Произошла ошибка программы","Невозможно сохранить табель...");
 	}
 }
 void salarycountLaborSheet::saveEditedLabor()
