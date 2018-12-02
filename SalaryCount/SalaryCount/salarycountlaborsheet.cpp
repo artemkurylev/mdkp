@@ -116,8 +116,11 @@ void salarycountLaborSheet::updateInfo(QString name)
     if(this->objectName().compare(name) != 0)
 		return;
 
-    QList<LaborSheet> labor_data = LaborSheet::getByPeriodId(_viewedPeriod->id());
-        ui->employeeLaborSheetTable->clearContents();
+		QList<LaborSheet> labor_data = LaborSheet::getByPeriodId(_viewedPeriod->id());
+		
+		disconnect(ui->employeeLaborSheetTable,SIGNAL(currentCellChanged(int,int,int,int)),this, SLOT(showSelectedItem(int)));
+
+		ui->employeeLaborSheetTable->clearContents();
         while(ui->employeeLaborSheetTable->rowCount() > 0)
             ui->employeeLaborSheetTable->removeRow(0);
         int row = 0;
@@ -134,9 +137,13 @@ void salarycountLaborSheet::updateInfo(QString name)
                 ui->employeeLaborSheetTable->setItem(row,2,new QTableWidgetItem(QString::number(labor_data[i].award())));
             ++row;
         }
+
+	    connect(ui->employeeLaborSheetTable,SIGNAL(currentCellChanged(int,int,int,int)),this, SLOT(showSelectedItem(int)));
+
         if(ui->employeeLaborSheetTable->rowCount() > 0)
-            ui->employeeLaborSheetTable->setCurrentCell(0,1);
-	//}
+		{
+			ui->employeeLaborSheetTable->setCurrentCell(0,1);
+		}
 }
 
 void salarycountLaborSheet::showSelectedItem(int row)
