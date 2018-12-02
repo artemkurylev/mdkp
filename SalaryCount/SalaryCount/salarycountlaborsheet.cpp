@@ -18,6 +18,10 @@ salarycountLaborSheet::salarycountLaborSheet(Ui_SalaryCount *ui, QString name)
 	connect(ui->GoToCurrentPeriod_button,SIGNAL(clicked()), this,SLOT(goToCurrentPeriod())); // перейти на текущий период
     connect(ui->employeeLaborSheetTable,SIGNAL(currentCellChanged(int,int,int,int)),this, SLOT(showSelectedItem(int)));
 
+    connect(ui->updateLaborBtn,SIGNAL(pressed()),SLOT(editLaborSheet()));
+    connect(ui->saveEditedLaborBtn,SIGNAL(pressed()),SLOT(saveEditedLabor()));
+    connect(ui->CancelLaborBtn,SIGNAL(pressed()),SLOT(cancelEditLabor()));
+
 	ui->LabourGroupEdit->setEnabled(false);
     ui->employeeLaborSheetTable->setColumnWidth(0,0);
     /*ui->laborSheet->setMaximumWidth(500);
@@ -105,6 +109,8 @@ void salarycountLaborSheet::switchMode(app_states state)
 	}
 
     ui->LabourGroupEdit->setEnabled(triggerState);
+	ui->saveEditedLaborBtn->setEnabled(triggerState);
+	ui->CancelLaborBtn->setEnabled(triggerState);
 
 	emit changeState(triggerState); // может быть, лучше сделать наоборот - чтобы переключение происходило по этому сигналу ???
 }
@@ -303,7 +309,7 @@ void salarycountLaborSheet::saveEditableEntries(LaborSheet* obj)
 	}
 	else
 	{
-		error_msg("Оопаньки","Ебать-Копать");//сообщить об ошибке	
+		error_msg("Произошла ошибка программы","Невозможно сохранить тебель...");
 	}
 }
 void salarycountLaborSheet::saveEditedLabor()
@@ -312,6 +318,11 @@ void salarycountLaborSheet::saveEditedLabor()
     LaborSheet* labor_sheet = shapeDataObject();
     saveEditableEntries(labor_sheet);
     delete labor_sheet;
+}
+void salarycountLaborSheet::cancelEditLabor()
+{
+	switchMode(app_states::USUAL);
+	showSelectedItem( ui->employeeLaborSheetTable->currentRow() );
 }
 LaborSheet* salarycountLaborSheet::shapeDataObject()
 {

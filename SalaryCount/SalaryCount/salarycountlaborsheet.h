@@ -19,6 +19,7 @@ public slots:
 	void closePeriod();
     void editLaborSheet();
     void saveEditedLabor();
+	void cancelEditLabor();
 private:
 
     Ui_SalaryCount *ui; // не самый приятный способ, зато все видно из коробки
