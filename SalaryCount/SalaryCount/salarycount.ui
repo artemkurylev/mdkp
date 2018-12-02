@@ -22,7 +22,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="EmployeesPage">
        <layout class="QHBoxLayout" name="horizontalLayout">
@@ -102,7 +102,7 @@
                <x>0</x>
                <y>0</y>
                <width>278</width>
-               <height>545</height>
+               <height>548</height>
               </rect>
              </property>
              <layout class="QGridLayout" name="gridLayout_2">
@@ -493,7 +493,7 @@
             </widget>
            </item>
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_13">
+            <layout class="QHBoxLayout" name="SaveCancelLaborLayout">
              <property name="sizeConstraint">
               <enum>QLayout::SetFixedSize</enum>
              </property>
@@ -508,12 +508,12 @@
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton_14">
+              <widget class="QPushButton" name="CancelLaborBtn">
                <property name="enabled">
                 <bool>false</bool>
                </property>
                <property name="text">
-                <string>Сбросить изменения</string>
+                <string>Отменить</string>
                </property>
               </widget>
              </item>
@@ -530,6 +530,9 @@
              <layout class="QVBoxLayout" name="verticalLayout_6">
               <item>
                <widget class="QLabel" name="Description_label">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="text">
                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Desc&lt;br/&gt;iption&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
@@ -667,14 +670,11 @@
              <property name="showDropIndicator" stdset="0">
               <bool>false</bool>
              </property>
-             <property name="alternatingRowColors">
-              <bool>true</bool>
-             </property>
              <property name="selectionMode">
               <enum>QAbstractItemView::SingleSelection</enum>
              </property>
              <property name="selectionBehavior">
-              <enum>QAbstractItemView::SelectItems</enum>
+              <enum>QAbstractItemView::SelectRows</enum>
              </property>
              <property name="cornerButtonEnabled">
               <bool>false</bool>
@@ -1048,7 +1048,7 @@
      <x>0</x>
      <y>0</y>
      <width>922</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="FileMenu">
