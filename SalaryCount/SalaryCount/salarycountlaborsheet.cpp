@@ -148,6 +148,11 @@ void salarycountLaborSheet::updateInfo(QString name)
 		{
 			ui->employeeLaborSheetTable->setCurrentCell(0,1);
 		}
+
+		char* calendar_ru[12] = {"€нварь","февраль","март","апрель","май","июнь","июль","август","сент€брь","окт€брь","но€брь","декабрь"};
+		ui->Month_label->setText(QString::fromWCharArray(L"ћес€ц: %1 %2")
+			.arg(QString::fromLocal8Bit( calendar_ru[_viewedPeriod->startDate().month() - 1] ))
+			.arg(this->_viewedPeriod->startDate().year()));
 }
 
 void salarycountLaborSheet::showSelectedItem(int row)
