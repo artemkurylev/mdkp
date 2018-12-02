@@ -86,10 +86,26 @@ void SalaryCount::initialDBManager()
         {
 
         }
-    }
-    else
-    {
 
+        table_created = DutyChart::createDbTable();
+        if(!table_created)
+        {
+
+        }
+        table_created = LaborSheet::createDbTable();
+        if(!table_created)
+        {
+
+        }
+        table_created = HireDirective::createDbTable();
+        if(!table_created)
+        {
+
+        }
+		// должно быть вызвано после создания DutyChart и LaborSheet (из-за внешних ключей)
+        table_created = Mark::createDbTable();
+        if(!table_created)
+        {
     }
 
 	//return??
