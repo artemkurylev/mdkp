@@ -84,7 +84,7 @@ void salarycountLaborSheet::regenMarksCalendar()
 
 /*! 
 \param day в диапазоне [1..31]
-\ returns указатель на QTableWidgetItem, который нужно будет потом удалить
+\returns указатель на QTableWidgetItem, который нужно будет потом удалить
 */
 QTableWidgetItem* makeDateLabel(int day)
 {
@@ -222,8 +222,14 @@ void salarycountLaborSheet::showSelectedItem(int row)
         }
     }
 }
-void salarycountLaborSheet::periodDateChanged(const QDate& date)
+void salarycountLaborSheet::periodDateChanged(const QDate& newdate)
 {
+	QDate date(newdate);
+	if(date.day() != 1)
+	{
+		date.setDate(date.year(), date.month(), 1);
+		ui->BillingPeriod_dateEdit->setDate(date);
+	}
 	if(this->_viewedPeriod->startDate() == date)
 	{
 		// отсеять паразитные вызовы
