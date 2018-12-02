@@ -104,6 +104,7 @@ void SalaryCount::initialDBManager()
         {
 
         }
+		// должно быть вызвано после создания DutyChart и LaborSheet (из-за внешних ключей)
         table_created = Mark::createDbTable();
         if(!table_created)
         {
