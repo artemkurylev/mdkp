@@ -256,19 +256,16 @@ void salarycountLaborSheet::goToCurrentPeriod()
 	BillingPeriod* bp = BillingPeriod::getCurrentPeriod();
 	if(bp)
 	{
-		if(this->_viewedPeriod)
-			;//delete this->_viewedPeriod;
-		else
+        if(!this->_viewedPeriod)
 		{
 			// установить границы для DateEdit [В ПЕРВЫЙ РАЗ]
 			QPair<QDate,QDate> date_span = BillingPeriod::getDateSpan();
 			ui->BillingPeriod_dateEdit->setDateRange(date_span.first, date_span.second);
-		}
-        if(!this->_viewedPeriod){
-		    this->_viewedPeriod = bp;
+
+			this->_viewedPeriod = bp;
 		    regenMarksCalendar();
         }
-        ui->BillingPeriod_dateEdit->setDate(bp->startDate());
+        ui->BillingPeriod_dateEdit->setDate(bp->startDate()); // через сигнал инициирует переход на указанный месяц
         ui->CurrentPeriod_dateEdit->setDate(bp->startDate());
 		ui->ClosePeriod_button->setEnabled(true);
 		ui->GoToCurrentPeriod_button->setEnabled(false);
