@@ -6,7 +6,7 @@
 #include "employee.h"
 #include"laborsheet.h"
 #include "ui_salarycount.h"
-
+#include "company.h"
 #include "salarycountDutyChart.h"
 #include "salarycountEmployees.h"
 #include "salarycountlaborsheet.h"

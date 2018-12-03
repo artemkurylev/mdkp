@@ -110,6 +110,11 @@ void SalaryCount::initialDBManager()
         {
 
         }
+        table_created = Company::createTable();
+        if(!table_created)
+        {
+
+        }
     }
 	else
 	{

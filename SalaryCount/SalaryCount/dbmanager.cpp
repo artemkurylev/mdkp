@@ -17,7 +17,7 @@ DbManager::DbManager(const QString& hostName, const QString& dbName, int port,co
 {
 	// Сначала создаём БД
     this->db = QSqlDatabase::addDatabase("QMYSQL");
-    this->companyDb = QSqlDatabase::addDatabase("QMYSQL");
+    //this->companyDb = QSqlDatabase::addDatabase("QMYSQL");
     this->companyDb.setUserName(userName);
     this->db.setUserName(userName);
     //this->db.setDatabaseName(dbName);
