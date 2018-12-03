@@ -148,7 +148,7 @@ void salarycountLaborSheet::updateInfo(QString name)
 		}
 
 		char* calendar_ru[12] = {"январь","февраль","март","апрель","май","июнь","июль","август","сентябрь","октябрь","ноябрь","декабрь"};
-		ui->Month_label->setText(QString::fromWCharArray(L"Месяц: %1 %2")
+		ui->Month_label->setText(QString::fromLocal8Bit("Месяц: %1 %2")
 			.arg(QString::fromLocal8Bit( calendar_ru[_viewedPeriod->startDate().month() - 1] ))
 			.arg(this->_viewedPeriod->startDate().year()));
 }
@@ -156,17 +156,18 @@ void salarycountLaborSheet::updateInfo(QString name)
 void salarycountLaborSheet::setDescription(LaborSheet& laborSheet)
 {
 	QString text("");
-	foreach(LaborSheetDescriptionLine dl, laborSheet.description())
-	{
-		text += QString("\n%1: \t%2").arg(dl.name).arg(dl.info);
-	}
-	
+	//foreach(LaborSheetDescriptionLine dl, laborSheet.description())
+	//{
+	//	text += QString("\n%1: \t%2").arg(dl.name).arg(dl.info);
+	//}
+	text += QString::fromLocal8Bit("Сотрудник: %1")
+		.arg(ui->employeeLaborSheetTable->item(ui->employeeLaborSheetTable->currentRow(),1)->text());
 	ui->Description_label->setText(text);
 }
 
 void salarycountLaborSheet::showSelectedItem(int row)
 {
-    QTextCodec* codec = QTextCodec::codecForLocale();
+    //QTextCodec* codec = QTextCodec::codecForLocale();
     if(row >= 0)
     {
 
@@ -184,9 +185,9 @@ void salarycountLaborSheet::showSelectedItem(int row)
             for(int i = start;i < marks.size() + start;++i){
                 QComboBox* combo = (QComboBox*)ui->laborSheet->cellWidget(i/7,i%7);
                 combo->clear();
-                combo->insertItem(0,codec->toUnicode("Выходной"));
-                combo->insertItem(1,codec->toUnicode("Работал"));
-                combo->insertItem(2,codec->toUnicode("Не был"));
+                combo->insertItem(0,QString::fromLocal8Bit("Выходной"));
+                combo->insertItem(1,QString::fromLocal8Bit("Работал"));
+                combo->insertItem(2,QString::fromLocal8Bit("Не был"));
                 if(!marks[i - start].isAltered())
                 {
                     switch(marks[i - start].base())
