@@ -156,13 +156,23 @@ void salarycountLaborSheet::updateInfo(QString name)
 void salarycountLaborSheet::setDescription(LaborSheet& laborSheet)
 {
 	QString text("");
-	//foreach(LaborSheetDescriptionLine dl, laborSheet.description())
-	//{
-	//	text += QString("\n%1: \t%2").arg(dl.name).arg(dl.info);
-	//}
-	text += QString::fromLocal8Bit("Сотрудник: %1")
+	text += QString::fromWCharArray(L"Сотрудник: %1")
 		.arg(ui->employeeLaborSheetTable->item(ui->employeeLaborSheetTable->currentRow(),1)->text());
 	ui->Description_label->setText(text);
+
+	ui->Description_table->clearContents();
+	while(ui->Description_table->rowCount() > 0)
+		ui->Description_table->removeRow(0);
+	foreach(LaborSheetDescriptionLine dl, laborSheet.description())
+	{
+		int rows = ui->Description_table->rowCount();
+		ui->Description_table->insertRow( rows );
+		ui->Description_table->setVerticalHeaderItem(rows, new QTableWidgetItem(dl.name) );
+		ui->Description_table->setItem(rows, 0, new QTableWidgetItem(dl.default_value) );
+		ui->Description_table->setItem(rows, 1, new QTableWidgetItem(dl.base_value) );
+		ui->Description_table->setItem(rows, 2, new QTableWidgetItem(dl.altered_value) );
+		//text += QString("\n%1: \t%2").arg(dl.name).arg(dl.info);
+	}
 }
 
 void salarycountLaborSheet::showSelectedItem(int row)

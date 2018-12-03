@@ -10,7 +10,7 @@
 
 struct LaborSheetDescriptionLine
 {
-	QString name , info;
+	QString name , default_value, base_value, altered_value;
 	float value; // -1 означает отсутствие значения в этом поле
 };
 

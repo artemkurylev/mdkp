@@ -63,42 +63,53 @@ LaborSheet::~LaborSheet()
 
 QList<LaborSheetDescriptionLine> LaborSheet::description()
 {
+	LaborSheet def_lbsh(*this);
+	def_lbsh.fillWithDefaults();
+
+
 	QList<LaborSheetDescriptionLine> l;
 	//LaborSheetDescriptionLine dl = { QString::fromUtf8("Сотрудник"), employee().name(), -1.0 };
 	//l.push_back(dl);
 
-	LaborSheetDescriptionLine dl = { QString::fromUtf8("Форма оплаты"), QString::fromUtf8((payForm() == PER_MONTH)? "Помесячная" : "Почасовая"), -1.0 };
+	LaborSheetDescriptionLine dl = { QString::fromUtf8("Форма оплаты"), QString::fromUtf8((payForm() == PER_MONTH)? "Помесячная" : "Почасовая"), "", "", -1.0 };
 	l.push_back(dl);
 
 	dl.name = QString::fromUtf8("Выплата");
+	dl.default_value = QString::number(def_lbsh.award());
 	if(billingPeriod()->status() == BillingPeriod::OPEN)
-		dl.info = QString::fromUtf8("(закройте месяц для расчета значения)");
+		dl.base_value = QString::fromUtf8("(закройте месяц)");
 	else
-		dl.info = QString::number(award());
+		dl.base_value = QString::number(this->award());
+	dl.altered_value.clear();
 	l.push_back(dl);
 
 	if(payForm() == PER_HOUR)
 	{
 		dl.name = QString::fromUtf8("Формула");
-		dl.info = QString::fromUtf8("Ставка * Часы");
+		dl.default_value = QString::fromUtf8("Ставка * Часы");
+		dl.base_value    = QString::fromUtf8("");
+		dl.altered_value = QString::fromUtf8("");
 		l.push_back(dl);
 
-		dl.name = QString::fromUtf8("Часы\t");
-		dl.info = QString::number(countActualTimeUnits());
+		dl.name = QString::fromUtf8("Часы");
+		dl.default_value = QString::number(def_lbsh.countBaseTimeUnits());
+		dl.base_value = QString::number(this->countBaseTimeUnits());
+		dl.altered_value = QString::number(this->countActualTimeUnits());
 		l.push_back(dl);
 	}
 	if(payForm() == PER_MONTH)
 	{
 		dl.name = QString::fromUtf8("Формула");
-		dl.info = QString::fromUtf8("Оклад * Дней_отработано / Рабочих_дней");
+		//dl.base_value = QString::fromUtf8("Оклад * Дней_отработано / Рабочих_дней");
+		dl.default_value = QString::fromUtf8("Оклад * Дней_отработано / Рабочих_дней");
+		dl.base_value    = QString::fromUtf8("");
+		dl.altered_value = QString::fromUtf8("");
 		l.push_back(dl);
 
-		dl.name = QString::fromUtf8("Дней отработано");
-		dl.info = QString::number(countActualTimeUnits());
-		l.push_back(dl);
-
-		dl.name = QString::fromUtf8("Рабочих дней");
-		dl.info = QString::number(countBaseTimeUnits());
+		dl.name = QString::fromUtf8("Дни");
+		dl.default_value = QString::number(def_lbsh.countBaseTimeUnits());
+		dl.base_value = QString::number(this->countBaseTimeUnits());
+		dl.altered_value = QString::number(this->countActualTimeUnits());
 		l.push_back(dl);
 	}
 	return l;
