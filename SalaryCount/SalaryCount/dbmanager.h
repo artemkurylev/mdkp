@@ -31,6 +31,7 @@ public:
     static void closeConnection(){globalManager->db.close();}
 private:
     QSqlDatabase db;
+    QSqlDatabase companyDb;
     QSqlQuery _query;
 
     static DbManager* globalManager;
