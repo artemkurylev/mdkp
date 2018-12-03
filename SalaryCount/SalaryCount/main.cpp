@@ -1,7 +1,7 @@
 #include "salarycount.h"
 #include <QtWidgets/QApplication>
 
-
+#include "companyopendialog.h"
 #include "DirectiveGenerator.h"
 
 
@@ -18,6 +18,8 @@ int main(int argc, char *argv[])
 
     QApplication a(argc, argv);
     SalaryCount w;
+    companyOpenDialog q;
+    q.show();
     w.show();
     return a.exec();
 }
