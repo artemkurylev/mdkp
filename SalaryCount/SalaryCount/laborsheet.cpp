@@ -1,5 +1,7 @@
 #include "laborsheet.h"
 
+// TODO: вернуть локаль файла в 1251
+
 LaborSheet::LaborSheet()
     : DbRecord()
 {
