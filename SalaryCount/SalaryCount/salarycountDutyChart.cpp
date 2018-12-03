@@ -176,7 +176,7 @@ void salarycountDutyChart::saveNewEntries(DutyChart* obj)
 	}
 	catch(log_errors::exception_states e)
 	{
-		if(log_errors::exception_states::VALIDATE_EX)
+		if(log_errors::VALIDATE_EX)
 		{
 			//достать ошибку из объекта
 			//показать пользователю
@@ -212,7 +212,7 @@ void salarycountDutyChart::saveEditableEntries(DutyChart* obj)
 	}
 	catch(log_errors::exception_states e)
 	{
-		if(log_errors::exception_states::VALIDATE_EX)
+		if(log_errors::VALIDATE_EX)
 		{
 			//достать ошибку из объекта
 			//показать пользователю

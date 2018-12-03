@@ -218,6 +218,11 @@ bool salarycountEmployees::fillDutyChartComboBox(PayForm pf)
 		show_last_error();
 		this->journal->lastConflictNonResolved();
 
+		if(e == log_errors::INVALID_DATA_EX)
+		{
+			ui->addEmployeeBtn->setEnabled(false);
+		}
+
 		return false;
 	}
 }
@@ -351,7 +356,7 @@ void salarycountEmployees::saveNewEntries(Employee* obj)
 		show_last_error();
 		this->journal->lastConflictNonResolved();
 
-		if(e!=log_errors::exception_states::VALIDATE_EX) switchMode(app_states::USUAL);
+		if(e!=log_errors::VALIDATE_EX) switchMode(app_states::USUAL);
 	}
 }
 
@@ -383,7 +388,7 @@ void salarycountEmployees::saveEditableEntries(Employee* obj)
 		show_last_error();
 		this->journal->lastConflictNonResolved();
 
-		if(e!=log_errors::exception_states::VALIDATE_EX) switchMode(app_states::USUAL);
+		if(e!=log_errors::VALIDATE_EX) switchMode(app_states::USUAL);
 	}
 }
 
@@ -470,7 +475,7 @@ void salarycountEmployees::saveNewEmployee()
 		{
 			show_last_error();
 
-			if(e!=log_errors::exception_states::VALIDATE_EX)
+			if(e!=log_errors::VALIDATE_EX)
 			{
 				this->journal->lastConflictNonResolved();
 				//switchMode(app_states::USUAL);
