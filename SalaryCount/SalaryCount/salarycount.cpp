@@ -106,6 +106,13 @@ void SalaryCount::initialDBManager()
         table_created = Mark::createDbTable();
         if(!table_created)
         {
+
+        }
+        table_created = Company::createTable();
+        if(!table_created)
+        {
+
+        }
     }
 
 	//return??

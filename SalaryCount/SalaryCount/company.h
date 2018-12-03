@@ -19,7 +19,7 @@ public:
     bool validate() const{return false;}
     //Статические методы
     static QMap<int,QString> getAll(){QMap<int,QString> records; return records;}
-    static bool createTable(){return false;};
+    static bool createTable();
 private:
     QString _name;    
 };
