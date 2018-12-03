@@ -1,4 +1,5 @@
 #include "salarycount.h"
+#include "employeesc.h"
 #include <QtWidgets/QApplication>
 
 
