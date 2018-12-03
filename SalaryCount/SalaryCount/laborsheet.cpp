@@ -78,13 +78,19 @@ QList<LaborSheetDescriptionLine> LaborSheet::description()
 		dl.base_value = QString::fromUtf8("(закройте месяц)");
 	else
 		dl.base_value = QString::number(this->award());
-	dl.altered_value.clear();
+	dl.altered_value = dl.base_value;
 	l.push_back(dl);
 
 	if(payForm() == PER_HOUR)
 	{
 		dl.name = QString::fromUtf8("Формула");
 		dl.default_value = QString::fromUtf8("Ставка * Часы");
+		dl.base_value    = QString::fromUtf8("");
+		dl.altered_value = QString::fromUtf8("");
+		l.push_back(dl);
+
+		dl.name = QString::fromUtf8("Ставка");
+		dl.default_value = QString::number(employee()->hireDirective()->salary());
 		dl.base_value    = QString::fromUtf8("");
 		dl.altered_value = QString::fromUtf8("");
 		l.push_back(dl);
@@ -100,6 +106,12 @@ QList<LaborSheetDescriptionLine> LaborSheet::description()
 		dl.name = QString::fromUtf8("Формула");
 		//dl.base_value = QString::fromUtf8("Оклад * Дней_отработано / Рабочих_дней");
 		dl.default_value = QString::fromUtf8("Оклад * Дней_отработано / Рабочих_дней");
+		dl.base_value    = QString::fromUtf8("");
+		dl.altered_value = QString::fromUtf8("");
+		l.push_back(dl);
+
+		dl.name = QString::fromUtf8("Оклад");
+		dl.default_value = QString::number(employee()->hireDirective()->salary());
 		dl.base_value    = QString::fromUtf8("");
 		dl.altered_value = QString::fromUtf8("");
 		l.push_back(dl);
