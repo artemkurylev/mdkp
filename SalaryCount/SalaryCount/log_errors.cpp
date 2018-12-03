@@ -3,7 +3,7 @@
 log_errors::log_errors()
 {
 	this->lastState = parse_conclusion::NONE;
-	this->lastError = exception_states::UNEXIST;
+	this->lastError = UNEXIST;
 	this->lastErrorText = "";
 	this->journal = new QList<ex_description>();
 }
@@ -53,13 +53,13 @@ void log_errors::lastConflictResolved()
 	int count_journal_entries = this->journal->count();
 
 	bool isConflict = this->lastState != (parse_conclusion::NONE | parse_conclusion::SUCCESS) 
-		&& this->lastError != exception_states::UNEXIST;
+		&& this->lastError != UNEXIST;
 
 	if(isConflict && count_journal_entries)
 	{
 		this->journal->pop_back();
 		this->lastState = parse_conclusion::SUCCESS;
-		this->lastError = exception_states::UNEXIST;
+		this->lastError = UNEXIST;
 		this->lastErrorText = "";
 
 		if(count_journal_entries-1)
@@ -74,13 +74,13 @@ void log_errors::lastConflictResolved()
 void log_errors::lastConflictNonResolved()
 {
 	this->lastState = parse_conclusion::NONE;
-	this->lastError = exception_states::UNEXIST;
+	this->lastError = UNEXIST;
 	this->lastErrorText = "";
 }
 
 log_errors::exception_states log_errors::validateError(std::string text) throw()
 {
-	exception_states ex = exception_states::VALIDATE_EX;
+	exception_states ex = VALIDATE_EX;
 
 	baseError(ex, text);
 
@@ -89,7 +89,7 @@ log_errors::exception_states log_errors::validateError(std::string text) throw()
 
 log_errors::exception_states log_errors::updateError(std::string text) throw()
 {
-	exception_states ex = exception_states::UPDATE_EX;
+	exception_states ex = UPDATE_EX;
 
 	baseError(ex, text);
 
@@ -98,7 +98,7 @@ log_errors::exception_states log_errors::updateError(std::string text) throw()
 
 log_errors::exception_states log_errors::insertError(std::string text) throw()
 {
-	exception_states ex = exception_states::INSERT_EX;
+	exception_states ex = INSERT_EX;
 
 	baseError(ex, text);
 
@@ -107,7 +107,7 @@ log_errors::exception_states log_errors::insertError(std::string text) throw()
 
 log_errors::exception_states log_errors::nullPtr(std::string text) throw()
 {
-	exception_states ex = exception_states::NULL_OBJ_EX;
+	exception_states ex = NULL_OBJ_EX;
 
 	baseError(ex, text);
 
@@ -116,7 +116,7 @@ log_errors::exception_states log_errors::nullPtr(std::string text) throw()
 
 log_errors::exception_states log_errors::notFound(std::string text) throw()
 {
-	exception_states ex = exception_states::NOT_FOUND_EX;
+	exception_states ex = NOT_FOUND_EX;
 
 	baseError(ex, text);
 
@@ -125,7 +125,7 @@ log_errors::exception_states log_errors::notFound(std::string text) throw()
 
 log_errors::exception_states log_errors::parseError(std::string text) throw()
 {
-	exception_states ex = exception_states::PARSE_EX;
+	exception_states ex = PARSE_EX;
 
 	baseError(ex, text);
 
@@ -134,7 +134,7 @@ log_errors::exception_states log_errors::parseError(std::string text) throw()
 
 log_errors::exception_states log_errors::shapeError(std::string text) throw()
 {
-	exception_states ex = exception_states::SHAPE_EX;
+	exception_states ex = SHAPE_EX;
 
 	baseError(ex, text);
 
@@ -143,7 +143,7 @@ log_errors::exception_states log_errors::shapeError(std::string text) throw()
 
 log_errors::exception_states log_errors::deletError(std::string text) throw()
 {
-	exception_states ex = exception_states::DELET_EX;
+	exception_states ex = DELET_EX;
 
 	baseError(ex, text);
 
@@ -152,7 +152,7 @@ log_errors::exception_states log_errors::deletError(std::string text) throw()
 
 log_errors::exception_states log_errors::compareError(std::string text) throw()
 {
-	exception_states ex = exception_states::COMPARE_EX;
+	exception_states ex = COMPARE_EX;
 
 	baseError(ex, text);
 
@@ -161,7 +161,7 @@ log_errors::exception_states log_errors::compareError(std::string text) throw()
 
 log_errors::exception_states log_errors::fetchError(std::string text) throw()
 {
-	exception_states ex = exception_states::FETCH_EX;
+	exception_states ex = FETCH_EX;
 
 	baseError(ex, text);
 
@@ -170,7 +170,7 @@ log_errors::exception_states log_errors::fetchError(std::string text) throw()
 
 log_errors::exception_states log_errors::invalidData(std::string text) throw()
 {
-	exception_states ex = exception_states::INVALID_DATA_EX;
+	exception_states ex = INVALID_DATA_EX;
 
 	baseError(ex, text);
 
