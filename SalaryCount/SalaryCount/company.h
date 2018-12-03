@@ -17,6 +17,9 @@ public:
     bool update() const{return false;}
     bool fetch(){return false;}
     bool validate() const{return false;}
+    //Статические методы
+    static QMap<int,QString> getAll(){QMap<int,QString> records; return records;}
+    static bool createTable(){return false;};
 private:
     QString _name;    
 };
