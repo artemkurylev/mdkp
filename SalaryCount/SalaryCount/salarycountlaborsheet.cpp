@@ -147,9 +147,9 @@ void salarycountLaborSheet::updateInfo(QString name)
 			ui->employeeLaborSheetTable->setCurrentCell(0,1);
 		}
 
-		char* calendar_ru[12] = {"январь","февраль","март","апрель","май","июнь","июль","август","сентябрь","октябрь","ноябрь","декабрь"};
-		ui->Month_label->setText(QString::fromLocal8Bit("Месяц: %1 %2")
-			.arg(QString::fromLocal8Bit( calendar_ru[_viewedPeriod->startDate().month() - 1] ))
+		wchar_t* calendar_ru[12] = {L"январь",L"февраль",L"март",L"апрель",L"май",L"июнь",L"июль",L"август",L"сентябрь",L"октябрь",L"ноябрь",L"декабрь"};
+		ui->Month_label->setText(QString::fromWCharArray(L"Месяц: %1 %2")
+			.arg(QString::fromWCharArray( calendar_ru[_viewedPeriod->startDate().month() - 1] ))
 			.arg(this->_viewedPeriod->startDate().year()));
 }
 
@@ -185,9 +185,9 @@ void salarycountLaborSheet::showSelectedItem(int row)
             for(int i = start;i < marks.size() + start;++i){
                 QComboBox* combo = (QComboBox*)ui->laborSheet->cellWidget(i/7,i%7);
                 combo->clear();
-                combo->insertItem(0,QString::fromLocal8Bit("Выходной"));
-                combo->insertItem(1,QString::fromLocal8Bit("Работал"));
-                combo->insertItem(2,QString::fromLocal8Bit("Не был"));
+                combo->insertItem(0,QString::fromWCharArray(L"Выходной"));
+                combo->insertItem(1,QString::fromWCharArray(L"Работал"));
+                combo->insertItem(2,QString::fromWCharArray(L"Не был"));
                 if(!marks[i - start].isAltered())
                 {
                     switch(marks[i - start].base())
