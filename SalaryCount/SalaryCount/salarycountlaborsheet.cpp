@@ -129,8 +129,9 @@ void salarycountLaborSheet::updateInfo(QString name)
             Employee employee(*(labor_data[i].employee()));
             employee.fetch();
             ui->employeeLaborSheetTable->setItem(row,0,new QTableWidgetItem(QString(labor_data[i].id())));
-            ui->employeeLaborSheetTable->setItem(row,1,new QTableWidgetItem(employee.fio()));
             ui->employeeLaborSheetTable->item(row,0)->setData(Qt::UserRole,labor_data[i].id());
+            ui->employeeLaborSheetTable->setItem(row,1,new QTableWidgetItem(employee.fio()));
+            ui->employeeLaborSheetTable->setItem(row,2,new QTableWidgetItem(QString(labor_data[i].award())));
 			// TODO: добавить инфо по остальным столбцам (прочерки или реальные значени€ дл€ закрытого мес€ца)
             if(labor_data[i].award() > 0)
                 ui->employeeLaborSheetTable->setItem(row,2,new QTableWidgetItem(QString::number(labor_data[i].award())));
