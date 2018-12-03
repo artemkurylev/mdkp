@@ -101,8 +101,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>278</width>
-               <height>548</height>
+               <width>257</width>
+               <height>527</height>
               </rect>
              </property>
              <layout class="QGridLayout" name="gridLayout_2">
@@ -538,24 +538,42 @@
                 </property>
                </widget>
               </item>
+              <item>
+               <widget class="QTableWidget" name="Description_table">
+                <property name="autoScrollMargin">
+                 <number>5</number>
+                </property>
+                <property name="editTriggers">
+                 <set>QAbstractItemView::NoEditTriggers</set>
+                </property>
+                <property name="alternatingRowColors">
+                 <bool>true</bool>
+                </property>
+                <property name="selectionMode">
+                 <enum>QAbstractItemView::NoSelection</enum>
+                </property>
+                <property name="showGrid">
+                 <bool>false</bool>
+                </property>
+                <column>
+                 <property name="text">
+                  <string>План</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Утв.</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Изм.</string>
+                 </property>
+                </column>
+               </widget>
+              </item>
              </layout>
             </widget>
-           </item>
-           <item>
-            <spacer name="verticalSpacer_2">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::Expanding</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>120</height>
-              </size>
-             </property>
-            </spacer>
            </item>
           </layout>
          </widget>
@@ -709,7 +727,7 @@
              </attribute>
              <column>
               <property name="text">
-               <string>id</string>
+               <string>Код</string>
               </property>
              </column>
              <column>
@@ -1061,7 +1079,7 @@
      <x>0</x>
      <y>0</y>
      <width>922</width>
-     <height>20</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="FileMenu">
