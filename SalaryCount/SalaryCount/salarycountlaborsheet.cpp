@@ -169,15 +169,13 @@ void salarycountLaborSheet::setDescription(LaborSheet& laborSheet)
 		ui->Description_table->insertRow( rows );
 		ui->Description_table->setVerticalHeaderItem(rows, new QTableWidgetItem(dl.name) );
 		ui->Description_table->setItem(rows, 0, new QTableWidgetItem(dl.default_value) );
-		ui->Description_table->setItem(rows, 1, new QTableWidgetItem(dl.base_value) );
-		ui->Description_table->setItem(rows, 2, new QTableWidgetItem(dl.altered_value) );
-		//text += QString("\n%1: \t%2").arg(dl.name).arg(dl.info);
+		//ui->Description_table->setItem(rows, 1, new QTableWidgetItem(dl.base_value) );
+		ui->Description_table->setItem(rows, 1, new QTableWidgetItem(dl.altered_value) );
 	}
 }
 
 void salarycountLaborSheet::showSelectedItem(int row)
 {
-    //QTextCodec* codec = QTextCodec::codecForLocale();
     if(row >= 0)
     {
 
