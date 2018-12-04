@@ -104,8 +104,8 @@
                <y>0</y>
 
                <width>278</width>
-               <height>545</height>
-             </rect>
+               <height>548</height>
+              </rect>
              </property>
              <layout class="QGridLayout" name="gridLayout_2">
               <item row="2" column="0">
@@ -160,6 +160,9 @@
                    </item>
                    <item>
                     <widget class="QSpinBox" name="eSalary">
+                     <property name="suffix">
+                      <string> руб</string>
+                     </property>
                      <property name="minimum">
                       <number>8000</number>
                      </property>
@@ -167,7 +170,7 @@
                       <number>9999999</number>
                      </property>
                      <property name="singleStep">
-                      <number>1000</number>
+                      <number>500</number>
                      </property>
                     </widget>
                    </item>
@@ -264,7 +267,7 @@
                       <string>999999999999</string>
                      </property>
                      <property name="placeholderText">
-                      <string>10 цифр ИНН</string>
+                      <string>12 цифр ИНН</string>
                      </property>
                      <property name="clearButtonEnabled">
                       <bool>true</bool>
@@ -773,17 +776,19 @@
                <string>Пунктуальность</string>
               </property>
              </column>
-             <column>
-              <property name="text">
-               <string>Корректировка</string>
-              </property>
-             </column>
             </widget>
            </item>
            <item>
             <widget class="QPushButton" name="updateLaborBtn">
              <property name="enabled">
               <bool>true</bool>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
              </property>
              <property name="text">
               <string>Изменить</string>
@@ -1265,7 +1270,7 @@
 
      <width>922</width>
 
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="FileMenu">
