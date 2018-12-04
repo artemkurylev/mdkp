@@ -742,6 +742,7 @@
              </attribute>
              <column>
               <property name="text">
+
                <string>Код</string>
               </property>
              </column>
