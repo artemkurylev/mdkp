@@ -36,8 +36,7 @@ bool DutyChart::createDbTable()
         if(query->exec("CREATE TABLE IF NOT EXISTS `dutychart` (`id` INT(11) NOT NULL AUTO_INCREMENT, `payform` INT(11), `anchor_date` DATE,`name` CHAR(10), PRIMARY KEY(`id`))"))
 		{
             success = true;
-			// позже это должно выполняться при создании предприятия
-			initalSetupForTableDutyChart();
+
 		}
         else
         {
@@ -96,7 +95,7 @@ int DutyChart::insert()
                 if(this->_grid[i].insert() == -1)
                 {
                     //Ошибка!!
-		            QString s; // = query->lastError().text();
+		            QString s = query->lastError().text();
 		            s+="as";
                }
             }
