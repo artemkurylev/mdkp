@@ -2,6 +2,7 @@
 
 #include <QtTest/QtTest>
 #include "dbmanager.h"
+#include"dutychart.h"
 #include"qsqldatabase.h"
 
 #include "unittest/DirectiveGeneratorTest.h"
@@ -115,6 +116,8 @@ void SalaryCount::initialDBManager()
         {
 
         }
+		// позже это должно выполняться при создании предприятия
+		initalSetupForTableDutyChart();
     }
 	else
 	{
