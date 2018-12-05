@@ -113,6 +113,7 @@ bool Employee::createDbTable()
 }
 bool Employee::fetch()
 {
+	bool success = false;
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
@@ -133,20 +134,17 @@ bool Employee::fetch()
                 _nextDutyChartID = query->value(6).toInt();
                 _nextDutyChartSince = query->value(7).toDate();
                 _hireDirective=NULL;
-            }
+	 			success = true;
+           }
         }
         else
         {
             QString s = query->lastError().text();
             s+="as";
-            return false;
         }
         delete query;
     }
-    else
-    {
-        return false;
-    }
+    return success;
 }
 int Employee::insert()
 {
