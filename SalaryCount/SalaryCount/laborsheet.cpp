@@ -231,9 +231,7 @@ QList<LaborSheetDescriptionLine> LaborSheet::description()
 	dl.base_value    = QString::fromLocal8Bit("");
 	dl.altered_value = QString::fromLocal8Bit("%1% в среднем")
 
-		.arg(QString::number(100*qMax(0.0F,qMin(1.0F,1.0F-summ2_altered)),'f',1));
-
-		.arg(QString::number(100*qMax(1.0F,1.0F-(float)summ2_altered/def_base_time),'f',1));
+		.arg(QString::number(100*qMax(0.0F,qMin(1.0F,1.0F-summ2_altered/(float)def_base_time)),'f',1));
 
 	l.push_back(dl);
 
