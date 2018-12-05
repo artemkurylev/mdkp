@@ -27,11 +27,9 @@ protected:
 
 protected:
 
-	template <class T>
-	T* shapeDataObject() = 0;
+	template <class T>T* shapeDataObject() = 0;
 
-	template <class T>
-	void parseDataObject(T *obj) = 0;
+	template <class T>void parseDataObject(T *obj) = 0;
 
 	void error_msg(const char* short_description, const char* text);
 	void show_last_error();

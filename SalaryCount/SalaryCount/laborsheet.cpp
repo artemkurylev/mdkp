@@ -1,5 +1,7 @@
 #include "laborsheet.h"
 
+// TODO: вернуть локаль файла в 1251
+
 LaborSheet::LaborSheet()
     : DbRecord()
 {
@@ -58,6 +60,73 @@ LaborSheet::~LaborSheet()
 		delete _dutyChart;
 	}
 }
+
+QList<LaborSheetDescriptionLine> LaborSheet::description()
+{
+	LaborSheet def_lbsh(*this);
+	def_lbsh.fillWithDefaults();
+
+
+	QList<LaborSheetDescriptionLine> l;
+	//LaborSheetDescriptionLine dl = { QString::fromUtf8("Сотрудник"), employee().name(), -1.0 };
+	//l.push_back(dl);
+
+	LaborSheetDescriptionLine dl = { QString::fromUtf8("Форма оплаты"), QString::fromUtf8((payForm() == PER_MONTH)? "Помесячная" : "Почасовая"), "", "", -1.0 };
+	l.push_back(dl);
+
+	dl.name = QString::fromUtf8("Выплата");
+	dl.default_value = QString::number(def_lbsh.award());
+	if(billingPeriod()->status() == BillingPeriod::OPEN)
+		dl.base_value = QString::fromUtf8("(закройте месяц)");
+	else
+		dl.base_value = QString::number(this->award());
+	dl.altered_value = dl.base_value;
+	l.push_back(dl);
+
+	if(payForm() == PER_HOUR)
+	{
+		dl.name = QString::fromUtf8("Формула");
+		dl.default_value = QString::fromUtf8("Ставка * Часы");
+		dl.base_value    = QString::fromUtf8("");
+		dl.altered_value = QString::fromUtf8("");
+		l.push_back(dl);
+
+		dl.name = QString::fromUtf8("Ставка");
+		dl.default_value = QString::number(employee()->hireDirective()->salary());
+		dl.base_value    = QString::fromUtf8("");
+		dl.altered_value = QString::fromUtf8("");
+		l.push_back(dl);
+
+		dl.name = QString::fromUtf8("Часы");
+		dl.default_value = QString::number(def_lbsh.countBaseTimeUnits());
+		dl.base_value = QString::number(this->countBaseTimeUnits());
+		dl.altered_value = QString::number(this->countActualTimeUnits());
+		l.push_back(dl);
+	}
+	if(payForm() == PER_MONTH)
+	{
+		dl.name = QString::fromUtf8("Формула");
+		//dl.base_value = QString::fromUtf8("Оклад * Дней_отработано / Рабочих_дней");
+		dl.default_value = QString::fromUtf8("Оклад * Дней_отработано / Рабочих_дней");
+		dl.base_value    = QString::fromUtf8("");
+		dl.altered_value = QString::fromUtf8("");
+		l.push_back(dl);
+
+		dl.name = QString::fromUtf8("Оклад");
+		dl.default_value = QString::number(employee()->hireDirective()->salary());
+		dl.base_value    = QString::fromUtf8("");
+		dl.altered_value = QString::fromUtf8("");
+		l.push_back(dl);
+
+		dl.name = QString::fromUtf8("Дни");
+		dl.default_value = QString::number(def_lbsh.countBaseTimeUnits());
+		dl.base_value = QString::number(this->countBaseTimeUnits());
+		dl.altered_value = QString::number(this->countActualTimeUnits());
+		l.push_back(dl);
+	}
+	return l;
+}
+
 bool LaborSheet::fillWithDefaults()
 {
 	// Вычислить относительное смещение наложения графика на месяц
@@ -87,7 +156,8 @@ bool LaborSheet::fillWithDefaults()
 		m.setLaborsheetId(this->_id);
 		// сбросить изменённые данные
 		m.resetAltered();
-        this->_grid.push_back(m);
+
+		this->_grid.push_back(m);
     }
 	
 	//// не обновляем табель в БД сразу (неизвестно - это update или insert)
@@ -121,12 +191,11 @@ BillingPeriod* LaborSheet::billingPeriod()
 }
 PayForm LaborSheet::payForm()
 {
-	Employee* e = employee();
-    e->fetch();
-	HireDirective* h = e->hireDirective();
-    h->fetch();
-	PayForm p = h->payForm();
-	return p;
+	//Employee* e = employee();
+	//HireDirective* h = e->hireDirective();
+	//PayForm p = h->payForm();
+	//return p;
+	return employee()->hireDirective()->payForm();
 }
 DutyChart* LaborSheet::dutyChart()
 {

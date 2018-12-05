@@ -19,19 +19,22 @@ public slots:
 	void closePeriod();
     void editLaborSheet();
     void saveEditedLabor();
+	void cancelEditLabor();
 private:
-    Ui_SalaryCount *ui; // не самый приятный способ, зато все видно из коробки
+    Ui_SalaryCount *ui; // РЅРµ СЃР°РјС‹Р№ РїСЂРёСЏС‚РЅС‹Р№ СЃРїРѕСЃРѕР±, Р·Р°С‚Рѕ РІСЃРµ РІРёРґРЅРѕ РёР· РєРѕСЂРѕР±РєРё
     void switchMode(app_states state);
     void saveEditableEntries(LaborSheet* obj);
     LaborSheet* shapeDataObject();
-	// текущий отображаемый расчётный период
+	// С‚РµРєСѓС‰РёР№ РѕС‚РѕР±СЂР°Р¶Р°РµРјС‹Р№ СЂР°СЃС‡С‘С‚РЅС‹Р№ РїРµСЂРёРѕРґ
 	BillingPeriod* _viewedPeriod;
 
-	// для текущей конфигурации месяца
-	QList<QComboBox*> _comboboxes; // список максимум из 31 комбобоксов для каждого дня месяца
+	// РґР»СЏ С‚РµРєСѓС‰РµР№ РєРѕРЅС„РёРіСѓСЂР°С†РёРё РјРµСЃСЏС†Р°
+	QList<QComboBox*> _comboboxes; // СЃРїРёСЃРѕРє РјР°РєСЃРёРјСѓРј РёР· 31 РєРѕРјР±РѕР±РѕРєСЃРѕРІ РґР»СЏ РєР°Р¶РґРѕРіРѕ РґРЅСЏ РјРµСЃСЏС†Р°
 
-	/*! Перевыдать комбобоксы на ячейки таблицы редактирвания отметок */
+	/*! РџРµСЂРµРІС‹РґР°С‚СЊ РєРѕРјР±РѕР±РѕРєСЃС‹ РЅР° СЏС‡РµР№РєРё С‚Р°Р±Р»РёС†С‹ СЂРµРґР°РєС‚РёСЂРІР°РЅРёСЏ РѕС‚РјРµС‚РѕРє */
 	void regenMarksCalendar();
+	/*! РџРµСЂРµРІС‹РґР°С‚СЊ РѕРїРёСЃР°РЅРёРµ С‚Р°Р±РµР»СЏ */
+	void setDescription(LaborSheet& laborSheet);
 private slots:
     void showSelectedItem(int row);
     void goToCurrentPeriod();

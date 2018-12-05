@@ -21,7 +21,7 @@ public:
 		exception_states errorType;
 		QString textError;
 
-		ex_description() : errorType(exception_states::UNEXIST), textError("") {}
+		ex_description() : errorType(UNEXIST), textError("") {}
 		ex_description(exception_states e, QString t) : errorType(e), textError(t) {}
 	};
 

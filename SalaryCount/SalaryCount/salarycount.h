@@ -6,7 +6,7 @@
 #include "employee.h"
 #include"laborsheet.h"
 #include "ui_salarycount.h"
-
+#include "company.h"
 #include "salarycountDutyChart.h"
 #include "salarycountEmployees.h"
 #include "salarycountlaborsheet.h"
@@ -47,7 +47,9 @@ private slots:
 
 	void rememberState(bool state);
 
-	//переходы по страницам приложения
+	//! переходы по страницам приложения
 	void showPage(QAction* actionEmited);
+	//! меню "Файл"
+	void showCompanyDialog(QAction* actionEmited);
 };
 #endif // SALARYCOUNT_H

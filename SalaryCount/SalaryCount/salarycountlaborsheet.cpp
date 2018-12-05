@@ -1,5 +1,5 @@
 #include "salarycountlaborsheet.h"
-
+#include<qtablewidget.h>
 QTableWidgetItem* makeDateLabel(int day);
 
 
@@ -20,9 +20,17 @@ salarycountLaborSheet::salarycountLaborSheet(Ui_SalaryCount *ui, QString name)
 
     connect(ui->updateLaborBtn,SIGNAL(pressed()),SLOT(editLaborSheet()));
     connect(ui->saveEditedLaborBtn,SIGNAL(pressed()),SLOT(saveEditedLabor()));
+    connect(ui->CancelLaborBtn,SIGNAL(pressed()),SLOT(cancelEditLabor()));
 
 	ui->LabourGroupEdit->setEnabled(false);
     ui->employeeLaborSheetTable->setColumnWidth(0,0);
+    /*ui->laborSheet->setMaximumWidth(500);
+    ui->LabourGroupEdit->setMaximumWidth(550);*/
+    for(int i = 0; i < 7;++i)
+    {
+        ui->laborSheet->setColumnWidth(i,70);
+        
+    }
 }
 salarycountLaborSheet::~salarycountLaborSheet()
 {
@@ -54,10 +62,10 @@ void salarycountLaborSheet::regenMarksCalendar()
 		int day = i - start_day_of_week + 1;
 		// Нужно вставить комбобоксы
         QComboBox* combo = new QComboBox();
-		combo->insertItem(0, codec->toUnicode("-"));
-		combo->insertItem(1, codec->toUnicode("--"));
+		combo->insertItem(0, codec->toUnicode("-нет-"));
 		combo->setCurrentIndex(0);
 		combo->setToolTip(codec->toUnicode("<html><head/><body><b>%1</b> число</body></html>").arg(day));
+		combo->setEnabled(this->_viewedPeriod->status() == BillingPeriod::OPEN);
 		_comboboxes.push_back(combo);
 		ui->laborSheet->setCellWidget(i/7,i % 7, combo );
 	}
@@ -67,16 +75,15 @@ void salarycountLaborSheet::regenMarksCalendar()
 	{
 		// Нужно вставить лэйблы с числами после конца месяца
 		int day = i - (start_day_of_week+month_length) + 1;
-
 		ui->laborSheet->setItem(i/7,i % 7, makeDateLabel(day) );
 	}
-    ui->LabourGroupEdit->setEnabled(false);
+    ui->LabourGroupEdit->setEnabled(this->_viewedPeriod->status() == BillingPeriod::CLOSED);
     ui->employeeLaborSheetTable->setColumnWidth(0,0);
 }
 
 /*! 
 \param day в диапазоне [1..31]
-\ returns указатель на QTableWidgetItem, который нужно будет потом удалить
+\returns указатель на QTableWidgetItem, который нужно будет потом удалить
 */
 QTableWidgetItem* makeDateLabel(int day)
 {
@@ -98,6 +105,8 @@ void salarycountLaborSheet::switchMode(app_states state)
 	}
 
     ui->LabourGroupEdit->setEnabled(triggerState);
+	ui->saveEditedLaborBtn->setEnabled(triggerState);
+	ui->CancelLaborBtn->setEnabled(triggerState);
 
 	emit changeState(triggerState); // может быть, лучше сделать наоборот - чтобы переключение происходило по этому сигналу ???
 }
@@ -106,12 +115,11 @@ void salarycountLaborSheet::updateInfo(QString name)
     if(this->objectName().compare(name) != 0)
 		return;
 
-    QList<LaborSheet> labor_data = LaborSheet::getByPeriodId(_viewedPeriod->id());
-	// > перенесено в конструктор (меняется единожды)
-    //ui->BillingPeriod_dateEdit->setDate(_viewedPeriod->startDate());
-    /*if(ui->employeeLaborSheetTable->rowCount() != labor_data.size())
-	{*/
-        ui->employeeLaborSheetTable->clearContents();
+		QList<LaborSheet> labor_data = LaborSheet::getByPeriodId(_viewedPeriod->id());
+		
+		disconnect(ui->employeeLaborSheetTable,SIGNAL(currentCellChanged(int,int,int,int)),this, SLOT(showSelectedItem(int)));
+
+		ui->employeeLaborSheetTable->clearContents();
         while(ui->employeeLaborSheetTable->rowCount() > 0)
             ui->employeeLaborSheetTable->removeRow(0);
         int row = 0;
@@ -121,26 +129,57 @@ void salarycountLaborSheet::updateInfo(QString name)
             Employee employee(*(labor_data[i].employee()));
             employee.fetch();
             ui->employeeLaborSheetTable->setItem(row,0,new QTableWidgetItem(QString(labor_data[i].id())));
-            ui->employeeLaborSheetTable->setItem(row,1,new QTableWidgetItem(employee.fio()));
             ui->employeeLaborSheetTable->item(row,0)->setData(Qt::UserRole,labor_data[i].id());
+            ui->employeeLaborSheetTable->setItem(row,1,new QTableWidgetItem(employee.fio()));
+            ui->employeeLaborSheetTable->setItem(row,2,new QTableWidgetItem(QString(labor_data[i].award())));
 			// TODO: добавить инфо по остальным столбцам (прочерки или реальные значения для закрытого месяца)
             if(labor_data[i].award() > 0)
                 ui->employeeLaborSheetTable->setItem(row,2,new QTableWidgetItem(QString::number(labor_data[i].award())));
             ++row;
         }
+
+	    connect(ui->employeeLaborSheetTable,SIGNAL(currentCellChanged(int,int,int,int)),this, SLOT(showSelectedItem(int)));
+
         if(ui->employeeLaborSheetTable->rowCount() > 0)
-            ui->employeeLaborSheetTable->setCurrentCell(0,1);
-	//}
+		{
+			ui->employeeLaborSheetTable->setCurrentCell(0,1);
+		}
+
+		wchar_t* calendar_ru[12] = {L"январь",L"февраль",L"март",L"апрель",L"май",L"июнь",L"июль",L"август",L"сентябрь",L"октябрь",L"ноябрь",L"декабрь"};
+		ui->Month_label->setText(QString::fromWCharArray(L"Месяц: %1 %2")
+			.arg(QString::fromWCharArray( calendar_ru[_viewedPeriod->startDate().month() - 1] ))
+			.arg(this->_viewedPeriod->startDate().year()));
+}
+
+void salarycountLaborSheet::setDescription(LaborSheet& laborSheet)
+{
+	QString text("");
+	text += QString::fromWCharArray(L"Сотрудник: %1")
+		.arg(ui->employeeLaborSheetTable->item(ui->employeeLaborSheetTable->currentRow(),1)->text());
+	ui->Description_label->setText(text);
+
+	ui->Description_table->clearContents();
+	while(ui->Description_table->rowCount() > 0)
+		ui->Description_table->removeRow(0);
+	foreach(LaborSheetDescriptionLine dl, laborSheet.description())
+	{
+		int rows = ui->Description_table->rowCount();
+		ui->Description_table->insertRow( rows );
+		ui->Description_table->setVerticalHeaderItem(rows, new QTableWidgetItem(dl.name) );
+		ui->Description_table->setItem(rows, 0, new QTableWidgetItem(dl.default_value) );
+		//ui->Description_table->setItem(rows, 1, new QTableWidgetItem(dl.base_value) );
+		ui->Description_table->setItem(rows, 1, new QTableWidgetItem(dl.altered_value) );
+	}
 }
 
 void salarycountLaborSheet::showSelectedItem(int row)
 {
-    QTextCodec* codec = QTextCodec::codecForLocale();
     if(row >= 0)
     {
         int id = ui->employeeLaborSheetTable->item(row,0)->data(Qt::UserRole).toInt();
         LaborSheet labor_sheet(id,0,0,QList<Mark>());
         labor_sheet.fetch();
+		this->setDescription(labor_sheet);
         QList<Mark>marks = labor_sheet.grid();
         int start = _viewedPeriod->startDate().dayOfWeek() - 1;
         if(labor_sheet.payForm() == PayForm::PER_MONTH)
@@ -150,9 +189,9 @@ void salarycountLaborSheet::showSelectedItem(int row)
             for(int i = start;i < marks.size() + start;++i){
                 QComboBox* combo = (QComboBox*)ui->laborSheet->cellWidget(i/7,i%7);
                 combo->clear();
-                combo->insertItem(0,codec->toUnicode("Выходной"));
-                combo->insertItem(1,codec->toUnicode("Рабочий"));
-                combo->insertItem(2,codec->toUnicode("Отсутствовал"));
+                combo->insertItem(0,QString::fromWCharArray(L"Выходной"));
+                combo->insertItem(1,QString::fromWCharArray(L"Работал"));
+                combo->insertItem(2,QString::fromWCharArray(L"Не был"));
                 if(!marks[i - start].isAltered())
                 {
                     switch(marks[i - start].base())
@@ -216,8 +255,14 @@ void salarycountLaborSheet::showSelectedItem(int row)
         }
     }
 }
-void salarycountLaborSheet::periodDateChanged(const QDate& date)
+void salarycountLaborSheet::periodDateChanged(const QDate& newdate)
 {
+	QDate date(newdate);
+	if(date.day() != 1)
+	{
+		date.setDate(date.year(), date.month(), 1);
+		ui->BillingPeriod_dateEdit->setDate(date);
+	}
 	if(this->_viewedPeriod->startDate() == date)
 	{
 		// отсеять паразитные вызовы
@@ -231,6 +276,8 @@ void salarycountLaborSheet::periodDateChanged(const QDate& date)
 		this->_viewedPeriod = bp;
 		ui->ClosePeriod_button->setEnabled(this->_viewedPeriod->status() == BillingPeriod::OPEN);
 		ui->GoToCurrentPeriod_button->setEnabled(this->_viewedPeriod->status() != BillingPeriod::OPEN);
+		// кнопка "Изменить"
+		ui->updateLaborBtn->setEnabled(this->_viewedPeriod->status() == BillingPeriod::OPEN);
 		regenMarksCalendar();
         updateInfo(this->objectName());
 	}
@@ -244,19 +291,17 @@ void salarycountLaborSheet::goToCurrentPeriod()
 	BillingPeriod* bp = BillingPeriod::getCurrentPeriod();
 	if(bp)
 	{
-		if(this->_viewedPeriod)
-			;//delete this->_viewedPeriod;
-		else
+        if(!this->_viewedPeriod)
 		{
 			// установить границы для DateEdit [В ПЕРВЫЙ РАЗ]
 			QPair<QDate,QDate> date_span = BillingPeriod::getDateSpan();
 			ui->BillingPeriod_dateEdit->setDateRange(date_span.first, date_span.second);
-		}
-        if(!this->_viewedPeriod){
-		    this->_viewedPeriod = bp;
+
+			this->_viewedPeriod = bp;
 		    regenMarksCalendar();
         }
-        ui->BillingPeriod_dateEdit->setDate(bp->startDate());
+        ui->BillingPeriod_dateEdit->setDate(bp->startDate()); // через сигнал инициирует переход на указанный месяц
+        ui->CurrentPeriod_dateEdit->setDate(bp->startDate());
 		ui->ClosePeriod_button->setEnabled(true);
 		ui->GoToCurrentPeriod_button->setEnabled(false);
 		//regenMarksCalendar();	// обновить ячейки для отметок(Не надо, т.к. обновляются при смене даты)
@@ -281,6 +326,7 @@ void salarycountLaborSheet::closePeriod()
 	// установить границы для DateEdit
 	QPair<QDate,QDate> date_span = BillingPeriod::getDateSpan();
 	ui->BillingPeriod_dateEdit->setDateRange(date_span.first, date_span.second);
+    ui->CurrentPeriod_dateEdit->setDate(date_span.second);
 
 	updateInfo(this->objectName());
         
@@ -297,7 +343,7 @@ void salarycountLaborSheet::saveEditableEntries(LaborSheet* obj)
 	}
 	else
 	{
-		error_msg("Оопаньки","Ебать-Копать");//сообщить об ошибке	
+		error_msg("Произошла ошибка программы","Невозможно сохранить табель...");
 	}
 }
 void salarycountLaborSheet::saveEditedLabor()
@@ -306,6 +352,11 @@ void salarycountLaborSheet::saveEditedLabor()
     LaborSheet* labor_sheet = shapeDataObject();
     saveEditableEntries(labor_sheet);
     delete labor_sheet;
+}
+void salarycountLaborSheet::cancelEditLabor()
+{
+	switchMode(app_states::USUAL);
+	showSelectedItem( ui->employeeLaborSheetTable->currentRow() );
 }
 LaborSheet* salarycountLaborSheet::shapeDataObject()
 {
@@ -341,7 +392,7 @@ LaborSheet* salarycountLaborSheet::shapeDataObject()
                 else if(val == 1)
                     val = Mark::ATTENDS;
                 else if(val == 2)
-                    val = Mark::HOLIDAY;
+                    val = Mark::MISS;
 				m->setAlteredMark(val); // Нужно делать так всегда
                 //if(_viewedPeriod->status() == BillingPeriod::OPEN)
                 //{

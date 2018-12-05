@@ -17,11 +17,17 @@ DbManager::DbManager(const QString& hostName, const QString& dbName, int port,co
 {
 	// Сначала создаём БД
     this->db = QSqlDatabase::addDatabase("QMYSQL");
+    //this->companyDb = QSqlDatabase::addDatabase("QMYSQL");
+    this->companyDb.setUserName(userName);
     this->db.setUserName(userName);
     //this->db.setDatabaseName(dbName);
     this->db.setHostName(hostName);
     this->db.setPort(port);
     this->db.setPassword(pass);
+    this->companyDb.setHostName(hostName);
+    this->companyDb.setPort(port);
+    this->companyDb.setPassword(pass);
+
     if(this->db.open())
     {
         //QString str;
@@ -42,14 +48,34 @@ DbManager::DbManager(const QString& hostName, const QString& dbName, int port,co
         QString str = db.lastError().text();
         str+= "as";
     }
-
+    //Перенести в отдельный метод
+    if(this->companyDb.open())
+    {
+        //QString str;
+        QSqlQuery q(this->companyDb);
+		if( q.exec(tr("CREATE DATABASE IF NOT EXISTS %1 CHARACTER SET utf8 COLLATE utf8_bin;").arg("company_db") ) )
+		{
+			QString str = "Ok";
+            this->companyDb.close();
+		}
+		else
+		{
+            QString str = companyDb.lastError().text();
+			str+= "as";
+		}
+    }
 	// Теперь открываем нашу БД
     //this->db = QSqlDatabase::addDatabase("QMYSQL");
     //this->db.setUserName(userName);
     this->db.setDatabaseName(dbName);
+    this->companyDb.setDatabaseName("company_db");
     //this->db.setHostName(hostName);
     //this->db.setPort(port);
     //this->db.setPassword(pass);
+    if(this->companyDb.open())
+    {
+        QString str = "Ok";
+    }
     if(this->db.open())
     {
 		QString str = "Ok";
@@ -124,7 +150,7 @@ struct DbConf loadDbConfig()
 		dbConf.pass = "root"; // "our366Team";
 
 		// write 
-		s.beginGroup("db");
+		s.beginGroup("db-local");
 		s.setValue("hostName", dbConf.hostName);
 		s.setValue("port", dbConf.port);
 		s.setValue("dbName", dbConf.dbName);
@@ -134,7 +160,7 @@ struct DbConf loadDbConfig()
 
 		// <Debug only>!
 		// write "commented" section
-		s.beginGroup("db-remote");
+		s.beginGroup("db");
 		s.setValue("hostName", "109.206.169.214");
 		s.setValue("port", dbConf.port);
 		s.setValue("dbName", "salary_count");
