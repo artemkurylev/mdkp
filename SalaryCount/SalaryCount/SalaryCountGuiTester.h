@@ -22,6 +22,20 @@ private slots:
 	void init();
 	void cleanup();
 
+	void exitAction();
+	void editWorkSchedule();
+	void deleteWorkSchedule();
+	void addNewWorkSchedule();
+	void addWorker();
+	void editWorkerInfo();
+	void editLaborSheet();
+	void showOrder();
+
+
+
+
+
+
 
 
 };
