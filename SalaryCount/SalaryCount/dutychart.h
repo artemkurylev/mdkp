@@ -45,3 +45,4 @@ private:
 };
 
 #endif // DUTYCHART_H
+void initalSetupForTableDutyChart();

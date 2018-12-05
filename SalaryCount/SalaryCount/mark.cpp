@@ -134,13 +134,20 @@ int Mark::insert()
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        query->prepare("INSERT INTO `mark` (base,altered,count_hours,altered_count_hours,dutychart_id,laborsheet_id) VALUES(:base,:altered,:count_hours,:altered_count_hours,:dutychart_id,:laborsheet_id)");
-        query->bindValue(":base",this->_base);
+		if(this->_laborsheetId == 0)
+		{
+			query->prepare("INSERT INTO `mark` (base,altered,count_hours,altered_count_hours,dutychart_id) VALUES(:base,:altered,:count_hours,:altered_count_hours,:dutychart_id)");
+			query->bindValue(":dutychart_id",this->_dutyChartId);
+		}
+		else
+		{
+			query->prepare("INSERT INTO `mark` (base,altered,count_hours,altered_count_hours,laborsheet_id) VALUES(:base,:altered,:count_hours,:altered_count_hours,:laborsheet_id)");
+			query->bindValue(":dutychart_id",this->_dutyChartId);
+		}
+		query->bindValue(":base",this->_base);
         query->bindValue(":altered",this->_altered);
         query->bindValue(":count_hours",this->_countHours);
         query->bindValue(":altered_count_hours",this->_alteredCountHours);
-        query->bindValue(":dutychart_id",this->_dutyChartId);
-        query->bindValue(":laborsheet_id",this->_laborsheetId);
         if(query->exec())
         {
             if(query->exec("SELECT LAST_INSERT_ID()") && query->next())
@@ -167,7 +174,7 @@ bool Mark::createDbTable()
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        if(query->exec("CREATE TABLE IF NOT EXISTS `mark` (`id` INT(11) NOT NULL AUTO_INCREMENT, `base` INT(11), `altered` INT(11) ,`count_hours` INT(3),`altered_count_hours` INT(3),`dutychart_id` INT(11),`laborsheet_id` INT(11), PRIMARY KEY(`id`),	CONSTRAINT `FK_mark_dutychart` FOREIGN KEY (`dutychart_id`) REFERENCES `dutychart` (`id`) ON DELETE CASCADE,	CONSTRAINT `FK_mark_labor_sheet` FOREIGN KEY (`laborsheet_id`) REFERENCES `labor_sheet` (`id`) ON DELETE CASCADE )"))
+        if(query->exec("CREATE TABLE IF NOT EXISTS `mark` (`id` INT(11) NOT NULL AUTO_INCREMENT, `base` INT(11), `altered` INT(11) ,`count_hours` INT(3),`altered_count_hours` INT(3),`dutychart_id` INT(11) NULL,`laborsheet_id` INT(11) NULL, PRIMARY KEY(`id`),	CONSTRAINT `FK_mark_dutychart` FOREIGN KEY (`dutychart_id`) REFERENCES `dutychart` (`id`) ON DELETE CASCADE,	CONSTRAINT `FK_mark_labor_sheet` FOREIGN KEY (`laborsheet_id`) REFERENCES `labor_sheet` (`id`) ON DELETE CASCADE )"))
 		{
             success = true;
 		}
