@@ -1,7 +1,5 @@
 #include "laborsheet.h"
 
-// TODO: вернуть локаль файла в 1251
-
 LaborSheet::LaborSheet()
     : DbRecord()
 {
@@ -66,6 +64,7 @@ QList<LaborSheetDescriptionLine> LaborSheet::description()
 	LaborSheet def_lbsh(*this);
 	def_lbsh.fillWithDefaults();
 
+	// внимание: сейчас dl.base_value игнорируется при выводе в таблицу
 
 	QList<LaborSheetDescriptionLine> l;
 	//LaborSheetDescriptionLine dl = { QString::fromLocal8Bit("Сотрудник"), employee().name(), -1.0 };
@@ -83,24 +82,30 @@ QList<LaborSheetDescriptionLine> LaborSheet::description()
 	dl.altered_value = dl.base_value;
 	l.push_back(dl);
 
+	int def_base_time = def_lbsh.countBaseTimeUnits(),
+		cur_base_time = this->countBaseTimeUnits(),
+		cur_alt_time =  this->countActualTimeUnits();
+
 	if(payForm() == PER_HOUR)
 	{
 		dl.name = QString::fromLocal8Bit("Формула");
 		dl.default_value = QString::fromLocal8Bit("Ставка * Часы");
 		dl.base_value    = QString::fromLocal8Bit("");
-		dl.altered_value = QString::fromLocal8Bit("");
+		dl.altered_value = QString::fromLocal8Bit("%1 * %2")
+			.arg(employee()->hireDirective()->salary())
+			.arg(cur_alt_time);
 		l.push_back(dl);
 
 		dl.name = QString::fromLocal8Bit("Ставка");
 		dl.default_value = QString::number(employee()->hireDirective()->salary());
 		dl.base_value    = QString::fromLocal8Bit("");
-		dl.altered_value = QString::fromLocal8Bit("");
+		dl.altered_value = QString::fromLocal8Bit("---");
 		l.push_back(dl);
 
 		dl.name = QString::fromLocal8Bit("Часы");
-		dl.default_value = QString::number(def_lbsh.countBaseTimeUnits());
-		dl.base_value = QString::number(this->countBaseTimeUnits());
-		dl.altered_value = QString::number(this->countActualTimeUnits());
+		dl.default_value = QString::number(def_base_time);
+		dl.base_value = QString::number(cur_base_time);
+		dl.altered_value = QString::number(cur_alt_time);
 		l.push_back(dl);
 	}
 	if(payForm() == PER_MONTH)
@@ -109,21 +114,65 @@ QList<LaborSheetDescriptionLine> LaborSheet::description()
 		//dl.base_value = QString::fromLocal8Bit("Оклад * Дней_отработано / Рабочих_дней");
 		dl.default_value = QString::fromLocal8Bit("Оклад * Дней_отработано / Рабочих_дней");
 		dl.base_value    = QString::fromLocal8Bit("");
-		dl.altered_value = QString::fromLocal8Bit("");
+		dl.altered_value = QString::fromLocal8Bit("%1 * %2 / %3")
+			.arg(QString::number(employee()->hireDirective()->salary()))
+			.arg(cur_alt_time)
+			.arg(def_base_time);
 		l.push_back(dl);
 
 		dl.name = QString::fromLocal8Bit("Оклад");
 		dl.default_value = QString::number(employee()->hireDirective()->salary());
 		dl.base_value    = QString::fromLocal8Bit("");
-		dl.altered_value = QString::fromLocal8Bit("");
+		dl.altered_value = QString::fromLocal8Bit("---");
 		l.push_back(dl);
 
 		dl.name = QString::fromLocal8Bit("Дни");
-		dl.default_value = QString::number(def_lbsh.countBaseTimeUnits());
-		dl.base_value = QString::number(this->countBaseTimeUnits());
-		dl.altered_value = QString::number(this->countActualTimeUnits());
+		dl.default_value = QString::number(def_base_time);
+		dl.base_value = QString::number(cur_base_time);
+		dl.altered_value = QString::number(cur_alt_time);
 		l.push_back(dl);
 	}
+
+	dl.name = QString::fromLocal8Bit("Эффективность");
+	dl.default_value = QString::fromLocal8Bit("100%");
+	dl.base_value    = QString::fromLocal8Bit("");
+	dl.altered_value = QString::fromLocal8Bit("%1%").arg(100*cur_alt_time / qMax(1 , def_base_time));
+	l.push_back(dl);
+
+	dl.name = QString::fromLocal8Bit("Пунктуальность");
+	float /*summ2_base = 0,*/ summ2_altered = 0;
+	// подсчитать отклонение
+	{
+		int marksN = this->grid().size();
+		// s = sqrt( SUM( (x - x_0)^2 ) / N )
+		for(int i=0 ; i<marksN ; ++i)
+		{
+			const Mark *mark_this, *mark_def;
+			mark_this = &this->grid() [i];
+			mark_def = &def_lbsh.grid() [i];
+			// для почасовой вернуть часы;
+			// для помесячной - 1, если отметка ненулевая, иначе 0.
+			/* float diff_base = (payForm() == PER_HOUR)? 
+				mark_this->countHours() - mark_def->countHours()
+				:
+				(mark_this->altered() == Mark::ATTENDS) - (mark_def->base() == Mark::ATTENDS); */
+			float diff_altered = (payForm() == PER_HOUR)? 
+				mark_this->alteredCountHours() - mark_def->countHours()
+				:
+				(mark_this->altered() == Mark::ATTENDS) - (mark_def->base() == Mark::ATTENDS);
+
+			/*summ2_base	 +=	diff_base	 *	diff_base; */
+			summ2_altered += diff_altered *	diff_altered;
+		}
+		/*summ2_base		= sqrt(summ2_base / marksN); */
+		summ2_altered	= sqrt(summ2_altered / marksN);
+	}
+	dl.default_value = QString::fromLocal8Bit("100%");
+	dl.base_value    = QString::fromLocal8Bit("");
+	dl.altered_value = QString::fromLocal8Bit("%1% в среднем")
+		.arg(QString::number(100*qMax(1.0F,1.0F-(float)summ2_altered/def_base_time),'f',1));
+	l.push_back(dl);
+
 	return l;
 }
 
