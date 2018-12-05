@@ -1,6 +1,6 @@
 #include "laborsheet.h"
 
-// TODO: РІРµСЂРЅСѓС‚СЊ Р»РѕРєР°Р»СЊ С„Р°Р№Р»Р° РІ 1251
+// TODO: вернуть локаль файла в 1251
 
 LaborSheet::LaborSheet()
     : DbRecord()
@@ -68,16 +68,16 @@ QList<LaborSheetDescriptionLine> LaborSheet::description()
 
 
 	QList<LaborSheetDescriptionLine> l;
-	//LaborSheetDescriptionLine dl = { QString::fromUtf8("РЎРѕС‚СЂСѓРґРЅРёРє"), employee().name(), -1.0 };
+	//LaborSheetDescriptionLine dl = { QString::fromLocal8Bit("Сотрудник"), employee().name(), -1.0 };
 	//l.push_back(dl);
 
-	LaborSheetDescriptionLine dl = { QString::fromUtf8("Р¤РѕСЂРјР° РѕРїР»Р°С‚С‹"), QString::fromUtf8((payForm() == PER_MONTH)? "РџРѕРјРµСЃСЏС‡РЅР°СЏ" : "РџРѕС‡Р°СЃРѕРІР°СЏ"), "", "", -1.0 };
+	LaborSheetDescriptionLine dl = { QString::fromLocal8Bit("Форма оплаты"), QString::fromLocal8Bit((payForm() == PER_MONTH)? "Помесячная" : "Почасовая"), "", "", -1.0 };
 	l.push_back(dl);
 
-	dl.name = QString::fromUtf8("Р’С‹РїР»Р°С‚Р°");
+	dl.name = QString::fromLocal8Bit("Выплата");
 	dl.default_value = QString::number(def_lbsh.award());
 	if(billingPeriod()->status() == BillingPeriod::OPEN)
-		dl.base_value = QString::fromUtf8("(Р·Р°РєСЂРѕР№С‚Рµ РјРµСЃСЏС†)");
+		dl.base_value = QString::fromLocal8Bit("(закройте месяц)");
 	else
 		dl.base_value = QString::number(this->award());
 	dl.altered_value = dl.base_value;
@@ -85,19 +85,19 @@ QList<LaborSheetDescriptionLine> LaborSheet::description()
 
 	if(payForm() == PER_HOUR)
 	{
-		dl.name = QString::fromUtf8("Р¤РѕСЂРјСѓР»Р°");
-		dl.default_value = QString::fromUtf8("РЎС‚Р°РІРєР° * Р§Р°СЃС‹");
-		dl.base_value    = QString::fromUtf8("");
-		dl.altered_value = QString::fromUtf8("");
+		dl.name = QString::fromLocal8Bit("Формула");
+		dl.default_value = QString::fromLocal8Bit("Ставка * Часы");
+		dl.base_value    = QString::fromLocal8Bit("");
+		dl.altered_value = QString::fromLocal8Bit("");
 		l.push_back(dl);
 
-		dl.name = QString::fromUtf8("РЎС‚Р°РІРєР°");
+		dl.name = QString::fromLocal8Bit("Ставка");
 		dl.default_value = QString::number(employee()->hireDirective()->salary());
-		dl.base_value    = QString::fromUtf8("");
-		dl.altered_value = QString::fromUtf8("");
+		dl.base_value    = QString::fromLocal8Bit("");
+		dl.altered_value = QString::fromLocal8Bit("");
 		l.push_back(dl);
 
-		dl.name = QString::fromUtf8("Р§Р°СЃС‹");
+		dl.name = QString::fromLocal8Bit("Часы");
 		dl.default_value = QString::number(def_lbsh.countBaseTimeUnits());
 		dl.base_value = QString::number(this->countBaseTimeUnits());
 		dl.altered_value = QString::number(this->countActualTimeUnits());
@@ -105,20 +105,20 @@ QList<LaborSheetDescriptionLine> LaborSheet::description()
 	}
 	if(payForm() == PER_MONTH)
 	{
-		dl.name = QString::fromUtf8("Р¤РѕСЂРјСѓР»Р°");
-		//dl.base_value = QString::fromUtf8("РћРєР»Р°Рґ * Р”РЅРµР№_РѕС‚СЂР°Р±РѕС‚Р°РЅРѕ / Р Р°Р±РѕС‡РёС…_РґРЅРµР№");
-		dl.default_value = QString::fromUtf8("РћРєР»Р°Рґ * Р”РЅРµР№_РѕС‚СЂР°Р±РѕС‚Р°РЅРѕ / Р Р°Р±РѕС‡РёС…_РґРЅРµР№");
-		dl.base_value    = QString::fromUtf8("");
-		dl.altered_value = QString::fromUtf8("");
+		dl.name = QString::fromLocal8Bit("Формула");
+		//dl.base_value = QString::fromLocal8Bit("Оклад * Дней_отработано / Рабочих_дней");
+		dl.default_value = QString::fromLocal8Bit("Оклад * Дней_отработано / Рабочих_дней");
+		dl.base_value    = QString::fromLocal8Bit("");
+		dl.altered_value = QString::fromLocal8Bit("");
 		l.push_back(dl);
 
-		dl.name = QString::fromUtf8("РћРєР»Р°Рґ");
+		dl.name = QString::fromLocal8Bit("Оклад");
 		dl.default_value = QString::number(employee()->hireDirective()->salary());
-		dl.base_value    = QString::fromUtf8("");
-		dl.altered_value = QString::fromUtf8("");
+		dl.base_value    = QString::fromLocal8Bit("");
+		dl.altered_value = QString::fromLocal8Bit("");
 		l.push_back(dl);
 
-		dl.name = QString::fromUtf8("Р”РЅРё");
+		dl.name = QString::fromLocal8Bit("Дни");
 		dl.default_value = QString::number(def_lbsh.countBaseTimeUnits());
 		dl.base_value = QString::number(this->countBaseTimeUnits());
 		dl.altered_value = QString::number(this->countActualTimeUnits());
@@ -129,7 +129,7 @@ QList<LaborSheetDescriptionLine> LaborSheet::description()
 
 bool LaborSheet::fillWithDefaults()
 {
-	// Р’С‹С‡РёСЃР»РёС‚СЊ РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕРµ СЃРјРµС‰РµРЅРёРµ РЅР°Р»РѕР¶РµРЅРёСЏ РіСЂР°С„РёРєР° РЅР° РјРµСЃСЏС†
+	// Вычислить относительное смещение наложения графика на месяц
     this->dutyChart();
     this->billingPeriod();
     //this->billingPeriod()->fetch();
@@ -143,7 +143,7 @@ bool LaborSheet::fillWithDefaults()
     int dutyChart_index = bias;
 	
 	this->_grid.clear();
-	// Р—Р°РїРѕР»РЅРёС‚СЊ С‚Р°Р±РµР»СЊ РѕС‚РјРµС‚РєР°РјРё РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
+	// Заполнить табель отметками по умолчанию
     int month_length = this->_billingPeriod->startDate().daysInMonth();
     for(int i = 0; i < month_length; ++i,dutyChart_index++)
     {
@@ -151,15 +151,15 @@ bool LaborSheet::fillWithDefaults()
             dutyChart_index = 0;
         Mark m(_dutyChart->grid()[dutyChart_index]);
 
-		// Р·Р°РїРёСЃР°С‚СЊ ID РІ РѕС‚РјРµС‚РєСѓ!
+		// записать ID в отметку!
 		m.setDutyChartId( NULL );
 		m.setLaborsheetId(this->_id);
-		// СЃР±СЂРѕСЃРёС‚СЊ РёР·РјРµРЅС‘РЅРЅС‹Рµ РґР°РЅРЅС‹Рµ
+		// сбросить изменённые данные
 		m.resetAltered();
         this->_grid.push_back(m);
     }
 	
-	//// РЅРµ РѕР±РЅРѕРІР»СЏРµРј С‚Р°Р±РµР»СЊ РІ Р‘Р” СЃСЂР°Р·Сѓ (РЅРµРёР·РІРµСЃС‚РЅРѕ - СЌС‚Рѕ update РёР»Рё insert)
+	//// не обновляем табель в БД сразу (неизвестно - это update или insert)
     return true; // this->update();
 }
 void LaborSheet::commitChanges()
@@ -214,8 +214,8 @@ int LaborSheet::countBaseTimeUnits()
 
 	foreach(Mark mark , this->grid())
 	{
-		// РґР»СЏ РїРѕС‡Р°СЃРѕРІРѕР№ РІРµСЂРЅСѓС‚СЊ С‡Р°СЃС‹;
-		// РґР»СЏ РїРѕРјРµСЃСЏС‡РЅРѕР№ - 1, РµСЃР»Рё РѕС‚РјРµС‚РєР° РЅРµРЅСѓР»РµРІР°СЏ, РёРЅР°С‡Рµ 0.
+		// для почасовой вернуть часы;
+		// для помесячной - 1, если отметка ненулевая, иначе 0.
 		total += (pay_form == PER_HOUR)? 
 			mark.countHours()
 			:
@@ -232,8 +232,8 @@ int LaborSheet::countActualTimeUnits()
 
 	foreach(Mark mark , this->grid())
 	{
-		// РґР»СЏ РїРѕС‡Р°СЃРѕРІРѕР№ РІРµСЂРЅСѓС‚СЊ С‡Р°СЃС‹;
-		// РґР»СЏ РїРѕРјРµСЃСЏС‡РЅРѕР№ - 1, РµСЃР»Рё РѕС‚РјРµС‚РєР° РЅРµРЅСѓР»РµРІР°СЏ, РёРЅР°С‡Рµ 0.
+		// для почасовой вернуть часы;
+		// для помесячной - 1, если отметка ненулевая, иначе 0.
 		total += (pay_form == PER_HOUR)? 
 			mark.alteredCountHours()
 			:
@@ -264,21 +264,21 @@ int LaborSheet::insert()
 				this->_id = query->value(0).toInt();
                 insert_id = this->_id;
 			}
-			// СЃРѕР·РґР°С‚СЊ РІСЃРµ РѕС‚РјРµС‚РєРё РІ Р‘Р”
+			// создать все отметки в БД
             for(int i = 0; i < this->_grid.length(); ++i)
             {
-				// Р·Р°РїРёСЃР°С‚СЊ ID РІ РѕС‚РјРµС‚РєСѓ!
+				// записать ID в отметку!
 				this->_grid[i].setLaborsheetId(this->_id);
 
                 if(this->_grid[i].insert()== - 1)
                 {
-                    //РћС€РёР±РєР°!!
+                    //Ошибка!!
                 }
             }
         }
         else
         {
-            //РћС€РёР±РєР°!
+            //Ошибка!
             QString s = query->lastError().text();
             s+="as";
         }
@@ -308,7 +308,7 @@ bool LaborSheet::update() const
             {
                 if(!_grid[i].update())
                 {
-                    //РћС€РёР±РєР°!!!
+                    //Ошибка!!!
 			        success = false;
                 }
             }
@@ -369,16 +369,16 @@ bool LaborSheet::fetch()
         {
             if(query->next())
             {
-				// РїРѕР»СѓС‡РёС‚СЊ ID СЃРѕС‚СЂСѓРґРЅРёРєР°
+				// получить ID сотрудника
                 this->_employeeId = query->value(2).toInt();
 
-				// РїРѕР»СѓС‡РёС‚СЊ ID РїРµСЂРёРѕРґР°
+				// получить ID периода
                 this->_billingPeriodId = query->value(1).toInt();
 				
-				// РїРѕР»СѓС‡РёС‚СЊ ID РіСЂР°С„РёРєР°
+				// получить ID графика
                 this->_dutyChartId = query->value(3).toInt();
 
-				// РїРѕР»СѓС‡РёС‚СЊ РІС‹РїР»Р°С‚Сѓ
+				// получить выплату
                 this->_award = query->value(4).toFloat();
 
      //           QSqlQuery query_b = *(DbManager::manager().makeQuery());
@@ -461,13 +461,13 @@ QList<LaborSheet> LaborSheet::getByPeriodId(int id)
         {
             while(query->next())
             {
-				// РЅРµРѕР±С…РѕРґРёРјРѕ РїСЂРѕРІРµСЂРёС‚СЊ СЂР°Р±РѕС‚РѕСЃРїРѕСЃРѕР±РЅРѕСЃС‚СЊ
+				// необходимо проверить работоспособность
 				LaborSheet labor;
 				int labor_id = query->value(0).toInt();
 				labor._id = labor_id;
 				labor.fetch();
 
-				// ! СЌС‚РѕС‚ Р±Р»РѕРє РјРѕР¶РЅРѕ Р·Р°РјРµРЅРёС‚СЊ РЅР° LaborSheet(id) c Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРѕР№ РІС‹Р±РѕСЂРєРѕР№ РїРѕ id (РїСЂРѕРІРµСЂРёС‚СЊ РґРµР№СЃС‚РІРёСЏ РјРµС‚РѕРґР° LaborSheet.fetch())
+				// ! этот блок можно заменить на LaborSheet(id) c автоматической выборкой по id (проверить действия метода LaborSheet.fetch())
       ////          QList <Mark> grid;
       ////          int labor_id = query->value(0).toInt();
       ////          QSqlQuery query_m = *(DbManager::manager().makeQuery());
