@@ -18,6 +18,9 @@ private:
 	Ui_SalaryCount *ui; 
 
 private slots:
+	
+	void init();
+	void cleanup();
 
 
 
