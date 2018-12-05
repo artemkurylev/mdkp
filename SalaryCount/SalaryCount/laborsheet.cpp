@@ -1,5 +1,10 @@
 #include "laborsheet.h"
 
+<<<<<<< HEAD
+=======
+// TODO: вернуть локаль файла в 1251
+
+>>>>>>> 157de42... РІРѕР·РІСЂР°С‰РµРЅР° Р»РѕРєР°Р»СЊ С„Р°Р№Р»Р° РІ 1251
 LaborSheet::LaborSheet()
     : DbRecord()
 {
@@ -95,14 +100,19 @@ QList<LaborSheetDescriptionLine> LaborSheet::description()
 		dl.name = QString::fromLocal8Bit("Формула");
 		dl.default_value = QString::fromLocal8Bit("Ставка * Часы");
 		dl.base_value    = QString::fromLocal8Bit("");
+<<<<<<< HEAD
 		dl.altered_value = QString::fromLocal8Bit("%1 * %2")
 			.arg(employee()->hireDirective()->salary())
 			.arg(cur_alt_time);
+=======
+		dl.altered_value = QString::fromLocal8Bit("");
+>>>>>>> 157de42... РІРѕР·РІСЂР°С‰РµРЅР° Р»РѕРєР°Р»СЊ С„Р°Р№Р»Р° РІ 1251
 		l.push_back(dl);
 
 		dl.name = QString::fromLocal8Bit("Ставка");
 		dl.default_value = QString::number(employee()->hireDirective()->salary());
 		dl.base_value    = QString::fromLocal8Bit("");
+<<<<<<< HEAD
 		dl.altered_value = QString::fromLocal8Bit("---");
 		l.push_back(dl);
 
@@ -110,6 +120,15 @@ QList<LaborSheetDescriptionLine> LaborSheet::description()
 		dl.default_value = QString::number(def_base_time);
 		dl.base_value = QString::number(cur_base_time);
 		dl.altered_value = QString::number(cur_alt_time);
+=======
+		dl.altered_value = QString::fromLocal8Bit("");
+		l.push_back(dl);
+
+		dl.name = QString::fromLocal8Bit("Часы");
+		dl.default_value = QString::number(def_lbsh.countBaseTimeUnits());
+		dl.base_value = QString::number(this->countBaseTimeUnits());
+		dl.altered_value = QString::number(this->countActualTimeUnits());
+>>>>>>> 157de42... РІРѕР·РІСЂР°С‰РµРЅР° Р»РѕРєР°Р»СЊ С„Р°Р№Р»Р° РІ 1251
 		l.push_back(dl);
 	}
 	if(payForm() == PER_MONTH)
@@ -118,15 +137,20 @@ QList<LaborSheetDescriptionLine> LaborSheet::description()
 		//dl.base_value = QString::fromLocal8Bit("Оклад * Дней_отработано / Рабочих_дней");
 		dl.default_value = QString::fromLocal8Bit("Оклад * Дней_отработано / Рабочих_дней");
 		dl.base_value    = QString::fromLocal8Bit("");
+<<<<<<< HEAD
 		dl.altered_value = QString::fromLocal8Bit("%1 * %2 / %3")
 			.arg(QString::number(employee()->hireDirective()->salary()))
 			.arg(cur_alt_time)
 			.arg(def_base_time);
+=======
+		dl.altered_value = QString::fromLocal8Bit("");
+>>>>>>> 157de42... РІРѕР·РІСЂР°С‰РµРЅР° Р»РѕРєР°Р»СЊ С„Р°Р№Р»Р° РІ 1251
 		l.push_back(dl);
 
 		dl.name = QString::fromLocal8Bit("Оклад");
 		dl.default_value = QString::number(employee()->hireDirective()->salary());
 		dl.base_value    = QString::fromLocal8Bit("");
+<<<<<<< HEAD
 		dl.altered_value = QString::fromLocal8Bit("---");
 		l.push_back(dl);
 
@@ -134,6 +158,15 @@ QList<LaborSheetDescriptionLine> LaborSheet::description()
 		dl.default_value = QString::number(def_base_time);
 		dl.base_value = QString::number(cur_base_time);
 		dl.altered_value = QString::number(cur_alt_time);
+=======
+		dl.altered_value = QString::fromLocal8Bit("");
+		l.push_back(dl);
+
+		dl.name = QString::fromLocal8Bit("Дни");
+		dl.default_value = QString::number(def_lbsh.countBaseTimeUnits());
+		dl.base_value = QString::number(this->countBaseTimeUnits());
+		dl.altered_value = QString::number(this->countActualTimeUnits());
+>>>>>>> 157de42... РІРѕР·РІСЂР°С‰РµРЅР° Р»РѕРєР°Р»СЊ С„Р°Р№Р»Р° РІ 1251
 		l.push_back(dl);
 	}
 
