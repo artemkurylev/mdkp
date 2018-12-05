@@ -128,13 +128,14 @@ void salarycountLaborSheet::updateInfo(QString name)
             ui->employeeLaborSheetTable->insertRow(row);
             Employee employee(*(labor_data[i].employee()));
             employee.fetch();
-            ui->employeeLaborSheetTable->setItem(row,0,new QTableWidgetItem(QString(labor_data[i].id())));
+			// создать элементы €чеек
+			for(int wi=0 ; wi<5 ; ++wi)
+				ui->employeeLaborSheetTable->setItem(row,wi,new QTableWidgetItem(" --- "));
+
+            ui->employeeLaborSheetTable->item(row,0)->setText(QString::number(labor_data[i].id()));
             ui->employeeLaborSheetTable->item(row,0)->setData(Qt::UserRole,labor_data[i].id());
-            ui->employeeLaborSheetTable->setItem(row,1,new QTableWidgetItem(employee.fio()));
-            ui->employeeLaborSheetTable->setItem(row,2,new QTableWidgetItem(QString(labor_data[i].award())));
-			// TODO: добавить инфо по остальным столбцам (прочерки или реальные значени€ дл€ закрытого мес€ца)
-            if(labor_data[i].award() > 0)
-                ui->employeeLaborSheetTable->setItem(row,2,new QTableWidgetItem(QString::number(labor_data[i].award())));
+            ui->employeeLaborSheetTable->item(row,1)->setText(employee.fio());
+            ui->employeeLaborSheetTable->item(row,2)->setText(QString::number(labor_data[i].award()));
             ++row;
         }
 
@@ -182,7 +183,7 @@ void salarycountLaborSheet::showSelectedItem(int row)
 		this->setDescription(labor_sheet);
         QList<Mark>marks = labor_sheet.grid();
         int start = _viewedPeriod->startDate().dayOfWeek() - 1;
-        if(labor_sheet.payForm() == PayForm::PER_MONTH)
+        if(labor_sheet.payForm() == PER_MONTH)
         {
             //int row = 0;
         
@@ -384,7 +385,7 @@ LaborSheet* salarycountLaborSheet::shapeDataObject()
         m = new Mark(grid->at(i - start));
 		switch(pf)
 		{
-			case PayForm::PER_MONTH:
+			case PER_MONTH:
             {
                 val = combo->currentIndex();
                 if(val == 0)
@@ -405,7 +406,7 @@ LaborSheet* salarycountLaborSheet::shapeDataObject()
                 break;
             }
 
-			case PayForm::PER_HOUR:
+			case PER_HOUR:
             {
                 val = combo->currentIndex();
                 m->setAlteredCountHours(val);
