@@ -157,9 +157,10 @@ void salarycountLaborSheet::updateInfo(QString name)
 
 void salarycountLaborSheet::setDescription(LaborSheet& laborSheet)
 {
+	int cur_row = ui->employeeLaborSheetTable->currentRow();
 	QString text("");
 	text += QString::fromWCharArray(L"Сотрудник: %1")
-		.arg(ui->employeeLaborSheetTable->item(ui->employeeLaborSheetTable->currentRow(),1)->text());
+		.arg(ui->employeeLaborSheetTable->item(cur_row,1)->text());
 	ui->Description_label->setText(text);
 
 	ui->Description_table->clearContents();
@@ -173,6 +174,15 @@ void salarycountLaborSheet::setDescription(LaborSheet& laborSheet)
 		ui->Description_table->setItem(rows, 0, new QTableWidgetItem(dl.default_value) );
 		//ui->Description_table->setItem(rows, 1, new QTableWidgetItem(dl.base_value) );
 		ui->Description_table->setItem(rows, 1, new QTableWidgetItem(dl.altered_value) );
+
+		// записать значения в основную таблицу
+		for(int col=3 ; col<=4 ; ++col)
+		{
+			if(dl.name == ui->employeeLaborSheetTable->horizontalHeaderItem(col)->text())
+			{
+				ui->employeeLaborSheetTable->item(cur_row,col)->setText(dl.altered_value);
+			}
+		}
 	}
 }
 
@@ -357,6 +367,7 @@ void salarycountLaborSheet::saveEditedLabor()
     //Тут еще валидация
     LaborSheet* labor_sheet = shapeDataObject();
     saveEditableEntries(labor_sheet);
+	this->setDescription(*labor_sheet); 
     delete labor_sheet;
 }
 void salarycountLaborSheet::cancelEditLabor()
