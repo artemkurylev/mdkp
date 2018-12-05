@@ -11,22 +11,19 @@ DbManager::DbManager()
 
 }
 /*static*/bool DbManager::singletonExists = false;
+/*static*/bool DbManager::singletonCompanyExists = false;
 /*static*/DbManager* DbManager::globalManager = 0;
-
+/*static*/DbManager* DbManager::_companyManager = 0;
 DbManager::DbManager(const QString& hostName, const QString& dbName, int port,const QString& userName, const QString& pass)
 {
 	// Сначала создаём БД
     this->db = QSqlDatabase::addDatabase("QMYSQL");
     //this->companyDb = QSqlDatabase::addDatabase("QMYSQL");
-    this->companyDb.setUserName(userName);
     this->db.setUserName(userName);
     //this->db.setDatabaseName(dbName);
     this->db.setHostName(hostName);
     this->db.setPort(port);
     this->db.setPassword(pass);
-    this->companyDb.setHostName(hostName);
-    this->companyDb.setPort(port);
-    this->companyDb.setPassword(pass);
 
     if(this->db.open())
     {
@@ -48,34 +45,13 @@ DbManager::DbManager(const QString& hostName, const QString& dbName, int port,co
         QString str = db.lastError().text();
         str+= "as";
     }
-    //Перенести в отдельный метод
-    if(this->companyDb.open())
-    {
-        //QString str;
-        QSqlQuery q(this->companyDb);
-		if( q.exec(tr("CREATE DATABASE IF NOT EXISTS %1 CHARACTER SET utf8 COLLATE utf8_bin;").arg("company_db") ) )
-		{
-			QString str = "Ok";
-            this->companyDb.close();
-		}
-		else
-		{
-            QString str = companyDb.lastError().text();
-			str+= "as";
-		}
-    }
 	// Теперь открываем нашу БД
     //this->db = QSqlDatabase::addDatabase("QMYSQL");
     //this->db.setUserName(userName);
     this->db.setDatabaseName(dbName);
-    this->companyDb.setDatabaseName("company_db");
     //this->db.setHostName(hostName);
     //this->db.setPort(port);
     //this->db.setPassword(pass);
-    if(this->companyDb.open())
-    {
-        QString str = "Ok";
-    }
     if(this->db.open())
     {
 		QString str = "Ok";
@@ -112,16 +88,22 @@ bool DbManager::checkConnection()
     }
 }
 
-
-bool DbManager::checkConnection()
+/*static*/ DbManager& DbManager::companyManager()
 {
-    if(db.isOpen()){
-        return true;
+    if(!singletonCompanyExists)
+    {
+        struct DbConf conf = loadDbConfig();
+		//QString hostName, dbName, userName, pass;
+		//int port;
+        DbManager::_companyManager = new DbManager(conf.hostName,conf.dbName,conf.port,conf.userName,conf.pass);
+        //if(false)
+        //    DbManager::globalManager = new DbManager("localhost","salarycount",3306,"root","root");
+        //else
+        //    DbManager::globalManager = new DbManager("109.206.169.214","salary_count",443,"remote","!E3f5c712");
+		// test ports: cmd>telnet 109.206.169.214 81
+        DbManager::singletonCompanyExists = 1;
     }
-    else{
-        QString s= db.lastError().text();
-        return false;
-    }
+    return *(DbManager::_companyManager);
 }
 /*static*/ DbManager& DbManager::manager()
 {

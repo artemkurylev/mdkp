@@ -28,6 +28,7 @@ public:
     QSqlQuery* makeQuery();
     bool checkConnection();
     static DbManager& manager();
+    static DbManager& companyManager();
     static void closeConnection(){globalManager->db.close();}
 private:
     QSqlDatabase db;
@@ -35,6 +36,8 @@ private:
     QSqlQuery _query;
 
     static DbManager* globalManager;
+    static DbManager* _companyManager;
+    static bool singletonCompanyExists;
     static bool singletonExists;
 };
 
