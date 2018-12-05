@@ -9,6 +9,7 @@ class Company : public DbRecord
 
 public:
     Company(QObject *parent = 0);
+    Company(QString name,QString pass){_name=name;_pass=pass;}
     ~Company();
     //Getter
     QString name(){return this->_name;}
@@ -20,8 +21,11 @@ public:
     //Статические методы
     static QMap<int,QString> getAll(){QMap<int,QString> records; return records;}
     static bool createTable();
+    bool auth();
+    
 private:
-    QString _name;    
+    QString _name;
+    QString _pass;
 };
 
 #endif // COMPANY_H
