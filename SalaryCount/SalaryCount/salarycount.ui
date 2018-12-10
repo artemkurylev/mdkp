@@ -23,7 +23,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="EmployeesPage">
        <layout class="QHBoxLayout" name="horizontalLayout">
@@ -1058,7 +1058,7 @@
            <item row="2" column="0">
             <widget class="QTableWidget" name="DutyChartMarksEdit">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Ignored" vsizetype="Expanding">
+              <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
@@ -1066,8 +1066,11 @@
              <property name="minimumSize">
               <size>
                <width>0</width>
-               <height>240</height>
+               <height>260</height>
               </size>
+             </property>
+             <property name="sizeAdjustPolicy">
+              <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
              </property>
              <row>
               <property name="text">
@@ -1206,6 +1209,9 @@
             <spacer name="verticalSpacer">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Expanding</enum>
              </property>
              <property name="sizeHint" stdset="0">
               <size>
