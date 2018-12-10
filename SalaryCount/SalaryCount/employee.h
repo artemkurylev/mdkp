@@ -37,7 +37,7 @@ public:
     const int nextDutyChartID()const {return _nextDutyChartID;}
     const QDate& nextDutyChartSince() const{return _nextDutyChartSince;}
     const int hireDirectiveID() const {return _hireDirectiveID;}
-
+    const bool auth() const{return false;}
     HireDirective* hireDirective();
 	QDate hireDate()	{	return hireDirective()->hireDate();	}
 
@@ -63,7 +63,7 @@ private:
     QString _fio;
     QString _phoneNumber;
     long long _INN;
-
+    QString password;
 	// график
     int _currentDutyChartID;
     int _nextDutyChartID;
