@@ -277,13 +277,13 @@ QString salarycountEmployees::validateData()
 
 	bool l = FIO.exactMatch(ui->eFIO->text());
 	if( !FIO.isValid() || !FIO.exactMatch(ui->eFIO->text()) )
-		return QString("Wrong FIO data.\nExample: Ivanov Ivan Ivanovich");
+		return QString::fromWCharArray(L"Неправильное ФИО:\n%1\nПример: Иванов Иван Иванович").arg(ui->eFIO->text());
 
 	if( !INN.isValid() || !INN.exactMatch(ui->INN->text()) )
-		return QString("Wrong INN. Provide 12 digits please. \nExample: 123456789012");
+		return QString::fromWCharArray(L"Неправильный ИНН:\n%1\nПример (должно быть 12 цифр): 123456789012").arg(ui->INN->text());
 
 	if( !phone.isValid() || !phone.exactMatch(ui->eNumberPhone->text()) )
-		return QString("Wrong phone number.\nExample: +7 (111) 111 11 11");
+		return QString::fromWCharArray(L"Неправильный номер телефона:\n%1\nПример: +7 (111) 111 11 11").arg(ui->eNumberPhone->text());
 
 	return QString();
 }
@@ -449,7 +449,7 @@ void salarycountEmployees::saveNewEmployee()
 		{
 			Employee* obj = shapeDataObject();//собрать данные
 
-			if(!obj) throw this->journal->nullPtr("Новый сотрудник не был сохранён");
+			if(!obj) throw this->journal->nullPtr( QString::fromWCharArray(L"Новый сотрудник не был сохранён").toStdString() );
 	
 			switch(this->currentState)
 			{
