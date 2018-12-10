@@ -17,11 +17,12 @@ salarycountDirectives::~salarycountDirectives()
 }
 void salarycountDirectives::updateInfo(QString name)
 {
-    if(!this->objectName().compare(name) && ui->directiveList->count() != HireDirective::countEntries())
+    //if(!this->objectName().compare(name) && ui->directiveList->count() != HireDirective::countEntries())
 	{
         QMap<int,QString> allEntries = HireDirective::getAll();
-		ui->dutyChartList->clear();
-		ui->DirectivesNumber_label_2->setText( QString::fromWCharArray(L"Ã‚Ã±Ã¥Ã£Ã® Ã¯Ã°Ã¨ÃªÃ Ã§Ã®Ã¢ Ã® Ã¯Ã°Ã¨Ã­Ã¿Ã²Ã¨Ã¨ Ã­Ã  Ã°Ã Ã¡Ã®Ã²Ã³: %1")
+		ui->directiveList->clear();
+
+		ui->DirectivesNumber_label_2->setText( QString::fromWCharArray(L"Âñåãî ïðèêàçîâ î ïðèíÿòèè íà ðàáîòó: %1")
 			.arg(allEntries.size()) );
 
 		if(allEntries.count() > 0)
