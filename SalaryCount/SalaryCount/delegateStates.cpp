@@ -19,7 +19,7 @@ void delegateStates::error_msg(const char* short_description, const char* text)
 
 void delegateStates::show_last_error()
 {
-	QByteArray code = QString::fromWCharArray(L"Код ошибки: %1")
+	QByteArray code = QString::fromWCharArray(L"Ошибка (код %1)")
 			.arg(QString::number(this->journal->getLastErrorCode())).toLocal8Bit();
 	QByteArray msg = this->journal->getLastError().toLocal8Bit();
 
