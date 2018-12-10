@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include "ui_companyopendialog.h"
+#include "dbmanager.h"
+#include "company.h"
 
 class companyOpenDialog : public QDialog
 {
@@ -14,6 +16,7 @@ public:
 
 private:
     Ui::companyOpenDialog ui;
+    void initialDBManager();
 };
 
 #endif // COMPANYOPENDIALOG_H
