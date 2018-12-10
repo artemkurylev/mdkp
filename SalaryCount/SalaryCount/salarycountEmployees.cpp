@@ -425,6 +425,7 @@ void salarycountEmployees::updateInfo(QString name)
 
 	// clear & disable fields on empty list
 	cancelNewEmployee();
+	switchMode(USUAL);
 }
 
 void salarycountEmployees::addEmployee()
