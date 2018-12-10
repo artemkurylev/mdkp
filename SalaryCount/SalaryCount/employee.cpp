@@ -302,3 +302,27 @@ bool Employee::applyDutyChartChange(const QDate& currentPeriodStart)
 	}
 	return reset;
 }
+const bool Employee::auth() const{
+    bool success = false;
+    QByteArray hash;
+    hash.append(this->_password);
+    QString hsh = QCryptographicHash::hash(hash,QCryptographicHash::Md5);
+    QSqlQuery* query = DbManager::manager().makeQuery();
+    if(DbManager::manager().checkConnection())
+    {
+        query->prepare("SELECT password FROM `employee` WHERE `phone_number` == :phone_number");
+        query->bindValue(":phone_number",this->_phoneNumber);
+        if(query->exec())
+        {
+            if(query->next())
+            {
+                QString pass = query->value(0).toString();
+                if(pass == hash)
+                {
+                    success = true;
+                }
+            }
+        }
+    }
+    return success;
+}
