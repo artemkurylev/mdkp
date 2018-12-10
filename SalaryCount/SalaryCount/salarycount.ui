@@ -1224,21 +1224,8 @@
       </widget>
       <widget class="QWidget" name="HireDirectivesPage">
        <layout class="QGridLayout" name="gridLayout_11">
-        <item row="0" column="0">
-         <widget class="QPushButton" name="pushButton_15">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="text">
-           <string>Создать приказ</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QListWidget" name="listWidget_4"/>
-         <widget class="QListWidget" name="directiveList"/>
-        </item>
-        <item row="1" column="0">
+
+        <item row="2" column="0">
          <widget class="QPushButton" name="showDirectiveBtn">
           <property name="enabled">
            <bool>false</bool>
@@ -1247,6 +1234,16 @@
            <string>Просмотреть приказ</string>
           </property>
          </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="DirectivesNumber_label_2">
+          <property name="text">
+           <string>Directives count</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QListWidget" name="directiveList"/>
         </item>
        </layout>
       </widget>

@@ -21,6 +21,8 @@ void salarycountDirectives::updateInfo(QString name)
 	{
         QMap<int,QString> allEntries = HireDirective::getAll();
 		ui->dutyChartList->clear();
+		ui->DirectivesNumber_label_2->setText( QString::fromWCharArray(L"Âñåãî ïðèêàçîâ î ïðèíÿòèè íà ðàáîòó: %1")
+			.arg(allEntries.size()) );
 
 		if(allEntries.count() > 0)
 		{
@@ -31,13 +33,14 @@ void salarycountDirectives::updateInfo(QString name)
 			foreach(const int &iter, keys)
 			{
 				QString d = allEntries.value( iter );
-				QListWidgetItem *item = new QListWidgetItem(allEntries.value( iter ), ui->directiveList, iter);
+				QListWidgetItem *item = new QListWidgetItem(d);
 				ui->directiveList->addItem(item);
 			}
 
 			ui->directiveList->setCurrentRow(0);
-            ui->showDirectiveBtn->setEnabled(true);
 		}
+
+        ui->showDirectiveBtn->setEnabled( allEntries.count() > 0 );
 	}
 }
 void salarycountDirectives::showDirective()
