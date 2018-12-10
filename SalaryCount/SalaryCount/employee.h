@@ -37,7 +37,7 @@ public:
     const int nextDutyChartID()const {return _nextDutyChartID;}
     const QDate& nextDutyChartSince() const{return _nextDutyChartSince;}
     const int hireDirectiveID() const {return _hireDirectiveID;}
-    const bool auth() const{return false;}
+    const bool auth() const;
     HireDirective* hireDirective();
 	QDate hireDate()	{	return hireDirective()->hireDate();	}
 
