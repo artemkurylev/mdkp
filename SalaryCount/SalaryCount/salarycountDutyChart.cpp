@@ -329,7 +329,7 @@ void salarycountDutyChart::clearFields()
 
 void salarycountDutyChart::updateInfo(QString name)
 {
-	if(!this->objectName().compare(name) && ui->dutyChartList->count() != DutyChart::countEntries())
+	//if(!this->objectName().compare(name) && ui->dutyChartList->count() != DutyChart::countEntries())
 	{
 		QMap<int,QString> allEntries = DutyChart::getAll();
 		ui->dutyChartList->clear();
