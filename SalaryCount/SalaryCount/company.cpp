@@ -6,6 +6,10 @@ Company::Company(QObject *parent)
 {
 
 }
+int Company::insert()
+{
+    int insert_id = -1;
+}
 bool Company::createTable()
 {
     bool success = false;
@@ -47,10 +51,8 @@ bool Company::auth()
                     success = true;
                 }
             }
-
         }
     }
-
     return success;
 }
 Company::~Company()

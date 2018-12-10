@@ -14,7 +14,7 @@ public:
     //Getter
     QString name(){return this->_name;}
     //Наследуемые методы
-    int insert(){return -1;}
+    int insert();
     bool update() const{return false;}
     bool fetch(){return false;}
     bool validate() const{return false;}
