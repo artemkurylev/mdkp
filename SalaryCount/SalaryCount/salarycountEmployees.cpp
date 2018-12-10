@@ -284,7 +284,7 @@ QString salarycountEmployees::validateData()
 		return QString("Wrong FIO data.\nExample: Ivanov Ivan Ivanovich");
 
 	if( !INN.isValid() || !INN.exactMatch(ui->INN->text()) )
-		return QString("Wrong INN.\nExample: 123456789100");
+		return QString("Wrong INN. Provide 12 digits please. \nExample: 123456789012");
 
 	if( !phone.isValid() || !phone.exactMatch(ui->eNumberPhone->text()) )
 		return QString("Wrong phone number.\nExample: +7 (111) 111 11 11");
@@ -415,6 +415,14 @@ void salarycountEmployees::updateInfo(QString name)
 			ui->employeeList->setCurrentRow(0);
 		}
 	}
+
+	if(!this->objectName().compare(name))
+	{
+		fillDutyChartComboBox(PayForm::PER_MONTH);
+	}
+
+	// clear & disable fields on empty list
+	cancelNewEmployee();
 }
 
 void salarycountEmployees::addEmployee()
@@ -456,7 +464,7 @@ void salarycountEmployees::saveNewEmployee()
 		{
 			Employee* obj = shapeDataObject();//собрать данные
 
-			if(!obj) throw this->journal->nullPtr();
+			if(!obj) throw this->journal->nullPtr("Новый сотрудник не был сохранён");
 	
 			switch(this->currentState)
 			{
