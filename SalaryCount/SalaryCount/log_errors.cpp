@@ -42,9 +42,7 @@ void log_errors::writeInJournal(ex_description exd)
 
 void log_errors::baseError(exception_states e, std::string text)
 {
-	QTextCodec* c = QTextCodec::codecForLocale();
-
-	writeInJournal( ex_description(e, c->toUnicode(text.c_str())) );
+	writeInJournal( ex_description(e, QString::fromStdString(text)) );
 	this->lastState = parse_conclusion::FAIL;
 }
 
