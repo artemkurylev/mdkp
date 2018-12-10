@@ -247,7 +247,7 @@ DutyChart* salarycountDutyChart::shapeDataObject()
 
 	QString name = ui->nameDutyChart->text();//занести имя
 	QDate ancDate = ui->startDate->date();//запомнить якорную дату
-	PayForm pf = (ui->payFormChoice->currentIndex()==0 ? PayForm::PER_MONTH : PayForm::PER_HOUR);//запомнить платежную форму
+	PayForm pf = (ui->payFormChoice->currentIndex()==0 ? PER_MONTH : PER_HOUR);//запомнить платежную форму
 	QTime workTime(ui->workTimeEdit->time());//в зависимости от платежной формы запомнить рабочее время
 
 	//запомнить отметки
@@ -263,13 +263,13 @@ DutyChart* salarycountDutyChart::shapeDataObject()
 		switch(pf)
 		{
 
-			case PayForm::PER_MONTH:
+			case PER_MONTH:
 				m = new Mark( (combo->currentIndex()==1 ? 
 					Mark::ATTENDS : Mark::HOLIDAY),NULL,NULL,NULL,id,NULL );
 				m->setId((grid ? grid->at(i).id():NULL));
 				break;
 
-			case PayForm::PER_HOUR:
+			case PER_HOUR:
 				m = new Mark( NULL,NULL,(combo->currentIndex()==1 ? 
 					ui->workTimeEdit->time().hour() : Mark::HOLIDAY),NULL,id, NULL );
 					m->setId((grid ? grid->at(i).id():NULL));
@@ -350,6 +350,8 @@ void salarycountDutyChart::updateInfo(QString name)
 				ui->dutyChartList->addItem(item);
 			}
 
+			cancelNewDutyChart();
+
 			ui->dutyChartList->setCurrentRow(0);
 		}
 	}
@@ -362,7 +364,7 @@ void salarycountDutyChart::parseDataObject(const DutyChart *obj)
 	ui->nameDutyChart->setText( obj->name() );
 	ui->startDate->setDate( obj->anchorDate() );
 
-	bool isMonth = obj->payForm() == PayForm::PER_MONTH;
+	bool isMonth = obj->payForm() == PER_MONTH;
 	ui->payFormChoice->setCurrentIndex( !isMonth );
 
 	const QList<Mark> &m = obj->grid();
@@ -374,12 +376,12 @@ void salarycountDutyChart::parseDataObject(const DutyChart *obj)
 
 	//
 	if(m.count()!=ui->DutyChartMarksEdit->rowCount())
-		throw this->journal->compareError("грид не равен рабочей недели");
+		throw this->journal->compareError("грид не равен рабочей неделе");
 
 	for(int i=m.count()-1; i>=0; --i)
 	{
 		QComboBox* combo = (QComboBox*)ui->DutyChartMarksEdit->cellWidget(i,0);
-		if(m[i].base() == Mark::Type::HOLIDAY || m[i].countHours() == Mark::Type::HOLIDAY)
+		if(m[i].base() == Mark::HOLIDAY || m[i].countHours() == Mark::HOLIDAY)
 		{
 
 			combo->setCurrentIndex(0);

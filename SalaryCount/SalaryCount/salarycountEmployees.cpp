@@ -14,12 +14,13 @@ salarycountEmployees::salarycountEmployees(Ui_SalaryCount *ui, QString name)
 	connect(ui->saveEmployeeBtn,SIGNAL(pressed()),this,SLOT(saveNewEmployee()));
 
 	connect(ui->ePayFormChoice,SIGNAL(currentIndexChanged(int)), SLOT(changePayForm(int)));
-	ui->ePayFormChoice->setCurrentIndex(0);
-	this->currentPayForm = PayForm::PER_MONTH;
+
+	//ui->ePayFormChoice->setCurrentIndex(-1);
+	this->currentPayForm = PER_MONTH;
 
 	connect(ui->employeeList,SIGNAL(currentRowChanged(int)), SLOT(showSelectedItem(int)));
 
-	fillDutyChartComboBox(PayForm::PER_MONTH);
+	//fillDutyChartComboBox(PER_MONTH);
 	//connect(ui->INN,SIGNAL(textChanged(QString)), SLOT(innField()));
 }
 
@@ -81,7 +82,8 @@ HireDirective* salarycountEmployees::shapeHireDirective(int idEmployee)
 		int id = ui->eOrderNum->text().toInt();
 		QString FIO = ui->eFIO->text();
 		QDate &hd = ui->eReceiptDate->date();
-        PayForm pf = (ui->ePayFormChoice->currentIndex()==0 ? PayForm::PER_MONTH : PayForm::PER_HOUR);
+
+		PayForm pf = (ui->ePayFormChoice->currentIndex()==0 ? PER_MONTH : PER_HOUR);
 		float sal = ui->eSalary->value();
 
 		HireDirective* obj = new HireDirective(id,hd,FIO,pf,sal,idEmployee);
@@ -107,7 +109,7 @@ void salarycountEmployees::parseDataObject(const Employee* obj)
 		HireDirective *hd = new HireDirective(obj->hireDirectiveID());
 		if(!hd->fetch()) throw this->journal->fetchError();
 
-		ui->ePayFormChoice->setCurrentIndex(hd->payForm()==PayForm::PER_MONTH ? 0 : 1);
+		ui->ePayFormChoice->setCurrentIndex(hd->payForm()==PER_MONTH ? 0 : 1);
 		ui->eReceiptDate->setDate(hd->hireDate());
 		ui->eOrderNum->setText(QString::number(hd->id()));
 		ui->eSalary->setValue(hd->salary());
@@ -229,7 +231,7 @@ bool salarycountEmployees::fillDutyChartComboBox(PayForm pf)
 
 void salarycountEmployees::changeCallPayForm(PayForm pf)
 {
-	if(pf==PayForm::PER_MONTH)
+	if(pf==PER_MONTH)
 	{
 		ui->eSalary_label->setText(QString::fromWCharArray(L"Оклад (руб)"));
 		ui->eSalary->setMinimum(8000);
@@ -418,7 +420,7 @@ void salarycountEmployees::updateInfo(QString name)
 
 	if(!this->objectName().compare(name))
 	{
-		fillDutyChartComboBox(PayForm::PER_MONTH);
+		fillDutyChartComboBox(PER_MONTH);
 	}
 
 	// clear & disable fields on empty list
@@ -501,13 +503,13 @@ void salarycountEmployees::changePayForm(int index)
 {
 	if(index)
 	{
-		changeCallPayForm(PayForm::PER_HOUR);
-		fillDutyChartComboBox(PayForm::PER_HOUR);
+		changeCallPayForm(PER_HOUR);
+		fillDutyChartComboBox(PER_HOUR);
 	}
 	else
 	{
-		changeCallPayForm(PayForm::PER_MONTH);
-		fillDutyChartComboBox(PayForm::PER_MONTH);
+		changeCallPayForm(PER_MONTH);
+		fillDutyChartComboBox(PER_MONTH);
 	}
 }
 
