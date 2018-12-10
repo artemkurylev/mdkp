@@ -9,6 +9,7 @@ Company::Company(QObject *parent)
 int Company::insert()
 {
     int insert_id = -1;
+    return insert_id;
 }
 bool Company::createTable()
 {
