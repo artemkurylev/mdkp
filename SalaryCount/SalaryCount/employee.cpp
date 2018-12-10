@@ -1,4 +1,6 @@
 #include "employee.h"
+#include <QCryptographicHash>
+#include <qbytearray.h>
 
 Employee::Employee()
     : DbRecord()
@@ -95,7 +97,7 @@ bool Employee::createDbTable()
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        if(query->exec("CREATE TABLE IF NOT EXISTS `employee` (`id` INT(11) NOT NULL AUTO_INCREMENT, `fio` CHAR(30) NOT NULL, `phone_number` CHAR(20),`inn` DECIMAL(12),`hire_directive_id` INT(11),`dutychart_id` INT(11),`next_dutychart_id` INT(11),`next_dutychart_since` DATE, PRIMARY KEY(`id`))"))
+        if(query->exec("CREATE TABLE IF NOT EXISTS `employee` (`id` INT(11) NOT NULL AUTO_INCREMENT, `fio` CHAR(30) NOT NULL, `phone_number` CHAR(20),`inn` DECIMAL(12),`hire_directive_id` INT(11),`dutychart_id` INT(11),`next_dutychart_id` INT(11),`next_dutychart_since` DATE, `password` CHAR(200), PRIMARY KEY(`id`))"))
 		{
 			success = true;
 		}
@@ -148,16 +150,22 @@ bool Employee::fetch()
 }
 int Employee::insert()
 {
+
 	int insert_id = -1;
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
-        query->prepare("INSERT INTO `employee` (`fio`,`phone_number`,`inn`,`hire_directive_id`,`dutychart_id`) VALUES(:fio,:phone_number,:inn,:hire_directive_id,:dutychart_id);");
+        query->prepare("INSERT INTO `employee` (`fio`,`phone_number`,`inn`,`hire_directive_id`,`dutychart_id`,`password`) VALUES(:fio,:phone_number,:inn,:hire_directive_id,:dutychart_id,:password);");
+        
+        QByteArray hash;
+        hash.append(this->_password);
+        QString hsh = QCryptographicHash::hash(hash,QCryptographicHash::Md5);
         query->bindValue(":fio",this->_fio);
         query->bindValue(":phone_number",this->_phoneNumber);
         query->bindValue(":inn",this->_INN);
         query->bindValue(":hire_directive_id",this->_hireDirectiveID);
         query->bindValue(":dutychart_id",this->_currentDutyChartID);
+        query->bindValue(":password",hsh);
         if(query->exec())
         {
             query->prepare("SELECT id FROM `employee` WHERE `inn` = :inn");
@@ -187,6 +195,7 @@ QMap<int,QString> Employee::getAll()
         QSqlQuery* query = DbManager::manager().makeQuery();
 
         query->prepare("SELECT `id`,`fio` FROM `employee`");
+
         if(query->exec())
         {
             while(query->next())
