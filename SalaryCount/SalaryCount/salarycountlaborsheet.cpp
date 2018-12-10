@@ -139,6 +139,9 @@ void salarycountLaborSheet::updateInfo(QString name)
             ++row;
         }
 
+		// кнопка "Изменить"
+		ui->updateLaborBtn->setEnabled(row > 0 && this->_viewedPeriod->status() == BillingPeriod::OPEN);
+
 	    connect(ui->employeeLaborSheetTable,SIGNAL(currentCellChanged(int,int,int,int)),this, SLOT(showSelectedItem(int)));
 
         if(ui->employeeLaborSheetTable->rowCount() > 0)
@@ -287,8 +290,6 @@ void salarycountLaborSheet::periodDateChanged(const QDate& newdate)
 		this->_viewedPeriod = bp;
 		ui->ClosePeriod_button->setEnabled(this->_viewedPeriod->status() == BillingPeriod::OPEN);
 		ui->GoToCurrentPeriod_button->setEnabled(this->_viewedPeriod->status() != BillingPeriod::OPEN);
-		// кнопка "Изменить"
-		ui->updateLaborBtn->setEnabled(this->_viewedPeriod->status() == BillingPeriod::OPEN);
 		regenMarksCalendar();
         updateInfo(this->objectName());
 	}
