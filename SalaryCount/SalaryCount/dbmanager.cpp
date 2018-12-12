@@ -129,12 +129,62 @@ DbManager::~DbManager()
 }
 struct DbConf companyDbConfig(){
     struct DbConf  dbConf;
-    dbConf.hostName = "localhost";
-    dbConf.dbName = "company";
-    dbConf.port = 3306;
-	dbConf.userName = "root";
-	dbConf.pass = "root";
-    return dbConf;
+	QString fname = "companydbconfig.ini";
+	QSettings s(fname, QSettings::IniFormat);
+	
+	if(!QFile::exists(fname))
+	{
+		//QString hostName, dbName, userName, pass;
+		//int port;
+		dbConf.hostName = "localhost";
+		dbConf.port = 3306;
+		dbConf.dbName = "company";
+		dbConf.userName = "root";
+		dbConf.pass = "root"; // "our366Team";
+
+		// write 
+		s.beginGroup("db-local");
+		s.setValue("hostName", dbConf.hostName);
+		s.setValue("port", dbConf.port);
+		s.setValue("dbName", dbConf.dbName);
+		s.setValue("userName", dbConf.userName);
+		s.setValue("pass", dbConf.pass);
+		s.endGroup();
+
+		// <Debug only>!
+		// write "commented" section
+		s.beginGroup("db");
+		s.setValue("hostName", "109.206.169.214");
+		s.setValue("port", dbConf.port);
+		s.setValue("dbName", "company");
+		s.setValue("userName", "remote");
+		s.setValue("pass", "!E3f5c712");
+		s.endGroup();
+		// </Debug only>
+
+		// write 
+		s.beginGroup("meta");
+		s.setValue("write_at", QDateTime::currentDateTime().toString("dd.MM.yyyy  hh:mm:ss"));
+		s.endGroup();
+	}
+	else
+	{
+		s.beginGroup("db");
+		dbConf.hostName = s.value("hostName", "localhost").toString();
+		dbConf.port = s.value("port", 3306).toInt();
+		dbConf.dbName = s.value("dbName", "salarycount").toString();
+		dbConf.userName = s.value("userName", "root").toString();
+		dbConf.pass = s.value("pass", "root").toString();
+		s.endGroup();
+
+		// read 
+		s.beginGroup("meta");
+		//s.setValue("write_at", QDateTime::currentDateTime().toString("dd.MM.yyyy  hh:mm:ss"));
+		s.setValue("read_at", QDateTime::currentDateTime().toString("dd.MM.yyyy  hh:mm:ss"));
+		s.endGroup();
+	}
+
+	return dbConf;
 }
 struct DbConf loadDbConfig()
 {
