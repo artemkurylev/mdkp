@@ -8,8 +8,35 @@ Company::Company(QObject *parent)
 }
 int Company::insert()
 {
-    int insert_id = -1;
-    return insert_id;
+int insert_id = -1;
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+        query->prepare("INSERT INTO `company` (`name`,`pass`) VALUES(:name,:pass)");
+        
+        QByteArray hash;
+        hash.append(this->_pass);
+        QString hsh = QCryptographicHash::hash(hash,QCryptographicHash::Md5);
+        query->bindValue(":name",this->_name);
+        query->bindValue(":pass",hsh);
+        if(query->exec())
+        {
+            if(query->exec("SELECT LAST_INSERT_ID()") && query->next())
+            {   
+                this->_id = query->value(0).toInt();
+				insert_id = this->_id;
+            }
+        }
+        else
+        {
+            QString s = query->lastError().text();
+            s+="as";
+        }
+        delete query;
+    }
+    else{
+    }
+	return insert_id;
 }
 bool Company::createTable()
 {
