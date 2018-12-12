@@ -8,8 +8,8 @@ Company::Company(QObject *parent)
 }
 int Company::insert()
 {
-int insert_id = -1;
-    if(DbManager::manager().checkConnection())
+    int insert_id = -1;
+    if(DbManager::companyManager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
         query->prepare("INSERT INTO `company` (`name`,`pass`) VALUES(:name,:pass)");
@@ -44,7 +44,7 @@ bool Company::createTable()
     if(DbManager::companyManager().checkConnection())
     {
         QSqlQuery* query = DbManager::companyManager().makeQuery();
-        if(query->exec("CREATE TABLE IF NOT EXISTS `company` (`id` INT(11) NOT NULL AUTO_INCREMENT, `name` VARCHAR(30) UNIQUE, `pass` VARCHAR(200)"))
+        if(query->exec("CREATE TABLE IF NOT EXISTS `company` (`id` INT(11) NOT NULL AUTO_INCREMENT, `name` VARCHAR(30) UNIQUE, `pass` VARCHAR(200) ,PRIMARY KEY(`id`))"))
 		{
             success = true;
 		}
