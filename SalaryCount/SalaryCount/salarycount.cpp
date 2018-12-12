@@ -68,7 +68,66 @@ SalaryCount::SalaryCount(QWidget *parent)
 
 	showPage(ui.DutyCharAction);
 }
+SalaryCount::SalaryCount(QString dbName, QWidget *parent)
+    : QMainWindow()
+{
+    ui.setupUi(this);
 
+	initialDBManager(dbName);
+
+	// test>
+	//BillingPeriod* bp = BillingPeriod::getCurrentPeriod();
+	//for(int i=0 ; i<3 ; ++i)
+	//{
+	//	BookKeeper::closeBillingPeriod(*bp);
+	//	bp = bp->nextPeriod();
+	//}
+	// <test
+
+	this->editState = false;
+	
+	//// запуск тестирования
+	DirectiveGeneratorTest dir_gen_test(0);
+	QTest::qExec( &dir_gen_test , NULL , NULL);
+
+	//соединение со страницей создания графиков
+	this->dutyChart = new salarycountDutyChart(&this->ui,ui.DutyCharAction->whatsThis());
+	connect(this, SIGNAL(showPaget(QString)),this->dutyChart,SLOT(updateInfo(QString)));//обновить информацию на странице
+	connect(this->dutyChart,SIGNAL(changeState(bool)),this,SLOT(rememberState(bool)));//на странице может быть два режима: просмотр и изменение записей
+	connect(this,SIGNAL(saveChanges()),this->dutyChart,SLOT(saveNewDutyChart()));//приложение посылает сигнал на сохранение страницы
+	connect(this,SIGNAL(cancelChanges()),this->dutyChart,SLOT(cancelNewDutyChart()));//приложение посылает сигнал отмены редактирования
+
+	//соединение со страницей кадрового учета
+	this->employees = new salarycountEmployees(&this->ui,ui.EmployeeListAction->whatsThis());
+	connect(this, SIGNAL(showPaget(QString)),this->employees,SLOT(updateInfo(QString)));//обновить информацию на странице
+	connect(this->employees,SIGNAL(changeState(bool)),this,SLOT(rememberState(bool)));//на странице может быть два режима: просмотр и изменение записей
+	connect(this,SIGNAL(saveChanges()),this->employees,SLOT(saveNewEmployee()));//приложение посылает сигнал на сохранение страницы
+	connect(this,SIGNAL(cancelChanges()),this->dutyChart,SLOT(cancelNewEmployee()));//приложение посылает сигнал отмены редактирования
+	
+    //Соедиенение со страницей табелей
+    this->laborSheet = new salarycountLaborSheet(&this->ui,ui.LaborSheetAction->whatsThis());
+	connect(this, SIGNAL(showPaget(QString)),this->laborSheet,SLOT(updateInfo(QString)));//обновить информацию на странице
+    //Соединение со страницей приказов
+    this->directives = new salarycountDirectives(&this->ui,ui.HireDirectiveAction->whatsThis());
+    connect(this, SIGNAL(showPaget(QString)),this->directives,SLOT(updateInfo(QString)));
+	//TODO
+
+	ui.saveDutyChartBtn->setEnabled(true);
+	ui.cancelDutyChartBtn->setEnabled(true);
+
+	//постраничный переход
+	ui.stackedWidget->setCurrentIndex(2);//устанавлиаем видимость на странице с сотрудниками
+	this->currentAction = ui.DutyCharAction;
+	this->currentAction->setEnabled(false);
+
+	connect(ui.CompanyMenu,SIGNAL(triggered(QAction*)), this,SLOT(showPage(QAction*)));
+
+	connect(ui.FileMenu,SIGNAL(triggered(QAction*)), this,SLOT(showCompanyDialog(QAction*)));
+
+	connect(ui.ExitAction,SIGNAL(triggered()), this,SLOT(close()));
+
+	showPage(ui.DutyCharAction);
+}
 SalaryCount::~SalaryCount()
 {
 	delete this->dutyChart;
@@ -120,6 +179,51 @@ void SalaryCount::initialDBManager()
 	}
 
 	//return??
+}
+void SalaryCount::initialDBManager(QString dbName)
+{
+    DbManager& manager = DbManager::manager(dbName);
+    if(manager.checkConnection())
+    {
+        //Создание таблиц
+        bool table_created = Employee::createDbTable();
+        if(!table_created)
+        {
+
+        }
+        table_created = BillingPeriod::createDbTable();
+        if(!table_created)
+        {
+
+        }
+        table_created = DutyChart::createDbTable();
+        if(!table_created)
+        {
+
+        }
+        table_created = LaborSheet::createDbTable();
+        if(!table_created)
+        {
+
+        }
+        table_created = HireDirective::createDbTable();
+        if(!table_created)
+        {
+
+        }
+		// должно быть вызвано после создания DutyChart и LaborSheet (из-за внешних ключей)
+        table_created = Mark::createDbTable();
+        if(!table_created)
+        {
+
+        }
+		// позже это должно выполняться при создании предприятия
+		initalSetupForTableDutyChart();
+    }
+	else
+	{
+		//TODO
+	}
 }
 
 //! название метода не отражает сути выполняемых действий
