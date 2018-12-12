@@ -407,6 +407,7 @@ QMap <int, int> LaborSheet::getAll()
 }
 bool LaborSheet::fetch()
 {
+	bool success = false;
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
@@ -463,22 +464,18 @@ bool LaborSheet::fetch()
                         m.setId(mark_id);
                         _grid.append(m);
                     }
+					success = true;
                 }
-				//delete query_m;
             }
         }
         else
         {
             QString s = query->lastError().text();
             s+="as";
-            return false;
         }
         delete query;
     }
-    else
-    {
-        return false;
-    }
+    return success;
 }
 long LaborSheet::countEntries()
 {
