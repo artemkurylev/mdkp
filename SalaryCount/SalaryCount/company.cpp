@@ -66,19 +66,26 @@ bool Company::auth()
     QByteArray hash;
     hash.append(this->_pass);
     QString hsh = QCryptographicHash::hash(hash,QCryptographicHash::Md5);
-    QSqlQuery* query = DbManager::manager().makeQuery();
-    if(DbManager::manager().checkConnection())
+    QSqlQuery* query = DbManager::companyManager().makeQuery();
+    query->prepare("SELECT * FROM `company` WHERE `name` = :name");
+    query->bindValue(":name",this->_name);
+    if(DbManager::companyManager().checkConnection())
     {
-        if(query->exec("SELECT * FROM `company` WHERE `name` == :name"))
+        if(query->exec())
         {
             if(query->next())
             {
                 QString pass = query->value(2).toString();
-                if(pass == hash)
+                if(pass == hsh)
                 {
                     success = true;
                 }
             }
+        }
+        else
+        {
+            QString s= query->lastError().text();
+            s+= "as";
         }
     }
     return success;
