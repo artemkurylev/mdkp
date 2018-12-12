@@ -18,9 +18,9 @@ int main(int argc, char *argv[])
 	QTest::qExec( &dgt , NULL , NULL);*/
 
     QApplication a(argc, argv);
-    SalaryCount w;
+    //SalaryCount w;
     companyOpenDialog q;
-    //q.show();
-    w.show();
+    q.show();
+    //w.show();
     return a.exec();
 }
