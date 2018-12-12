@@ -40,6 +40,7 @@ BillingPeriod::~BillingPeriod()
 
 bool BillingPeriod::fetch()
 {
+	bool success = false;
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
@@ -54,20 +55,17 @@ bool BillingPeriod::fetch()
                 _startDate = query->value(1).toDate();
 				//_startDate = QDate::fromString("yyyy-MM-dd", query->value(1).toString() );
                 _status = (Status)query->value(2).toInt();
+				success = false;
             }
         }
         else
         {
             QString s = query->lastError().text();
             s+="as";
-            return false;
         }
         delete query;
     }
-    else
-    {
-        return false;
-    }
+    return success;
 }
 bool BillingPeriod::set()
 {
