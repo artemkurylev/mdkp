@@ -1,6 +1,7 @@
 #include "dbmanager.h"
 
 struct DbConf loadDbConfig();
+struct DbConf companyDbConfig();
 #include <QDateTime>
 #include <QFile>
 #include <QSettings>
@@ -92,7 +93,7 @@ bool DbManager::checkConnection()
 {
     if(!singletonCompanyExists)
     {
-        struct DbConf conf = loadDbConfig();
+        struct DbConf conf = companyDbConfig();
 		//QString hostName, dbName, userName, pass;
 		//int port;
         DbManager::_companyManager = new DbManager(conf.hostName,conf.dbName,conf.port,conf.userName,conf.pass);
@@ -127,7 +128,15 @@ DbManager::~DbManager()
 {
 
 }
-
+struct DbConf companyDbConfig(){
+    struct DbConf  dbConf;
+    dbConf.hostName = "localhost";
+    dbConf.dbName = "company";
+    dbConf.port = 3306;
+	dbConf.userName = "root";
+	dbConf.pass = "root";
+    return dbConf;
+}
 struct DbConf loadDbConfig()
 {
 	struct DbConf  dbConf;
