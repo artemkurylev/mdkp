@@ -83,7 +83,50 @@ bool Company::auth()
     }
     return success;
 }
+int Company::countEntries(){
+    int counter = 0;
+    if(DbManager::companyManager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::companyManager().makeQuery();
+
+        query->prepare("SELECT COUNT(*) FROM `company`");
+        if(query->exec())
+        {
+            if(query->next())
+                counter = query->value(0).toInt();
+        }       
+        delete query;
+    }
+    return counter;
+}
+QMap<int,QString> Company::getAll(){
+    QMap<int,QString> records;
+    if(DbManager::companyManager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::companyManager().makeQuery();
+
+        query->prepare("SELECT `id`,`name` FROM `company`");
+        if(query->exec())
+        {
+            while(query->next())
+            {
+                records.insert(query->value(0).toInt(), query->value(1).toString()); 
+            }
+        }
+        delete query;
+    }
+
+    return records;
+}
 Company::~Company()
 {
+
+}
+
+void initializeCompany(){
+    QString name = "test";
+    QString pass = "test";
+    Company company(name,pass);
+    company.insert();
 
 }
