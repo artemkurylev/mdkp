@@ -14,9 +14,9 @@ int Company::insert()
 bool Company::createTable()
 {
     bool success = false;
-    if(DbManager::manager().checkConnection())
+    if(DbManager::companyManager().checkConnection())
     {
-        QSqlQuery* query = DbManager::manager().makeQuery();
+        QSqlQuery* query = DbManager::companyManager().makeQuery();
         if(query->exec("CREATE TABLE IF NOT EXISTS `company` (`id` INT(11) NOT NULL AUTO_INCREMENT, `name` VARCHAR(30) UNIQUE, `pass` VARCHAR(200)"))
 		{
             success = true;
