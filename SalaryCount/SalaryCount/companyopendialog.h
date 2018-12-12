@@ -17,6 +17,9 @@ public:
 private:
     Ui::companyOpenDialog ui;
     void initialDBManager();
+
+private slots:
+    void enterCompany();
 };
 
 #endif // COMPANYOPENDIALOG_H
