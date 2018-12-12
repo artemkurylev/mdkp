@@ -109,11 +109,6 @@ void SalaryCount::initialDBManager()
         {
 
         }
-        table_created = Company::createTable();
-        if(!table_created)
-        {
-
-        }
 		// позже это должно выполняться при создании предприятия
 		initalSetupForTableDutyChart();
     }
