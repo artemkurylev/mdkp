@@ -20,6 +20,7 @@ private:
 
 public:
     SalaryCount(QWidget *parent = 0);
+    SalaryCount(QString dbName, QWidget *parent = 0);
     ~SalaryCount();
 
 private:
@@ -37,6 +38,7 @@ private:
 
 	//конструкторы
 	void initialDBManager();
+    void initialDBManager(QString dbName);
 
 signals:
 	void cancelChanges();
