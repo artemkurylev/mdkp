@@ -5,6 +5,7 @@
 #include "ui_companyopendialog.h"
 #include "dbmanager.h"
 #include "company.h"
+#include "salarycount.h"
 
 class companyOpenDialog : public QDialog
 {
