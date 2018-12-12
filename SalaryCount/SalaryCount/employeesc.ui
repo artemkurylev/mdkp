@@ -213,10 +213,7 @@
             <string>999999999999</string>
            </property>
            <property name="placeholderText">
-            <string>10 цифр ИНН</string>
-           </property>
-           <property name="clearButtonEnabled">
-            <bool>true</bool>
+            <string>12 цифр ИНН</string>
            </property>
           </widget>
          </item>
@@ -238,9 +235,6 @@
            </property>
            <property name="placeholderText">
             <string>+9 (999) 999 99 99</string>
-           </property>
-           <property name="clearButtonEnabled">
-            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -505,6 +499,12 @@
        </item>
        <item>
         <widget class="QGroupBox" name="groupBox">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="title">
           <string>Подробности</string>
          </property>
@@ -531,7 +531,7 @@
           <enum>Qt::Vertical</enum>
          </property>
          <property name="sizeType">
-          <enum>QSizePolicy::Expanding</enum>
+          <enum>QSizePolicy::Preferred</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -552,7 +552,7 @@
      <x>0</x>
      <y>0</y>
      <width>722</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
