@@ -5,10 +5,10 @@
 #include <qmessagebox.h>
 #include "delegateStates.h"
 #include "employee.h"
-#include"laborsheet.h"
+#include "laborsheet.h"
 #include "ui_employeesc.h"
 
-class EmployeeSC : public QMainWindow, virtual public delegateStates
+class EmployeeSC : public QMainWindow // , virtual public delegateStates
 {
     Q_OBJECT
 

@@ -75,3 +75,8 @@ void EmployeeSC::parseDataObject(Employee *obj)
 {
 
 }
+
+void EmployeeSC::updateInfo(QString name)
+{
+
+}
