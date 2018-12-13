@@ -13,6 +13,7 @@
 #include "salarycountEmployees.h"
 #include "salarycountlaborsheet.h"
 #include "salarycountdirectives.h"
+#include "salarycountprofile.h"
 class SalaryCount : public QMainWindow
 {
     Q_OBJECT
@@ -32,6 +33,7 @@ private:
 	salarycountEmployees* employees;
     salarycountLaborSheet* laborSheet;
     salarycountDirectives* directives;
+    SalaryCountProfile* profile;
 	bool editState;
 
 private:

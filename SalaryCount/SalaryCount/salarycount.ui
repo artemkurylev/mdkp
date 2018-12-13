@@ -1275,7 +1275,7 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page">
+      <widget class="QWidget" name="ProfilePage">
        <layout class="QGridLayout" name="gridLayout_4">
         <item row="0" column="0">
          <widget class="QSplitter" name="splitter">
@@ -1542,6 +1542,9 @@
   <action name="ShowProfileAction">
    <property name="text">
     <string>Профиль</string>
+   </property>
+   <property name="whatsThis">
+    <string>ProfilePage</string>
    </property>
   </action>
  </widget>

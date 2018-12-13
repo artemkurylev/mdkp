@@ -12,5 +12,7 @@ SalaryCountProfile::~SalaryCountProfile()
 }
 void SalaryCountProfile::updateInfo(QString name)
 {
+    int count_employees = Employee::countEntries();
+    ui->countEmployeesLabel->setText(QString::number(count_employees));
 
 }

@@ -50,6 +50,9 @@ SalaryCount::SalaryCount(QString dbName, QWidget *parent)
     //Соединение со страницей приказов
     this->directives = new salarycountDirectives(&this->ui,ui.HireDirectiveAction->whatsThis());
     connect(this, SIGNAL(showPaget(QString)),this->directives,SLOT(updateInfo(QString)));
+    //Соединение с профилем
+    this->profile = new SalaryCountProfile(&this->ui,ui.ShowProfileAction->whatsThis());
+    connect(this, SIGNAL(showPaget(QString)),this->profile,SLOT(updateInfo(QString)));
 	//TODO
 
 	ui.saveDutyChartBtn->setEnabled(true);

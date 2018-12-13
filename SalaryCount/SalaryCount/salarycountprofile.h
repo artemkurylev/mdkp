@@ -2,7 +2,7 @@
 #define SALARYCOUNTPROFILE_H
 
 #include "delegateStates.h"
-
+#include "employee.h"
 
 class SalaryCountProfile : public delegateStates
 {
