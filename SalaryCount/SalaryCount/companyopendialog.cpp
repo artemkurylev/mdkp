@@ -28,9 +28,11 @@ void companyOpenDialog::enterCompany()
 
 		//this->done(5);
     }
-    else{
+    else
+	{
         //Вывести сообщение о неудаче!
-    }
+		QMessageBox::information(this, QString::fromWCharArray(L"Ошибка"), QString::fromWCharArray(L"Авторизация не пройдена..."));
+	}
 }
 void companyOpenDialog::createCompany()
 {
