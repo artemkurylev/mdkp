@@ -79,6 +79,15 @@ bool Company::validate() const
             }
         }
     }
+
+	QString canMakeNewDb("SHOW DATABASES LIKE \"%1\"");
+	if(query->exec(canMakeNewDb.arg(this->_name)) && query->next())
+    {   
+        //int conflict = query->value(0).toInt();
+		//if(conflict)
+            success = false;
+    }
+
     return success;
 }
 bool Company::auth()
