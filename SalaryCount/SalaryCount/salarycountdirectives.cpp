@@ -58,7 +58,7 @@ void salarycountDirectives::showDirective()
 		bool ok = dir.mkdir(DirectivesDir);
 		if(ok)
 			dir.cd(DirectivesDir);
-		filepath = dir.absoluteFilePath( directive->fio() + ".pdf ");
+		filepath = dir.absoluteFilePath( QString::number(id) + " " + directive->fio() + ".pdf ");
 
         DirectiveGenerator generator;
         generator.pdf(directive,filepath);
