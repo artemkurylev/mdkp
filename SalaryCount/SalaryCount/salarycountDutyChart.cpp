@@ -49,7 +49,7 @@ void salarycountDutyChart::switchMode(app_states state)
 
 	//приведем состояние к булеву типу для посылки главному окну
 	bool triggerState = false;
-	if(state!=app_states::USUAL)
+	if(state!=USUAL)
 	{
 		triggerState = true;
 	}
@@ -66,7 +66,7 @@ void salarycountDutyChart::switchMode(app_states state)
 */
 void salarycountDutyChart::addDutyChart()
 {
-	switchMode(app_states::ADD);
+	switchMode(ADD);
 	clearFields();//clear fields
 
 	ui->dutyChartList->setCurrentRow(-1);
@@ -74,7 +74,7 @@ void salarycountDutyChart::addDutyChart()
 
 void salarycountDutyChart::editDutyChart()
 {
-	switchMode(app_states::EDIT);
+	switchMode(EDIT);
 }
 
 /*!
@@ -82,9 +82,9 @@ void salarycountDutyChart::editDutyChart()
 */
 void salarycountDutyChart::cancelNewDutyChart()
 {
-	if(this->currentState != app_states::USUAL)
+	if(this->currentState != USUAL)
 	{
-		switchMode(app_states::USUAL);
+		switchMode(USUAL);
 
 		int row = ui->dutyChartList->currentRow();
 		if(row!=-1)
@@ -134,17 +134,17 @@ void salarycountDutyChart::deleteDutyChart()
 void salarycountDutyChart::saveNewDutyChart()
 {
 
-	if(this->currentState != app_states::USUAL)
+	if(this->currentState != USUAL)
 	{
 		DutyChart* obj = shapeDataObject();//собрать данные
 
 		switch(this->currentState)
 		{
-			case app_states::ADD:
+			case ADD:
 				saveNewEntries(obj);
 			break;
 
-			case app_states::EDIT:
+			case EDIT:
 				saveEditableEntries(obj);
 			break;
 		}
@@ -160,7 +160,7 @@ void salarycountDutyChart::saveNewEntries(DutyChart* obj)
 		int ID;
 
 		//
-		if(this->currentState != app_states::ADD) 
+		if(this->currentState != ADD) 
 			throw this->journal->compareError("Значения состояния для сохранения не совпадает с состоянием приложения");
 		if(!obj) throw this->journal->nullPtr("Объект для сохранения не существует");
 		if(!obj->validate()) throw this->journal->validateError("Валидация записи не успешна");
@@ -171,7 +171,7 @@ void salarycountDutyChart::saveNewEntries(DutyChart* obj)
 		ui->dutyChartList->addItem(item);
 
 		ui->dutyChartList->setCurrentRow(ui->dutyChartList->count()-1);
-		switchMode(app_states::USUAL);
+		switchMode(USUAL);
 	}
 	catch(log_errors::exception_states e)
 	{
@@ -197,14 +197,14 @@ void salarycountDutyChart::saveEditableEntries(DutyChart* obj)
 	try
 	{
 		//
-		if(this->currentState != app_states::EDIT) 
+		if(this->currentState != EDIT) 
 			throw this->journal->compareError("Значения состояния для сохранения не совпадает с состоянием приложения");
 		if(!obj) throw this->journal->nullPtr("Объект для сохранения не существует");
 		if(!obj->validate()) throw this->journal->validateError("Валидация записи не успешна");
 		if(!obj->update()) throw this->journal->updateError("Запись не дошла в бд");
 
 		//
-		switchMode(app_states::USUAL);
+		switchMode(USUAL);
 
 		QListWidgetItem *item = ui->dutyChartList->currentItem();
 		if(item) item->setText(obj->name());
@@ -234,7 +234,7 @@ DutyChart* salarycountDutyChart::shapeDataObject()
     
 	DutyChart* obj = NULL;
 	const QList<Mark> *grid = NULL;
-	if(this->currentState == app_states::EDIT)
+	if(this->currentState == EDIT)
 	{
 		id = ui->dutyChartList->currentItem()->type();
 		obj = new DutyChart(id);
