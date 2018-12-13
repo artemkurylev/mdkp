@@ -9,12 +9,9 @@ companyOpenDialog::companyOpenDialog(QWidget *parent)
     {
         initializeCompany();
     }
-    QMap<int,QString> companies = Company::getAll();
-    for(auto it = companies.begin(); it != companies.end(); ++it)
-    {
-        ui.CompanyCombo_2->addItem(it.value(),it.key());
-    }
-    connect(ui.buttonBox_2->button(ui.buttonBox_2->Ok),SIGNAL(clicked()),this,SLOT(enterCompany()));
+	this->updateCompanyList();
+
+    connect(ui.DirectorButtonBox->button(ui.DirectorButtonBox->Ok),SIGNAL(clicked()),this,SLOT(enterCompany()));
     connect(ui.createCompanyBtn,SIGNAL(clicked()),this,SLOT(createCompany()));
 }
 
@@ -28,6 +25,8 @@ void companyOpenDialog::enterCompany()
         SalaryCount* sc = new SalaryCount(name);
         this->close();
         sc->show();
+
+		//this->done(5);
     }
     else{
         //¬ывести сообщение о неудаче!
@@ -35,9 +34,18 @@ void companyOpenDialog::enterCompany()
 }
 void companyOpenDialog::createCompany()
 {
-    companyCreationDialog* creator = new companyCreationDialog();
-    creator->show();
-    this->close();
+    companyCreationDialog* creator = new companyCreationDialog(this);
+    this->hide();
+	// ждать завершени€ работы с диалогом и вернутьс€ сюда
+    int ret = creator->exec();
+
+	delete creator;
+	if(ret == QDialog::Accepted)
+	{
+		//accept();
+		this->updateCompanyList();
+	}
+    this->show();
 }
 
 companyOpenDialog::~companyOpenDialog()
@@ -56,4 +64,13 @@ void companyOpenDialog::initialDBManager()
         }
     }
 
+}
+
+void companyOpenDialog::updateCompanyList()
+{
+    QMap<int,QString> companies = Company::getAll();
+    for(auto it = companies.begin(); it != companies.end(); ++it)
+    {
+        ui.CompanyCombo_2->addItem(it.value(),it.key());
+    }
 }
