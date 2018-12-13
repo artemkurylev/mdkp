@@ -109,9 +109,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-
-               <width>278</width>
-               <height>575</height>
+               <width>256</width>
+               <height>527</height>
               </rect>
              </property>
              <layout class="QGridLayout" name="gridLayout_2">
@@ -1299,8 +1298,6 @@
     <property name="title">
      <string>Файл</string>
     </property>
-    <addaction name="OpenCompanyAction"/>
-    <addaction name="CreateCompanyAction"/>
     <addaction name="LogOffAction"/>
     <addaction name="separator"/>
     <addaction name="ExitAction"/>
