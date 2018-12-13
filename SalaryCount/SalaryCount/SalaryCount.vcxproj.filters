@@ -67,19 +67,6 @@
     <ClCompile Include="GeneratedFiles\Debug\moc_salarycount.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="BookKeeper.cpp" />
-    <ClCompile Include="dbmanager.cpp" />
-    <ClCompile Include="dbrecord.cpp" />
-    <ClCompile Include="DirectiveGenerator.cpp" />
-    <ClCompile Include="unittest\DirectiveGeneratorTest.cpp" />
-    <ClCompile Include="dutychart.cpp" />
-    <ClCompile Include="employee.cpp" />
-    <ClCompile Include="HireDirective.cpp" />
-    <ClCompile Include="laborsheet.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="mark.cpp" />
-    <ClCompile Include="GeneratedFiles\qrc_salarycount.cpp" />
-    <ClCompile Include="salarycount.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_delegateStates.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
@@ -98,12 +85,149 @@
     <ClCompile Include="GeneratedFiles\Release\moc_salarycountlaborsheet.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="company.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="companycreationdialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="companyopendialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="employeesc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="log_errors.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="salarycountdirectives.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="salarycountEmployees.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SalaryCountGuiTester.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="salarycountprofile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_company.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_salarycountprofile.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_company.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_companycreationdialog.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_companycreationdialog.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_companyopendialog.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_companyopendialog.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_employeesc.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_employeesc.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_salarycountdirectives.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_salarycountdirectives.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_salarycountEmployees.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_salarycountEmployees.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SalaryCountGuiTester.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_SalaryCountGuiTester.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_salarycountprofile.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BookKeeper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dbmanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="employee.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dutychart.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="unittest\DirectiveGeneratorTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectiveGenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dbrecord.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HireDirective.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="salarycount.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="laborsheet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mark.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_salarycount.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GeneratedFiles\ui_salarycount.h" />
-    <ClInclude Include="BookKeeper.h" />
-    <ClInclude Include="DirectiveGenerator.h" />
-    <ClInclude Include="HireDirective.h" />
+    <ClInclude Include="log_errors.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_companycreationdialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_employeesc.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_companyopendialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_salarycount.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BookKeeper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectiveGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HireDirective.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="salarycount.ui" />
@@ -120,14 +244,57 @@
     <CustomBuild Include="delegateStates.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="dbmanager.h" />
-    <CustomBuild Include="dbrecord.h" />
-    <CustomBuild Include="unittest\DirectiveGeneratorTest.h" />
-    <CustomBuild Include="dutychart.h" />
-    <CustomBuild Include="employee.h" />
-    <CustomBuild Include="laborsheet.h" />
-    <CustomBuild Include="mark.h" />
-    <CustomBuild Include="salarycount.h" />
+    <CustomBuild Include="salarycountprofile.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="SalaryCountGuiTester.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="employeesc.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="company.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="companyopendialog.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="companycreationdialog.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="salarycountdirectives.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="salarycountEmployees.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="companyopendialog.ui" />
+    <CustomBuild Include="employeesc.ui" />
+    <CustomBuild Include="companycreationdialog.ui" />
+    <CustomBuild Include="dbmanager.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="dbrecord.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="unittest\DirectiveGeneratorTest.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="dutychart.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="employee.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="laborsheet.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="mark.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="salarycount.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
@@ -155,5 +322,8 @@
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SalaryCount.rc" />
   </ItemGroup>
 </Project>
