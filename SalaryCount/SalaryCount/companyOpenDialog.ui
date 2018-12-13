@@ -219,7 +219,7 @@
           </layout>
          </item>
          <item>
-          <widget class="QDialogButtonBox" name="buttonBox">
+          <widget class="QDialogButtonBox" name="EmployeeButtonBox">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -335,7 +335,7 @@
         </widget>
        </item>
        <item row="5" column="1">
-        <widget class="QDialogButtonBox" name="buttonBox_2">
+        <widget class="QDialogButtonBox" name="DirectorButtonBox">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -390,23 +390,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
-   <signal>accepted()</signal>
-   <receiver>companyOpenDialog</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>124</x>
-     <y>327</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>157</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonBox</sender>
+   <sender>EmployeeButtonBox</sender>
    <signal>rejected()</signal>
    <receiver>companyOpenDialog</receiver>
    <slot>reject()</slot>
@@ -422,7 +406,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>buttonBox_2</sender>
+   <sender>DirectorButtonBox</sender>
    <signal>rejected()</signal>
    <receiver>companyOpenDialog</receiver>
    <slot>reject()</slot>
@@ -434,22 +418,6 @@
     <hint type="destinationlabel">
      <x>390</x>
      <y>-11</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonBox_2</sender>
-   <signal>accepted()</signal>
-   <receiver>companyOpenDialog</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>413</x>
-     <y>313</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>389</x>
-     <y>-27</y>
     </hint>
    </hints>
   </connection>
