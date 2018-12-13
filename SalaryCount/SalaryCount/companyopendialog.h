@@ -3,6 +3,10 @@
 
 #include <QWidget>
 #include "ui_companyopendialog.h"
+#include "dbmanager.h"
+#include "company.h"
+#include "salarycount.h"
+#include "companycreationdialog.h"
 
 class companyOpenDialog : public QDialog
 {
@@ -14,6 +18,12 @@ public:
 
 private:
     Ui::companyOpenDialog ui;
+    void initialDBManager();
+    void updateCompanyList();
+
+private slots:
+    void enterCompany();
+    void createCompany();
 };
 
 #endif // COMPANYOPENDIALOG_H

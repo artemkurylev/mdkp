@@ -37,7 +37,8 @@ public:
     const int nextDutyChartID()const {return _nextDutyChartID;}
     const QDate& nextDutyChartSince() const{return _nextDutyChartSince;}
     const int hireDirectiveID() const {return _hireDirectiveID;}
-
+    /* Авторизация , если пользователь с телефоном найден и с паролем все ок, то вернет true, иначе false*/
+    const bool auth() const;
     HireDirective* hireDirective();
 	QDate hireDate()	{	return hireDirective()->hireDate();	}
 
@@ -63,7 +64,7 @@ private:
     QString _fio;
     QString _phoneNumber;
     long long _INN;
-
+    QString _password;
 	// график
     int _currentDutyChartID;
     int _nextDutyChartID;

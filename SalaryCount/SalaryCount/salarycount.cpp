@@ -2,18 +2,18 @@
 
 #include <QtTest/QtTest>
 #include "dbmanager.h"
-#include"dutychart.h"
+#include "dutychart.h"
 #include"qsqldatabase.h"
 
 #include "unittest/DirectiveGeneratorTest.h"
 
 
-SalaryCount::SalaryCount(QWidget *parent)
-    : QMainWindow(parent)
+SalaryCount::SalaryCount(QString dbName, QWidget *parent)
+    : QMainWindow()
 {
     ui.setupUi(this);
 
-	initialDBManager();
+	initialDBManager(dbName);
 
 	// test>
 	//BillingPeriod* bp = BillingPeriod::getCurrentPeriod();
@@ -50,6 +50,9 @@ SalaryCount::SalaryCount(QWidget *parent)
     //Соединение со страницей приказов
     this->directives = new salarycountDirectives(&this->ui,ui.HireDirectiveAction->whatsThis());
     connect(this, SIGNAL(showPaget(QString)),this->directives,SLOT(updateInfo(QString)));
+    //Соединение с профилем
+    this->profile = new SalaryCountProfile(&this->ui,ui.ShowProfileAction->whatsThis());
+    connect(this, SIGNAL(showPaget(QString)),this->profile,SLOT(updateInfo(QString)));
 	//TODO
 
 	ui.saveDutyChartBtn->setEnabled(true);
@@ -68,15 +71,15 @@ SalaryCount::SalaryCount(QWidget *parent)
 
 	showPage(ui.DutyCharAction);
 }
-
 SalaryCount::~SalaryCount()
 {
 	delete this->dutyChart;
 }
 
-void SalaryCount::initialDBManager()
+void SalaryCount::initialDBManager(QString dbName)
 {
-	DbManager& manager = DbManager::manager();
+	// первый вызов инициализирует manager, м.б. с заданным именем БД
+    DbManager& manager = DbManager::manager(dbName);
     if(manager.checkConnection())
     {
         //Создание таблиц
@@ -111,11 +114,6 @@ void SalaryCount::initialDBManager()
         {
 
         }
-        table_created = Company::createTable();
-        if(!table_created)
-        {
-
-        }
 		// позже это должно выполняться при создании предприятия
 		initalSetupForTableDutyChart();
     }
@@ -123,8 +121,6 @@ void SalaryCount::initialDBManager()
 	{
 		//TODO
 	}
-
-	//return??
 }
 
 //! название метода не отражает сути выполняемых действий

@@ -11,6 +11,7 @@
 #include "salarycountEmployees.h"
 #include "salarycountlaborsheet.h"
 #include "salarycountdirectives.h"
+#include "salarycountprofile.h"
 class SalaryCount : public QMainWindow
 {
     Q_OBJECT
@@ -19,7 +20,7 @@ private:
 	QAction* currentAction;
 
 public:
-    SalaryCount(QWidget *parent = 0);
+    SalaryCount(QString dbName = 0, QWidget *parent = 0);
     ~SalaryCount();
 
 private:
@@ -29,6 +30,7 @@ private:
 	salarycountEmployees* employees;
     salarycountLaborSheet* laborSheet;
     salarycountDirectives* directives;
+    SalaryCountProfile* profile;
 	bool editState;
 
 private:
@@ -36,7 +38,7 @@ private:
 	void showStackedItem(QString namePage);
 
 	//конструкторы
-	void initialDBManager();
+    void initialDBManager(QString dbName = 0);
 
 signals:
 	void cancelChanges();

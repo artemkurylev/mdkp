@@ -2,30 +2,37 @@
 #define COMPANY_H
 
 #include "dbrecord.h"
-
+#include<qdatetime.h>
 class Company : public DbRecord
 {
     Q_OBJECT
 
 public:
     Company(QObject *parent = 0);
-    Company(QString name,QString pass){_name=name;_pass=pass;}
+    Company(QString name,QString pass, QDate date = QDate::currentDate()){_name=name;_pass=pass;_creationDate=date;}
     ~Company();
+
     //Getter
     QString name(){return this->_name;}
-    //Наследуемые методы
+    QDate date(){return this->_creationDate;}
+    //Наследуемые метод
     int insert();
     bool update() const{return false;}
     bool fetch(){return false;}
-    bool validate() const{return false;}
+    bool validate() const;
     //Статические методы
-    static QMap<int,QString> getAll(){QMap<int,QString> records; return records;}
+    static int countEntries();
+    static QMap<int,QString> getAll();
     static bool createTable();
     bool auth();
+
+	/*static*/
+	static Company* currentCompany;
     
 private:
     QString _name;
     QString _pass;
+    QDate _creationDate;
 };
-
+void initializeCompany();
 #endif // COMPANY_H

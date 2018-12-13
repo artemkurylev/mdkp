@@ -17,10 +17,13 @@ salarycountDirectives::~salarycountDirectives()
 }
 void salarycountDirectives::updateInfo(QString name)
 {
-    if(!this->objectName().compare(name) && ui->directiveList->count() != HireDirective::countEntries())
+    //if(!this->objectName().compare(name) && ui->directiveList->count() != HireDirective::countEntries())
 	{
         QMap<int,QString> allEntries = HireDirective::getAll();
-		ui->dutyChartList->clear();
+		ui->directiveList->clear();
+
+		ui->DirectivesNumber_label_2->setText( QString::fromWCharArray(L"Всего приказов о принятии на работу: %1")
+			.arg(allEntries.size()) );
 
 		if(allEntries.count() > 0)
 		{
@@ -31,13 +34,14 @@ void salarycountDirectives::updateInfo(QString name)
 			foreach(const int &iter, keys)
 			{
 				QString d = allEntries.value( iter );
-				QListWidgetItem *item = new QListWidgetItem(allEntries.value( iter ), ui->directiveList, iter);
+				QListWidgetItem *item = new QListWidgetItem(d);
 				ui->directiveList->addItem(item);
 			}
 
 			ui->directiveList->setCurrentRow(0);
-            ui->showDirectiveBtn->setEnabled(true);
 		}
+
+        ui->showDirectiveBtn->setEnabled( allEntries.count() > 0 );
 	}
 }
 void salarycountDirectives::showDirective()

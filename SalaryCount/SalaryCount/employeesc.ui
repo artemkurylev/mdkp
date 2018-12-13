@@ -17,7 +17,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Профиль сотрудника</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -213,10 +213,7 @@
             <string>999999999999</string>
            </property>
            <property name="placeholderText">
-            <string>10 цифр ИНН</string>
-           </property>
-           <property name="clearButtonEnabled">
-            <bool>true</bool>
+            <string>12 цифр ИНН</string>
            </property>
           </widget>
          </item>
@@ -238,9 +235,6 @@
            </property>
            <property name="placeholderText">
             <string>+9 (999) 999 99 99</string>
-           </property>
-           <property name="clearButtonEnabled">
-            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -505,6 +499,12 @@
        </item>
        <item>
         <widget class="QGroupBox" name="groupBox">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="title">
           <string>Подробности</string>
          </property>
@@ -531,7 +531,7 @@
           <enum>Qt::Vertical</enum>
          </property>
          <property name="sizeType">
-          <enum>QSizePolicy::Expanding</enum>
+          <enum>QSizePolicy::Preferred</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -552,7 +552,7 @@
      <x>0</x>
      <y>0</y>
      <width>722</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
@@ -560,17 +560,41 @@
      <string>Управление</string>
     </property>
     <addaction name="separator"/>
-    <addaction name="action_2"/>
+    <addaction name="Logout_action"/>
+    <addaction name="separator"/>
+    <addaction name="Exit_action"/>
    </widget>
    <addaction name="menu"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="action_2">
+  <action name="Logout_action">
    <property name="text">
     <string>Выйти</string>
    </property>
   </action>
+  <action name="Exit_action">
+   <property name="text">
+    <string>Выход из программы</string>
+   </property>
+  </action>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>Exit_action</sender>
+   <signal>triggered()</signal>
+   <receiver>EmployeeSC</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>360</x>
+     <y>269</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

@@ -27,9 +27,10 @@ public:
 
     QSqlQuery* makeQuery();
     bool checkConnection();
-    static DbManager& manager();
+    static DbManager& manager(QString dbName = 0);
     static DbManager& companyManager();
     static void closeConnection(){globalManager->db.close();}
+    void close(){this->db.close();}
 private:
     QSqlDatabase db;
     QSqlDatabase companyDb;
