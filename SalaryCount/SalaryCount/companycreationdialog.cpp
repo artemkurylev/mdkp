@@ -24,11 +24,17 @@ void companyCreationDialog::createCompany()
         return;
     }
     Company company(name,pass_first);
-    //if(company.validate())
-    if(company.insert())
+    if(company.validate())
     {
-        companyOpenDialog* open = new  companyOpenDialog();
-        this->close();
-        open->show();
+        if(company.insert())
+        {
+            companyOpenDialog* open = new  companyOpenDialog();
+            this->close();
+            open->show();
+        }
     }
+    else{
+        //Обработка ошибок!
+    }
+
 }
