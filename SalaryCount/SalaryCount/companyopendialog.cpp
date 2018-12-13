@@ -41,7 +41,7 @@ void companyOpenDialog::enterCompany()
         this->close();
         sc->show();
 
-		//this->done(5);
+		this->destroy();
     }
     else
 	{
@@ -55,8 +55,8 @@ void companyOpenDialog::createCompany()
     this->hide();
 	// ждать завершения работы с диалогом и вернуться сюда
     int ret = creator->exec();
-
 	delete creator;
+
 	if(ret == QDialog::Accepted)
 	{
 		//accept();

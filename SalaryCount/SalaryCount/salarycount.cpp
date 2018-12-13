@@ -181,7 +181,21 @@ void SalaryCount::showCompanyDialog(QAction* actionEmited)
 		return;
 	}
 
-    QMessageBox::information(NULL,QString::fromWCharArray(L"Это первый релиз"),QString::fromWCharArray(L"Функции переключения предприятий недоступны.\nВ настоящее время Вы можете работать с одним фиксированным предприятием."));
+	QMessageBox::StandardButton btn = QMessageBox::question(this,
+		QString::fromWCharArray(L"Выход"),
+		QString::fromWCharArray(L"Вы выходите из текущей учётной записи.\nПрограмма будет закрыта.\nЧтобы произвести вход под другим именем, запустите программу снова.\nПродолжить?"),
+		QMessageBox::Yes | QMessageBox::Cancel);
+
+	switch(btn)
+	{
+		case QMessageBox::StandardButton(QMessageBox::Yes):
+			// закрыть окно и приложение
+			this->close();
+
+		case QMessageBox::StandardButton(QMessageBox::Cancel):
+		default:
+			;
+	}
 }
 
 /*!
