@@ -6,6 +6,7 @@
 #include "dbmanager.h"
 #include "company.h"
 #include "salarycount.h"
+#include "companycreationdialog.h"
 
 class companyOpenDialog : public QDialog
 {
@@ -21,6 +22,7 @@ private:
 
 private slots:
     void enterCompany();
+    void createCompany();
 };
 
 #endif // COMPANYOPENDIALOG_H
