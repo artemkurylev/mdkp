@@ -5,6 +5,7 @@ struct DbConf companyDbConfig();
 #include <QDateTime>
 #include <QFile>
 #include <QSettings>
+#include <QTimer>
 
 DbManager::DbManager()
     : QObject(0)
@@ -15,6 +16,8 @@ DbManager::DbManager()
 /*static*/bool DbManager::singletonCompanyExists = false;
 /*static*/DbManager* DbManager::globalManager = 0;
 /*static*/DbManager* DbManager::_companyManager = 0;
+/*static*/bool DbManager::skipKeepAliveCheck = false;
+
 DbManager::DbManager(const QString& hostName, const QString& dbName, int port,const QString& userName, const QString& pass)
 {
 	// Сначала создаём БД
@@ -28,7 +31,6 @@ DbManager::DbManager(const QString& hostName, const QString& dbName, int port,co
 
     if(this->db.open())
     {
-        //QString str;
 		QSqlQuery q(this->db);
 		if( q.exec(tr("CREATE DATABASE IF NOT EXISTS %1 CHARACTER SET utf8 COLLATE utf8_bin;").arg(dbName) ) )
 		{
@@ -71,6 +73,15 @@ bool DbManager::checkConnection()
 {
     if(db.isOpen())
     {
+		if(skipKeepAliveCheck)
+		{
+			return true;
+		}
+
+		// set timer
+		skipKeepAliveCheck = true;
+		QTimer::singleShot(2000 /*ms*/, this, SLOT(ResumeKeepAliveCheck()));
+
 		// проверка активности соединения
 		// источник: http://www.prog.org.ru/topic_6693_0.html Russian Qt Forum >> Базы данных > Lost connection to MySQL server during query QMYSQL: Unable to execute query
 		QSqlQuery qq = db.exec("SET NAMES 'utf8'");
