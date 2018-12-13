@@ -113,7 +113,9 @@
                <height>527</height>
                <width>261</width>
                <height>454</height>
-</rect>
+               <width>261</width>
+               <height>454</height>
+              </rect>
              </property>
              <layout class="QGridLayout" name="gridLayout_2">
               <item row="2" column="0">
@@ -1350,7 +1352,7 @@
           <widget class="QWidget" name="">
            <layout class="QVBoxLayout" name="verticalLayout_16">
             <item>
-             <widget class="QLabel" name="label_4">
+             <widget class="QLabel" name="companyNameLabel">
               <property name="font">
                <font>
                 <pointsize>15</pointsize>
@@ -1365,7 +1367,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_6">
+             <widget class="QLabel" name="countEmployeesLabel">
               <property name="font">
                <font>
                 <pointsize>12</pointsize>
@@ -1380,7 +1382,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_22">
+             <widget class="QLabel" name="creationDateLabel">
               <property name="font">
                <font>
                 <pointsize>12</pointsize>
@@ -1395,7 +1397,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_7">
+             <widget class="QLabel" name="countClosedPeriodsLabel">
               <property name="font">
                <font>
                 <pointsize>12</pointsize>
@@ -1410,7 +1412,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_21">
+             <widget class="QLabel" name="currentPeriodLabel">
               <property name="font">
                <font>
                 <pointsize>12</pointsize>
@@ -1456,6 +1458,8 @@
     <property name="title">
      <string>Файл</string>
     </property>
+    <addaction name="OpenCompanyAction"/>
+    <addaction name="CreateCompanyAction"/>
     <addaction name="LogOffAction"/>
     <addaction name="separator"/>
     <addaction name="ExitAction"/>
