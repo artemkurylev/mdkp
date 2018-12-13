@@ -1131,12 +1131,18 @@
           </property>
           <widget class="QWidget" name="layoutWidget">
            <layout class="QVBoxLayout" name="verticalLayout_17">
+            <property name="spacing">
+             <number>5</number>
+            </property>
             <item>
              <widget class="QLabel" name="label_2">
               <property name="font">
                <font>
                 <pointsize>15</pointsize>
                </font>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::Box</enum>
               </property>
               <property name="text">
                <string>Предприятие</string>
@@ -1153,6 +1159,9 @@
                 <pointsize>12</pointsize>
                </font>
               </property>
+              <property name="frameShape">
+               <enum>QFrame::Box</enum>
+              </property>
               <property name="text">
                <string>Количество сотрудников</string>
               </property>
@@ -1164,6 +1173,9 @@
                <font>
                 <pointsize>12</pointsize>
                </font>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::Box</enum>
               </property>
               <property name="text">
                <string>Дата создания</string>
@@ -1177,6 +1189,9 @@
                 <pointsize>12</pointsize>
                </font>
               </property>
+              <property name="frameShape">
+               <enum>QFrame::Box</enum>
+              </property>
               <property name="text">
                <string>Кол-во закрытых периодов</string>
               </property>
@@ -1189,6 +1204,9 @@
                 <pointsize>12</pointsize>
                </font>
               </property>
+              <property name="frameShape">
+               <enum>QFrame::Box</enum>
+              </property>
               <property name="text">
                <string>Текущий расчетный период</string>
               </property>
@@ -1198,6 +1216,9 @@
           </widget>
           <widget class="QWidget" name="layoutWidget">
            <layout class="QVBoxLayout" name="verticalLayout_16">
+            <property name="spacing">
+             <number>5</number>
+            </property>
             <item>
              <widget class="QLabel" name="companyNameLabel">
               <property name="font">
@@ -1205,11 +1226,17 @@
                 <pointsize>15</pointsize>
                </font>
               </property>
+              <property name="frameShape">
+               <enum>QFrame::Box</enum>
+              </property>
               <property name="text">
                <string>TextLabel</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+              <property name="textInteractionFlags">
+               <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
               </property>
              </widget>
             </item>
@@ -1220,11 +1247,17 @@
                 <pointsize>12</pointsize>
                </font>
               </property>
+              <property name="frameShape">
+               <enum>QFrame::Box</enum>
+              </property>
               <property name="text">
                <string>TextLabel</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+              <property name="textInteractionFlags">
+               <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
               </property>
              </widget>
             </item>
@@ -1235,11 +1268,17 @@
                 <pointsize>12</pointsize>
                </font>
               </property>
+              <property name="frameShape">
+               <enum>QFrame::Box</enum>
+              </property>
               <property name="text">
                <string>TextLabel</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+              <property name="textInteractionFlags">
+               <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
               </property>
              </widget>
             </item>
@@ -1250,11 +1289,17 @@
                 <pointsize>12</pointsize>
                </font>
               </property>
+              <property name="frameShape">
+               <enum>QFrame::Box</enum>
+              </property>
               <property name="text">
                <string>TextLabel</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+              <property name="textInteractionFlags">
+               <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
               </property>
              </widget>
             </item>
@@ -1265,11 +1310,17 @@
                 <pointsize>12</pointsize>
                </font>
               </property>
+              <property name="frameShape">
+               <enum>QFrame::Box</enum>
+              </property>
               <property name="text">
                <string>TextLabel</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+              <property name="textInteractionFlags">
+               <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
               </property>
              </widget>
             </item>
@@ -1301,15 +1352,13 @@
      <height>21</height>
      <height>20</height>
      <width>723</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="FileMenu">
     <property name="title">
      <string>Файл</string>
     </property>
-    <addaction name="OpenCompanyAction"/>
-    <addaction name="CreateCompanyAction"/>
     <addaction name="LogOffAction"/>
     <addaction name="separator"/>
     <addaction name="ExitAction"/>
