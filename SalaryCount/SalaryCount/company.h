@@ -2,7 +2,7 @@
 #define COMPANY_H
 
 #include "dbrecord.h"
-
+#include<qdatetime.h>
 class Company : public DbRecord
 {
     Q_OBJECT
@@ -14,6 +14,7 @@ public:
 
     //Getter
     QString name(){return this->_name;}
+    QDate date(){return this->_creationDate;}
     //Наследуемые метод
     int insert();
     bool update() const{return false;}
@@ -31,6 +32,7 @@ public:
 private:
     QString _name;
     QString _pass;
+    QDate _creationDate;
 };
 void initializeCompany();
 #endif // COMPANY_H
