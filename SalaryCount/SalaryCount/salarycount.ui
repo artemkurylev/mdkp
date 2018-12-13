@@ -1464,11 +1464,11 @@
     <property name="title">
      <string>Предприятие</string>
     </property>
+    <addaction name="ShowProfileAction"/>
     <addaction name="EmployeeListAction"/>
     <addaction name="LaborSheetAction"/>
     <addaction name="DutyCharAction"/>
     <addaction name="HireDirectiveAction"/>
-    <addaction name="ShowProfileAction"/>
    </widget>
    <addaction name="FileMenu"/>
    <addaction name="CompanyMenu"/>
