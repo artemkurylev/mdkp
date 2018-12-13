@@ -66,12 +66,17 @@ void EmployeeSC::initialDBManager()
 	}
 }
 
-Employee* EmployeeSC::shapeDataObject()
-{
-	return NULL;
-}
-
-void EmployeeSC::parseDataObject(Employee *obj)
-{
-
-}
+//Employee* EmployeeSC::shapeDataObject()
+//{
+//	return NULL;
+//}
+//
+//void EmployeeSC::parseDataObject(Employee *obj)
+//{
+//
+//}
+//
+//void EmployeeSC::updateInfo(QString name)
+//{
+//
+//}
