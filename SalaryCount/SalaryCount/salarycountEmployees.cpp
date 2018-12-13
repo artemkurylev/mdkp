@@ -44,7 +44,7 @@ Employee* salarycountEmployees::shapeDataObject()
 		if(!str.isEmpty()) throw this->journal->validateError(str.toStdString());
 
 		int id = 0;
-		if(this->currentState == app_states::EDIT)
+		if(this->currentState == EDIT)
 		{
 			QListWidgetItem *item = ui->employeeList->currentItem();
 			if(!item) throw this->journal->nullPtr();
@@ -156,9 +156,9 @@ void salarycountEmployees::clearFields()
 	}
 	catch(log_errors::exception_states e)
 	{
-		if(this->currentState != app_states::USUAL)
+		if(this->currentState != USUAL)
 		{
-			switchMode(app_states::USUAL);//откат к состоянию просмотра
+			switchMode(USUAL);//откат к состоянию просмотра
 		}
 	}
 }
@@ -298,9 +298,11 @@ void salarycountEmployees::switchMode(app_states state)
 {
 	this->currentState = state;//запомним состояние приложения
 
+	bool isAddState = state==ADD;
+
 	//приведем состояние к булеву типу для посылки главному окну
 	bool triggerState = false;
-	if(state!=app_states::USUAL)
+	if(state!=USUAL)
 	{
 		triggerState = true;
 	}
@@ -332,7 +334,7 @@ void salarycountEmployees::saveNewEntries(Employee* obj)
 	try
 	{
 		int id;
-		if(this->currentState != app_states::ADD) 
+		if(this->currentState != ADD) 
 			throw this->journal->compareError("Значения состояния для сохранения не совпадает с состоянием приложения");
 		if(!obj) throw this->journal->nullPtr();
 
@@ -348,8 +350,8 @@ void salarycountEmployees::saveNewEntries(Employee* obj)
 		QListWidgetItem *item = new QListWidgetItem(obj->fio()+"\t\t\t\t"+QString::number(obj->inn()), ui->employeeList, id);
 		ui->employeeList->addItem(item);
 
-		ui->employeeList->setCurrentRow(ui->dutyChartList->count()-1);
-		switchMode(app_states::USUAL);
+		ui->employeeList->setCurrentRow(ui->employeeList->count()-1);
+		switchMode(USUAL);
 
 		delete hd;
 	}
@@ -358,7 +360,7 @@ void salarycountEmployees::saveNewEntries(Employee* obj)
 		show_last_error();
 		this->journal->lastConflictNonResolved();
 
-		if(e!=log_errors::VALIDATE_EX) switchMode(app_states::USUAL);
+		if(e!=log_errors::VALIDATE_EX) switchMode(USUAL);
 	}
 }
 
@@ -367,7 +369,7 @@ void salarycountEmployees::saveEditableEntries(Employee* obj)
 	try
 	{
 		//
-		if(this->currentState != app_states::EDIT) 
+		if(this->currentState != EDIT) 
 			throw this->journal->compareError("Значения состояния для сохранения не совпадает с состоянием приложения");
 		if(!obj) throw this->journal->nullPtr("Объект для сохранения не существует");
 		if(!obj->validate()) throw this->journal->validateError("Валидация записи не успешна");
@@ -383,14 +385,14 @@ void salarycountEmployees::saveEditableEntries(Employee* obj)
 		QListWidgetItem *item = ui->employeeList->currentItem();
 		if(item) item->setText(obj->fio());//+"\t\t"+QString::number(obj->inn()
 
-		switchMode(app_states::USUAL);
+		switchMode(USUAL);
 	}
 	catch(log_errors::exception_states e)
 	{
 		show_last_error();
 		this->journal->lastConflictNonResolved();
 
-		if(e!=log_errors::VALIDATE_EX) switchMode(app_states::USUAL);
+		if(e!=log_errors::VALIDATE_EX) switchMode(USUAL);
 	}
 }
 
@@ -430,7 +432,7 @@ void salarycountEmployees::updateInfo(QString name)
 
 void salarycountEmployees::addEmployee()
 {
-	switchMode(app_states::ADD);
+	switchMode(ADD);
 	clearFields();//clear fields
 
 	ui->employeeList->setCurrentRow(-1);
@@ -438,14 +440,14 @@ void salarycountEmployees::addEmployee()
 
 void salarycountEmployees::editEmployee()
 {
-	switchMode(app_states::EDIT);
+	switchMode(EDIT);
 }
 
 void salarycountEmployees::cancelNewEmployee()
 {
-	if(this->currentState != app_states::USUAL)
+	if(this->currentState != USUAL)
 	{
-		switchMode(app_states::USUAL);
+		switchMode(USUAL);
 
 		int row = ui->employeeList->currentRow();
 		if(row!=-1)
@@ -461,7 +463,7 @@ void salarycountEmployees::cancelNewEmployee()
 
 void salarycountEmployees::saveNewEmployee()
 {
-	if(this->currentState != app_states::USUAL)
+	if(this->currentState != USUAL)
 	{
 		try
 		{
@@ -471,11 +473,11 @@ void salarycountEmployees::saveNewEmployee()
 	
 			switch(this->currentState)
 			{
-				case app_states::ADD:
+				case ADD:
 					saveNewEntries(obj);
 				break;
 
-				case app_states::EDIT:
+				case EDIT:
 					saveEditableEntries(obj);
 				break;
 			}
@@ -489,7 +491,7 @@ void salarycountEmployees::saveNewEmployee()
 			if(e!=log_errors::VALIDATE_EX)
 			{
 				this->journal->lastConflictNonResolved();
-				//switchMode(app_states::USUAL);
+				//switchMode(USUAL);
 			}
 		}
 	}
