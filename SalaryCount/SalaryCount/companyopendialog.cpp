@@ -22,6 +22,7 @@ void companyOpenDialog::enterCompany()
 
 	Company* company = new Company(name,pass);
     if(company->auth()){
+        company->fetch();
         DbManager::companyManager().close();
 
 		if(Company::currentCompany)
@@ -29,6 +30,7 @@ void companyOpenDialog::enterCompany()
 			delete Company::currentCompany;
 			Company::currentCompany = NULL;
 		}
+        
 		Company::currentCompany = company;
 
 		SalaryCount* sc = new SalaryCount(name);

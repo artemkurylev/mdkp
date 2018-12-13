@@ -24,12 +24,13 @@ void companyCreationDialog::createCompany()
     QString name = ui.CompanyNameEdit->text();
     QString pass_first = ui.passEdit->text();
     QString pass_repeat = ui.passRepeatEdit->text();
+    QDate date = ui.firstDateEdit->date();
     if(pass_first != pass_repeat)
     {
         //Îáğàáîòêà îøèáîê!
         return;
     }
-    Company* company = new Company(name,pass_first);
+    Company* company = new Company(name,pass_first, date);
     if(company->validate())
     {
         if(company->insert())
