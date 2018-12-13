@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>580</width>
-    <height>326</height>
+    <height>355</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -396,8 +396,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
+     <x>124</x>
+     <y>327</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -412,12 +412,44 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
+     <x>124</x>
+     <y>327</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>
      <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox_2</sender>
+   <signal>rejected()</signal>
+   <receiver>companyOpenDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>441</x>
+     <y>310</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>390</x>
+     <y>-11</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox_2</sender>
+   <signal>accepted()</signal>
+   <receiver>companyOpenDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>413</x>
+     <y>313</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>389</x>
+     <y>-27</y>
     </hint>
    </hints>
   </connection>
