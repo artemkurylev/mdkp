@@ -10,10 +10,12 @@ companyOpenDialog::companyOpenDialog(QWidget *parent)
         initializeCompany();
     }
     QMap<int,QString> companies = Company::getAll();
-    for(auto it = companies.begin(); it != companies.end(); ++it){
+    for(auto it = companies.begin(); it != companies.end(); ++it)
+    {
         ui.CompanyCombo_2->addItem(it.value(),it.key());
     }
     connect(ui.buttonBox_2->button(ui.buttonBox_2->Ok),SIGNAL(clicked()),this,SLOT(enterCompany()));
+    connect(ui.createCompanyBtn,SIGNAL(clicked()),this,SLOT(createCompany()));
 }
 
 void companyOpenDialog::enterCompany()
@@ -31,6 +33,13 @@ void companyOpenDialog::enterCompany()
         //Вывести сообщение о неудаче!
     }
 }
+void companyOpenDialog::createCompany()
+{
+    companyCreationDialog* creator = new companyCreationDialog();
+    creator->show();
+    this->close();
+}
+
 companyOpenDialog::~companyOpenDialog()
 {
 

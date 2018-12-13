@@ -3,7 +3,8 @@
 
 #include <QDialog>
 #include "ui_companycreationdialog.h"
-
+#include "company.h"
+#include "companyopendialog.h"
 class companyCreationDialog : public QDialog
 {
     Q_OBJECT
@@ -14,6 +15,8 @@ public:
 
 private:
     Ui::companyCreationDialog ui;
+private slots:
+    void createCompany();
 };
 
 #endif // COMPANYCREATIONDIALOG_H
