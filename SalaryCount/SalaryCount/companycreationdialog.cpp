@@ -1,10 +1,15 @@
 #include "companycreationdialog.h"
+#include "company.h"
 
 
 companyCreationDialog::companyCreationDialog(QWidget *parent)
     : QDialog(parent)
 {
     ui.setupUi(this);
+
+	if(Company::currentCompany)
+		ui.CompanyNameEdit->setText(Company::currentCompany->name());
+
 
     connect(ui.buttonBox->button(ui.buttonBox->Ok),SIGNAL(clicked()),this,SLOT(createCompany()));
 }
@@ -24,20 +29,30 @@ void companyCreationDialog::createCompany()
         //Обработка ошибок!
         return;
     }
-    Company company(name,pass_first);
-    if(company.validate())
+    Company* company = new Company(name,pass_first);
+    if(company->validate())
     {
-        if(company.insert())
+        if(company->insert())
         {
-            //companyOpenDialog* open = new companyOpenDialog(this);
+			if(Company::currentCompany)
+			{
+				delete Company::currentCompany;
+				Company::currentCompany = NULL;
+			}
+
+			Company::currentCompany = company;
+			
+			
+			//companyOpenDialog* open = new companyOpenDialog(this);
             //this->close();
             //open->show();
 			this->accept();
+			return;
         }
     }
     else
 	{
         //Обработка ошибок!
     }
-
+	delete company;
 }

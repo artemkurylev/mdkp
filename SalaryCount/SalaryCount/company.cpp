@@ -1,6 +1,9 @@
 #include "company.h"
 #include <QCryptographicHash>
 #include <qbytearray.h>
+
+Company* Company::currentCompany = NULL;
+
 Company::Company(QObject *parent)
     : DbRecord(0)
 {

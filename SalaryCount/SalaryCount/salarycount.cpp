@@ -2,7 +2,7 @@
 
 #include <QtTest/QtTest>
 #include "dbmanager.h"
-#include"dutychart.h"
+#include "dutychart.h"
 #include"qsqldatabase.h"
 
 #include "unittest/DirectiveGeneratorTest.h"
