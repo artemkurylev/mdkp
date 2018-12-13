@@ -104,14 +104,7 @@ bool DbManager::checkConnection()
     if(!singletonCompanyExists)
     {
         struct DbConf conf = companyDbConfig();
-		//QString hostName, dbName, userName, pass;
-		//int port;
         DbManager::_companyManager = new DbManager(conf.hostName,conf.dbName,conf.port,conf.userName,conf.pass);
-        //if(false)
-        //    DbManager::globalManager = new DbManager("localhost","salarycount",3306,"root","root");
-        //else
-        //    DbManager::globalManager = new DbManager("109.206.169.214","salary_count",443,"remote","!E3f5c712");
-		// test ports: cmd>telnet 109.206.169.214 81
         DbManager::singletonCompanyExists = 1;
     }
     return *(DbManager::_companyManager);
@@ -122,14 +115,7 @@ bool DbManager::checkConnection()
 		struct DbConf conf = loadDbConfig();
         if(dbName != 0)
             conf.dbName = dbName;
-		//QString hostName, dbName, userName, pass;
-		//int port;
 		DbManager::globalManager = new DbManager(conf.hostName,conf.dbName,conf.port,conf.userName,conf.pass);
-        //if(false)
-        //    DbManager::globalManager = new DbManager("localhost","salarycount",3306,"root","root");
-        //else
-        //    DbManager::globalManager = new DbManager("109.206.169.214","salary_count",443,"remote","!E3f5c712");
-		// test ports: cmd>telnet 109.206.169.214 81
         DbManager::singletonExists = 1;
     }
     return *(DbManager::globalManager);
@@ -145,14 +131,13 @@ struct DbConf companyDbConfig(){
 	
 	if(!QFile::exists(fname))
 	{
-		//QString hostName, dbName, userName, pass;
-		//int port;
 		dbConf.hostName = "localhost";
 		dbConf.port = 3306;
 		dbConf.dbName = "company";
 		dbConf.userName = "root";
 		dbConf.pass = "root"; // "our366Team";
 
+		// <Debug only>!
 		// write 
 		s.beginGroup("db-local");
 		s.setValue("hostName", dbConf.hostName);
@@ -161,8 +146,8 @@ struct DbConf companyDbConfig(){
 		s.setValue("userName", dbConf.userName);
 		s.setValue("pass", dbConf.pass);
 		s.endGroup();
+		// </Debug only>
 
-		// <Debug only>!
 		// write "commented" section
 		s.beginGroup("db");
 		s.setValue("hostName", "109.206.169.214");
@@ -171,7 +156,6 @@ struct DbConf companyDbConfig(){
 		s.setValue("userName", "remote");
 		s.setValue("pass", "!E3f5c712");
 		s.endGroup();
-		// </Debug only>
 
 		// write 
 		s.beginGroup("meta");
@@ -190,7 +174,6 @@ struct DbConf companyDbConfig(){
 
 		// read 
 		s.beginGroup("meta");
-		//s.setValue("write_at", QDateTime::currentDateTime().toString("dd.MM.yyyy  hh:mm:ss"));
 		s.setValue("read_at", QDateTime::currentDateTime().toString("dd.MM.yyyy  hh:mm:ss"));
 		s.endGroup();
 	}
@@ -205,14 +188,13 @@ struct DbConf loadDbConfig()
 	
 	if(!QFile::exists(fname))
 	{
-		//QString hostName, dbName, userName, pass;
-		//int port;
 		dbConf.hostName = "localhost";
 		dbConf.port = 3306;
 		dbConf.dbName = "salarycount";
 		dbConf.userName = "root";
 		dbConf.pass = "root"; // "our366Team";
 
+		// <Debug only>!
 		// write 
 		s.beginGroup("db-local");
 		s.setValue("hostName", dbConf.hostName);
@@ -221,8 +203,8 @@ struct DbConf loadDbConfig()
 		s.setValue("userName", dbConf.userName);
 		s.setValue("pass", dbConf.pass);
 		s.endGroup();
+		// </Debug only>
 
-		// <Debug only>!
 		// write "commented" section
 		s.beginGroup("db");
 		s.setValue("hostName", "109.206.169.214");
@@ -231,7 +213,6 @@ struct DbConf loadDbConfig()
 		s.setValue("userName", "remote");
 		s.setValue("pass", "!E3f5c712");
 		s.endGroup();
-		// </Debug only>
 
 		// write 
 		s.beginGroup("meta");
@@ -250,7 +231,6 @@ struct DbConf loadDbConfig()
 
 		// read 
 		s.beginGroup("meta");
-		//s.setValue("write_at", QDateTime::currentDateTime().toString("dd.MM.yyyy  hh:mm:ss"));
 		s.setValue("read_at", QDateTime::currentDateTime().toString("dd.MM.yyyy  hh:mm:ss"));
 		s.endGroup();
 	}

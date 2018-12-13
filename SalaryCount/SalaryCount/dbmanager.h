@@ -38,7 +38,6 @@ public slots:
 private:
     QSqlDatabase db;
     QSqlDatabase companyDb;
-    QSqlQuery _query;
 
     static DbManager* globalManager;
     static DbManager* _companyManager;
