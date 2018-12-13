@@ -48,6 +48,7 @@ Employee * HireDirective::hiredEmployee()
 
 bool HireDirective::fetch()
 {
+	bool success = false;
 	if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
@@ -64,20 +65,17 @@ bool HireDirective::fetch()
                 _payForm = (PayForm)query->value(3).toInt();
                 _salary = query->value(4).toFloat();
                 _employeeID = query->value(5).toInt();
+				success = false;
             }
         }
         else
         {
             QString s = query->lastError().text();
             s+="as";
-            return false;
         }
         delete query;
     }
-    else
-    {
-        return false;
-    }
+    return success;
 }
     
 bool HireDirective::validate() const

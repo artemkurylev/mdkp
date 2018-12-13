@@ -3,16 +3,20 @@
 
 #include <QtWidgets/QMainWindow>
 #include <qmessagebox.h>
+#include "delegateStates.h"
 #include "employee.h"
-#include"laborsheet.h"
+#include "laborsheet.h"
 #include "ui_employeesc.h"
 
-class EmployeeSC : public QMainWindow
+class EmployeeSC : public QMainWindow // , virtual public delegateStates
 {
     Q_OBJECT
 
 private:
 	//QAction* currentAction;
+
+	Employee* shapeDataObject();
+	void parseDataObject(Employee *obj);
 
 public:
     EmployeeSC(QWidget *parent = 0);
@@ -28,7 +32,7 @@ private:
 	//void showStackedItem(QString namePage);
 
 	//конструкторы
-	//void initialDBManager();
+	void initialDBManager();
 
 signals:
 	/*void cancelChanges();
@@ -37,11 +41,8 @@ signals:
 
 private slots:
 
+	void updateInfo(QString name);
 	//void rememberState(bool state);
 
-	//! переходы по страницам приложения
-	//void showPage(QAction* actionEmited);
-	//! меню "Файл"
-	//void showCompanyDialog(QAction* actionEmited);
 };
 #endif // EMPLOYEESC_H

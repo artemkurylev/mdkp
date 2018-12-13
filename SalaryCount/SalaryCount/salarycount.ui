@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>922</width>
-    <height>669</height>
+    <height>725</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,14 +22,14 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="EmployeesPage">
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
          <widget class="QGroupBox" name="employeeBox">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
             <horstretch>2</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
@@ -50,12 +50,19 @@
               <bool>false</bool>
              </property>
              <property name="text">
-              <string>Добавить сотрудника</string>
+              <string>Добавить сотрудника...</string>
              </property>
             </widget>
            </item>
            <item row="0" column="0">
-            <widget class="QListWidget" name="employeeList"/>
+            <widget class="QListWidget" name="employeeList">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+            </widget>
            </item>
            <item row="2" column="0">
             <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -102,7 +109,7 @@
                <x>0</x>
                <y>0</y>
                <width>278</width>
-               <height>548</height>
+               <height>575</height>
               </rect>
              </property>
              <layout class="QGridLayout" name="gridLayout_2">
@@ -110,6 +117,12 @@
                <widget class="QGroupBox" name="workingDataBox">
                 <property name="enabled">
                  <bool>false</bool>
+                </property>
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
                 </property>
                 <property name="title">
                  <string>Рабочие данные</string>
@@ -224,6 +237,12 @@
                <widget class="QGroupBox" name="personalDataBox">
                 <property name="enabled">
                  <bool>true</bool>
+                </property>
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
                 </property>
                 <property name="title">
                  <string>Личные данные</string>
@@ -881,7 +900,7 @@
            <item row="2" column="0">
             <widget class="QTableWidget" name="DutyChartMarksEdit">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Ignored" vsizetype="Expanding">
+              <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
@@ -889,8 +908,11 @@
              <property name="minimumSize">
               <size>
                <width>0</width>
-               <height>240</height>
+               <height>260</height>
               </size>
+             </property>
+             <property name="sizeAdjustPolicy">
+              <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
              </property>
              <row>
               <property name="text">
@@ -1030,6 +1052,9 @@
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Expanding</enum>
+             </property>
              <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
@@ -1066,10 +1091,7 @@
       </widget>
       <widget class="QWidget" name="HireDirectivesPage">
        <layout class="QGridLayout" name="gridLayout_11">
-        <item row="0" column="0">
-         <widget class="QListWidget" name="directiveList"/>
-        </item>
-        <item row="1" column="0">
+        <item row="2" column="0">
          <widget class="QPushButton" name="showDirectiveBtn">
           <property name="enabled">
            <bool>false</bool>
@@ -1078,6 +1100,16 @@
            <string>Просмотреть приказ</string>
           </property>
          </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="DirectivesNumber_label_2">
+          <property name="text">
+           <string>Directives count</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QListWidget" name="directiveList"/>
         </item>
        </layout>
       </widget>
@@ -1099,7 +1131,7 @@
      <x>0</x>
      <y>0</y>
      <width>922</width>
-     <height>20</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="FileMenu">

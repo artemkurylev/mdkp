@@ -15,11 +15,11 @@ salarycountEmployees::salarycountEmployees(Ui_SalaryCount *ui, QString name)
 
 	connect(ui->ePayFormChoice,SIGNAL(currentIndexChanged(int)), SLOT(changePayForm(int)));
 	//ui->ePayFormChoice->setCurrentIndex(-1);
-	this->currentPayForm = PayForm::PER_MONTH;
+	this->currentPayForm = PER_MONTH;
 
 	connect(ui->employeeList,SIGNAL(currentRowChanged(int)), SLOT(showSelectedItem(int)));
 
-	//fillDutyChartComboBox(PayForm::PER_MONTH);
+	//fillDutyChartComboBox(PER_MONTH);
 	//connect(ui->INN,SIGNAL(textChanged(QString)), SLOT(innField()));
 }
 
@@ -80,7 +80,7 @@ HireDirective* salarycountEmployees::shapeHireDirective(int idEmployee)
 		int id = ui->eOrderNum->text().toInt();
 		QString FIO = ui->eFIO->text();
 		QDate &hd = ui->eReceiptDate->date();
-		PayForm pf = (ui->ePayFormChoice->currentIndex()==0 ? PayForm::PER_MONTH : PayForm::PER_HOUR);
+		PayForm pf = (ui->ePayFormChoice->currentIndex()==0 ? PER_MONTH : PER_HOUR);
 		float sal = ui->eSalary->value();
 
 		HireDirective* obj = new HireDirective(id,hd,FIO,pf,sal,idEmployee);
@@ -106,7 +106,7 @@ void salarycountEmployees::parseDataObject(const Employee* obj)
 		HireDirective *hd = new HireDirective(obj->hireDirectiveID());
 		if(!hd->fetch()) throw this->journal->fetchError("parseDataObject hiredirective fetch error");
 
-		ui->ePayFormChoice->setCurrentIndex(hd->payForm()==PayForm::PER_MONTH ? 0 : 1);
+		ui->ePayFormChoice->setCurrentIndex(hd->payForm()==PER_MONTH ? 0 : 1);
 		ui->eReceiptDate->setDate(hd->hireDate());
 		ui->eOrderNum->setText(QString::number(hd->id()));
 		ui->eSalary->setValue(hd->salary());
@@ -225,7 +225,7 @@ bool salarycountEmployees::fillDutyChartComboBox(PayForm pf)
 
 void salarycountEmployees::changeCallPayForm(PayForm pf)
 {
-	if(pf==PayForm::PER_MONTH)
+	if(pf==PER_MONTH)
 	{
 		ui->eSalary_label->setText(QString::fromWCharArray(L"Оклад (руб)"));
 		ui->eSalary->setMinimum(8000);
@@ -277,13 +277,13 @@ QString salarycountEmployees::validateData()
 
 	bool l = FIO.exactMatch(ui->eFIO->text());
 	if( !FIO.isValid() || !FIO.exactMatch(ui->eFIO->text()) )
-		return QString("Wrong FIO data.\nExample: Ivanov Ivan Ivanovich");
+		return QString::fromWCharArray(L"Неправильное ФИО:\n%1\nПример: Иванов Иван Иванович").arg(ui->eFIO->text());
 
 	if( !INN.isValid() || !INN.exactMatch(ui->INN->text()) )
-		return QString("Wrong INN.\nExample: 123456789100");
+		return QString::fromWCharArray(L"Неправильный ИНН:\n%1\nПример (должно быть 12 цифр): 123456789012").arg(ui->INN->text());
 
 	if( !phone.isValid() || !phone.exactMatch(ui->eNumberPhone->text()) )
-		return QString("Wrong phone number.\nExample: +7 (111) 111 11 11");
+		return QString::fromWCharArray(L"Неправильный номер телефона:\n%1\nПример: +7 (111) 111 11 11").arg(ui->eNumberPhone->text());
 
 	return QString();
 }
@@ -403,8 +403,12 @@ void salarycountEmployees::updateInfo(QString name)
 
 	if(!this->objectName().compare(name))
 	{
-		fillDutyChartComboBox(PayForm::PER_MONTH);
+		fillDutyChartComboBox(PER_MONTH);
 	}
+
+	// clear & disable fields on empty list
+	cancelNewEmployee();
+	switchMode(USUAL);
 }
 
 void salarycountEmployees::addEmployee()
@@ -446,7 +450,7 @@ void salarycountEmployees::saveNewEmployee()
 		{
 			Employee* obj = shapeDataObject();//собрать данные
 
-			if(!obj) throw this->journal->nullPtr("saveNewEmployee Employee not exist");
+			if(!obj) throw this->journal->nullPtr( QString::fromWCharArray(L"Новый сотрудник не был сохранён").toStdString() );
 	
 			switch(this->currentState)
 			{
@@ -483,13 +487,13 @@ void salarycountEmployees::changePayForm(int index)
 {
 	if(index)
 	{
-		changeCallPayForm(PayForm::PER_HOUR);
-		fillDutyChartComboBox(PayForm::PER_HOUR);
+		changeCallPayForm(PER_HOUR);
+		fillDutyChartComboBox(PER_HOUR);
 	}
 	else
 	{
-		changeCallPayForm(PayForm::PER_MONTH);
-		fillDutyChartComboBox(PayForm::PER_MONTH);
+		changeCallPayForm(PER_MONTH);
+		fillDutyChartComboBox(PER_MONTH);
 	}
 }
 
