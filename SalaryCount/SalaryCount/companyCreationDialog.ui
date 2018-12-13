@@ -248,5 +248,22 @@
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>companyCreationDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>544</x>
+     <y>452</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>356</x>
+     <y>-17</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
