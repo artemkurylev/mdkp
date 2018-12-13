@@ -5,6 +5,7 @@
 #include "ui_companycreationdialog.h"
 #include "company.h"
 #include "companyopendialog.h"
+#include "companycreationdialog.h"
 class companyCreationDialog : public QDialog
 {
     Q_OBJECT

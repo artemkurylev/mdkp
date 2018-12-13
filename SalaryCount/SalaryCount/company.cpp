@@ -60,6 +60,24 @@ bool Company::createTable()
     }
     return success;
 }
+bool Company::validate() const
+{
+    bool success = true;
+    QSqlQuery* query = DbManager::companyManager().makeQuery();
+    query->prepare("SELECT * FROM `company` WHERE `name` = :name");
+    query->bindValue(":name",this->_name);
+    if(DbManager::companyManager().checkConnection())
+    {
+        if(query->exec())
+        {
+            if(query->next())
+            {
+                success = false;
+            }
+        }
+    }
+    return success;
+}
 bool Company::auth()
 {
     bool success = false;
