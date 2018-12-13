@@ -9,7 +9,7 @@ class Company : public DbRecord
 
 public:
     Company(QObject *parent = 0);
-    Company(QString name,QString pass){_name=name;_pass=pass;}
+    Company(QString name,QString pass, QDate date = QDate::currentDate()){_name=name;_pass=pass;_creationDate=date;}
     ~Company();
 
     //Getter
