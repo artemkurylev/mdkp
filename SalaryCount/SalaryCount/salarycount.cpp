@@ -78,6 +78,7 @@ SalaryCount::~SalaryCount()
 
 void SalaryCount::initialDBManager(QString dbName)
 {
+	// первый вызов инициализирует manager, м.б. с заданным именем БД
     DbManager& manager = DbManager::manager(dbName);
     if(manager.checkConnection())
     {
