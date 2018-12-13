@@ -11,7 +11,7 @@ int Company::insert()
     int insert_id = -1;
     if(DbManager::companyManager().checkConnection())
     {
-        QSqlQuery* query = DbManager::manager().makeQuery();
+        QSqlQuery* query = DbManager::companyManager().makeQuery();
         query->prepare("INSERT INTO `company` (`name`,`pass`) VALUES(:name,:pass)");
         
         QByteArray hash;
