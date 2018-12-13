@@ -8,15 +8,15 @@
 #include"laborsheet.h"
 #include "ui_employeesc.h"
 
-class EmployeeSC : public QMainWindow, virtual public delegateStates
+class EmployeeSC : public QMainWindow//, public delegateStates
 {
     Q_OBJECT
 
 private:
 	//QAction* currentAction;
 
-	Employee* shapeDataObject();
-	void parseDataObject(Employee *obj);
+	//Employee* shapeDataObject();
+	//void parseDataObject(Employee *obj);
 
 public:
     EmployeeSC(QWidget *parent = 0);
@@ -41,7 +41,7 @@ signals:
 
 private slots:
 
-	void updateInfo(QString name);
+	//void updateInfo(QString name);
 	//void rememberState(bool state);
 
 };
