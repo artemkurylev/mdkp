@@ -2,7 +2,7 @@
 
 delegateStates::delegateStates()
 {
-	this->currentState = delegateStates::USUAL;
+	this->currentState = USUAL;
 	this->journal = new log_errors();//журнал ошибок 
 }
 	

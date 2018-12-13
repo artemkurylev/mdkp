@@ -99,7 +99,7 @@ void salarycountLaborSheet::switchMode(app_states state)
 	this->currentState = state;
 
 	bool triggerState = false;
-	if(state==app_states::EDIT)
+	if(state==EDIT)
 	{
 		triggerState = true;
 	}
@@ -345,13 +345,13 @@ void salarycountLaborSheet::closePeriod()
 }
 void salarycountLaborSheet::editLaborSheet()
 {
-    switchMode(app_states::EDIT);
+    switchMode(EDIT);
 }
 void salarycountLaborSheet::saveEditableEntries(LaborSheet* obj)
 {
 	if(obj->update())
 	{
-		switchMode(app_states::USUAL);
+		switchMode(USUAL);
 	}
 	else
 	{
@@ -368,7 +368,7 @@ void salarycountLaborSheet::saveEditedLabor()
 }
 void salarycountLaborSheet::cancelEditLabor()
 {
-	switchMode(app_states::USUAL);
+	switchMode(USUAL);
 	showSelectedItem( ui->employeeLaborSheetTable->currentRow() );
 }
 LaborSheet* salarycountLaborSheet::shapeDataObject()
@@ -376,7 +376,7 @@ LaborSheet* salarycountLaborSheet::shapeDataObject()
     int id = 0;
     LaborSheet* obj = NULL;
 	const QList<Mark> *grid = NULL;
-	if(this->currentState == app_states::EDIT)
+	if(this->currentState == EDIT)
 	{
         int row = ui->employeeLaborSheetTable->currentRow();
         id = ui->employeeLaborSheetTable->item(row,0)->data(Qt::UserRole).toInt();
