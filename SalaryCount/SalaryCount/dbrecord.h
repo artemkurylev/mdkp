@@ -44,12 +44,7 @@ public:
 	DbRecord &DbRecord::operator =(const DbRecord & other) {_id = other.id(); return *this;};
 
 protected:
-    /*! Строка для запроса к базе данных MYSQL */
-    QString _query;
     int _id;
-
-	////! возвращает константу - имя таблицы в БД для текущего класса записи
-	//const QString& tableName(); ??? не нужно
 
 private:
 
