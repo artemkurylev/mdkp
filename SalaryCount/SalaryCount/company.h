@@ -18,7 +18,7 @@ public:
     int insert();
     bool update() const{return false;}
     bool fetch(){return false;}
-    bool validate() const{return false;}
+    bool validate() const;
     //Статические методы
     static int countEntries();
     static QMap<int,QString> getAll();
