@@ -19,10 +19,19 @@ void companyOpenDialog::enterCompany()
 {
     QString name = ui.CompanyCombo_2->currentText();
     QString pass = ui.companyPassEdit->text();
-    Company company(name, pass);
-    if(company.auth()){
+
+	Company* company = new Company(name,pass);
+    if(company->auth()){
         DbManager::companyManager().close();
-        SalaryCount* sc = new SalaryCount(name);
+
+		if(Company::currentCompany)
+		{
+			delete Company::currentCompany;
+			Company::currentCompany = NULL;
+		}
+		Company::currentCompany = company;
+
+		SalaryCount* sc = new SalaryCount(name);
         this->close();
         sc->show();
 
