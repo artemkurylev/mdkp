@@ -70,10 +70,26 @@ void companyOpenDialog::initialDBManager()
 
 void companyOpenDialog::updateCompanyList()
 {
+    ui.CompanyCombo->clear();
     ui.CompanyCombo_2->clear();
     QMap<int,QString> companies = Company::getAll();
+
+	int curr_index = -1 , i = 0;
     for(auto it = companies.begin(); it != companies.end(); ++it)
     {
+        ui.CompanyCombo->addItem(it.value(),it.key());
         ui.CompanyCombo_2->addItem(it.value(),it.key());
+		
+		if(Company::currentCompany && Company::currentCompany->id() == it.key())
+			curr_index = i;
+
+		++i;
     }
+
+	if(curr_index >= 0)
+	{
+		// set index of current company
+		 ui.CompanyCombo->setCurrentIndex(curr_index);
+		 ui.CompanyCombo_2->setCurrentIndex(curr_index);
+	}
 }
