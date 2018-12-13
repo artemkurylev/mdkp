@@ -21,6 +21,7 @@ void companyCreationDialog::createCompany()
     QString pass_repeat = ui.passRepeatEdit->text();
     if(pass_first != pass_repeat)
     {
+        //Обработка ошибок!
         return;
     }
     Company company(name,pass_first);
@@ -28,12 +29,14 @@ void companyCreationDialog::createCompany()
     {
         if(company.insert())
         {
-            companyOpenDialog* open = new  companyOpenDialog();
-            this->close();
-            open->show();
+            //companyOpenDialog* open = new companyOpenDialog(this);
+            //this->close();
+            //open->show();
+			this->accept();
         }
     }
-    else{
+    else
+	{
         //Обработка ошибок!
     }
 

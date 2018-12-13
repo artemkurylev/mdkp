@@ -19,6 +19,7 @@ public:
 private:
     Ui::companyOpenDialog ui;
     void initialDBManager();
+    void updateCompanyList();
 
 private slots:
     void enterCompany();
