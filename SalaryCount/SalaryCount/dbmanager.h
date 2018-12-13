@@ -31,6 +31,10 @@ public:
     static DbManager& companyManager();
     static void closeConnection(){globalManager->db.close();}
     void close(){this->db.close();}
+
+public slots:
+	void ResumeKeepAliveCheck() {skipKeepAliveCheck = false;}
+
 private:
     QSqlDatabase db;
     QSqlDatabase companyDb;
@@ -40,6 +44,8 @@ private:
     static DbManager* _companyManager;
     static bool singletonCompanyExists;
     static bool singletonExists;
+
+    static bool skipKeepAliveCheck;
 };
 
 #endif // DBMANAGER_H
