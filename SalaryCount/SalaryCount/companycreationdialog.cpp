@@ -49,10 +49,16 @@ void companyCreationDialog::createCompany()
 			this->accept();
 			return;
         }
+		else
+		{
+			QMessageBox::information(this, QString::fromWCharArray(L"Ошибка"), QString::fromWCharArray(L"Не удалось создать новую компанию.\nВозможно, соединитья с по сети сервером.\nИмя компании: %1.").arg(name));
+		
+		}
     }
     else
 	{
         //Обработка ошибок!
+		QMessageBox::information(this, QString::fromWCharArray(L"Ошибка"), QString::fromWCharArray(L"Не удалось создать новую компанию.\nИмя компании занято: %1.").arg(name));
     }
 	delete company;
 }
