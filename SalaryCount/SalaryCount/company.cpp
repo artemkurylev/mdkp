@@ -9,6 +9,33 @@ Company::Company(QObject *parent)
 {
 
 }
+bool Company::fetch()
+{
+    bool success = false;
+    if(DbManager::companyManager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::companyManager().makeQuery();
+
+        query->prepare("SELECT * FROM `company` WHERE `name` = :name");
+        QString name = this->name();
+        query->bindValue(":name",name);
+        if(query->exec())
+        {
+            if(query->next())
+            {
+                _creationDate = query->value(3).toDate();
+				success = true;
+            }
+        }
+        else
+        {
+            QString s = query->lastError().text();
+            s+="as";
+        }
+        delete query;
+    }
+    return success;
+}
 int Company::insert()
 {
     int insert_id = -1;
