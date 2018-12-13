@@ -25,6 +25,8 @@ public:
     static bool createTable();
     bool auth();
 
+	/*static*/
+	static Company* currentCompany;
     
 private:
     QString _name;
