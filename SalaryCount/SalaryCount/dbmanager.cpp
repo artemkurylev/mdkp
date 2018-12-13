@@ -157,7 +157,7 @@ struct DbConf companyDbConfig(){
 		// write "commented" section
 		s.beginGroup("db");
 		s.setValue("hostName", "109.206.169.214");
-		s.setValue("port", dbConf.port);
+		s.setValue("port", 443);
 		s.setValue("dbName", "company");
 		s.setValue("userName", "remote");
 		s.setValue("pass", "!E3f5c712");
@@ -217,7 +217,7 @@ struct DbConf loadDbConfig()
 		// write "commented" section
 		s.beginGroup("db");
 		s.setValue("hostName", "109.206.169.214");
-		s.setValue("port", dbConf.port);
+		s.setValue("port", 443);
 		s.setValue("dbName", "salary_count");
 		s.setValue("userName", "remote");
 		s.setValue("pass", "!E3f5c712");
