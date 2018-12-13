@@ -18,7 +18,7 @@ public:
     //Наследуемые метод
     int insert();
     bool update() const{return false;}
-    bool fetch(){return false;}
+    bool fetch();
     bool validate() const;
     //Статические методы
     static int countEntries();
