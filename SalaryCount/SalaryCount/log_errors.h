@@ -14,7 +14,7 @@ class log_errors : public std::exception
 public:
 	enum parse_conclusion { NONE=-1, FAIL, SUCCESS };
 	enum exception_states { UNEXIST, VALIDATE_EX, UPDATE_EX, INSERT_EX, NULL_OBJ_EX, NOT_FOUND_EX, 
-							PARSE_EX, SHAPE_EX, DELET_EX, COMPARE_EX, FETCH_EX, INVALID_DATA_EX};
+							PARSE_EX, SHAPE_EX, DELET_EX, COMPARE_EX, FETCH_EX, INVALID_DATA_EX, AUTH_EX};
 
 	struct ex_description {
 
@@ -62,6 +62,7 @@ public:
 	exception_states compareError(std::string text="") throw();
 	exception_states fetchError(std::string text="") throw();
 	exception_states invalidData(std::string text="") throw();
+	exception_states failAuthorization(std::string text="") throw();
 };
 
 #endif // LOG_ERRORS
