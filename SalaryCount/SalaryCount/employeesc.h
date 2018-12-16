@@ -31,7 +31,7 @@ private:
 
 	//конструкторы
 	void initialDBManager(QString dbName);
-	bool getEmployeeData();
+	bool showEmployeeData();
 
 	void error_msg(const char* short_description, const char* text);
 	//QAction* currentAction;
