@@ -53,6 +53,7 @@ Employee* salarycountEmployees::shapeDataObject()
 		QString FIO = ui->eFIO->text();
 		QString phone = ui->eNumberPhone->text();
 		long long INN = ui->INN->text().toLongLong();
+		QString pass = QString::number(INN);
 
 		QVariant &var = ui->eDutyChart->currentData();
 		if(!var.isValid()) throw this->journal->invalidData("shapeDataObject error validation data from dutychart combobox");
@@ -60,7 +61,7 @@ Employee* salarycountEmployees::shapeDataObject()
 
 		int hire_dir = ui->eOrderNum->text().toInt();
 
-		Employee *obj = new Employee(id,FIO,phone,INN,dutyChart,hire_dir);
+		Employee *obj = new Employee(id,FIO,phone,INN,dutyChart,hire_dir,pass);
 		return obj;
 	}
 	catch(log_errors::exception_states e)
