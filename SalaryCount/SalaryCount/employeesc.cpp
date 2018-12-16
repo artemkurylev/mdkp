@@ -6,12 +6,13 @@
 #include "unittest/DirectiveGeneratorTest.h"
 
 
-EmployeeSC::EmployeeSC(QWidget *parent)
+EmployeeSC::EmployeeSC(QString dbName, QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
 
-	//initialDBManager();
+	initialDBManager(dbName);
+
 }
 
 EmployeeSC::~EmployeeSC()
@@ -19,9 +20,9 @@ EmployeeSC::~EmployeeSC()
 	
 }
 
-void EmployeeSC::initialDBManager()
+void EmployeeSC::initialDBManager(QString dbName)
 {
-	DbManager& manager = DbManager::manager();
+	DbManager& manager = DbManager::manager(dbName);
     if(manager.checkConnection())
     {
         //Создание таблиц

@@ -13,32 +13,26 @@ class EmployeeSC : public QMainWindow // , virtual public delegateStates
 {
     Q_OBJECT
 
-private:
-	//QAction* currentAction;
-
-	//Employee* shapeDataObject();
-	//void parseDataObject(Employee *obj);
-
 public:
-    EmployeeSC(QWidget *parent = 0);
+    EmployeeSC(QString dbName, QWidget *parent = 0);
     ~EmployeeSC();
 
 private:
     Ui_EmployeeSC ui;
 
-	//bool editState;
+	Employee* userData;
 
 private:
 	//bool isEditable();
 	//void showStackedItem(QString namePage);
 
 	//конструкторы
-	void initialDBManager();
+	void initialDBManager(QString dbName);
 
-signals:
-	/*void cancelChanges();
-	void saveChanges();
-	void showPaget(QString name);*/
+	//QAction* currentAction;
+
+	Employee* shapeBaseDataObject();
+	//void parseDataObject(Employee *obj);
 
 private slots:
 
