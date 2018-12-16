@@ -13,17 +13,33 @@ EmployeeSC::EmployeeSC(QString dbName,Employee* employee, QWidget *parent)
 
 	this->journal = new log_errors();//журнал ошибок 
 
-	initialDBManager(dbName);
-
-	this->userData = employee;
-
-	if(getEmployeeData())
+	try
 	{
+		if(dbName.isEmpty() && !employee) throw this->journal->nullPtr("Connection error");
 
+		initialDBManager(dbName);
+
+		if(!employee->auth()) 
+				throw this->journal->failAuthorization("error authorization.\n Please, check you phone & password");
+
+		this->userData = employee;
+
+		if(getEmployeeData())
+		{
+
+		}
+		else
+		{
+			//показать диалог повторного подключения
+		}
 	}
-	else
+	catch(log_errors::exception_states e)
 	{
-		//показать диалог повторного подключения
+		QByteArray code = QString::number(this->journal->getLastErrorCode()).toLocal8Bit();
+		QByteArray msg = this->journal->getLastError().toLocal8Bit();
+
+		error_msg(code.data(),msg.data());//cообщили об ошибке
+		this->journal->lastConflictNonResolved();
 	}
 }
 
@@ -119,6 +135,7 @@ bool EmployeeSC::getEmployeeData()
 {
 	try
 	{
+
 		if(!this->userData->fetch()) throw this->journal->fetchError("Не удалось получить данные о сотруднике");
 
 		HireDirective *hd = new HireDirective(this->userData->hireDirectiveID());
@@ -145,23 +162,17 @@ bool EmployeeSC::getEmployeeData()
 
 void EmployeeSC::parseBaseDataObject(HireDirective *hd, QString dutyChartName)
 {
-	try
-	{
-		if(!this->userData) throw this->journal->nullPtr();
+	ui.eFIO->setText(this->userData->fio());
+	ui.eNumberPhone->setText(this->userData->phoneNumber());
+	ui.INN->setText(QString::number(this->userData->inn()));
 
-		ui.eFIO->setText(this->userData->fio());
-		ui.eNumberPhone->setText(this->userData->phoneNumber());
-		ui.INN->setText(QString::number(this->userData->inn()));
+	ui.ePayFormChoice->setCurrentIndex(hd->payForm()==PER_MONTH ? 0 : 1);
+	ui.eReceiptDate->setDate(hd->hireDate());
+	ui.eOrderNum->setText(QString::number(hd->id()));
+	ui.eSalary->setValue(hd->salary());
 
-		ui.ePayFormChoice->setCurrentIndex(hd->payForm()==PER_MONTH ? 0 : 1);
-		ui.eReceiptDate->setDate(hd->hireDate());
-		ui.eOrderNum->setText(QString::number(hd->id()));
-		ui.eSalary->setValue(hd->salary());
+	ui.CurrentPeriod_dateEdit;
+	ui.BillingPeriod_dateEdit;
 
-		ui.eDutyChart->setText(dutyChartName);
-	}
-	catch(log_errors::exception_states e)
-	{
-
-	}
+	ui.eDutyChart->setText(dutyChartName);
 }
