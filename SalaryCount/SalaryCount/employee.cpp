@@ -312,14 +312,14 @@ const bool Employee::auth(){
     QSqlQuery* query = DbManager::manager().makeQuery();
     if(DbManager::manager().checkConnection())
     {
-        query->prepare("SELECT `id`,`password` FROM `employee` WHERE `phone_number` = :phone_number");
+        query->prepare("SELECT `id`,`password` FROM `employee` WHERE `phone_number` =:phone_number");
         query->bindValue(":phone_number",this->_phoneNumber);
         if(query->exec())
         {
             if(query->next())
             {
                 QString pass = query->value(1).toString();
-                if(pass == hash)
+                if(pass == hsh)
                 {
                     success = true;
                     this->_id = query->value(0).toInt();
