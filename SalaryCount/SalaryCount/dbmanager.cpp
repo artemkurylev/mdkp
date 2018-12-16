@@ -5,6 +5,7 @@ struct DbConf companyDbConfig();
 #include <QDateTime>
 #include <QFile>
 #include <QSettings>
+#include <QTimer>
 
 DbManager::DbManager()
     : QObject(0)
@@ -15,6 +16,8 @@ DbManager::DbManager()
 /*static*/bool DbManager::singletonCompanyExists = false;
 /*static*/DbManager* DbManager::globalManager = 0;
 /*static*/DbManager* DbManager::_companyManager = 0;
+/*static*/bool DbManager::skipKeepAliveCheck = false;
+
 DbManager::DbManager(const QString& hostName, const QString& dbName, int port,const QString& userName, const QString& pass)
 {
 	// Сначала создаём БД
@@ -28,7 +31,6 @@ DbManager::DbManager(const QString& hostName, const QString& dbName, int port,co
 
     if(this->db.open())
     {
-        //QString str;
 		QSqlQuery q(this->db);
 		if( q.exec(tr("CREATE DATABASE IF NOT EXISTS %1 CHARACTER SET utf8 COLLATE utf8_bin;").arg(dbName) ) )
 		{
@@ -71,6 +73,15 @@ bool DbManager::checkConnection()
 {
     if(db.isOpen())
     {
+		if(skipKeepAliveCheck)
+		{
+			return true;
+		}
+
+		// set timer
+		skipKeepAliveCheck = true;
+		QTimer::singleShot(2000 /*ms*/, this, SLOT(ResumeKeepAliveCheck()));
+
 		// проверка активности соединения
 		// источник: http://www.prog.org.ru/topic_6693_0.html Russian Qt Forum >> Базы данных > Lost connection to MySQL server during query QMYSQL: Unable to execute query
 		QSqlQuery qq = db.exec("SET NAMES 'utf8'");
@@ -93,14 +104,7 @@ bool DbManager::checkConnection()
     if(!singletonCompanyExists)
     {
         struct DbConf conf = companyDbConfig();
-		//QString hostName, dbName, userName, pass;
-		//int port;
         DbManager::_companyManager = new DbManager(conf.hostName,conf.dbName,conf.port,conf.userName,conf.pass);
-        //if(false)
-        //    DbManager::globalManager = new DbManager("localhost","salarycount",3306,"root","root");
-        //else
-        //    DbManager::globalManager = new DbManager("109.206.169.214","salary_count",443,"remote","!E3f5c712");
-		// test ports: cmd>telnet 109.206.169.214 81
         DbManager::singletonCompanyExists = 1;
     }
     return *(DbManager::_companyManager);
@@ -111,14 +115,7 @@ bool DbManager::checkConnection()
 		struct DbConf conf = loadDbConfig();
         if(dbName != 0)
             conf.dbName = dbName;
-		//QString hostName, dbName, userName, pass;
-		//int port;
 		DbManager::globalManager = new DbManager(conf.hostName,conf.dbName,conf.port,conf.userName,conf.pass);
-        //if(false)
-        //    DbManager::globalManager = new DbManager("localhost","salarycount",3306,"root","root");
-        //else
-        //    DbManager::globalManager = new DbManager("109.206.169.214","salary_count",443,"remote","!E3f5c712");
-		// test ports: cmd>telnet 109.206.169.214 81
         DbManager::singletonExists = 1;
     }
     return *(DbManager::globalManager);
@@ -134,14 +131,13 @@ struct DbConf companyDbConfig(){
 	
 	if(!QFile::exists(fname))
 	{
-		//QString hostName, dbName, userName, pass;
-		//int port;
 		dbConf.hostName = "localhost";
 		dbConf.port = 3306;
 		dbConf.dbName = "company";
 		dbConf.userName = "root";
 		dbConf.pass = "root"; // "our366Team";
 
+		// <Debug only>!
 		// write 
 		s.beginGroup("db-local");
 		s.setValue("hostName", dbConf.hostName);
@@ -150,17 +146,16 @@ struct DbConf companyDbConfig(){
 		s.setValue("userName", dbConf.userName);
 		s.setValue("pass", dbConf.pass);
 		s.endGroup();
+		// </Debug only>
 
-		// <Debug only>!
 		// write "commented" section
 		s.beginGroup("db");
 		s.setValue("hostName", "109.206.169.214");
-		s.setValue("port", dbConf.port);
+		s.setValue("port", 443);
 		s.setValue("dbName", "company");
 		s.setValue("userName", "remote");
 		s.setValue("pass", "!E3f5c712");
 		s.endGroup();
-		// </Debug only>
 
 		// write 
 		s.beginGroup("meta");
@@ -179,7 +174,6 @@ struct DbConf companyDbConfig(){
 
 		// read 
 		s.beginGroup("meta");
-		//s.setValue("write_at", QDateTime::currentDateTime().toString("dd.MM.yyyy  hh:mm:ss"));
 		s.setValue("read_at", QDateTime::currentDateTime().toString("dd.MM.yyyy  hh:mm:ss"));
 		s.endGroup();
 	}
@@ -194,14 +188,13 @@ struct DbConf loadDbConfig()
 	
 	if(!QFile::exists(fname))
 	{
-		//QString hostName, dbName, userName, pass;
-		//int port;
 		dbConf.hostName = "localhost";
 		dbConf.port = 3306;
 		dbConf.dbName = "salarycount";
 		dbConf.userName = "root";
 		dbConf.pass = "root"; // "our366Team";
 
+		// <Debug only>!
 		// write 
 		s.beginGroup("db-local");
 		s.setValue("hostName", dbConf.hostName);
@@ -210,17 +203,16 @@ struct DbConf loadDbConfig()
 		s.setValue("userName", dbConf.userName);
 		s.setValue("pass", dbConf.pass);
 		s.endGroup();
+		// </Debug only>
 
-		// <Debug only>!
 		// write "commented" section
 		s.beginGroup("db");
 		s.setValue("hostName", "109.206.169.214");
-		s.setValue("port", dbConf.port);
+		s.setValue("port", 443);
 		s.setValue("dbName", "salary_count");
 		s.setValue("userName", "remote");
 		s.setValue("pass", "!E3f5c712");
 		s.endGroup();
-		// </Debug only>
 
 		// write 
 		s.beginGroup("meta");
@@ -239,7 +231,6 @@ struct DbConf loadDbConfig()
 
 		// read 
 		s.beginGroup("meta");
-		//s.setValue("write_at", QDateTime::currentDateTime().toString("dd.MM.yyyy  hh:mm:ss"));
 		s.setValue("read_at", QDateTime::currentDateTime().toString("dd.MM.yyyy  hh:mm:ss"));
 		s.endGroup();
 	}

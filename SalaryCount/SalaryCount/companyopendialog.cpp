@@ -26,6 +26,7 @@ void companyOpenDialog::enterCompany()
 
 	Company* company = new Company(name,pass);
     if(company->auth()){
+        company->fetch();
         DbManager::companyManager().close();
 
 		if(Company::currentCompany)
@@ -33,13 +34,14 @@ void companyOpenDialog::enterCompany()
 			delete Company::currentCompany;
 			Company::currentCompany = NULL;
 		}
+        
 		Company::currentCompany = company;
 
 		SalaryCount* sc = new SalaryCount(name);
         this->close();
         sc->show();
 
-		//this->done(5);
+		this->destroy();
     }
     else
 	{
@@ -53,8 +55,8 @@ void companyOpenDialog::createCompany()
     this->hide();
 	// ждать завершения работы с диалогом и вернуться сюда
     int ret = creator->exec();
-
 	delete creator;
+
 	if(ret == QDialog::Accepted)
 	{
 		//accept();

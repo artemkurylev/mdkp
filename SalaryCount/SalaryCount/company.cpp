@@ -9,19 +9,47 @@ Company::Company(QObject *parent)
 {
 
 }
+bool Company::fetch()
+{
+    bool success = false;
+    if(DbManager::companyManager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::companyManager().makeQuery();
+
+        query->prepare("SELECT * FROM `company` WHERE `name` = :name");
+        QString name = this->name();
+        query->bindValue(":name",name);
+        if(query->exec())
+        {
+            if(query->next())
+            {
+                _creationDate = query->value(3).toDate();
+				success = true;
+            }
+        }
+        else
+        {
+            QString s = query->lastError().text();
+            s+="as";
+        }
+        delete query;
+    }
+    return success;
+}
 int Company::insert()
 {
     int insert_id = -1;
     if(DbManager::companyManager().checkConnection())
     {
         QSqlQuery* query = DbManager::companyManager().makeQuery();
-        query->prepare("INSERT INTO `company` (`name`,`pass`) VALUES(:name,:pass)");
+        query->prepare("INSERT INTO `company` (`name`,`pass`,`creation_date`) VALUES(:name,:pass,:date)");
         
         QByteArray hash;
         hash.append(this->_pass);
         QString hsh = QCryptographicHash::hash(hash,QCryptographicHash::Md5);
         query->bindValue(":name",this->_name);
         query->bindValue(":pass",hsh);
+        query->bindValue(":date",this->_creationDate);
         if(query->exec())
         {
             if(query->exec("SELECT LAST_INSERT_ID()") && query->next())
@@ -47,7 +75,7 @@ bool Company::createTable()
     if(DbManager::companyManager().checkConnection())
     {
         QSqlQuery* query = DbManager::companyManager().makeQuery();
-        if(query->exec("CREATE TABLE IF NOT EXISTS `company` (`id` INT(11) NOT NULL AUTO_INCREMENT, `name` VARCHAR(30) UNIQUE, `pass` VARCHAR(200) ,PRIMARY KEY(`id`))"))
+        if(query->exec("CREATE TABLE IF NOT EXISTS `company` (`id` INT(11) NOT NULL AUTO_INCREMENT, `name` VARCHAR(30) UNIQUE, `pass` VARCHAR(200) , `creation_date` DATE ,PRIMARY KEY(`id`))"))
 		{
             success = true;
 		}
