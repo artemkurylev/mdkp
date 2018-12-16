@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>722</width>
-    <height>539</height>
+    <width>1000</width>
+    <height>626</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -28,9 +28,15 @@
       </property>
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-        <horstretch>1</horstretch>
+        <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
       </property>
       <property name="title">
        <string>Рабочие данные</string>
@@ -134,30 +140,6 @@
       </layout>
      </widget>
     </item>
-    <item row="1" column="1">
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
-       <widget class="QLabel" name="label_18">
-        <property name="text">
-         <string>Текущий период учета</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QDateEdit" name="CurrentPeriod_dateEdit">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="buttonSymbols">
-         <enum>QAbstractSpinBox::NoButtons</enum>
-        </property>
-        <property name="displayFormat">
-         <string>MM.yyyy</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
     <item row="0" column="0" rowspan="3">
      <widget class="QGroupBox" name="personalDataBox">
       <property name="enabled">
@@ -165,7 +147,7 @@
       </property>
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-        <horstretch>1</horstretch>
+        <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
@@ -303,10 +285,34 @@
       </property>
      </spacer>
     </item>
+    <item row="1" column="1">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QLabel" name="label_18">
+        <property name="text">
+         <string>Текущий период учета</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QDateEdit" name="CurrentPeriod_dateEdit">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::NoButtons</enum>
+        </property>
+        <property name="displayFormat">
+         <string>MM.yyyy</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
     <item row="2" column="1" rowspan="3">
      <widget class="QGroupBox" name="LabourGroupEdit">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -316,7 +322,7 @@
       </property>
       <property name="maximumSize">
        <size>
-        <width>700</width>
+        <width>890</width>
         <height>16777215</height>
        </size>
       </property>
@@ -331,14 +337,10 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_10">
        <item>
-        <widget class="QLabel" name="Month_label">
-         <property name="text">
-          <string>Месяц: ноябрь 2018</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QTableWidget" name="laborSheet">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
            <horstretch>0</horstretch>
@@ -353,8 +355,8 @@
          </property>
          <property name="maximumSize">
           <size>
-           <width>700</width>
-           <height>420</height>
+           <width>5000</width>
+           <height>5000</height>
           </size>
          </property>
          <property name="baseSize">
@@ -442,7 +444,7 @@
          </column>
          <item row="0" column="0">
           <property name="text">
-           <string>29</string>
+           <string/>
           </property>
           <property name="textAlignment">
            <set>AlignCenter</set>
@@ -453,7 +455,7 @@
          </item>
          <item row="0" column="1">
           <property name="text">
-           <string>30</string>
+           <string/>
           </property>
           <property name="flags">
            <set>ItemIsEnabled|ItemIsTristate</set>
@@ -461,7 +463,7 @@
          </item>
          <item row="0" column="2">
           <property name="text">
-           <string>31</string>
+           <string/>
           </property>
          </item>
         </widget>
@@ -494,6 +496,16 @@
         </layout>
        </item>
        <item>
+        <widget class="QPushButton" name="editBtn">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="text">
+          <string>Редактировать</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QGroupBox" name="groupBox">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
@@ -507,35 +519,60 @@
          <property name="flat">
           <bool>true</bool>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_6">
-          <item>
-           <widget class="QLabel" name="Description_label">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="text">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Desc&lt;br/&gt;iption&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
+         <layout class="QVBoxLayout" name="verticalLayout_6"/>
         </widget>
        </item>
        <item>
-        <spacer name="verticalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
+        <widget class="QTableWidget" name="Description_table">
+         <property name="enabled">
+          <bool>false</bool>
          </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::Preferred</enum>
+         <property name="font">
+          <font>
+           <pointsize>7</pointsize>
+          </font>
          </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>120</height>
-          </size>
+         <property name="autoScrollMargin">
+          <number>5</number>
          </property>
-        </spacer>
+         <property name="editTriggers">
+          <set>QAbstractItemView::NoEditTriggers</set>
+         </property>
+         <property name="alternatingRowColors">
+          <bool>true</bool>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::NoSelection</enum>
+         </property>
+         <property name="selectionBehavior">
+          <enum>QAbstractItemView::SelectRows</enum>
+         </property>
+         <property name="verticalScrollMode">
+          <enum>QAbstractItemView::ScrollPerPixel</enum>
+         </property>
+         <property name="showGrid">
+          <bool>true</bool>
+         </property>
+         <property name="gridStyle">
+          <enum>Qt::DotLine</enum>
+         </property>
+         <attribute name="horizontalHeaderDefaultSectionSize">
+          <number>133</number>
+         </attribute>
+         <attribute name="horizontalHeaderMinimumSectionSize">
+          <number>45</number>
+         </attribute>
+         <column>
+          <property name="text">
+           <string>План</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Последнее</string>
+          </property>
+         </column>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -547,7 +584,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>722</width>
+     <width>1000</width>
      <height>21</height>
     </rect>
    </property>

@@ -13,36 +13,39 @@ class EmployeeSC : public QMainWindow//, public delegateStates
     Q_OBJECT
 
 public:
-    EmployeeSC(QString dbName, Employee* employee, QWidget *parent = 0);
+    EmployeeSC(QString &dbName, Employee* employee, QWidget *parent = 0);
     ~EmployeeSC();
 
 private:
     Ui_EmployeeSC ui;
 
-	Employee* userData;
-	//HireDirective *hd;
-	//DutyChart *userDutyChart;
-
 	log_errors* journal;
 
-private:
-	//bool isEditable();
-	//void showStackedItem(QString namePage);
+	Employee* userData;
+	BillingPeriod *currentPeriod;
+	PayForm curPayForm;
 
+private:
 	//конструкторы
-	void initialDBManager(QString dbName);
+	void initialDBManager(QString &dbName);
 	bool showEmployeeData();
 
 	void error_msg(const char* short_description, const char* text);
-	//QAction* currentAction;
+	void parseBaseDataObject(HireDirective *hd, QString dutyChartName,BillingPeriod *currentPeriod);
+	
+	void fillTabelMarks(PayForm pf);
+	void fillTabelDateValues(QDate &date);
+	void fillTabelMarksValues(QDate &date);
 
-	//Employee* shapeBaseDataObject();
-	void parseBaseDataObject(HireDirective *hd, QString dutyChartName);
+	void setDescription(LaborSheet& laborSheet);
 
 private slots:
+	void showPeriod(QDate date);
+	void setCurrentPeriod();
 
-	//void updateInfo(QString name);
-	//void rememberState(bool state);
+	void editMarksList();
+	void saveMarksList();
+	void cancelMarksList();
 
 };
 #endif // EMPLOYEESC_H
