@@ -110,10 +110,10 @@ bool EmployeeSC::showEmployeeData()
 		if(!this->userData->fetch()) throw this->journal->fetchError("Ќе удалось получить данные о сотруднике");
 
 		HireDirective *hd = new HireDirective(this->userData->hireDirectiveID());
-		if(hd->fetch()) throw this->journal->fetchError("parseDataObject hiredirective fetch error");
+		if(!hd->fetch()) throw this->journal->fetchError("parseDataObject hiredirective fetch error");
 
 		DutyChart *userDutyChart = new DutyChart(this->userData->currentDutyChartID());
-		if(userDutyChart->fetch()) throw this->journal->fetchError("parseDataObject hiredirective fetch error");
+		if(!userDutyChart->fetch()) throw this->journal->fetchError("parseDataObject hiredirective fetch error");
 
 		parseBaseDataObject(hd,userDutyChart->name());
 
