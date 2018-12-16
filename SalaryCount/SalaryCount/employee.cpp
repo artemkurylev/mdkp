@@ -30,7 +30,7 @@ Employee::Employee(const Employee& employee)
 Предполагается, что приказ и график уже созданы и имеют ID
 */
 
-Employee::Employee(QString _fio,QString _phoneNumber,long long _INN,int _currentDutyChartID,int _hireDirectiveID)
+Employee::Employee(QString _fio,QString _phoneNumber,long long _INN,int _currentDutyChartID,int _hireDirectiveID,QString _pass)
 {
 	this->_fio = _fio;
 	this->_phoneNumber = _phoneNumber;
@@ -38,11 +38,12 @@ Employee::Employee(QString _fio,QString _phoneNumber,long long _INN,int _current
 	this->_currentDutyChartID = _currentDutyChartID;
 	this->_hireDirectiveID = _hireDirectiveID;
     this->_hireDirective = NULL;
+	this->_password = _pass;
 	// оставить пустыми
     _nextDutyChartID = - 1;
 	resetNextDutyChart();
 }
-Employee::Employee(int id, QString _fio,QString _phoneNumber,long long _INN,int _currentDutyChartID,int _hireDirectiveID)
+Employee::Employee(int id, QString _fio,QString _phoneNumber,long long _INN,int _currentDutyChartID,int _hireDirectiveID,QString _pass)
 {
     this->_id = id;
 	this->_fio = _fio;
@@ -51,6 +52,7 @@ Employee::Employee(int id, QString _fio,QString _phoneNumber,long long _INN,int 
 	this->_currentDutyChartID = _currentDutyChartID;
 	this->_hireDirectiveID = _hireDirectiveID;
     this->_hireDirective = NULL;
+	this->_password = _pass;
     _nextDutyChartID = -1;
 	// оставить пустыми
 	resetNextDutyChart();
