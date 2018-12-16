@@ -15,13 +15,14 @@ class EmployeeSC : public QMainWindow // , virtual public delegateStates
     Q_OBJECT
 
 public:
-    EmployeeSC(QString dbName, QWidget *parent = 0);
+    EmployeeSC(QString dbName, Employee* employee, QWidget *parent = 0);
     ~EmployeeSC();
 
 private:
     Ui_EmployeeSC ui;
 
 	Employee* userData;
+	log_errors* journal;
 
 private:
 	//bool isEditable();
@@ -30,9 +31,10 @@ private:
 	//конструкторы
 	void initialDBManager(QString dbName);
 
+	void error_msg(const char* short_description, const char* text);
 	//QAction* currentAction;
 
-	Employee* shapeBaseDataObject();
+	//Employee* shapeBaseDataObject();
 	//void parseDataObject(Employee *obj);
 
 private slots:
