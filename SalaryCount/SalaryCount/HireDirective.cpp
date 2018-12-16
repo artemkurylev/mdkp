@@ -65,7 +65,7 @@ bool HireDirective::fetch()
                 _payForm = (PayForm)query->value(3).toInt();
                 _salary = query->value(4).toFloat();
                 _employeeID = query->value(5).toInt();
-				success = false;
+				success = true;
             }
         }
         else
