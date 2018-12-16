@@ -31,7 +31,9 @@ private:
 
 private:
 	//конструкторы
-	void initialDBManager(QString &dbName);
+
+	void initialDBManager(QString dbName);
+
 	bool showEmployeeData();
 
 	void error_msg(const char* short_description, const char* text);
