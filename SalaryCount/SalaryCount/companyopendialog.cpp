@@ -124,7 +124,7 @@ void companyOpenDialog::enterEmployee()
 
 		DbManager::companyManager().close();
 
-		EmployeeSC* sc = new EmployeeSC(name);
+		EmployeeSC* sc = new EmployeeSC(name,employee);
         this->close();
         sc->show();
 	}
