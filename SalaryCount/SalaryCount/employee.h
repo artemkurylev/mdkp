@@ -40,7 +40,7 @@ public:
     const QDate& nextDutyChartSince() const{return _nextDutyChartSince;}
     const int hireDirectiveID() const {return _hireDirectiveID;}
     /* Авторизация , если пользователь с телефоном найден и с паролем все ок, то вернет true, иначе false*/
-    const bool auth() const;
+    const bool auth();
     HireDirective* hireDirective();
 	QDate hireDate()	{	return hireDirective()->hireDate();	}
 
