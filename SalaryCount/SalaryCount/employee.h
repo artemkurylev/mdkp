@@ -16,8 +16,8 @@ public:
     Employee();
 	Employee(int id);
     Employee(const Employee& employee);
-	Employee(QString _fio,QString _phoneNumber,long long _INN,int _currentDutyChartID,int _hireDirectiveID);
-    Employee(int id, QString _fio,QString _phoneNumber,long long _INN,int _currentDutyChartID,int _hireDirectiveID);
+	Employee(QString _fio,QString _phoneNumber,long long _INN,int _currentDutyChartID,int _hireDirectiveID, QString _pass);
+    Employee(int id, QString _fio,QString _phoneNumber,long long _INN,int _currentDutyChartID,int _hireDirectiveID, QString _pass);
 
 	Employee(QString phone,QString pass){_phoneNumber=phone;_password=pass;}
     ~Employee();
