@@ -137,7 +137,7 @@ bool Employee::fetch()
             {
                 _fio = query->value(1).toString();
                 _phoneNumber = query->value(2).toString();
-                _INN = query->value(3).toInt();
+                _INN = query->value(3).toLongLong();
 				// hire_directive_id
                 _hireDirectiveID = query->value(4).toLongLong();
                 _currentDutyChartID = query->value(5).toInt();
@@ -304,7 +304,7 @@ bool Employee::applyDutyChartChange(const QDate& currentPeriodStart)
 	}
 	return reset;
 }
-const bool Employee::auth() const{
+const bool Employee::auth(){
     bool success = false;
     QByteArray hash;
     hash.append(this->_password);
@@ -312,16 +312,17 @@ const bool Employee::auth() const{
     QSqlQuery* query = DbManager::manager().makeQuery();
     if(DbManager::manager().checkConnection())
     {
-        query->prepare("SELECT password FROM `employee` WHERE `phone_number` == :phone_number");
+        query->prepare("SELECT id,password FROM `employee` WHERE `phone_number` == :phone_number");
         query->bindValue(":phone_number",this->_phoneNumber);
         if(query->exec())
         {
             if(query->next())
             {
-                QString pass = query->value(0).toString();
+                QString pass = query->value(1).toString();
                 if(pass == hash)
                 {
                     success = true;
+                    this->_id = query->value(0).toInt();
                 }
             }
         }
