@@ -148,11 +148,6 @@ bool EmployeeSC::showEmployeeData()
 		DutyChart *userDutyChart = new DutyChart(this->userData->currentDutyChartID());
 		if(!userDutyChart->fetch()) throw this->journal->fetchError("parseDataObject hiredirective fetch error");
 
-		this->currentPeriod = BillingPeriod::getCurrentPeriod();
-		if(!currentPeriod) throw this->journal->nullPtr("showEmployeeData billingperiod");
-
-
-
 		parseBaseDataObject(hd,userDutyChart->name(),this->currentPeriod);
 
 		this->curPayForm = hd->payForm();
