@@ -174,3 +174,12 @@ log_errors::exception_states log_errors::invalidData(std::string text) throw()
 
 	return ex;
 }
+
+log_errors::exception_states log_errors::failAuthorization(std::string text) throw()
+{
+	exception_states ex = AUTH_EX;
+
+	baseError(ex, text);
+
+	return ex;
+}

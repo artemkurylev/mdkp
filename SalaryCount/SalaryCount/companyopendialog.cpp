@@ -4,6 +4,8 @@ companyOpenDialog::companyOpenDialog(QWidget *parent)
     : QDialog(parent)
 {
     ui.setupUi(this);
+	this->journal = new log_errors();//журнал ошибок 
+
     initialDBManager();
     if(!Company::countEntries())
     {
@@ -13,6 +15,8 @@ companyOpenDialog::companyOpenDialog(QWidget *parent)
 
     connect(ui.DirectorButtonBox->button(ui.DirectorButtonBox->Ok),SIGNAL(clicked()),this,SLOT(enterCompany()));
     connect(ui.createCompanyBtn,SIGNAL(clicked()),this,SLOT(createCompany()));
+
+	connect(ui.EmployeeButtonBox->button(ui.EmployeeButtonBox->Ok),SIGNAL(pressed()),this,SLOT(enterEmployee()));
 }
 
 void companyOpenDialog::enterCompany()
@@ -101,4 +105,42 @@ void companyOpenDialog::updateCompanyList()
 		 ui.CompanyCombo->setCurrentIndex(curr_index);
 		 ui.CompanyCombo_2->setCurrentIndex(curr_index);
 	}
+}
+
+void companyOpenDialog::enterEmployee()
+{
+	try
+	{
+		QString name = ui.CompanyCombo->currentText();
+		QString number = ui.eNumberPhone->text();
+		QString pass = ui.ePass->text();
+
+		Employee* employee = new Employee(number,pass);
+
+		if(!employee->auth()) 
+			throw this->journal->failAuthorization("error authorization.\n Please, check you phone & password");
+
+		DbManager::companyManager().close();
+
+		EmployeeSC* sc = new EmployeeSC(name);
+        this->close();
+        sc->show();
+	}
+	catch(log_errors::exception_states e)
+	{
+		if(e==log_errors::AUTH_EX)
+		{
+			QByteArray code = QString::number(this->journal->getLastErrorCode()).toLocal8Bit();
+			QByteArray msg = this->journal->getLastError().toLocal8Bit();
+
+			error_msg(code.data(),msg.data());//cообщили об ошибке
+			this->journal->lastConflictNonResolved();
+		}
+	}
+}
+
+void companyOpenDialog::error_msg(const char* short_description, const char* text)
+{
+	QTextCodec* c = QTextCodec::codecForLocale();
+	QMessageBox::critical(NULL,c->toUnicode(short_description), c->toUnicode(text));
 }

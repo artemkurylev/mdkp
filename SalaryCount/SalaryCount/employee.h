@@ -18,6 +18,8 @@ public:
     Employee(const Employee& employee);
 	Employee(QString _fio,QString _phoneNumber,long long _INN,int _currentDutyChartID,int _hireDirectiveID);
     Employee(int id, QString _fio,QString _phoneNumber,long long _INN,int _currentDutyChartID,int _hireDirectiveID);
+
+	Employee(QString phone,QString pass){_phoneNumber=phone;_password=pass;}
     ~Employee();
 
     bool fetch();
