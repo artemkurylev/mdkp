@@ -24,7 +24,7 @@ EmployeeSC::EmployeeSC(QString dbName,Employee* employee, QWidget *parent)
 
 		this->userData = employee;
 
-		if(getEmployeeData())
+		if(showEmployeeData())
 		{
 
 		}
@@ -132,6 +132,9 @@ void EmployeeSC::updateInfo(QString name)
 }
 
 bool EmployeeSC::getEmployeeData()
+
+bool EmployeeSC::showEmployeeData()
+
 {
 	try
 	{
