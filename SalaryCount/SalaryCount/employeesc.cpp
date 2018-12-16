@@ -17,24 +17,20 @@ EmployeeSC::EmployeeSC(QString dbName,Employee* employee, QWidget *parent)
 
 	this->userData = employee;
 
-	try
+	if(getEmployeeData())
 	{
-		if(!this->userData->fetch()) throw this->journal->fetchError("Не удалось получить данные о сотруднике");
+
 	}
-	catch(log_errors::exception_states e)
+	else
 	{
-		QByteArray code = QString::number(this->journal->getLastErrorCode()).toLocal8Bit();
-		QByteArray msg = this->journal->getLastError().toLocal8Bit();
-
-		error_msg(code.data(),msg.data());//cообщили об ошибке
-		this->journal->lastConflictNonResolved();
+		//показать диалог повторного подключения
 	}
-
 }
 
 EmployeeSC::~EmployeeSC()
 {
-	
+	this->journal->~log_errors();
+	this->userData->~Employee();
 }
 
 void EmployeeSC::initialDBManager(QString dbName)
@@ -90,32 +86,53 @@ void EmployeeSC::error_msg(const char* short_description, const char* text)
 	QMessageBox::critical(NULL,c->toUnicode(short_description), c->toUnicode(text));
 }
 
-//Employee* EmployeeSC::shapeDataObject()
-//{
-//	return NULL;
-//}
-//
-//void EmployeeSC::parseDataObject(Employee *obj)
-//{
-//
-//}
-//
-//void EmployeeSC::updateInfo(QString name)
-//{
-//
-//}
+bool EmployeeSC::getEmployeeData()
+{
+	try
+	{
+		if(!this->userData->fetch()) throw this->journal->fetchError("Не удалось получить данные о сотруднике");
 
-//Employee* EmployeeSC::shapeDataObject()
-//{
-//	return NULL;
-//}
-//
-//void EmployeeSC::parseDataObject(Employee *obj)
-//{
-//
-//}
-//
-//void EmployeeSC::updateInfo(QString name)
-//{
-//
-//}
+		HireDirective *hd = new HireDirective(this->userData->hireDirectiveID());
+		if(hd->fetch()) throw this->journal->fetchError("parseDataObject hiredirective fetch error");
+
+		DutyChart *userDutyChart = new DutyChart(this->userData->currentDutyChartID());
+		if(userDutyChart->fetch()) throw this->journal->fetchError("parseDataObject hiredirective fetch error");
+
+		parseBaseDataObject(hd,userDutyChart->name());
+
+		return true;
+	}
+	catch(log_errors::exception_states e)
+	{
+		QByteArray code = QString::number(this->journal->getLastErrorCode()).toLocal8Bit();
+		QByteArray msg = this->journal->getLastError().toLocal8Bit();
+
+		error_msg(code.data(),msg.data());//cообщили об ошибке
+		this->journal->lastConflictNonResolved();
+
+		return false;
+	}
+}
+
+void EmployeeSC::parseBaseDataObject(HireDirective *hd, QString dutyChartName)
+{
+	try
+	{
+		if(!this->userData) throw this->journal->nullPtr();
+
+		ui.eFIO->setText(this->userData->fio());
+		ui.eNumberPhone->setText(this->userData->phoneNumber());
+		ui.INN->setText(QString::number(this->userData->inn()));
+
+		ui.ePayFormChoice->setCurrentIndex(hd->payForm()==PER_MONTH ? 0 : 1);
+		ui.eReceiptDate->setDate(hd->hireDate());
+		ui.eOrderNum->setText(QString::number(hd->id()));
+		ui.eSalary->setValue(hd->salary());
+
+		ui.eDutyChart->setText(dutyChartName);
+	}
+	catch(log_errors::exception_states e)
+	{
+
+	}
+}
