@@ -137,7 +137,7 @@ bool Employee::fetch()
             {
                 _fio = query->value(1).toString();
                 _phoneNumber = query->value(2).toString();
-                _INN = query->value(3).toInt();
+                _INN = query->value(3).toLongLong();
 				// hire_directive_id
                 _hireDirectiveID = query->value(4).toLongLong();
                 _currentDutyChartID = query->value(5).toInt();
