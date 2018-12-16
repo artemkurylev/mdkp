@@ -310,8 +310,7 @@ const bool Employee::auth(){
     if(DbManager::manager().checkConnection())
     {
 
-        query->prepare("SELECT `id`,`password` FROM `employee` WHERE `phone_number` = :phone_number");
-
+        query->prepare("SELECT `id`,`password` FROM `employee` WHERE `phone_number` =:phone_number");
         query->bindValue(":phone_number",this->_phoneNumber);
         if(query->exec())
         {
