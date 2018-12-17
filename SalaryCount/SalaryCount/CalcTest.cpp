@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> eec4bb5... Частичная реализация инициализации для тестирования Табеля
 #include "CalcTest.h"
 
 
@@ -14,11 +17,14 @@ CalcTest::CalcTest(QObject *parent)
 	//Employee(QString _fio,QString _phoneNumber,long long _INN,int _currentDutyChartID,int _hireDirectiveID, QString _pass);
 }
 
+<<<<<<< HEAD
 void CalcTest::init()
 {
 	this->laborSheet->fillWithDefaults();
 }
 
+=======
+>>>>>>> eec4bb5... Частичная реализация инициализации для тестирования Табеля
 void CalcTest::initTestCase()
 {
 	QString fio("������ ���� ��������");
@@ -33,7 +39,11 @@ void CalcTest::initTestCase()
 		;
 
 	// create all
+<<<<<<< HEAD
 	this->billPeriod = new BillingPeriod(billp_id, QDate(2018,12,01), BillingPeriod::OPEN);
+=======
+	this->billPeriod = new BillingPeriod(billp_id, QDate(2010,5,01), BillingPeriod::OPEN);
+>>>>>>> eec4bb5... Частичная реализация инициализации для тестирования Табеля
 
 
 	this->hireDir = new HireDirective(hd_id, QDate(2010,3,01), fio, payForm, salary, /*employeeId*/0 );
@@ -42,7 +52,10 @@ void CalcTest::initTestCase()
 
 	this->chart = new DutyChart(chart_id);
 	*chart = defaultChart();
+<<<<<<< HEAD
 	chart->_id = chart_id;
+=======
+>>>>>>> eec4bb5... Частичная реализация инициализации для тестирования Табеля
 
 	this->guy = new Employee(fio,"+7 (123) 505 33 99", 123456789012L /*INN*/, chart_id, hd_id, "an md5 hash");
 
@@ -58,7 +71,11 @@ void CalcTest::initTestCase()
 	this->hireDir->_hiredEmployee = this->guy;
 	this->guy->_hireDirective = this->hireDir;
 
+<<<<<<< HEAD
 	//this->laborSheet->fillWithDefaults();
+=======
+	this->laborSheet->fillWithDefaults();
+>>>>>>> eec4bb5... Частичная реализация инициализации для тестирования Табеля
 
 }
 void CalcTest::cleanupTestCase()
@@ -67,6 +84,7 @@ void CalcTest::cleanupTestCase()
 		delete this->billPeriod;
 
 	if(this->laborSheet != NULL)
+<<<<<<< HEAD
 	{
 		this->laborSheet->_employee = NULL;
 		this->laborSheet->_billingPeriod = NULL;
@@ -79,11 +97,18 @@ void CalcTest::cleanupTestCase()
 		this->guy->_hireDirective = NULL;
 		delete this->guy;
 	}
+=======
+		delete this->laborSheet;
+
+	if(this->guy != NULL)
+		delete this->guy;
+>>>>>>> eec4bb5... Частичная реализация инициализации для тестирования Табеля
 
 	if(this->chart != NULL)
 		delete this->chart;
 
 	if(this->hireDir != NULL)
+<<<<<<< HEAD
 	{
 		this->hireDir->_hiredEmployee = NULL;
 		delete this->hireDir;
@@ -219,17 +244,33 @@ void CalcTest::DefaultSheet()
 	qDebug(hr.toLocal8Bit().data());
 =======
 #include <CalcTest.h>
+=======
+		delete this->hireDir;
+
+}
+>>>>>>> eec4bb5... Частичная реализация инициализации для тестирования Табеля
 
 
 void CalcTest::normal()
 {
+	/*! ���������� �������� ������� ����� �� ������
+	int countBaseTimeUnits();
+	*/
+	/*! ���������� ������������ ����� �� ������
+	int countActualTimeUnits ();
+	*/
+	
+	qDebug("countBaseTimeUnits: %d", this->laborSheet->countBaseTimeUnits());
+	qDebug("countActualTimeUnits: %d", this->laborSheet->countActualTimeUnits());
+
 	// create
-	QCOMPARE(1,1);
+	QCOMPARE(this->laborSheet->countBaseTimeUnits(), this->laborSheet->countActualTimeUnits() );
 
-	qDebug("un test normal");
-
+<<<<<<< HEAD
 	QCOMPARE(0,1);
 >>>>>>> 3690967... Добавлен класс для тестирования расчётов
+=======
+>>>>>>> eec4bb5... Частичная реализация инициализации для тестирования Табеля
 }
 
 
