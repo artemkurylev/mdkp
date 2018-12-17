@@ -162,6 +162,8 @@ bool EmployeeSC::showEmployeeData()
 		this->currentPeriod = BillingPeriod::getCurrentPeriod();
 		if(!currentPeriod) throw this->journal->nullPtr("showEmployeeData billingperiod");
 
+
+
 		parseBaseDataObject(hd,userDutyChart->name(),this->currentPeriod);
 
 		this->curPayForm = hd->payForm();
@@ -325,8 +327,9 @@ void EmployeeSC::showPeriod(QDate date)
 {
 	try
 	{
-		BillingPeriod* period = BillingPeriod::getByDate(date);
-		if(!period->fetch()) throw this->journal->fetchError("showPeriod BillingPeriod fetch");
+		QDate d(date.year(),date.month(),1);
+		BillingPeriod* period = BillingPeriod::getByDate(d);
+		if(!period->fetch()) throw this->journal->fetchError("showPeriod getByDate BillingPeriod fetch");
 
 		LaborSheet *lsh = new LaborSheet(this->userData->id(),period->id());
 		if(!lsh->fetch()) throw this->journal->fetchError("showPeriod LaborSheet fetch");
@@ -334,8 +337,8 @@ void EmployeeSC::showPeriod(QDate date)
 		if(period->status()!=BillingPeriod::Status::OPEN){ui.editBtn->setEnabled(false);}
 		else{ui.editBtn->setEnabled(true);}
 
-		fillTabelDateValues(date);
-		fillTabelMarksValues(date);
+		fillTabelDateValues(d);
+		fillTabelMarksValues(d);
 		setDescription(*lsh);
 	}
 	catch(log_errors::exception_states e)
@@ -352,8 +355,8 @@ void EmployeeSC::fillTabelMarksValues(QDate &date)
 {
 	try
 	{
-		BillingPeriod *bp = new BillingPeriod(date);
-		if(!bp->fetch())throw this->journal->fetchError("EmployeeSC::fillTabelMarksValues BillingPeriod fetch");
+		BillingPeriod *bp = BillingPeriod::getByDate(date);
+		if(!bp->fetch())throw this->journal->fetchError("fillTabelMarksValues getByDate BillingPeriod fetch");
 
 		LaborSheet *lsh = new LaborSheet(this->userData->id(), bp->id());
 		if(!lsh->fetch())throw this->journal->fetchError("EmployeeSC::fillTabelMarksValues LaborSheet fetch");
