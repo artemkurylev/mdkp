@@ -33,7 +33,7 @@ int test_main(int argc, char *argv[]);
 
 int main(int argc, char *argv[])
 {
-	if(true) // if tests enabled
+	if(false) // if tests enabled
 	{
 		return test_main(argc, argv);
 	}
