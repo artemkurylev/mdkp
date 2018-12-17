@@ -508,6 +508,29 @@ void EmployeeSC::saveMarksList()
 	ui.CancelLaborBtn->setEnabled(false);
 	ui.GoToCurrentPeriod_button->setEnabled(false);
 	QMessageBox::information(NULL,"Success", "Data saved complete!");
+
+	QList<Mark*> m;
+	int currentDay = QDate::currentDate().day();
+	for(int i=0; i<ui.laborSheet->rowCount();++i)
+	{
+		for(int j=0; j<ui.laborSheet->columnCount();++j)
+		{
+			QWidget *w =ui.laborSheet->cellWidget(i,j);
+
+			QList<QLabel*>labelList = w->findChildren<QLabel*>();
+			QList<QComboBox*>comboBoxList = w->findChildren<QComboBox*>();
+
+			if(comboBoxList[0]->isVisible())
+			{
+				if(currentDay <= labelList[0]->text().toInt())
+				{
+					//m.append(Mark(
+				}
+				//comboBoxList[0]->currentData();
+			}
+		}
+	}
+
 }
 
 void EmployeeSC::cancelMarksList()
