@@ -478,6 +478,81 @@ bool LaborSheet::fetch()
     }
     return success;
 }
+bool LaborSheet::fetch(int employeeid,int periodId)
+{
+    bool success = false;
+    if(DbManager::manager().checkConnection())
+    {
+        QSqlQuery* query = DbManager::manager().makeQuery();
+
+        query->prepare("SELECT * FROM `labor_sheet` WHERE `billing_period_id` = :billing_period_id AND `employee_id` = :employee_id");
+        query->bindValue(":billing_period_id",periodId);
+        query->bindValue(":employee_id",employeeid);
+        if(query->exec())
+        {
+            if(query->next())
+            {
+                //ѕолучить id табле€
+                this->_id = query->value(0).toInt();
+				// получить ID сотрудника
+                this->_employeeId = query->value(2).toInt();
+
+				// получить ID периода
+                this->_billingPeriodId = query->value(1).toInt();
+				
+				// получить ID графика
+                this->_dutyChartId = query->value(3).toInt();
+
+				// получить выплату
+                this->_award = query->value(4).toFloat();
+
+     //           QSqlQuery query_b = *(DbManager::manager().makeQuery());
+     //           query_b.prepare("SELECT * FROM `billing_period` WHERE `id` = :billing_period_id");
+     //           query_b.bindValue(":billing_period_id",query->value(1).toInt());
+     //           if(query->exec() && query->next())
+     //           {
+					//this->_billingPeriodId = 
+     //               BillingPeriod* period = new BillingPeriod(query->value(1).toDate(),(BillingPeriod::Status)query->value(2).toInt());
+     //               this->_billingPeriod = period;
+     //           }
+     //           if(query->exec() && query->next())
+     //           {
+     //               DutyChart* dutyChart = new DutyChart(query->value(3).toInt());
+     //               this->_dutyChart = dutyChart;
+     //			  }
+
+                QSqlQuery query_m = *(DbManager::manager().makeQuery());
+                query_m.prepare("SELECT * FROM `mark` WHERE `laborsheet_id` = :id");
+                int id = this->_id;
+                query_m.bindValue(":id", id);
+                if(query_m.exec())
+                {
+                    while(query_m.next())
+                    {
+                        Mark m(query_m.value(1).toInt(),
+							query_m.value(2).toInt(),
+							query_m.value(3).toInt(),
+							query_m.value(4).toInt(),
+							query_m.value(5).toInt(),
+							query_m.value(6).toInt()
+							);
+                        int mark_id = query_m.value(0).toInt();
+                        m.setId(mark_id);
+                        _grid.append(m);
+                    }
+					success = true;
+                }
+            }
+        }
+        else
+        {
+            QString s = query->lastError().text();
+            s+="as";
+        }
+        delete query;
+    }
+    return success;
+}
 long LaborSheet::countEntries()
 {
     int counter = 0;
