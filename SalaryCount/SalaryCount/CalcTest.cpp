@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include "CalcTest.h"
 
 
@@ -216,6 +217,19 @@ void CalcTest::DefaultSheet()
 	}
 
 	qDebug(hr.toLocal8Bit().data());
+=======
+#include <CalcTest.h>
+
+
+void CalcTest::normal()
+{
+	// create
+	QCOMPARE(1,1);
+
+	qDebug("un test normal");
+
+	QCOMPARE(0,1);
+>>>>>>> 3690967... Добавлен класс для тестирования расчётов
 }
 
 

@@ -4,7 +4,11 @@
 #include <QtCore/QCoreApplication>
 
 #include "companyopendialog.h"
+<<<<<<< HEAD
 #include "unittest/DirectiveGeneratorTest.h"
+=======
+#include "DirectiveGenerator.h"
+>>>>>>> 3690967... Добавлен класс для тестирования расчётов
 #include <CalcTest.h>
 
 int test_main(int argc, char *argv[]);
@@ -26,6 +30,7 @@ int main(int argc, char *argv[])
     //SalaryCount w;
     //w.show();
     return a.exec();
+<<<<<<< HEAD
 }
 
 void MyMessageOutput(QtMsgType type, const QMessageLogContext& context, const QString &message)
@@ -70,3 +75,6 @@ int test_main(int argc, char *argv[])
 
     return 0; // a.exec();
 }
+=======
+}
+>>>>>>> 3690967... Добавлен класс для тестирования расчётов
