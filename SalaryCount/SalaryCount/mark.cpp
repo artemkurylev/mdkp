@@ -142,7 +142,7 @@ int Mark::insert()
 		else
 		{
 			query->prepare("INSERT INTO `mark` (base,altered,count_hours,altered_count_hours,laborsheet_id) VALUES(:base,:altered,:count_hours,:altered_count_hours,:laborsheet_id)");
-			query->bindValue(":dutychart_id",this->_dutyChartId);
+			query->bindValue(":laborsheet_id",this->_laborsheetId);
 		}
 		query->bindValue(":base",this->_base);
         query->bindValue(":altered",this->_altered);
