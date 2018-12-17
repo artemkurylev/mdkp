@@ -385,10 +385,14 @@ void EmployeeSC::fillTabelMarksValues(QDate &date)
 						tm = i_marks->altered()==Mark::Type::INVALID ? i_marks->base() : i_marks->altered();
 					else
 <<<<<<< HEAD
+<<<<<<< HEAD
 						tm = i_marks->alteredCountHours()==-1 ? i_marks->countHours() : i_marks->alteredCountHours();
 =======
 						tm = i_marks->altered()==Mark::Type::INVALID ? i_marks->countHours() : i_marks->alteredCountHours();
 >>>>>>> f9c5f82... сохранение не робит, все остальное робит
+=======
+						tm = i_marks->alteredCountHours()==-1 ? i_marks->countHours() : i_marks->alteredCountHours();
+>>>>>>> 1413454... метод сохранения отметок робит
 
 					comboBoxList[0]->setCurrentIndex(comboBoxList[0]->findData(QVariant(tm)));
 					i_marks++;
