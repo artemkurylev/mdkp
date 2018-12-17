@@ -52,6 +52,8 @@ EmployeeSC::EmployeeSC(QString &dbName,Employee* employee, QWidget *parent)
 		error_msg(code.data(),msg.data());//cообщили об ошибке //xyi-> перенесено в диалог входа (не надо так делать)
 		this->journal->lastConflictNonResolved();
 		// throw again
+		if(log_errors::exception_states::AUTH_EX == e)
+			this->isAutorizate=false;
 	}
 
 	connect(this->ui.BillingPeriod_dateEdit,SIGNAL(dateChanged(QDate)),this,SLOT(showPeriod(QDate)));
