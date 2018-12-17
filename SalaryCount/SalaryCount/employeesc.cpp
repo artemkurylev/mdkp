@@ -129,6 +129,8 @@ bool EmployeeSC::showEmployeeData()
 		this->currentPeriod = BillingPeriod::getCurrentPeriod();
 		if(!currentPeriod) throw this->journal->nullPtr("showEmployeeData billingperiod");
 
+
+
 		parseBaseDataObject(hd,userDutyChart->name(),this->currentPeriod);
 
 		this->curPayForm = hd->payForm();
@@ -149,23 +151,38 @@ bool EmployeeSC::showEmployeeData()
 
 void EmployeeSC::parseBaseDataObject(HireDirective *hd, QString dutyChartName,BillingPeriod *currentPeriod)
 {
-	ui.eFIO->setText(this->userData->fio());
-	ui.eNumberPhone->setText(this->userData->phoneNumber());
-	ui.INN->setText(QString::number(this->userData->inn()));
+	try
+	{
+		ui.eFIO->setText(this->userData->fio());
+		ui.eNumberPhone->setText(this->userData->phoneNumber());
+		ui.INN->setText(QString::number(this->userData->inn()));
 
-	ui.ePayFormChoice->setCurrentIndex(hd->payForm()==PER_MONTH ? 0 : 1);
-	ui.eReceiptDate->setDate(hd->hireDate());
-	ui.eOrderNum->setText(QString::number(hd->id()));
-	ui.eSalary->setValue(hd->salary());
+		ui.ePayFormChoice->setCurrentIndex(hd->payForm()==PER_MONTH ? 0 : 1);
+		ui.eReceiptDate->setDate(hd->hireDate());
+		ui.eOrderNum->setText(QString::number(hd->id()));
+		ui.eSalary->setValue(hd->salary());
 
-	QPair<QDate,QDate>minmaxDate = currentPeriod->getDateSpan();
-	ui.BillingPeriod_dateEdit->setMinimumDate(minmaxDate.first);
-	ui.BillingPeriod_dateEdit->setMaximumDate(minmaxDate.second);
+		QPair<QDate,QDate>minmaxDate = currentPeriod->getDateSpan();
+		if(hd->hireDate()>minmaxDate.second)throw this->journal->failAuthorization("User else not working!");
 
-	ui.CurrentPeriod_dateEdit->setDate(currentPeriod->startDate());
-	ui.BillingPeriod_dateEdit->setDate(currentPeriod->startDate());
+		ui.BillingPeriod_dateEdit->setMinimumDate(hd->hireDate());
+		ui.BillingPeriod_dateEdit->setMaximumDate(minmaxDate.second);
 
-	ui.eDutyChart->setText(dutyChartName);
+		ui.CurrentPeriod_dateEdit->setDate(currentPeriod->startDate());
+		ui.BillingPeriod_dateEdit->setDate(currentPeriod->startDate());
+
+		ui.eDutyChart->setText(dutyChartName);
+	}
+	catch(log_errors::exception_states e)
+	{
+		QByteArray code = QString::number(this->journal->getLastErrorCode()).toLocal8Bit();
+		QByteArray msg = this->journal->getLastError().toLocal8Bit();
+
+		error_msg(code.data(),msg.data());//cообщили об ошибке
+		this->journal->lastConflictNonResolved();
+
+		if(e==log_errors::exception_states::AUTH_EX) this->close();
+	}
 }
 
 void EmployeeSC::fillTabelMarks(PayForm pf)
@@ -285,8 +302,9 @@ void EmployeeSC::showPeriod(QDate date)
 {
 	try
 	{
-		BillingPeriod* period = BillingPeriod::getByDate(date);
-		if(!period->fetch()) throw this->journal->fetchError("showPeriod BillingPeriod fetch");
+		QDate d(date.year(),date.month(),1);
+		BillingPeriod* period = BillingPeriod::getByDate(d);
+		if(!period->fetch()) throw this->journal->fetchError("showPeriod getByDate BillingPeriod fetch");
 
 		LaborSheet *lsh = new LaborSheet(this->userData->id(),period->id());
 		if(!lsh->fetch(this->userData->id(),period->id())) throw this->journal->fetchError("showPeriod LaborSheet fetch");
@@ -294,8 +312,8 @@ void EmployeeSC::showPeriod(QDate date)
 		if(period->status()!=BillingPeriod::Status::OPEN){ui.editBtn->setEnabled(false);}
 		else{ui.editBtn->setEnabled(true);}
 
-		fillTabelDateValues(date);
-		fillTabelMarksValues(date);
+		fillTabelDateValues(d);
+		fillTabelMarksValues(d);
 		setDescription(*lsh);
 	}
 	catch(log_errors::exception_states e)
@@ -312,8 +330,8 @@ void EmployeeSC::fillTabelMarksValues(QDate &date)
 {
 	try
 	{
-        BillingPeriod *bp = BillingPeriod::getByDate(date);
-		if(!bp->fetch())throw this->journal->fetchError("EmployeeSC::fillTabelMarksValues BillingPeriod fetch");
+		BillingPeriod *bp = BillingPeriod::getByDate(date);
+		if(!bp->fetch())throw this->journal->fetchError("fillTabelMarksValues getByDate BillingPeriod fetch");
 
 		LaborSheet *lsh = new LaborSheet(this->userData->id(), bp->id());
 		if(!lsh->fetch(this->userData->id(),bp->id()))throw this->journal->fetchError("EmployeeSC::fillTabelMarksValues LaborSheet fetch");
