@@ -355,13 +355,13 @@ void EmployeeSC::fillTabelMarksValues(QDate &date)
 		if(!lsh->fetch(this->userData->id(),bp->id()))throw this->journal->fetchError("EmployeeSC::fillTabelMarksValues LaborSheet fetch");
 
 		QList<Mark> marks = lsh->grid();
+		if(marks.empty()) throw this->journal->nullPtr("data about marks not found");
 
 		//#set marks
 		auto i_marks = marks.begin();
-		for(int i=0; i<ui.laborSheet->rowCount();++i)
+		for(int i=0; i<ui.laborSheet->rowCount() && i_marks != marks.end();++i)
 		{
-			i_marks++;
-			for(int j=0; j<ui.laborSheet->columnCount();++j)
+			for(int j=0; j<ui.laborSheet->columnCount() && i_marks != marks.end();++j)
 			{
 				QWidget *w =ui.laborSheet->cellWidget(i,j);
 
@@ -371,6 +371,7 @@ void EmployeeSC::fillTabelMarksValues(QDate &date)
 				{
 					int tm = i_marks->altered()==Mark::Type::INVALID ? i_marks->base() : i_marks->altered();
 					comboBoxList[0]->setCurrentIndex(comboBoxList[0]->findData(QVariant(tm)));
+					i_marks++;
 				}
 			}
 		}
@@ -424,7 +425,29 @@ void EmployeeSC::editMarksList()
 
 void EmployeeSC::saveMarksList()
 {
+	//LaborSheet *lsh = new LaborSheet();
 
+	QList<Mark*> m;
+	int currentDay = QDate::currentDate().day();
+	for(int i=0; i<ui.laborSheet->rowCount();++i)
+	{
+		for(int j=0; j<ui.laborSheet->columnCount();++j)
+		{
+			QWidget *w =ui.laborSheet->cellWidget(i,j);
+
+			QList<QLabel*>labelList = w->findChildren<QLabel*>();
+			QList<QComboBox*>comboBoxList = w->findChildren<QComboBox*>();
+
+			if(comboBoxList[0]->isVisible())
+			{
+				if(currentDay <= labelList[0]->text().toInt())
+				{
+					//m.append(Mark(
+				}
+				//comboBoxList[0]->currentData();
+			}
+		}
+	}
 }
 
 void EmployeeSC::cancelMarksList()
