@@ -307,7 +307,7 @@ void EmployeeSC::showPeriod(QDate date)
 		if(!period->fetch()) throw this->journal->fetchError("showPeriod getByDate BillingPeriod fetch");
 
 		LaborSheet *lsh = new LaborSheet(this->userData->id(),period->id());
-		if(!lsh->fetch()) throw this->journal->fetchError("showPeriod LaborSheet fetch");
+		if(!lsh->fetch(this->userData->id(),period->id())) throw this->journal->fetchError("showPeriod LaborSheet fetch");
 
 		if(period->status()!=BillingPeriod::Status::OPEN){ui.editBtn->setEnabled(false);}
 		else{ui.editBtn->setEnabled(true);}
