@@ -296,9 +296,14 @@ QString salarycountEmployees::validateData()
 	if( !phone.isValid() || !phone.exactMatch(ui->eNumberPhone->text()) )
 		return QString::fromWCharArray(L"Неправильный номер телефона:\n%1\nПример: +7 (111) 111 11 11").arg(ui->eNumberPhone->text());
 
+<<<<<<< HEAD
 	if(this->currentState == ADD) 
 		if( ui->ePassword->text().isEmpty() )
 			return QString::fromWCharArray(L"Пароль не может быть пустым");
+=======
+	if( ui->ePassword->text().isEmpty() )
+		return QString::fromWCharArray(L"Пароль задан неверно").arg(ui->ePassword->text());
+>>>>>>> fa493b5... Р”РѕР±Р°РІРёР» РїРѕР»Рµ РґР»СЏ РІРІРѕРґР° РїР°СЂРѕР»СЏ
 
 	return QString();
 }
