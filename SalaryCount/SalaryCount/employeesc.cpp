@@ -200,19 +200,20 @@ void EmployeeSC::fillTabelMarks(PayForm pf)
 
 			if(pf==PER_MONTH)
 			{
-				combo->insertItem(0, codec->toUnicode("-"),QVariant((int)Mark::Type::INVALID));
+				//combo->insertItem(0, codec->toUnicode("-"),QVariant((int)Mark::Type::INVALID));
 				combo->insertItem(1, codec->toUnicode("был"),QVariant((int)Mark::Type::ATTENDS));
 				combo->insertItem(2, codec->toUnicode("не был"),QVariant((int)Mark::Type::MISS));
 				combo->insertItem(3, codec->toUnicode("выходной"),QVariant((int)Mark::Type::HOLIDAY));
+
+				combo->setCurrentIndex(1);
 			}
 			else
 			{
-				for(int v=0;v<9;++v) 
-					combo->insertItem(v, QString::number(v),QVariant(v));
+				for(int v=MAX_WORKING_COUNT_HOURS;v>=0;--v) 
+					combo->insertItem(MAX_WORKING_COUNT_HOURS-v, QString::number(v),QVariant(v));
+
+				combo->setCurrentIndex(0);
 			}
-
-
-			combo->setCurrentIndex(1);
 
 			QLabel *l = new QLabel(QString());
 
@@ -221,7 +222,7 @@ void EmployeeSC::fillTabelMarks(PayForm pf)
 			hl->addWidget(l);
 			hl->addWidget(combo);
 
-			QWidget *w = new QWidget();
+			QWidget *w = new QWidget(ui.laborSheet);
 			w->setLayout(hl);
 
 			ui.laborSheet->setCellWidget(i,j,w);
@@ -251,12 +252,15 @@ void EmployeeSC::fillTabelDateValues(QDate &date)
 			QList<QLabel*>labelList = w->findChildren<QLabel*>();
 			QList<QComboBox*>comboBoxList = w->findChildren<QComboBox*>();
 
-			comboBoxList[0]->setVisible(true);
+			comboBoxList[0]->setHidden(false);
 
 			labelList[0]->setText(QString::number(d.day()));
 			d = d.addDays(1);
 
-			comboBoxList[0]->setCurrentIndex(1);
+			if(this->curPayForm==PayForm::PER_MONTH)
+				comboBoxList[0]->setCurrentIndex(comboBoxList[0]->findData(QVariant(Mark::Type::ATTENDS)));
+			if(this->curPayForm==PayForm::PER_HOUR)
+				comboBoxList[0]->setCurrentIndex(comboBoxList[0]->findData(QVariant(MAX_WORKING_COUNT_HOURS)));
 
 			done = (i*7-firstWeekDay+j+2) == countDays;
 			if(done) {lastWeekOfMonth=i+1;lastDayOfWeek=j+1;}
@@ -273,11 +277,14 @@ void EmployeeSC::fillTabelDateValues(QDate &date)
 			QList<QLabel*>labelList = w->findChildren<QLabel*>();
 			QList<QComboBox*>comboBoxList = w->findChildren<QComboBox*>();
 
-			comboBoxList[0]->setVisible(false);
+			comboBoxList[0]->setHidden(true);
 
 			labelList[0]->setText(QString::number(nextMonthValues));
 
-			comboBoxList[0]->setCurrentIndex(0);
+			/*if(this->curPayForm==PayForm::PER_MONTH)
+				comboBoxList[0]->setCurrentIndex(comboBoxList[0]->findData(QVariant(Mark::Type::INVALID)));
+			if(this->curPayForm==PayForm::PER_HOUR)
+				comboBoxList[0]->setCurrentIndex(comboBoxList[0]->findData(QVariant(0)));*/
 
 			nextMonthValues++;
 		}
@@ -291,11 +298,14 @@ void EmployeeSC::fillTabelDateValues(QDate &date)
 		QList<QLabel*>labelList = w->findChildren<QLabel*>();
 		QList<QComboBox*>comboBoxList = w->findChildren<QComboBox*>();
 
-		comboBoxList[0]->setVisible(false);
+		comboBoxList[0]->setHidden(true);
 
 		labelList[0]->setText(QString::number(prevCountDaysOfWeek));
 
-		comboBoxList[0]->setCurrentIndex(0);
+		/*if(this->curPayForm==PayForm::PER_MONTH)
+				comboBoxList[0]->setCurrentIndex(comboBoxList[0]->findData(QVariant(Mark::Type::INVALID)));
+		if(this->curPayForm==PayForm::PER_HOUR)
+			comboBoxList[0]->setCurrentIndex(comboBoxList[0]->findData(QVariant(0)));*/
 
 		prevCountDaysOfWeek++;
 	}
@@ -312,8 +322,8 @@ void EmployeeSC::showPeriod(QDate date)
 		LaborSheet *lsh = new LaborSheet(this->userData->id(),period->id());
 		if(!lsh->fetch(this->userData->id(),period->id())) throw this->journal->fetchError("showPeriod LaborSheet fetch");
 
-		if(period->status()!=BillingPeriod::Status::OPEN){ui.editBtn->setEnabled(false);}
-		else{ui.editBtn->setEnabled(true);}
+		if(period->status()!=BillingPeriod::Status::OPEN){ui.editBtn->setEnabled(false);ui.GoToCurrentPeriod_button->setEnabled(true);}
+		else{ui.editBtn->setEnabled(true);ui.GoToCurrentPeriod_button->setEnabled(false);}
 
 		fillTabelDateValues(d);
 		fillTabelMarksValues(d);
@@ -340,22 +350,29 @@ void EmployeeSC::fillTabelMarksValues(QDate &date)
 		if(!lsh->fetch(this->userData->id(),bp->id()))throw this->journal->fetchError("EmployeeSC::fillTabelMarksValues LaborSheet fetch");
 
 		QList<Mark> marks = lsh->grid();
+		if(marks.empty()) throw this->journal->nullPtr("data about marks not found");
 
 		//#set marks
 		auto i_marks = marks.begin();
-		for(int i=0; i<ui.laborSheet->rowCount();++i)
+		for(int i=0; i<ui.laborSheet->rowCount() && i_marks != marks.end();++i)
 		{
-			i_marks++;
-			for(int j=0; j<ui.laborSheet->columnCount();++j)
+			for(int j=0; j<ui.laborSheet->columnCount() && i_marks != marks.end();++j)
 			{
 				QWidget *w =ui.laborSheet->cellWidget(i,j);
 
 				QList<QComboBox*>comboBoxList = w->findChildren<QComboBox*>();
 
-				if(comboBoxList[0]->isVisible())
+				if(!comboBoxList[0]->isHidden())
 				{
-					int tm = i_marks->altered()==Mark::Type::INVALID ? i_marks->base() : i_marks->altered();
+					int tm;
+
+					if(this->curPayForm==PayForm::PER_MONTH)
+						tm = i_marks->altered()==Mark::Type::INVALID ? i_marks->base() : i_marks->altered();
+					else
+						tm = i_marks->alteredCountHours()==-1 ? i_marks->countHours() : i_marks->alteredCountHours();
+
 					comboBoxList[0]->setCurrentIndex(comboBoxList[0]->findData(QVariant(tm)));
+					i_marks++;
 				}
 			}
 		}
@@ -392,6 +409,7 @@ void EmployeeSC::setDescription(LaborSheet& laborSheet)
 void EmployeeSC::setCurrentPeriod()
 {
 	ui.editBtn->setEnabled(true);
+	ui.GoToCurrentPeriod_button->setEnabled(false);
 	fillTabelDateValues((QDate)this->currentPeriod->startDate());
 	fillTabelMarksValues((QDate)this->currentPeriod->startDate());
 }
@@ -409,7 +427,72 @@ void EmployeeSC::editMarksList()
 
 void EmployeeSC::saveMarksList()
 {
+	//LaborSheet *lsh = new LaborSheet();
+	try
+	{
+		BillingPeriod *bp = this->currentPeriod;//BillingPeriod::getByDate(ui.BillingPeriod_dateEdit->date());
+			//if(!bp->fetch())throw this->journal->fetchError("saveMarksList getByDate BillingPeriod fetch");
 
+		LaborSheet *lsh = new LaborSheet(this->userData->id(), bp->id());
+			if(!lsh->fetch(this->userData->id(),bp->id()))throw this->journal->fetchError("saveMarksList  LaborSheet fetch");
+
+		QList<Mark> ms;
+		const QList<Mark> oldMS = lsh->grid();
+		if(oldMS.empty()) throw this->journal->nullPtr("saveMarksList data about marks not found");
+
+		int counter = 0;
+		for(int i=0; i<ui.laborSheet->rowCount();++i)
+		{
+			for(int j=0; j<ui.laborSheet->columnCount();++j)
+			{
+				QWidget *w =ui.laborSheet->cellWidget(i,j);
+
+				QList<QLabel*>labelList = w->findChildren<QLabel*>();
+				QList<QComboBox*>comboBoxList = w->findChildren<QComboBox*>();
+
+				if(!comboBoxList[0]->isHidden())
+				{
+					if(counter>=oldMS.count())throw this->journal->compareError("soory, bitch");
+
+					Mark *m = new Mark();
+					int data = comboBoxList[0]->currentData().toInt();
+						
+					if(this->curPayForm == PayForm::PER_MONTH) 
+						(oldMS[counter].base()!=data ? m->setAlteredMark(data) : m->setBaseMark(data));
+
+					if(this->curPayForm == PayForm::PER_HOUR) 
+						(oldMS[counter].countHours()!=data ? m->setAlteredCountHours(data) : m->setCountHours(data));
+
+					m->setId(oldMS[counter].id());
+
+					ms.append(*m);
+					counter++;
+				}
+			}
+		}
+
+		lsh->setGrid(ms);
+
+		if(!lsh->update()) throw this->journal->updateError("sorry, bitch");
+
+		ui.editBtn->setEnabled(true);
+	}
+	catch(log_errors::exception_states e)
+	{
+		QByteArray code = QString::number(this->journal->getLastErrorCode()).toLocal8Bit();
+		QByteArray msg = this->journal->getLastError().toLocal8Bit();
+
+		error_msg(code.data(),msg.data());//cообщили об ошибке
+		this->journal->lastConflictNonResolved();
+	}
+
+	ui.BillingPeriod_dateEdit->setEnabled(true);
+
+	ui.laborSheet->setEnabled(false);
+	ui.saveEditedLaborBtn->setEnabled(false);
+	ui.CancelLaborBtn->setEnabled(false);
+	ui.GoToCurrentPeriod_button->setEnabled(false);
+	QMessageBox::information(NULL,"Success", "Data saved complete!");
 }
 
 void EmployeeSC::cancelMarksList()
