@@ -17,9 +17,13 @@ class EmployeeSC : public QMainWindow//, public delegateStates
 public:
     EmployeeSC(QString &dbName, Employee* employee, QWidget *parent = 0);
     ~EmployeeSC();
+	bool isAutorizated();
+	bool isWorking();
 
 private:
     Ui_EmployeeSC ui;
+	bool isAutorizate;
+	bool isWork;
 
 	log_errors* journal;
 

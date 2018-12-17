@@ -13,6 +13,9 @@ EmployeeSC::EmployeeSC(QString &dbName,Employee* employee, QWidget *parent)
 
 	this->journal = new log_errors();//журнал ошибок 
 
+	this->isAutorizate = true;//это тупо, конечно, но я заебался
+	this->isWork = true;
+
 	try
 	{
 		if(dbName.isEmpty() && !employee) throw this->journal->nullPtr("Connection error");
@@ -20,7 +23,7 @@ EmployeeSC::EmployeeSC(QString &dbName,Employee* employee, QWidget *parent)
 		initialDBManager(dbName);
 
 		if(!employee->auth()) 
-				throw this->journal->failAuthorization("error authorization.\n Please, check you phone & password");
+				throw this->journal->failAuthorization("Error authorization.\n Please, check you phone & password");
 
 		this->userData = employee;
 
@@ -34,19 +37,23 @@ EmployeeSC::EmployeeSC(QString &dbName,Employee* employee, QWidget *parent)
 			//показать диалог повторного подключения
 		}
 		/////////////////
-		fillTabelMarks(this->curPayForm);//create tabel
-		setCurrentPeriod();
 
+		if(this->isWork)//изменить как-нибудь (нет)
+		{
+			fillTabelMarks(this->curPayForm);//create tabel
+			setCurrentPeriod();
+		}
 	}
 	catch(log_errors::exception_states e)
 	{
 		QByteArray code = QString::number(this->journal->getLastErrorCode()).toLocal8Bit();
 		QByteArray msg = this->journal->getLastError().toLocal8Bit();
 
-		error_msg(code.data(),msg.data());//cообщили об ошибке
+		error_msg(code.data(),msg.data());//cообщили об ошибке -> перенесено в диалог входа (не надо так делать)
 		this->journal->lastConflictNonResolved();
 
-		if(e==log_errors::exception_states::AUTH_EX) this->destroy();
+		if(e==log_errors::exception_states::AUTH_EX) this->isAutorizate=false;//не работает почему-то
+		// throw again
 	}
 
 	connect(this->ui.BillingPeriod_dateEdit,SIGNAL(dateChanged(QDate)),this,SLOT(showPeriod(QDate)));
@@ -60,7 +67,7 @@ EmployeeSC::EmployeeSC(QString &dbName,Employee* employee, QWidget *parent)
 EmployeeSC::~EmployeeSC()
 {
 	this->journal->~log_errors();
-	this->userData->~Employee();
+	//this->userData->~Employee();
 }
 
 void EmployeeSC::initialDBManager(QString &dbName)
@@ -183,7 +190,9 @@ void EmployeeSC::parseBaseDataObject(HireDirective *hd, QString dutyChartName,Bi
 		error_msg(code.data(),msg.data());//cообщили об ошибке
 		this->journal->lastConflictNonResolved();
 
-		if(e==log_errors::exception_states::AUTH_EX) {QCloseEvent *e = new QCloseEvent();e->setAccepted(true);this->closeEvent(e);this->close();}
+		this->isWork= false;
+		//not working :(
+		//if(e==log_errors::exception_states::AUTH_EX) {QCloseEvent *e = new QCloseEvent();e->setAccepted(true);this->closeEvent(e);this->close();}
 	}
 }
 
@@ -197,7 +206,7 @@ void EmployeeSC::fillTabelMarks(PayForm pf)
 
 			QTextCodec* codec = QTextCodec::codecForLocale();
 
-			if(pf==PayForm::PER_MONTH)
+			if(pf==PER_MONTH)
 			{
 				//combo->insertItem(0, codec->toUnicode("-"),QVariant((int)Mark::Type::INVALID));
 				combo->insertItem(1, codec->toUnicode("был"),QVariant((int)Mark::Type::ATTENDS));
@@ -505,4 +514,14 @@ void EmployeeSC::cancelMarksList()
 	ui.GoToCurrentPeriod_button->setEnabled(false);
 
 	fillTabelMarksValues((QDate)this->currentPeriod->startDate());
+}
+
+bool EmployeeSC::isAutorizated()
+{
+	return this->isAutorizate;
+}
+
+bool EmployeeSC::isWorking()
+{
+	return this->isWork;
 }
