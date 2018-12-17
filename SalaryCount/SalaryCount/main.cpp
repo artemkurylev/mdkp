@@ -5,6 +5,7 @@
 
 #include "companyopendialog.h"
 <<<<<<< HEAD
+<<<<<<< HEAD
 #include "unittest/DirectiveGeneratorTest.h"
 =======
 #include "DirectiveGenerator.h"
@@ -24,12 +25,35 @@ int main(int argc, char *argv[])
 		return test_main(argc, argv);
 	}
 
+=======
+#include "unittest/DirectiveGeneratorTest.h"
+#include <CalcTest.h>
+
+int test_main(int argc, char *argv[]);
+
+int main(int argc, char *argv[])
+{
+	if(true) // if tests enabled
+	{
+		return test_main(argc, argv);
+	}
+
+	//DirectiveGenerator g;
+	//HireDirective hd;
+
+	//g.pdf( &hd, "example.pdf" );
+	
+	//DirectiveGeneratorTest dgt(0);
+	//QTest::qExec( &dgt , NULL , NULL);
+	
+>>>>>>> 25c9d1b... Перенаправление стандартных потоков в файлы
     QApplication a(argc, argv);
     companyOpenDialog q;
     q.show();
     //SalaryCount w;
     //w.show();
     return a.exec();
+<<<<<<< HEAD
 <<<<<<< HEAD
 }
 
@@ -69,12 +93,33 @@ void redirect_output_streams()
 int test_main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
+=======
+}
+
+int test_main(int argc, char *argv[])
+{
+    QCoreApplication a(argc, argv);
+
+	freopen ("sc_stderr.log","w",stderr);
+	freopen ("sc_stdout.log","w",stdout);
+	
+
+	fprintf (stderr, "This sentence is redirected to a file.");
+	printf ("This sentence is redirected to a file.");
+>>>>>>> 25c9d1b... Перенаправление стандартных потоков в файлы
 
 	CalcTest t;
 	QTest::qExec( &t , NULL , NULL);
 
+<<<<<<< HEAD
     return 0; // a.exec();
 }
 =======
 }
 >>>>>>> 3690967... Добавлен класс для тестирования расчётов
+=======
+
+	fclose (stderr);
+    return 0; // a.exec();
+}
+>>>>>>> 25c9d1b... Перенаправление стандартных потоков в файлы
