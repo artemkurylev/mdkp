@@ -131,7 +131,7 @@ void companyOpenDialog::enterEmployee()
 		if(sc->isAutorizated() && sc->isWorking()) 
 		{sc->show();this->close();}
 		else 
-			delete sc;
+			delete sc;//xyi
 	}
 	catch(log_errors::exception_states e)
 	{

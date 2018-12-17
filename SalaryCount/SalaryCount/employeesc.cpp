@@ -49,7 +49,7 @@ EmployeeSC::EmployeeSC(QString &dbName,Employee* employee, QWidget *parent)
 		QByteArray code = QString::number(this->journal->getLastErrorCode()).toLocal8Bit();
 		QByteArray msg = this->journal->getLastError().toLocal8Bit();
 
-		error_msg(code.data(),msg.data());//cообщили об ошибке -> перенесено в диалог входа (не надо так делать)
+		error_msg(code.data(),msg.data());//cообщили об ошибке //xyi-> перенесено в диалог входа (не надо так делать)
 		this->journal->lastConflictNonResolved();
 		// throw again
 	}
