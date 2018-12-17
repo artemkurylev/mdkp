@@ -134,7 +134,11 @@ void companyOpenDialog::enterEmployee()
 		if(sc->isAutorizated() && sc->isWorking()) 
 		{sc->show();this->close();}
 		else 
+<<<<<<< HEAD
 			delete sc;//
+=======
+			delete sc;//xyi
+>>>>>>> 2f6c246... hello
 	}
 	catch(log_errors::exception_states e)
 	{

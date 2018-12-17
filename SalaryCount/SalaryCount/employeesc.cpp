@@ -43,17 +43,30 @@ EmployeeSC::EmployeeSC(QString &dbName,Employee* employee, QWidget *parent)
 		QByteArray code = QString::number(this->journal->getLastErrorCode()).toLocal8Bit();
 		QByteArray msg = this->journal->getLastError().toLocal8Bit();
 
+<<<<<<< HEAD
 		//error_msg(code.data(),msg.data());//cообщили об ошибке -> перенесено в диалог входа
+<<<<<<< HEAD
+=======
+>>>>>>> 2f6c246... hello
 		error_msg(code.data(),msg.data());//cообщили об ошибке //xyi-> перенесено в диалог входа (не надо так делать)
 		this->journal->lastConflictNonResolved();
+<<<<<<< HEAD
 
 		if(e==log_errors::exception_states::AUTH_EX) this->destroy();
 <<<<<<< HEAD
 
+=======
+>>>>>>> 02233dc... СЃСѓРєР°
 		// throw again
 		throw e;
 =======
 >>>>>>> fa493b5... Р”РѕР±Р°РІРёР» РїРѕР»Рµ РґР»СЏ РІРІРѕРґР° РїР°СЂРѕР»СЏ
+=======
+		this->journal->lastConflictNonResolved();
+
+		// throw again
+		throw e;
+>>>>>>> b70baee... РЎРѕРѕР±С‰РµРЅРёРµ РѕР± РѕС€РёР±РєРµ Р°РІС‚РѕСЂРёР·Р°С†РёРё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РЅР° СЂСѓСЃСЃРєРѕРј
 	}
 
 	connect(this->ui.BillingPeriod_dateEdit,SIGNAL(dateChanged(QDate)),this,SLOT(showPeriod(QDate)));
@@ -198,6 +211,7 @@ void EmployeeSC::parseBaseDataObject(HireDirective *hd, QString dutyChartName,Bi
 		error_msg(code.data(),msg.data());//cообщили об ошибке
 		this->journal->lastConflictNonResolved();
 
+<<<<<<< HEAD
 		if(e==log_errors::exception_states::AUTH_EX) {QCloseEvent *e = new QCloseEvent();e->setAccepted(true);this->closeEvent(e);this->close();}
 <<<<<<< HEAD
 
@@ -205,6 +219,9 @@ void EmployeeSC::parseBaseDataObject(HireDirective *hd, QString dutyChartName,Bi
 
 =======
 >>>>>>> fa493b5... Р”РѕР±Р°РІРёР» РїРѕР»Рµ РґР»СЏ РІРІРѕРґР° РїР°СЂРѕР»СЏ
+=======
+		this->isWork= false;//
+>>>>>>> 02233dc... СЃСѓРєР°
 	}
 }
 
