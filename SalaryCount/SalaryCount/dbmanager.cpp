@@ -95,8 +95,11 @@ bool DbManager::checkConnection()
     }
     else
     {
-        QString s= db.lastError().text();
-        return false;
+		db.open();
+		//return this->checkConnection(); // recurse
+        return db.isOpen();
+       //QString s= db.lastError().text();
+        //return false;
     }
 }
 
@@ -115,7 +118,8 @@ bool DbManager::checkConnection()
     if(!singletonExists)
     {
 		struct DbConf conf = loadDbConfig();
-        if(dbName != 0)
+        //if(dbName != 0)
+        if( ! dbName.isEmpty() )
             conf.dbName = dbName;
 		DbManager::globalManager = new DbManager(conf.hostName,conf.dbName,conf.port,conf.userName,conf.pass);
         DbManager::singletonExists = 1;
