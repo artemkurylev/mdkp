@@ -4,6 +4,7 @@
 
 #include "companyopendialog.h"
 #include "DirectiveGenerator.h"
+#include <CalcTest.h>
 
 
 int main(int argc, char *argv[])
