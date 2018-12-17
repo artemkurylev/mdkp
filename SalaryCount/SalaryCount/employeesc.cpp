@@ -51,8 +51,6 @@ EmployeeSC::EmployeeSC(QString &dbName,Employee* employee, QWidget *parent)
 
 		error_msg(code.data(),msg.data());//cообщили об ошибке -> перенесено в диалог входа (не надо так делать)
 		this->journal->lastConflictNonResolved();
-
-		if(e==log_errors::exception_states::AUTH_EX) this->isAutorizate=false;//не работает почему-то
 		// throw again
 	}
 
@@ -190,9 +188,7 @@ void EmployeeSC::parseBaseDataObject(HireDirective *hd, QString dutyChartName,Bi
 		error_msg(code.data(),msg.data());//cообщили об ошибке
 		this->journal->lastConflictNonResolved();
 
-		this->isWork= false;
-		//not working :(
-		//if(e==log_errors::exception_states::AUTH_EX) {QCloseEvent *e = new QCloseEvent();e->setAccepted(true);this->closeEvent(e);this->close();}
+		this->isWork= false;//
 	}
 }
 
