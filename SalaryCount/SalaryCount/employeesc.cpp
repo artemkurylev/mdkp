@@ -228,7 +228,7 @@ void EmployeeSC::fillTabelMarks(PayForm pf)
 
 			QTextCodec* codec = QTextCodec::codecForLocale();
 
-			if(pf==PayForm::PER_MONTH)
+			if(pf==PER_MONTH)
 			{
 				//combo->insertItem(0, codec->toUnicode("-"),QVariant((int)Mark::Type::INVALID));
 				combo->insertItem(1, codec->toUnicode("был"),QVariant((int)Mark::Type::ATTENDS));

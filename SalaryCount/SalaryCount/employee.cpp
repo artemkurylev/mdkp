@@ -26,10 +26,10 @@ Employee::Employee(const Employee& employee)
     this->_hireDirective = NULL;
     _nextDutyChartID= - 1;
 }
+
 /*! Конструктор создания новой записи
 Предполагается, что приказ и график уже созданы и имеют ID
 */
-
 Employee::Employee(QString _fio,QString _phoneNumber,long long _INN,int _currentDutyChartID,int _hireDirectiveID,QString _pass)
 {
 	this->_fio = _fio;
