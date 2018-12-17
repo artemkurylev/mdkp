@@ -384,7 +384,7 @@ void EmployeeSC::fillTabelMarksValues(QDate &date)
 					if(this->curPayForm==PayForm::PER_MONTH)
 						tm = i_marks->altered()==Mark::Type::INVALID ? i_marks->base() : i_marks->altered();
 					else
-						tm = i_marks->altered()==Mark::Type::INVALID ? i_marks->countHours() : i_marks->alteredCountHours();
+						tm = i_marks->alteredCountHours()==-1 ? i_marks->countHours() : i_marks->alteredCountHours();
 
 					comboBoxList[0]->setCurrentIndex(comboBoxList[0]->findData(QVariant(tm)));
 					i_marks++;
@@ -477,6 +477,8 @@ void EmployeeSC::saveMarksList()
 
 					if(this->curPayForm == PayForm::PER_HOUR) 
 						(oldMS[counter].countHours()!=data ? m->setAlteredCountHours(data) : m->setCountHours(data));
+
+					m->setId(oldMS[counter].id());
 
 					ms.append(*m);
 					counter++;
