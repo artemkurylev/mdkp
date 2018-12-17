@@ -53,7 +53,7 @@ Employee* salarycountEmployees::shapeDataObject()
 		QString FIO = ui->eFIO->text();
 		QString phone = ui->eNumberPhone->text();
 		long long INN = ui->INN->text().toLongLong();
-		QString pass = QString::number(INN);
+		QString pass = ui->ePassword->text();
 
 		QVariant &var = ui->eDutyChart->currentData();
 		if(!var.isValid()) throw this->journal->invalidData("shapeDataObject error validation data from dutychart combobox");
@@ -286,6 +286,9 @@ QString salarycountEmployees::validateData()
 	if( !phone.isValid() || !phone.exactMatch(ui->eNumberPhone->text()) )
 		return QString::fromWCharArray(L"Неправильный номер телефона:\n%1\nПример: +7 (111) 111 11 11").arg(ui->eNumberPhone->text());
 
+	if( ui->ePassword->text().isEmpty() )
+		return QString::fromWCharArray(L"Пароль задан неверно").arg(ui->ePassword->text());
+
 	return QString();
 }
 
@@ -463,6 +466,7 @@ void salarycountEmployees::saveNewEmployee()
 					saveEditableEntries(obj);
 				break;
 			}
+			ui->ePassword->clear();
 
 			delete obj;
 		}

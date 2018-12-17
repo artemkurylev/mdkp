@@ -45,6 +45,8 @@ EmployeeSC::EmployeeSC(QString &dbName,Employee* employee, QWidget *parent)
 
 		error_msg(code.data(),msg.data());//cообщили об ошибке
 		this->journal->lastConflictNonResolved();
+
+		if(e==log_errors::exception_states::AUTH_EX) this->destroy();
 	}
 
 	connect(this->ui.BillingPeriod_dateEdit,SIGNAL(dateChanged(QDate)),this,SLOT(showPeriod(QDate)));
@@ -181,7 +183,7 @@ void EmployeeSC::parseBaseDataObject(HireDirective *hd, QString dutyChartName,Bi
 		error_msg(code.data(),msg.data());//cообщили об ошибке
 		this->journal->lastConflictNonResolved();
 
-		if(e==log_errors::exception_states::AUTH_EX) this->close();
+		if(e==log_errors::exception_states::AUTH_EX) {QCloseEvent *e = new QCloseEvent();e->setAccepted(true);this->closeEvent(e);this->close();}
 	}
 }
 
