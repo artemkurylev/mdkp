@@ -55,7 +55,7 @@ bool BillingPeriod::fetch()
                 _startDate = query->value(1).toDate();
 				//_startDate = QDate::fromString("yyyy-MM-dd", query->value(1).toString() );
                 _status = (Status)query->value(2).toInt();
-				success = false;
+				success = true;
             }
         }
         else

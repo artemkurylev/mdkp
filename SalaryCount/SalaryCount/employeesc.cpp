@@ -151,23 +151,38 @@ bool EmployeeSC::showEmployeeData()
 
 void EmployeeSC::parseBaseDataObject(HireDirective *hd, QString dutyChartName,BillingPeriod *currentPeriod)
 {
-	ui.eFIO->setText(this->userData->fio());
-	ui.eNumberPhone->setText(this->userData->phoneNumber());
-	ui.INN->setText(QString::number(this->userData->inn()));
+	try
+	{
+		ui.eFIO->setText(this->userData->fio());
+		ui.eNumberPhone->setText(this->userData->phoneNumber());
+		ui.INN->setText(QString::number(this->userData->inn()));
 
-	ui.ePayFormChoice->setCurrentIndex(hd->payForm()==PER_MONTH ? 0 : 1);
-	ui.eReceiptDate->setDate(hd->hireDate());
-	ui.eOrderNum->setText(QString::number(hd->id()));
-	ui.eSalary->setValue(hd->salary());
+		ui.ePayFormChoice->setCurrentIndex(hd->payForm()==PER_MONTH ? 0 : 1);
+		ui.eReceiptDate->setDate(hd->hireDate());
+		ui.eOrderNum->setText(QString::number(hd->id()));
+		ui.eSalary->setValue(hd->salary());
 
-	QPair<QDate,QDate>minmaxDate = currentPeriod->getDateSpan();
-	ui.BillingPeriod_dateEdit->setMinimumDate(minmaxDate.first);
-	ui.BillingPeriod_dateEdit->setMaximumDate(minmaxDate.second);
+		QPair<QDate,QDate>minmaxDate = currentPeriod->getDateSpan();
+		if(hd->hireDate()>minmaxDate.second)throw this->journal->failAuthorization("User else not working!");
 
-	ui.CurrentPeriod_dateEdit->setDate(currentPeriod->startDate());
-	ui.BillingPeriod_dateEdit->setDate(currentPeriod->startDate());
+		ui.BillingPeriod_dateEdit->setMinimumDate(hd->hireDate());
+		ui.BillingPeriod_dateEdit->setMaximumDate(minmaxDate.second);
 
-	ui.eDutyChart->setText(dutyChartName);
+		ui.CurrentPeriod_dateEdit->setDate(currentPeriod->startDate());
+		ui.BillingPeriod_dateEdit->setDate(currentPeriod->startDate());
+
+		ui.eDutyChart->setText(dutyChartName);
+	}
+	catch(log_errors::exception_states e)
+	{
+		QByteArray code = QString::number(this->journal->getLastErrorCode()).toLocal8Bit();
+		QByteArray msg = this->journal->getLastError().toLocal8Bit();
+
+		error_msg(code.data(),msg.data());//cообщили об ошибке
+		this->journal->lastConflictNonResolved();
+
+		if(e==log_errors::exception_states::AUTH_EX) this->close();
+	}
 }
 
 void EmployeeSC::fillTabelMarks(PayForm pf)
@@ -319,7 +334,7 @@ void EmployeeSC::fillTabelMarksValues(QDate &date)
 		if(!bp->fetch())throw this->journal->fetchError("fillTabelMarksValues getByDate BillingPeriod fetch");
 
 		LaborSheet *lsh = new LaborSheet(this->userData->id(), bp->id());
-		if(!lsh->fetch())throw this->journal->fetchError("EmployeeSC::fillTabelMarksValues LaborSheet fetch");
+		if(!lsh->fetch(this->userData->id(),bp->id()))throw this->journal->fetchError("EmployeeSC::fillTabelMarksValues LaborSheet fetch");
 
 		QList<Mark> marks = lsh->grid();
 
