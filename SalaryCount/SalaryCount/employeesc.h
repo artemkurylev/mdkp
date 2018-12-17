@@ -8,6 +8,8 @@
 #include "laborsheet.h"
 #include "ui_employeesc.h"
 
+#define MAX_WORKING_COUNT_HOURS 12
+
 class EmployeeSC : public QMainWindow//, public delegateStates
 
 class EmployeeSC : public QMainWindow // , virtual public delegateStates
