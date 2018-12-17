@@ -6,6 +6,7 @@
 #include "BookKeeper.h"
 #include "mark.h"
 
+
 class DutyChart : public DbRecord
 {
     Q_OBJECT
@@ -44,5 +45,9 @@ private:
     QDate _anchorDate;
 };
 
-#endif // DUTYCHART_H
+DutyChart defaultChart();
+DutyChart defaultChart2();
 void initalSetupForTableDutyChart();
+
+
+#endif // DUTYCHART_H
