@@ -44,9 +44,11 @@ EmployeeSC::EmployeeSC(QString &dbName,Employee* employee, QWidget *parent)
 		QByteArray msg = this->journal->getLastError().toLocal8Bit();
 
 		//error_msg(code.data(),msg.data());//cообщили об ошибке -> перенесено в диалог входа
+		error_msg(code.data(),msg.data());//cообщили об ошибке //xyi-> перенесено в диалог входа (не надо так делать)
 		this->journal->lastConflictNonResolved();
 
 		if(e==log_errors::exception_states::AUTH_EX) this->destroy();
+
 		// throw again
 		throw e;
 	}
@@ -215,6 +217,9 @@ void EmployeeSC::parseBaseDataObject(HireDirective *hd, QString dutyChartName,Bi
 		this->journal->lastConflictNonResolved();
 
 		if(e==log_errors::exception_states::AUTH_EX) {QCloseEvent *e = new QCloseEvent();e->setAccepted(true);this->closeEvent(e);this->close();}
+
+		this->isWork= false;//
+
 	}
 }
 

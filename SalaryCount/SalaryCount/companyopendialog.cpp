@@ -127,8 +127,14 @@ void companyOpenDialog::enterEmployee()
 		DbManager::companyManager().close();
 
 		EmployeeSC* sc = new EmployeeSC(name,employee);
+
         this->close();
         sc->show();
+
+		if(sc->isAutorizated() && sc->isWorking()) 
+		{sc->show();this->close();}
+		else 
+			delete sc;//
 	}
 	catch(log_errors::exception_states e)
 	{
