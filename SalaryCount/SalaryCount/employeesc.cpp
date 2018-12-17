@@ -384,7 +384,11 @@ void EmployeeSC::fillTabelMarksValues(QDate &date)
 					if(this->curPayForm==PayForm::PER_MONTH)
 						tm = i_marks->altered()==Mark::Type::INVALID ? i_marks->base() : i_marks->altered();
 					else
+<<<<<<< HEAD
 						tm = i_marks->alteredCountHours()==-1 ? i_marks->countHours() : i_marks->alteredCountHours();
+=======
+						tm = i_marks->altered()==Mark::Type::INVALID ? i_marks->countHours() : i_marks->alteredCountHours();
+>>>>>>> f9c5f82... сохранение не робит, все остальное робит
 
 					comboBoxList[0]->setCurrentIndex(comboBoxList[0]->findData(QVariant(tm)));
 					i_marks++;
@@ -444,6 +448,7 @@ void EmployeeSC::saveMarksList()
 {
 	//LaborSheet *lsh = new LaborSheet();
 	try
+<<<<<<< HEAD
 	{
 		BillingPeriod *bp = this->currentPeriod;//BillingPeriod::getByDate(ui.BillingPeriod_dateEdit->date());
 			//if(!bp->fetch())throw this->journal->fetchError("saveMarksList getByDate BillingPeriod fetch");
@@ -512,25 +517,74 @@ void EmployeeSC::saveMarksList()
 	QList<Mark*> m;
 	int currentDay = QDate::currentDate().day();
 	for(int i=0; i<ui.laborSheet->rowCount();++i)
+=======
+>>>>>>> f9c5f82... сохранение не робит, все остальное робит
 	{
-		for(int j=0; j<ui.laborSheet->columnCount();++j)
+		BillingPeriod *bp = this->currentPeriod;//BillingPeriod::getByDate(ui.BillingPeriod_dateEdit->date());
+			//if(!bp->fetch())throw this->journal->fetchError("saveMarksList getByDate BillingPeriod fetch");
+
+		LaborSheet *lsh = new LaborSheet(this->userData->id(), bp->id());
+			if(!lsh->fetch(this->userData->id(),bp->id()))throw this->journal->fetchError("saveMarksList  LaborSheet fetch");
+
+		QList<Mark> ms;
+		const QList<Mark> oldMS = lsh->grid();
+		if(oldMS.empty()) throw this->journal->nullPtr("saveMarksList data about marks not found");
+
+		int counter = 0;
+		for(int i=0; i<ui.laborSheet->rowCount();++i)
 		{
-			QWidget *w =ui.laborSheet->cellWidget(i,j);
-
-			QList<QLabel*>labelList = w->findChildren<QLabel*>();
-			QList<QComboBox*>comboBoxList = w->findChildren<QComboBox*>();
-
-			if(comboBoxList[0]->isVisible())
+			for(int j=0; j<ui.laborSheet->columnCount();++j)
 			{
-				if(currentDay <= labelList[0]->text().toInt())
+				QWidget *w =ui.laborSheet->cellWidget(i,j);
+
+				QList<QLabel*>labelList = w->findChildren<QLabel*>();
+				QList<QComboBox*>comboBoxList = w->findChildren<QComboBox*>();
+
+				if(!comboBoxList[0]->isHidden())
 				{
-					//m.append(Mark(
+					if(counter>=oldMS.count())throw this->journal->compareError("soory, bitch");
+
+					Mark *m = new Mark();
+					int data = comboBoxList[0]->currentData().toInt();
+						
+					if(this->curPayForm == PayForm::PER_MONTH) 
+						(oldMS[counter].base()!=data ? m->setAlteredMark(data) : m->setBaseMark(data));
+
+					if(this->curPayForm == PayForm::PER_HOUR) 
+						(oldMS[counter].countHours()!=data ? m->setAlteredCountHours(data) : m->setCountHours(data));
+
+					ms.append(*m);
+					counter++;
 				}
-				//comboBoxList[0]->currentData();
 			}
 		}
+
+		lsh->setGrid(ms);
+
+		if(!lsh->update()) throw this->journal->updateError("sorry, bitch");
+
+		ui.editBtn->setEnabled(true);
+	}
+<<<<<<< HEAD
+
+=======
+	catch(log_errors::exception_states e)
+	{
+		QByteArray code = QString::number(this->journal->getLastErrorCode()).toLocal8Bit();
+		QByteArray msg = this->journal->getLastError().toLocal8Bit();
+
+		error_msg(code.data(),msg.data());//c������� �� ������
+		this->journal->lastConflictNonResolved();
 	}
 
+	ui.BillingPeriod_dateEdit->setEnabled(true);
+
+	ui.laborSheet->setEnabled(false);
+	ui.saveEditedLaborBtn->setEnabled(false);
+	ui.CancelLaborBtn->setEnabled(false);
+	ui.GoToCurrentPeriod_button->setEnabled(false);
+	QMessageBox::information(NULL,"Success", "Data saved complete!");
+>>>>>>> f9c5f82... сохранение не робит, все остальное робит
 }
 
 void EmployeeSC::cancelMarksList()
