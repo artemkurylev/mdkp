@@ -5,12 +5,14 @@
 #include "BookKeeper.h"
 
 class Employee;
+class CalcTest;
 
 /*! Приказ о приёме нового сотрудника. Фиксирует зарплату и форму оплаты труда (помесячная/почасовая)
 */
 class HireDirective :
 	public DbRecord
 {
+	friend CalcTest;
 public:
 
 	HireDirective();

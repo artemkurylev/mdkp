@@ -20,6 +20,8 @@ class LaborSheet : public DbRecord
 {
     Q_OBJECT
 
+	friend CalcTest;
+
 public:
 
     LaborSheet();

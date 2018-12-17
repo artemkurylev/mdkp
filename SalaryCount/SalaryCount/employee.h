@@ -8,9 +8,13 @@
 #include "dutychart.h"
 #include "HireDirective.h"
 
+class CalcTest;
+
 class Employee : public DbRecord
 {
     Q_OBJECT
+
+	friend CalcTest;
 
 public:
     Employee(QObject *parent);
