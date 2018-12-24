@@ -38,6 +38,7 @@ private:
 private slots:
 	void initTestCase();
 	void init();
+<<<<<<< HEAD
 	void cleanupTestCase();
 	//void cleanup();
 
@@ -62,10 +63,17 @@ private:
 private slots:
 	void initTestCase();
 	//void init();
+=======
+>>>>>>> bf4b070... Отладочная печать табеля для тестов
 	void cleanupTestCase();
 	//void cleanup();
+
     void normal();
+<<<<<<< HEAD
 >>>>>>> 3690967... Добавлен класс для тестирования расчётов
+=======
+    void OneZeroMark();
+>>>>>>> bf4b070... Отладочная печать табеля для тестов
 
 };
 

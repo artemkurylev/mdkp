@@ -18,13 +18,19 @@ CalcTest::CalcTest(QObject *parent)
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> bf4b070... Отладочная печать табеля для тестов
 void CalcTest::init()
 {
 	this->laborSheet->fillWithDefaults();
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> eec4bb5... Частичная реализация инициализации для тестирования Табеля
+=======
+>>>>>>> bf4b070... Отладочная печать табеля для тестов
 void CalcTest::initTestCase()
 {
 	QString fio("������ ���� ��������");
@@ -40,10 +46,14 @@ void CalcTest::initTestCase()
 
 	// create all
 <<<<<<< HEAD
+<<<<<<< HEAD
 	this->billPeriod = new BillingPeriod(billp_id, QDate(2018,12,01), BillingPeriod::OPEN);
 =======
 	this->billPeriod = new BillingPeriod(billp_id, QDate(2010,5,01), BillingPeriod::OPEN);
 >>>>>>> eec4bb5... Частичная реализация инициализации для тестирования Табеля
+=======
+	this->billPeriod = new BillingPeriod(billp_id, QDate(2018,12,01), BillingPeriod::OPEN);
+>>>>>>> bf4b070... Отладочная печать табеля для тестов
 
 
 	this->hireDir = new HireDirective(hd_id, QDate(2010,3,01), fio, payForm, salary, /*employeeId*/0 );
@@ -72,10 +82,14 @@ void CalcTest::initTestCase()
 	this->guy->_hireDirective = this->hireDir;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//this->laborSheet->fillWithDefaults();
 =======
 	this->laborSheet->fillWithDefaults();
 >>>>>>> eec4bb5... Частичная реализация инициализации для тестирования Табеля
+=======
+	//this->laborSheet->fillWithDefaults();
+>>>>>>> bf4b070... Отладочная печать табеля для тестов
 
 }
 void CalcTest::cleanupTestCase()
@@ -250,6 +264,59 @@ void CalcTest::DefaultSheet()
 }
 >>>>>>> eec4bb5... Частичная реализация инициализации для тестирования Табеля
 
+QString mark2String_perhour(const Mark& m, bool base, bool altered)
+{
+	QString r;
+	int v;
+	if(base)
+		r += QString::number(m.countHours());
+	if(altered && base)
+		r += "/";
+	if(altered)
+		r += QString::number(m.alteredCountHours());
+
+	return r;
+}
+
+QString mark2String_permonth(const Mark& m, bool base, bool altered)
+{
+	QString r;
+	int v;
+	if(base)
+		r += QString::number(m.base());
+	if(altered && base)
+		r += "/";
+	if(altered)
+		r += QString::number(m.altered());
+
+	return r;
+}
+
+void printCanendar(LaborSheet* ls, bool base = true, bool altered = false, bool perHours=true)
+{
+	int monthLen = ls->grid().size();
+	int dayOfWeek = ls->startDate().dayOfWeek() - 1;
+	int w = base&&altered? 5 : 2;
+
+	QString r;
+	for(int i=0; i < monthLen+dayOfWeek; ++i)
+	{
+		if(i%7 ==0)
+			r += "\n";
+
+		r += QString("[%1]").arg(
+			i<dayOfWeek ?
+			base&&altered? "-----" : "--"
+			:
+			perHours?
+				mark2String_perhour(ls->grid()[i-dayOfWeek],base,altered)
+				: mark2String_permonth(ls->grid()[i-dayOfWeek],base,altered)
+			, w);
+	}
+
+
+	qDebug("%s", r.toLocal8Bit().data());
+}
 
 void CalcTest::normal()
 {
@@ -260,7 +327,21 @@ void CalcTest::normal()
 	int countActualTimeUnits ();
 	*/
 	
-	qDebug("countBaseTimeUnits: %d", this->laborSheet->countBaseTimeUnits());
+	qDebug("countBaseTimeUnits:   %d", this->laborSheet->countBaseTimeUnits());
+	qDebug("countActualTimeUnits: %d", this->laborSheet->countActualTimeUnits());
+
+	printCanendar(this->laborSheet, true, true);
+	printCanendar(this->laborSheet, true, true, false);
+
+	// create
+	QCOMPARE(this->laborSheet->countBaseTimeUnits(), this->laborSheet->countActualTimeUnits() );
+}
+
+void CalcTest::OneZeroMark()
+{
+	this->laborSheet->_grid[0].setAlteredCountHours( 0 );
+
+	qDebug("countBaseTimeUnits:   %d", this->laborSheet->countBaseTimeUnits());
 	qDebug("countActualTimeUnits: %d", this->laborSheet->countActualTimeUnits());
 
 	// create
