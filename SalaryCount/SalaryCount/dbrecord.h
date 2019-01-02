@@ -10,9 +10,13 @@
 #include <qsql.h>
 #include<qvariant.h>
 
+class CalcTest;
+
 class DbRecord : public QObject
 {
     Q_OBJECT
+
+friend class CalcTest;
 
 public:
     DbRecord(QObject *parent);
