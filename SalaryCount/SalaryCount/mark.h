@@ -62,9 +62,9 @@ public:
 
 private:
     int _base;
-    int _altered;
+    int _altered;			// INVALID означает отсутствие значения в этом поле
     int _countHours;
-    int _alteredCountHours;
+    int _alteredCountHours; // -1 означает отсутствие значения в этом поле
     int _dutyChartId;
     int _laborsheetId;
 };
