@@ -63,9 +63,13 @@ void CalcTest::initTestCase()
 	this->chart = new DutyChart(chart_id);
 	*chart = defaultChart();
 <<<<<<< HEAD
+<<<<<<< HEAD
 	chart->_id = chart_id;
 =======
 >>>>>>> eec4bb5... Частичная реализация инициализации для тестирования Табеля
+=======
+	chart->_id = chart_id;
+>>>>>>> 7b633cd... Исправлена потеря id при копировании записи
 
 	this->guy = new Employee(fio,"+7 (123) 505 33 99", 123456789012L /*INN*/, chart_id, hd_id, "an md5 hash");
 
@@ -345,7 +349,7 @@ void CalcTest::OneZeroMark()
 	qDebug("countActualTimeUnits: %d", this->laborSheet->countActualTimeUnits());
 
 	// create
-	QCOMPARE(this->laborSheet->countBaseTimeUnits(), this->laborSheet->countActualTimeUnits() );
+	QCOMPARE( laborSheet->countBaseTimeUnits(), laborSheet->countActualTimeUnits() );
 
 <<<<<<< HEAD
 	QCOMPARE(0,1);
