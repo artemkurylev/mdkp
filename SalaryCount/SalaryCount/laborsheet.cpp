@@ -215,9 +215,10 @@ bool LaborSheet::fillWithDefaults()
 }
 void LaborSheet::commitChanges()
 {
-	foreach(Mark mark , this->grid())
+	// foreach(Mark& mark , _grid)
+	for(int i=0 ; i<_grid.size() ; ++i)
 	{
-		mark.commitChanges();
+		_grid[i].commitChanges();
 	}
 }
 
