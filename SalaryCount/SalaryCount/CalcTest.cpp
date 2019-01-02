@@ -350,6 +350,11 @@ void CalcTest::OneZeroMark()
 	printCanendar(this->laborSheet, true, true);
 	printCanendar(this->laborSheet, true, true, false);
 
+	this->laborSheet->commitChanges();
+
+	printCanendar(this->laborSheet, true, true);
+	printCanendar(this->laborSheet, true, true, false);
+
 	QCOMPARE( laborSheet->countBaseTimeUnits(), laborSheet->countActualTimeUnits() );
 
 <<<<<<< HEAD

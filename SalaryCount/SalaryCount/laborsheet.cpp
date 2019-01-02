@@ -276,6 +276,10 @@ bool LaborSheet::fillWithDefaults()
 }
 void LaborSheet::commitChanges()
 {
+<<<<<<< HEAD
+=======
+	// foreach(Mark& mark , _grid)
+>>>>>>> d62d494... Исправлено: фиксация изменений отметок в базовых отметках
 	for(int i=0 ; i<_grid.size() ; ++i)
 	{
 		_grid[i].commitChanges();
