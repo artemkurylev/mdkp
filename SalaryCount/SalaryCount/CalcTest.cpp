@@ -337,18 +337,19 @@ void CalcTest::normal()
 	printCanendar(this->laborSheet, true, true);
 	printCanendar(this->laborSheet, true, true, false);
 
-	// create
-	QCOMPARE(this->laborSheet->countBaseTimeUnits(), this->laborSheet->countActualTimeUnits() );
+	QCOMPARE( laborSheet->countBaseTimeUnits(), laborSheet->countActualTimeUnits() );
 }
 
 void CalcTest::OneZeroMark()
 {
-	this->laborSheet->_grid[0].setAlteredCountHours( 0 );
+	this->laborSheet->_grid[5].setAlteredCountHours( 0 );
 
 	qDebug("countBaseTimeUnits:   %d", this->laborSheet->countBaseTimeUnits());
 	qDebug("countActualTimeUnits: %d", this->laborSheet->countActualTimeUnits());
 
-	// create
+	printCanendar(this->laborSheet, true, true);
+	printCanendar(this->laborSheet, true, true, false);
+
 	QCOMPARE( laborSheet->countBaseTimeUnits(), laborSheet->countActualTimeUnits() );
 
 <<<<<<< HEAD
