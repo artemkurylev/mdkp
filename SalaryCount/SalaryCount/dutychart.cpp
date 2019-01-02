@@ -216,6 +216,7 @@ DutyChart::~DutyChart()
 
 }
 
+//* почасовой график 5/2
 DutyChart defaultChart()
 {
 	// подготовить дату: прошедший ПН
@@ -233,6 +234,8 @@ DutyChart defaultChart()
 
 	return DutyChart("5/2", bmarks, monday, PER_HOUR);
 }
+
+//* помесячный график 2/2/2/1
 DutyChart defaultChart2()
 {
 	// подготовить дату: прошедший ПН

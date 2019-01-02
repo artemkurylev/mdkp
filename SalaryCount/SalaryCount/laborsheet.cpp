@@ -285,9 +285,10 @@ int LaborSheet::countActualTimeUnits()
 		// для почасовой вернуть часы;
 		// для помесячной - 1, если отметка ненулевая, иначе 0.
 		total += (pay_form == PER_HOUR)? 
-			mark.alteredCountHours()
+			(mark.isAlteredCountHours() ? mark.alteredCountHours() : mark.countHours() )
 			:
-			(mark.altered() == Mark::ATTENDS);
+			(mark.isAltered() ? mark.altered() : mark.base() )
+			;
 	}
 
 	return total;
