@@ -48,10 +48,14 @@ LaborSheet::LaborSheet(int id, int billingPeriodId, int employeeId, QList<Mark> 
 LaborSheet::~LaborSheet()
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if(! this->free_records_on_destroy)
 =======
 	if(this->free_records_on_destroy)
 >>>>>>> a5f6310... Механизм запрета освобождения полей, скопированных из другой записи Табеля
+=======
+	if(! this->free_records_on_destroy)
+>>>>>>> c9cf09a... Исправление исключений при удалении записей
 		return;
 
 	// free allocated record

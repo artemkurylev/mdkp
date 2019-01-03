@@ -103,6 +103,9 @@ void CalcTest::cleanupTestCase()
 
 	if(this->laborSheet != NULL)
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c9cf09a... Исправление исключений при удалении записей
 	{
 		this->laborSheet->_employee = NULL;
 		this->laborSheet->_billingPeriod = NULL;
@@ -115,17 +118,21 @@ void CalcTest::cleanupTestCase()
 		this->guy->_hireDirective = NULL;
 		delete this->guy;
 	}
+<<<<<<< HEAD
 =======
 		delete this->laborSheet;
 
 	if(this->guy != NULL)
 		delete this->guy;
 >>>>>>> eec4bb5... Частичная реализация инициализации для тестирования Табеля
+=======
+>>>>>>> c9cf09a... Исправление исключений при удалении записей
 
 	if(this->chart != NULL)
 		delete this->chart;
 
 	if(this->hireDir != NULL)
+<<<<<<< HEAD
 <<<<<<< HEAD
 	{
 		this->hireDir->_hiredEmployee = NULL;
@@ -263,7 +270,12 @@ void CalcTest::DefaultSheet()
 =======
 #include <CalcTest.h>
 =======
+=======
+	{
+		this->hireDir->_hiredEmployee = NULL;
+>>>>>>> c9cf09a... Исправление исключений при удалении записей
 		delete this->hireDir;
+	}
 
 }
 >>>>>>> eec4bb5... Частичная реализация инициализации для тестирования Табеля
@@ -372,17 +384,22 @@ void CalcTest::DefaultSheet()
 		LaborSheet def_lbsh(*this->laborSheet);
 		def_lbsh.fillWithDefaults();
 
-		printCanendar(this->laborSheet, true, true);
-		printCanendar(this->laborSheet, true, true, false);
-
-		this->laborSheet->commitChanges();
 		qDebug("defaultSheet :");
 
 		printCanendar(&def_lbsh, true, true);
 		printCanendar(&def_lbsh, true, true, false);
 
 		QCOMPARE( def_lbsh.countBaseTimeUnits(), def_lbsh.countActualTimeUnits() );
+
+		// �� ������� ������ ��� ����������� def_lbsh
+		def_lbsh._employee = NULL;
+		def_lbsh._billingPeriod = NULL;
+		def_lbsh._dutyChart = NULL;
 	}
+
+	qDebug("def_lbsh seems to be destroyed.");
+
+
 }
 
 
