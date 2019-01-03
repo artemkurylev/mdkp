@@ -32,6 +32,7 @@ private slots:
 
     void normal();
     void OneZeroMark();
+    void DefaultSheet();
 
 };
 

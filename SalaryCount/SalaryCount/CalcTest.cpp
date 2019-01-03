@@ -162,12 +162,33 @@ void CalcTest::OneZeroMark()
 	printCanendar(this->laborSheet, true, true, false);
 
 	this->laborSheet->commitChanges();
+	qDebug("Changes commited");
 
 	printCanendar(this->laborSheet, true, true);
 	printCanendar(this->laborSheet, true, true, false);
 
 	QCOMPARE( laborSheet->countBaseTimeUnits(), laborSheet->countActualTimeUnits() );
 
+}
+
+void CalcTest::DefaultSheet()
+{
+
+	{
+		LaborSheet def_lbsh(*this->laborSheet);
+		def_lbsh.fillWithDefaults();
+
+		printCanendar(this->laborSheet, true, true);
+		printCanendar(this->laborSheet, true, true, false);
+
+		this->laborSheet->commitChanges();
+		qDebug("defaultSheet :");
+
+		printCanendar(&def_lbsh, true, true);
+		printCanendar(&def_lbsh, true, true, false);
+
+		QCOMPARE( def_lbsh.countBaseTimeUnits(), def_lbsh.countActualTimeUnits() );
+	}
 }
 
 
