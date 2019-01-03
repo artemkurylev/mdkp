@@ -19,18 +19,18 @@ LaborSheet::LaborSheet(int employeeId, int billingPeriodId)
     this->_billingPeriodId = billingPeriodId;
     this->_award = 0;
 }
-LaborSheet::LaborSheet(const LaborSheet& laborsheet)
-    : DbRecord()
+LaborSheet::LaborSheet(const LaborSheet& other)
+    : DbRecord(other)
 {
-    this->_id = laborsheet.id();
-    this->_billingPeriodId = laborsheet.billingPeriodId();
-    this->_dutyChartId = laborsheet.dutyChartId();
-    this->_employeeId = laborsheet.employeeeId();
-    this->_employee = NULL;
-    this->_billingPeriod = NULL;
-    this->_dutyChart = NULL;
-    this->_grid = laborsheet.grid();
-    this->_award = laborsheet.award();
+    this->_id = other.id();
+    this->_billingPeriodId = other.billingPeriodId();
+    this->_dutyChartId = other.dutyChartId();
+    this->_employeeId = other.employeeeId();
+    this->_employee = other._employee;
+    this->_billingPeriod = other._billingPeriod;
+    this->_dutyChart = other._dutyChart;
+    this->_grid = other.grid();
+    this->_award = other.award();
 }
 LaborSheet::LaborSheet(int id, int billingPeriodId, int employeeId, QList<Mark> grid)
 {
@@ -45,6 +45,9 @@ LaborSheet::LaborSheet(int id, int billingPeriodId, int employeeId, QList<Mark> 
 }
 LaborSheet::~LaborSheet()
 {
+	if(this->free_records_on_destroy)
+		return;
+
 	// free allocated record
 	if(_employee != NULL)
 	{
@@ -215,7 +218,6 @@ bool LaborSheet::fillWithDefaults()
 }
 void LaborSheet::commitChanges()
 {
-	// foreach(Mark& mark , _grid)
 	for(int i=0 ; i<_grid.size() ; ++i)
 	{
 		_grid[i].commitChanges();

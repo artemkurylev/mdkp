@@ -48,6 +48,7 @@ public:
 
 protected:
     int _id;
+	bool free_records_on_destroy;
 
 private:
 
