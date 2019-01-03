@@ -45,6 +45,7 @@ private slots:
     void normal();
     void OneZeroMark();
     void DefaultSheet();
+<<<<<<< HEAD
 =======
 	CalcTest(QObject *parent = 0)
 		: QObject(parent) {};
@@ -74,6 +75,8 @@ private slots:
 =======
     void OneZeroMark();
 >>>>>>> bf4b070... Отладочная печать табеля для тестов
+=======
+>>>>>>> 0750f9b... Тест на создание копии табеля с отметками по умолчанию
 
 };
 
