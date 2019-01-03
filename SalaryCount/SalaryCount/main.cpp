@@ -40,13 +40,12 @@ int test_main(int argc, char *argv[])
 	freopen ("sc_stdout.log","w",stdout);
 	
 
-	fprintf (stderr, "This sentence is redirected to a file.");
-	printf ("This sentence is redirected to a file.");
+	fprintf (stderr, "Begin of STDERR log.\n");
+	printf ("Begin of STDOUT log.\n");
 
 	CalcTest t;
 	QTest::qExec( &t , NULL , NULL);
 
 
-	fclose (stderr);
     return 0; // a.exec();
 }
