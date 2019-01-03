@@ -62,7 +62,10 @@ Employee::~Employee()
 	// free allocated record
 	if(_hireDirective != NULL)
 	{
-		delete _hireDirective;
+		// предотвращение рекурсии при удалении 
+		HireDirective* rec = _hireDirective;
+		_hireDirective = NULL;
+		delete rec;
 	}
 }
 

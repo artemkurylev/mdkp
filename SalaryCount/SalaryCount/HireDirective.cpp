@@ -32,7 +32,10 @@ HireDirective::~HireDirective(void)
 	// free allocated record
 	if(_hiredEmployee != NULL)
 	{
-		delete _hiredEmployee;
+		// предотвращение рекурсии при удалении 
+		Employee* rec = _hiredEmployee;
+		_hiredEmployee = NULL;
+		delete rec;
 	}
 }
 

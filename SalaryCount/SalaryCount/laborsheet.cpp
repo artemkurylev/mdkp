@@ -45,7 +45,7 @@ LaborSheet::LaborSheet(int id, int billingPeriodId, int employeeId, QList<Mark> 
 }
 LaborSheet::~LaborSheet()
 {
-	if(this->free_records_on_destroy)
+	if(! this->free_records_on_destroy)
 		return;
 
 	// free allocated record
