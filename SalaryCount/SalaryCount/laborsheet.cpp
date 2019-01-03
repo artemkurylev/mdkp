@@ -160,12 +160,15 @@ QList<LaborSheetDescriptionLine> LaborSheet::description()
 				:
 				(mark_this->altered() == Mark::ATTENDS) - (mark_def->base() == Mark::ATTENDS); */
 			float diff_altered = (payForm() == PER_HOUR)? 
-				mark_this->alteredCountHours() - mark_def->countHours()
+				mark_this->actualCountHours() - mark_def->countHours()
 				:
-				(mark_this->altered() == Mark::ATTENDS) - (mark_def->base() == Mark::ATTENDS);
+				(mark_this->actual() == Mark::ATTENDS) - (mark_def->base() == Mark::ATTENDS);
 
 			/*summ2_base	 +=	diff_base	 *	diff_base; */
 			summ2_altered += diff_altered *	diff_altered;
+
+			///
+			qDebug("i=%2d, diff_altered=%f, summ2_altered=%f", i, diff_altered, summ2_altered);
 		}
 		/*summ2_base		= sqrt(summ2_base / marksN); */
 		summ2_altered	= sqrt(summ2_altered / marksN);

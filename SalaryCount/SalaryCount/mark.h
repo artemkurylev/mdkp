@@ -35,9 +35,11 @@ public:
 	// getters
 	int base()		const	{	return _base;		}
 	int altered()	const	{	return _altered;	}
+	int actual()	const	{	return isAltered()? altered():base();	}
 	bool isAltered()const	{	return _altered != INVALID;	}
     int countHours()		const	{	return _countHours;		}
     int alteredCountHours()	const	{	return _alteredCountHours;	}
+	int actualCountHours()	const	{	return isAlteredCountHours()? alteredCountHours():countHours();	}
     bool isAlteredCountHours()const {	return _alteredCountHours != -1;	}
     int dutyChartId()	const	{	return _dutyChartId;	}
     int laborsheetId()	const	{	return _laborsheetId;	}
