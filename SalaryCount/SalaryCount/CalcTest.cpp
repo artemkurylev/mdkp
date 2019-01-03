@@ -184,15 +184,14 @@ void CalcTest::OneZeroMark()
 
 void CalcTest::DefaultSheet()
 {
-
 	{
 		LaborSheet def_lbsh(*this->laborSheet);
 		def_lbsh.fillWithDefaults();
 
 		qDebug("defaultSheet :");
 
-		printCanendar(&def_lbsh, true, true);
-		printCanendar(&def_lbsh, true, true, false);
+		//printCanendar(&def_lbsh, true, true);
+		//printCanendar(&def_lbsh, true, true, false);
 
 		QCOMPARE( def_lbsh.countBaseTimeUnits(), def_lbsh.countActualTimeUnits() );
 
@@ -205,6 +204,18 @@ void CalcTest::DefaultSheet()
 	qDebug("def_lbsh seems to be destroyed.");
 
 
+	QList<LaborSheetDescriptionLine> descr = this->laborSheet->description();
+
+	QString hr;
+	foreach(const LaborSheetDescriptionLine& line , descr)
+	{
+		//QString name , default_value, base_value, altered_value;
+		//float value; // -1 означает отсутствие значения в этом поле
+		hr += QString("\n name: %1, %2 / %3 / %4. value: %5")
+			.arg(line.name, line.default_value, line.base_value, line.altered_value).arg(line.value);
+	}
+
+	qDebug(hr.toLocal8Bit().data());
 }
 
 
