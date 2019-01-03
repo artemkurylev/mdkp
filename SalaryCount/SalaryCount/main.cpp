@@ -104,9 +104,14 @@ int test_main(int argc, char *argv[])
 	freopen ("sc_stdout.log","w",stdout);
 	
 
+<<<<<<< HEAD
 	fprintf (stderr, "This sentence is redirected to a file.");
 	printf ("This sentence is redirected to a file.");
 >>>>>>> 25c9d1b... Перенаправление стандартных потоков в файлы
+=======
+	fprintf (stderr, "Begin of STDERR log.\n");
+	printf ("Begin of STDOUT log.\n");
+>>>>>>> 858b23a... [Незначительно] Исправлены стартовые сообщения логов
 
 	CalcTest t;
 	QTest::qExec( &t , NULL , NULL);
@@ -119,7 +124,6 @@ int test_main(int argc, char *argv[])
 >>>>>>> 3690967... Добавлен класс для тестирования расчётов
 =======
 
-	fclose (stderr);
     return 0; // a.exec();
 }
 >>>>>>> 25c9d1b... Перенаправление стандартных потоков в файлы
