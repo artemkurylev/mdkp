@@ -47,7 +47,11 @@ LaborSheet::LaborSheet(int id, int billingPeriodId, int employeeId, QList<Mark> 
 }
 LaborSheet::~LaborSheet()
 {
+<<<<<<< HEAD
 	if(! this->free_records_on_destroy)
+=======
+	if(this->free_records_on_destroy)
+>>>>>>> a5f6310... Механизм запрета освобождения полей, скопированных из другой записи Табеля
 		return;
 
 	// free allocated record
@@ -277,9 +281,12 @@ bool LaborSheet::fillWithDefaults()
 void LaborSheet::commitChanges()
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	// foreach(Mark& mark , _grid)
 >>>>>>> d62d494... Исправлено: фиксация изменений отметок в базовых отметках
+=======
+>>>>>>> a5f6310... Механизм запрета освобождения полей, скопированных из другой записи Табеля
 	for(int i=0 ; i<_grid.size() ; ++i)
 	{
 		_grid[i].commitChanges();
