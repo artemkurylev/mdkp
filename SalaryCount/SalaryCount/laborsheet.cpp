@@ -200,9 +200,12 @@ QList<LaborSheetDescriptionLine> LaborSheet::description()
 	// ���������� ����������
 	{
 		int marksN = this->grid().size();
+<<<<<<< HEAD
 
 		// s = sqrt( SUM( (x - x_0)^2 ) / N )
 
+=======
+>>>>>>> 0224b49... Метод расчёта пунктуальности исправлен на более адекватный
 		for(int i=0 ; i<marksN ; ++i)
 		{
 			const Mark *mark_this, *mark_def;
@@ -210,6 +213,7 @@ QList<LaborSheetDescriptionLine> LaborSheet::description()
 			mark_def = &def_lbsh.grid() [i];
 			// ��� ��������� ������� ����;
 			// ��� ���������� - 1, ���� ������� ���������, ����� 0.
+<<<<<<< HEAD
 
 			float diff_altered = (payForm() == PER_HOUR)? 
 				(mark_this->actualCountHours() - mark_def->countHours()) / Mark::USUAL
@@ -223,27 +227,33 @@ QList<LaborSheetDescriptionLine> LaborSheet::description()
 				mark_this->countHours() - mark_def->countHours()
 				:
 				(mark_this->altered() == Mark::ATTENDS) - (mark_def->base() == Mark::ATTENDS); */
+=======
+>>>>>>> 0224b49... Метод расчёта пунктуальности исправлен на более адекватный
 			float diff_altered = (payForm() == PER_HOUR)? 
-				mark_this->actualCountHours() - mark_def->countHours()
+				(mark_this->actualCountHours() - mark_def->countHours()) / Mark::USUAL
 				:
 				(mark_this->actual() == Mark::ATTENDS) - (mark_def->base() == Mark::ATTENDS);
 
-			/*summ2_base	 +=	diff_base	 *	diff_base; */
-			summ2_altered += diff_altered *	diff_altered;
-
-			///
-			qDebug("i=%2d, diff_altered=%f, summ2_altered=%f", i, diff_altered, summ2_altered);
+			summ2_altered += abs(diff_altered);
 		}
+<<<<<<< HEAD
 		/*summ2_base		= sqrt(summ2_base / marksN); */
 		summ2_altered	= sqrt(summ2_altered / marksN);
 
+=======
+		summ2_altered	= summ2_altered / marksN;
+>>>>>>> 0224b49... Метод расчёта пунктуальности исправлен на более адекватный
 	}
 	dl.default_value = QString::fromLocal8Bit("100%");
 	dl.base_value    = QString::fromLocal8Bit("");
 	dl.altered_value = QString::fromLocal8Bit("%1% � �������")
+<<<<<<< HEAD
 
 		.arg(QString::number(100*qMax(0.0F,qMin(1.0F,1.0F-summ2_altered/(float)def_base_time)),'f',1));
 
+=======
+		.arg(QString::number(100*qMax(0.0F,qMin(1.0F,1.0F-summ2_altered)),'f',1));
+>>>>>>> 0224b49... Метод расчёта пунктуальности исправлен на более адекватный
 	l.push_back(dl);
 
 	return l;
