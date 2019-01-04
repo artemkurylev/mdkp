@@ -7,11 +7,16 @@
 
 #include "unittest/DirectiveGeneratorTest.h"
 
+// глобальный указатель на основное окно приложения
+/*static*/ SalaryCount* SalaryCount::globalApp = NULL;
+
 
 SalaryCount::SalaryCount(QString dbName, QWidget *parent)
     : QMainWindow()
 {
     ui.setupUi(this);
+
+	SalaryCount::globalApp = this;
 
 	initialDBManager(dbName);
 

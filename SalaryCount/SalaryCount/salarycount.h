@@ -23,6 +23,9 @@ public:
     SalaryCount(QString dbName = 0, QWidget *parent = 0);
     ~SalaryCount();
 
+	// глобальный указатель на основное окно приложени€
+	static SalaryCount* globalApp;
+
 private:
     Ui_SalaryCount ui;
 
@@ -45,13 +48,14 @@ signals:
 	void saveChanges();
 	void showPaget(QString name);
 
-private slots:
-
-	void rememberState(bool state);
-
+public slots:
 	//! переходы по страницам приложени€
 	void showPage(QAction* actionEmited);
+
+private slots:
+	void rememberState(bool state);
 	//! меню "‘айл"
 	void showCompanyDialog(QAction* actionEmited);
+
 };
 #endif // SALARYCOUNT_H

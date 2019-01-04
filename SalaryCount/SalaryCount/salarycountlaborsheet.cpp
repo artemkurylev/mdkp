@@ -1,5 +1,7 @@
 #include "salarycountlaborsheet.h"
 #include<qtablewidget.h>
+#include "salarycount.h"
+
 QTableWidgetItem* makeDateLabel(int day);
 
 
@@ -114,6 +116,13 @@ void salarycountLaborSheet::updateInfo(QString name)
 {
     if(this->objectName().compare(name) != 0)
 		return;
+
+	bool company_initialized = BillingPeriod::countEntries() > 1;
+	if( !company_initialized )
+	{
+		SalaryCount::globalApp->showPage(ui->ShowProfileAction);
+		return;
+	}
 
 		QList<LaborSheet> labor_data = LaborSheet::getByPeriodId(_viewedPeriod->id());
 		
