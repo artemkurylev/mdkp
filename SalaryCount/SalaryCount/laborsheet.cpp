@@ -147,7 +147,6 @@ QList<LaborSheetDescriptionLine> LaborSheet::description()
 	// подсчитать отклонение
 	{
 		int marksN = this->grid().size();
-		// s = sqrt( SUM( (x - x_0)^2 ) / N )
 		for(int i=0 ; i<marksN ; ++i)
 		{
 			const Mark *mark_this, *mark_def;
@@ -155,28 +154,19 @@ QList<LaborSheetDescriptionLine> LaborSheet::description()
 			mark_def = &def_lbsh.grid() [i];
 			// для почасовой вернуть часы;
 			// для помесячной - 1, если отметка ненулевая, иначе 0.
-			/* float diff_base = (payForm() == PER_HOUR)? 
-				mark_this->countHours() - mark_def->countHours()
-				:
-				(mark_this->altered() == Mark::ATTENDS) - (mark_def->base() == Mark::ATTENDS); */
 			float diff_altered = (payForm() == PER_HOUR)? 
-				mark_this->actualCountHours() - mark_def->countHours()
+				(mark_this->actualCountHours() - mark_def->countHours()) / Mark::USUAL
 				:
 				(mark_this->actual() == Mark::ATTENDS) - (mark_def->base() == Mark::ATTENDS);
 
-			/*summ2_base	 +=	diff_base	 *	diff_base; */
-			summ2_altered += diff_altered *	diff_altered;
-
-			///
-			qDebug("i=%2d, diff_altered=%f, summ2_altered=%f", i, diff_altered, summ2_altered);
+			summ2_altered += abs(diff_altered);
 		}
-		/*summ2_base		= sqrt(summ2_base / marksN); */
-		summ2_altered	= sqrt(summ2_altered / marksN);
+		summ2_altered	= summ2_altered / marksN;
 	}
 	dl.default_value = QString::fromLocal8Bit("100%");
 	dl.base_value    = QString::fromLocal8Bit("");
 	dl.altered_value = QString::fromLocal8Bit("%1% в среднем")
-		.arg(QString::number(100*qMax(0.0F,qMin(1.0F,1.0F-summ2_altered/(float)def_base_time)),'f',1));
+		.arg(QString::number(100*qMax(0.0F,qMin(1.0F,1.0F-summ2_altered)),'f',1));
 	l.push_back(dl);
 
 	return l;
