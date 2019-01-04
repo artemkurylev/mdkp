@@ -80,7 +80,7 @@ bool DbManager::checkConnection()
 
 		// set timer
 		skipKeepAliveCheck = true;
-		QTimer::singleShot(2000 /*ms*/, this, SLOT(ResumeKeepAliveCheck()));
+		QTimer::singleShot(8000 /*ms*/, this, SLOT(ResumeKeepAliveCheck()));
 
 		// проверка активности соединения
 		// источник: http://www.prog.org.ru/topic_6693_0.html Russian Qt Forum >> Базы данных > Lost connection to MySQL server during query QMYSQL: Unable to execute query
