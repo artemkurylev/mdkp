@@ -203,7 +203,7 @@ void BillingPeriod::set_modified()
 }
 /*static*/ long BillingPeriod::countEntries()
 {
-    int counter = 0;
+    long counter = 0;
     if(DbManager::manager().checkConnection())
     {
         QSqlQuery* query = DbManager::manager().makeQuery();
