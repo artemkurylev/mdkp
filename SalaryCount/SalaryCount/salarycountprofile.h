@@ -19,6 +19,7 @@ private:
 
 public slots:
 	void updateInfo(QString name);
+	void startCompany();
 };
 
 #endif // SALARYCOUNTPROFILE_H
