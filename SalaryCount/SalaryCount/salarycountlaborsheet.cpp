@@ -1,6 +1,9 @@
 #include "salarycountlaborsheet.h"
 #include<qtablewidget.h>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6406fd1... Добавлена функциональность "Начать работу" (кнопкой в профиле предприятия)
 #include "salarycount.h"
 
 QTableWidgetItem* makeDateLabel(int day);

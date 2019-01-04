@@ -52,6 +52,7 @@ signals:
 	void showPaget(QString name);
 
 public slots:
+<<<<<<< HEAD
 	//! переходы по страницам приложения
 	void showPage(QAction* actionEmited);
 
@@ -67,9 +68,15 @@ private slots:
 	//! меню "Файл"
 	void showCompanyDialog(QAction* actionEmited);
 
+=======
+>>>>>>> 6406fd1... Р”РѕР±Р°РІР»РµРЅР° С„СѓРЅРєС†РёРѕРЅР°Р»СЊРЅРѕСЃС‚СЊ "РќР°С‡Р°С‚СЊ СЂР°Р±РѕС‚Сѓ" (РєРЅРѕРїРєРѕР№ РІ РїСЂРѕС„РёР»Рµ РїСЂРµРґРїСЂРёСЏС‚РёСЏ)
 	//! переходы по страницам приложения
 	void showPage(QAction* actionEmited);
+
+private slots:
+	void rememberState(bool state);
 	//! меню "Файл"
 	void showCompanyDialog(QAction* actionEmited);
+
 };
 #endif // SALARYCOUNT_H
