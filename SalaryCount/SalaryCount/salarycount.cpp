@@ -166,13 +166,13 @@ void SalaryCount::showPage(QAction* actionEmited)
 	{
 		QString namePage = actionEmited->whatsThis();
 
-		emit showPaget(namePage);
-
 		this->currentAction->setEnabled(true);
 		this->currentAction = actionEmited;
 		this->currentAction->setEnabled(false);
 
 		showStackedItem(namePage);
+
+		emit showPaget(namePage);
 	}
 }
 
