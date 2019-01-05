@@ -9,9 +9,12 @@
 
 #include "unittest/DirectiveGeneratorTest.h"
 #include "SalaryCountGuiTester.h"
+<<<<<<< HEAD
 
 // глобальный указатель на основное окно приложения
 /*static*/ SalaryCount* SalaryCount::globalApp = NULL;
+=======
+>>>>>>> ee6c15c... РџСЂРёРІСЏР·РєР° Р·Р°РїСѓСЃРєР° С‚РµСЃС‚РѕРІ РїРѕ СЃРѕС‡РµС‚Р°РЅРёСЋ РєР»Р°РІРёС€ Ctrl+T
 
 // глобальный указатель на основное окно приложения
 /*static*/ SalaryCount* SalaryCount::globalApp = NULL;
@@ -65,8 +68,12 @@ SalaryCount::SalaryCount(QString dbName, QWidget *parent)
 
 	connect(ui.ExitAction,SIGNAL(triggered()), this,SLOT(close()));
 
+<<<<<<< HEAD
 	//showPage(ui.DutyCharAction);
 	showPage(ui.LaborSheetAction);
+=======
+	showPage(ui.DutyCharAction);
+>>>>>>> ee6c15c... РџСЂРёРІСЏР·РєР° Р·Р°РїСѓСЃРєР° С‚РµСЃС‚РѕРІ РїРѕ СЃРѕС‡РµС‚Р°РЅРёСЋ РєР»Р°РІРёС€ Ctrl+T
 
 
 	QShortcut *test_shortcut = new QShortcut(QKeySequence(QString("Ctrl+T")), this);
@@ -155,6 +162,7 @@ bool SalaryCount::isEditable()
 	return false;
 }
 
+<<<<<<< HEAD
 
 void SalaryCount::startTesting()
 {
@@ -185,6 +193,18 @@ void SalaryCount::startTesting()
 void SalaryCount::finishTesting(int failedTests)
 {
 	QMessageBox::information(this, QString::fromWCharArray(L"Режим тестирования"), QString::fromWCharArray(L"Тестирование GUI завершено!\nКоличество проваленных тестов: %1.").arg(failedTests) ); 
+=======
+void SalaryCount::startTesting()
+{
+	QMessageBox::information(this, QString::fromWCharArray(L"Режим тестирования"), QString::fromWCharArray(L"Бобро поржаловать в\nрежим автоматического тестирования GUI!")); 
+
+
+	SalaryCountGuiTester t(&this->ui);
+	int r = QTest::qExec( &t , NULL , NULL);
+
+
+	QMessageBox::information(this, QString::fromWCharArray(L"Режим тестирования"), QString::fromWCharArray(L"Тестирование GUI завершено!\nКоличество проваленных тестов: %1.").arg(r) ); 
+>>>>>>> ee6c15c... РџСЂРёРІСЏР·РєР° Р·Р°РїСѓСЃРєР° С‚РµСЃС‚РѕРІ РїРѕ СЃРѕС‡РµС‚Р°РЅРёСЋ РєР»Р°РІРёС€ Ctrl+T
 
 }
 
