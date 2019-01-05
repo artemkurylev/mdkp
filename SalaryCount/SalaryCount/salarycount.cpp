@@ -2,11 +2,13 @@
 
 
 #include <QtTest/QtTest>
+#include <QShortcut>
 #include "dbmanager.h"
 #include "dutychart.h"
 #include"qsqldatabase.h"
 
 #include "unittest/DirectiveGeneratorTest.h"
+#include "SalaryCountGuiTester.h"
 
 // глобальный указатель на основное окно приложения
 /*static*/ SalaryCount* SalaryCount::globalApp = NULL;
@@ -75,6 +77,12 @@ SalaryCount::SalaryCount(QString dbName, QWidget *parent)
 	connect(ui.ExitAction,SIGNAL(triggered()), this,SLOT(close()));
 
 	showPage(ui.DutyCharAction);
+
+
+	QShortcut *test_shortcut = new QShortcut(QKeySequence(QString("Ctrl+T")), this);
+	test_shortcut->setAutoRepeat(false);
+	connect(test_shortcut,SIGNAL(activated()), this,SLOT(startTesting()));
+
 }
 SalaryCount::~SalaryCount()
 {
@@ -155,6 +163,19 @@ bool SalaryCount::isEditable()
 	}
 
 	return false;
+}
+
+void SalaryCount::startTesting()
+{
+	QMessageBox::information(this, QString::fromWCharArray(L"Режим тестирования"), QString::fromWCharArray(L"Бобро поржаловать в\nрежим автоматического тестирования GUI!")); 
+
+
+	SalaryCountGuiTester t(&this->ui);
+	int r = QTest::qExec( &t , NULL , NULL);
+
+
+	QMessageBox::information(this, QString::fromWCharArray(L"Режим тестирования"), QString::fromWCharArray(L"Тестирование GUI завершено!\nКоличество проваленных тестов: %1.").arg(r) ); 
+
 }
 
 /*!

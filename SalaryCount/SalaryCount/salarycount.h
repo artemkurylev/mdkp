@@ -55,6 +55,9 @@ public slots:
 	//! переходы по страницам приложения
 	void showPage(QAction* actionEmited);
 
+	//! Тестирование
+	void startTesting();
+
 private slots:
 	void rememberState(bool state);
 	//! меню "Файл"
