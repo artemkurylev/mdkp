@@ -50,8 +50,12 @@ void SalaryCountGuiTester::addWorker()
 }
 void SalaryCountGuiTester::editWorkerInfo()
 {
-
+	if( ui->stackedWidget->currentWidget()->objectName() != "EmployeesPage" )
+	{
+		return;
+	}
 	
+	qDebug("Launching test `editWorkerInfo` ...");
 }
 void SalaryCountGuiTester::editLaborSheet()
 {
