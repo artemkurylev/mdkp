@@ -8,9 +8,12 @@
 #include <CalcTest.h>
 
 int test_main(int argc, char *argv[]);
+void redirect_output_streams();
 
 int main(int argc, char *argv[])
 {
+	redirect_output_streams();
+
 	if(false) // if tests enabled
 	{
 		return test_main(argc, argv);
@@ -32,20 +35,22 @@ int main(int argc, char *argv[])
     return a.exec();
 }
 
+void redirect_output_streams()
+{
+	freopen ("sc_stderr.log","w",stderr); // можно задать 'w+' для дозаписи (чтобы прошлые логи не затирались)
+	freopen ("sc_stdout.log","w",stdout);
+	
+	fprintf(stderr, "Begin of STDERR log.\n");
+	printf ("Begin of STDOUT log.\n");
+}
+
+
 int test_main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
-	freopen ("sc_stderr.log","w",stderr);
-	freopen ("sc_stdout.log","w",stdout);
-	
-
-	fprintf (stderr, "Begin of STDERR log.\n");
-	printf ("Begin of STDOUT log.\n");
-
 	CalcTest t;
 	QTest::qExec( &t , NULL , NULL);
-
 
     return 0; // a.exec();
 }
