@@ -110,10 +110,12 @@
 
                <y>0</y>
 
-               <width>278</width>
-               <height>548</height>
-            <width>261</width>
-               <height>501</height>
+               <width>256</width>
+               <height>527</height>
+             <y>-28</y>
+               <y>-75</y>
+               <width>261</width>
+
               </rect>
              </property>
              <layout class="QGridLayout" name="gridLayout_2">
@@ -906,7 +908,6 @@
              <widget class="QLabel" name="Month_label">
               <property name="text">
                <string>Месяц: ноябрь 2018</string>
-<<<<<<< HEAD
               </property>
 
              </widget>
