@@ -30,9 +30,12 @@ int main(int argc, char *argv[])
 #include <CalcTest.h>
 
 int test_main(int argc, char *argv[]);
+void redirect_output_streams();
 
 int main(int argc, char *argv[])
 {
+	redirect_output_streams();
+
 	if(false) // if tests enabled
 	{
 		return test_main(argc, argv);
@@ -96,13 +99,12 @@ int test_main(int argc, char *argv[])
 =======
 }
 
-int test_main(int argc, char *argv[])
+void redirect_output_streams()
 {
-    QCoreApplication a(argc, argv);
-
-	freopen ("sc_stderr.log","w",stderr);
+	freopen ("sc_stderr.log","w",stderr); // ����� ������ 'w+' ��� �������� (����� ������� ���� �� ����������)
 	freopen ("sc_stdout.log","w",stdout);
 	
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 	fprintf (stderr, "This sentence is redirected to a file.");
@@ -112,10 +114,21 @@ int test_main(int argc, char *argv[])
 	fprintf (stderr, "Begin of STDERR log.\n");
 	printf ("Begin of STDOUT log.\n");
 >>>>>>> 858b23a... [Незначительно] Исправлены стартовые сообщения логов
+=======
+	fprintf(stderr, "Begin of STDERR log.\n");
+	printf ("Begin of STDOUT log.\n");
+}
+
+
+int test_main(int argc, char *argv[])
+{
+    QCoreApplication a(argc, argv);
+>>>>>>> 4e37379... Теперь перенаправление в файлы stdout и stderr - на постоянной основе
 
 	CalcTest t;
 	QTest::qExec( &t , NULL , NULL);
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     return 0; // a.exec();
 }
@@ -124,6 +137,8 @@ int test_main(int argc, char *argv[])
 >>>>>>> 3690967... Добавлен класс для тестирования расчётов
 =======
 
+=======
+>>>>>>> 4e37379... Теперь перенаправление в файлы stdout и stderr - на постоянной основе
     return 0; // a.exec();
 }
 >>>>>>> 25c9d1b... Перенаправление стандартных потоков в файлы
