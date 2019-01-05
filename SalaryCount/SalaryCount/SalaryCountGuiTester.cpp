@@ -61,6 +61,7 @@ void SalaryCountGuiTester::editWorkerInfo()
 	{
 		return;
 	}
+<<<<<<< HEAD
 	
 
 
@@ -266,6 +267,10 @@ void CbxSetIndex(QComboBox* cbx, int val)
 	QTest::keyClick( cbx , Qt::Key_Up, Qt::ShiftModifier, /*delay =*/ 50);
 	
 	cbx->setCurrentIndex(val);
+=======
+	
+	qDebug("Launching test `editWorkerInfo` ...");
+>>>>>>> 688eb8c... Тест-заглушка для страницы сотрудников
 }
 
 void SalaryCountGuiTester::editLaborSheet()
