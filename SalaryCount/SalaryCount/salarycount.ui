@@ -116,6 +116,7 @@
                <y>-28</y>
                <y>-75</y>
                <width>261</width>
+               <width>226</width>
                <height>501</height>
               </rect>
              </property>
@@ -656,6 +657,9 @@
                 <width>700</width>
                 <height>210</height>
                </size>
+              </property>
+              <property name="statusTip">
+               <string>Рабочие отметки за выбранный месяц</string>
               </property>
               <property name="sizeAdjustPolicy">
                <enum>QAbstractScrollArea::AdjustToContents</enum>
