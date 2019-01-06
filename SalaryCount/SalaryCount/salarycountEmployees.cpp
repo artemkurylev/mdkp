@@ -297,6 +297,7 @@ QString salarycountEmployees::validateData()
 		return QString::fromWCharArray(L"Неправильный номер телефона:\n%1\nПример: +7 (111) 111 11 11").arg(ui->eNumberPhone->text());
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if(this->currentState == ADD) 
 		if( ui->ePassword->text().isEmpty() )
 			return QString::fromWCharArray(L"Пароль не может быть пустым");
@@ -304,6 +305,11 @@ QString salarycountEmployees::validateData()
 	if( ui->ePassword->text().isEmpty() )
 		return QString::fromWCharArray(L"Пароль задан неверно").arg(ui->ePassword->text());
 >>>>>>> fa493b5... Р”РѕР±Р°РІРёР» РїРѕР»Рµ РґР»СЏ РІРІРѕРґР° РїР°СЂРѕР»СЏ
+=======
+	if(this->currentState == ADD) 
+		if( ui->ePassword->text().isEmpty() )
+			return QString::fromWCharArray(L"Пароль не может быть пустым");
+>>>>>>> f5bde85... РСЃРїСЂР°РІР»РµРЅ Р±Р°Рі СЃ РїСЂРѕРІРµСЂРєРѕР№ РїР°СЂРѕР»СЏ РІ СЂРµР¶РёРјРµ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ, Р° РЅРµ СЃРѕР·РґР°РЅРёСЏ СЃРѕС‚СЂСѓРґРЅРёРєР°
 
 	return QString();
 }
