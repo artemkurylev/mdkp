@@ -36,7 +36,7 @@ SalaryCount::SalaryCount(QString dbName, QWidget *parent)
 	connect(this, SIGNAL(showPaget(QString)),this->employees,SLOT(updateInfo(QString)));//обновить информацию на странице
 	connect(this->employees,SIGNAL(changeState(bool)),this,SLOT(rememberState(bool)));//на странице может быть два режима: просмотр и изменение записей
 	connect(this,SIGNAL(saveChanges()),this->employees,SLOT(saveNewEmployee()));//приложение посылает сигнал на сохранение страницы
-	connect(this,SIGNAL(cancelChanges()),this->dutyChart,SLOT(cancelNewEmployee()));//приложение посылает сигнал отмены редактирования
+	connect(this,SIGNAL(cancelChanges()),this->employees,SLOT(cancelNewEmployee()));//приложение посылает сигнал отмены редактирования
 	
     //Соедиенение со страницей табелей
     this->laborSheet = new salarycountLaborSheet(&this->ui,ui.LaborSheetAction->whatsThis());
