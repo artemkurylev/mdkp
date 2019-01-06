@@ -20,9 +20,6 @@ int main(int argc, char *argv[])
 		return test_main(argc, argv);
 	}
 
-	//DirectiveGeneratorTest dgt(0);
-	//QTest::qExec( &dgt , NULL , NULL);
-	
     QApplication a(argc, argv);
     companyOpenDialog q;
     q.show();

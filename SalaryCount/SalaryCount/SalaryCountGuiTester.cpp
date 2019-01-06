@@ -1,5 +1,7 @@
 #include "SalaryCountGuiTester.h"
 
+#include <QMessageBox>
+
 void Tester::runTests(Ui_SalaryCount* ui) {
 	SalaryCountGuiTester t(ui);
 	char *argv[] = {"-nograb"};
@@ -127,7 +129,6 @@ void SalaryCountGuiTester::editWorkerInfo()
 	 rec_data[1].phone	= QString("+44044047855");
 
 	qDebug("Launching test `editWorkerInfo` ...");
-	fflush(stdout);
 
 	// в списке д.б. не менее 2 пунктов!
 	int employees_count = ui->employeeList->count();
@@ -255,9 +256,98 @@ void SalaryCountGuiTester::editWorkerInfo()
 	ui->statusBar->showMessage("Passed to the end of test `editWorkerInfo`.", 15*1000);
 
 }
+
+void CbxSetIndex(QComboBox* cbx, int val)
+{
+	cbx->setFocus();
+
+	QTest::keyClick( cbx , Qt::Key_Down, Qt::NoModifier, /*delay =*/ 50);
+	QTest::keyClick( cbx , Qt::Key_Down, Qt::NoModifier, /*delay =*/ 50);
+	QTest::keyClick( cbx , Qt::Key_Up, Qt::ShiftModifier, /*delay =*/ 50);
+	
+	cbx->setCurrentIndex(val);
+}
+
 void SalaryCountGuiTester::editLaborSheet()
 {
+	if( ui->stackedWidget->currentWidget()->objectName() != "LaborSheetsPage" )
+	{
+		return;
+	}
+	
+	QMap<QComboBox*, int> original_values;
+	
+	qDebug("Launching test `editLaborSheet` ...");
+	
+	// в списке д.б. не менее 1 пункта!
+	int sheets_count = ui->employeeLaborSheetTable->rowCount();
+	QVERIFY2(sheets_count >= 1, "Not enough labor_sheets in table!");
 
+	QVERIFY2(ui->employeeLaborSheetTable->currentRow() >= 0, "No labor_sheet selected!");
+	
+	// перейти в режим редактирования табеля, если ещё не в нём
+	if( ui->updateLaborBtn->isEnabled() )
+	{
+		ui->statusBar->showMessage("Entering edit mode ...", 15*1000);
+		QTest::mouseClick(ui->updateLaborBtn, Qt::LeftButton);
+	}
+	
+	for(int i=0 ; i<6 ; ++i)
+	for(int j=0 ; j<7 ; ++j)
+	{
+		QWidget* w = ui->laborSheet->cellWidget(i,j);
+		if( dynamic_cast<QComboBox*>(w) == nullptr ) {
+			continue;
+		}
+
+		QComboBox* cbx;
+		cbx = ((QComboBox*) w);
+		// qDebug("combo at (%d,%d)", i,j);
+		original_values[cbx] = cbx->currentIndex();
+	}
+
+	if( ! ui->laborSheet->cellWidget(1,0)->isEnabled() )
+	{
+		ui->statusBar->showMessage("Cannot edit marks: period is closed. PLEASE GO to opened period!", 45*1000);
+		QMessageBox::information(0, QString::fromWCharArray(L"Режим тестирования"), QString::fromWCharArray(L"Ошибка начальных условий для тестирования редакции отметок: текущий период закрыт. Перейдите к открытому (текущему) расчётному периоду.")); 
+	}
+	
+	QVERIFY2( ui->laborSheet->cellWidget(1,0)->isEnabled(), "Cannot edit marks: period is closed." );
+	
+	
+	// ввести новые данные ...
+	ui->statusBar->showMessage("Type new test marks ...", 15*1000);
+	
+	int v = 0, inc = +1;
+	foreach(QComboBox* cbx , original_values.keys())
+	{
+		CbxSetIndex(cbx, v);
+		
+		v += inc;
+		if(v<=0 || v>=12) inc *= -1;
+	}
+	
+	// сохранить
+	ui->statusBar->showMessage("Saving new test data ...", 15*1000);
+	QTest::keyClick( ui->saveEditedLaborBtn , Qt::Key_Space, Qt::NoModifier, /*delay =*/ 100 );
+	
+	// wait
+	 QThread::sleep(2);
+
+	// снова редактировать
+	ui->statusBar->showMessage("Entering edit mode again ...", 15*1000);
+	QTest::mouseClick(ui->updateLaborBtn, Qt::LeftButton);
+	
+	ui->statusBar->showMessage("Revert original data ...", 15*1000);
+	foreach(QComboBox* cbx , original_values.keys())
+	{
+		CbxSetIndex(cbx, original_values[cbx]);
+	}
+	
+	// сохранить
+	ui->statusBar->showMessage("Saving ...", 15*1000);
+	QTest::keyClick( ui->saveEditedLaborBtn , Qt::Key_Space, Qt::NoModifier, /*delay =*/ 100 );
+	
 	
 }
 void SalaryCountGuiTester::showOrder()
