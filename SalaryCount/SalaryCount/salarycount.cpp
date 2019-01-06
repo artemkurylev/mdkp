@@ -22,21 +22,8 @@ SalaryCount::SalaryCount(QString dbName, QWidget *parent)
 
 	initialDBManager(dbName);
 
-	// test>
-	//BillingPeriod* bp = BillingPeriod::getCurrentPeriod();
-	//for(int i=0 ; i<3 ; ++i)
-	//{
-	//	BookKeeper::closeBillingPeriod(*bp);
-	//	bp = bp->nextPeriod();
-	//}
-	// <test
-
 	this->editState = false;
 	
-	//// запуск тестирования
-	DirectiveGeneratorTest dir_gen_test(0);
-	QTest::qExec( &dir_gen_test , NULL , NULL);
-
 	//соединение со страницей создания графиков
 	this->dutyChart = new salarycountDutyChart(&this->ui,ui.DutyCharAction->whatsThis());
 	connect(this, SIGNAL(showPaget(QString)),this->dutyChart,SLOT(updateInfo(QString)));//обновить информацию на странице
@@ -60,13 +47,12 @@ SalaryCount::SalaryCount(QString dbName, QWidget *parent)
     //Соединение с профилем
     this->profile = new SalaryCountProfile(&this->ui,ui.ShowProfileAction->whatsThis());
     connect(this, SIGNAL(showPaget(QString)),this->profile,SLOT(updateInfo(QString)));
-	//TODO
 
 	ui.saveDutyChartBtn->setEnabled(true);
 	ui.cancelDutyChartBtn->setEnabled(true);
 
 	//постраничный переход
-	ui.stackedWidget->setCurrentIndex(2);//устанавлиаем видимость на странице с сотрудниками
+	ui.stackedWidget->setCurrentIndex(2);//устанавливаем видимость на странице с сотрудниками
 	this->currentAction = ui.DutyCharAction;
 	this->currentAction->setEnabled(false);
 
@@ -76,7 +62,8 @@ SalaryCount::SalaryCount(QString dbName, QWidget *parent)
 
 	connect(ui.ExitAction,SIGNAL(triggered()), this,SLOT(close()));
 
-	showPage(ui.DutyCharAction);
+	//showPage(ui.DutyCharAction);
+	showPage(ui.EmployeeListAction);
 
 
 	QShortcut *test_shortcut = new QShortcut(QKeySequence(QString("Ctrl+T")), this);
@@ -164,16 +151,36 @@ bool SalaryCount::isEditable()
 	return false;
 }
 
+
 void SalaryCount::startTesting()
 {
-	QMessageBox::information(this, QString::fromWCharArray(L"Режим тестирования"), QString::fromWCharArray(L"Бобро поржаловать в\nрежим автоматического тестирования GUI!")); 
+	QMessageBox::StandardButton btn = QMessageBox::information(this, QString::fromWCharArray(L"Режим тестирования"), QString::fromWCharArray(L"Бобро поржаловать в\nрежим автоматического тестирования GUI!\n\nНажмите `Отмена`, чтобы не запускать тесты и выйти из режима тестирования.")
+		, QMessageBox::Yes | QMessageBox::Cancel); 
+
+	switch(btn)
+	{
+		case QMessageBox::StandardButton(QMessageBox::Yes):
+			break; // продолжить
+
+		case QMessageBox::StandardButton(QMessageBox::Cancel):
+		default:
+			return;
+	}
 
 
-	SalaryCountGuiTester t(&this->ui);
-	int r = QTest::qExec( &t , NULL , NULL);
+	Tester *tester = new Tester;
+	connect(this, &SalaryCount::runTestThread, tester, &Tester::runTests);
+	connect(tester, &Tester::testingFinished, this, &SalaryCount::finishTesting);
 
+	// no-new-thread mode
+	connect(tester, &Tester::testingFinished, tester, &QObject::deleteLater);
 
-	QMessageBox::information(this, QString::fromWCharArray(L"Режим тестирования"), QString::fromWCharArray(L"Тестирование GUI завершено!\nКоличество проваленных тестов: %1.").arg(r) ); 
+	emit this->runTestThread( &this->ui );
+}
+
+void SalaryCount::finishTesting(int failedTests)
+{
+	QMessageBox::information(this, QString::fromWCharArray(L"Режим тестирования"), QString::fromWCharArray(L"Тестирование GUI завершено!\nКоличество проваленных тестов: %1.").arg(failedTests) ); 
 
 }
 
