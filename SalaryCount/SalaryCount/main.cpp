@@ -41,11 +41,6 @@ int main(int argc, char *argv[])
 		return test_main(argc, argv);
 	}
 
-	//DirectiveGenerator g;
-	//HireDirective hd;
-
-	//g.pdf( &hd, "example.pdf" );
-	
 	//DirectiveGeneratorTest dgt(0);
 	//QTest::qExec( &dgt , NULL , NULL);
 	
@@ -99,9 +94,29 @@ int test_main(int argc, char *argv[])
 =======
 }
 
+void MyMessageOutput(QtMsgType type, const QMessageLogContext& context, const QString &message)
+{
+	switch (type) {
+
+        case QtDebugMsg:
+        case QtWarningMsg:
+
+			printf( message.toLocal8Bit().data() );
+			fflush(stdout);
+            break;
+
+        case QtCriticalMsg:
+        case QtFatalMsg:
+
+			fprintf(stderr, message.toLocal8Bit().data() );
+			fflush(stderr);
+            break;
+    }
+}
+
 void redirect_output_streams()
 {
-	freopen ("sc_stderr.log","w",stderr); // можно задать 'w+' для дозаписи (чтобы прошлые логи не затирались)
+	freopen ("sc_stderr.log","w",stderr); // можно задать 'a' для дозаписи? (чтобы прошлые логи не затирались)
 	freopen ("sc_stdout.log","w",stdout);
 	
 <<<<<<< HEAD
@@ -117,8 +132,11 @@ void redirect_output_streams()
 =======
 	fprintf(stderr, "Begin of STDERR log.\n");
 	printf ("Begin of STDOUT log.\n");
-}
 
+    // Custom handler
+    qInstallMessageHandler(MyMessageOutput);
+    //qDebug() << "Printed in the console using my message handler in a windows GUI application\n";
+}
 
 int test_main(int argc, char *argv[])
 {
@@ -132,6 +150,7 @@ int test_main(int argc, char *argv[])
 <<<<<<< HEAD
     return 0; // a.exec();
 }
+<<<<<<< HEAD
 =======
 }
 >>>>>>> 3690967... Р”РѕР±Р°РІР»РµРЅ РєР»Р°СЃСЃ РґР»СЏ С‚РµСЃС‚РёСЂРѕРІР°РЅРёСЏ СЂР°СЃС‡С‘С‚РѕРІ
@@ -142,3 +161,5 @@ int test_main(int argc, char *argv[])
     return 0; // a.exec();
 }
 >>>>>>> 25c9d1b... РџРµСЂРµРЅР°РїСЂР°РІР»РµРЅРёРµ СЃС‚Р°РЅРґР°СЂС‚РЅС‹С… РїРѕС‚РѕРєРѕРІ РІ С„Р°Р№Р»С‹
+=======
+>>>>>>> ed5db3f... РєРѕРЅСЃРѕР»СЊРЅС‹Р№ РІС‹РІРѕРґ qDebug (Рё С‚.Рї.) РїРѕРґРєР»СЋС‡РµРЅ Рє С„Р°Р№Р»Сѓ РЅР°СЂР°РІРЅРµ СЃ printf()
