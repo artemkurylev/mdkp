@@ -80,8 +80,12 @@ SalaryCount::SalaryCount(QString dbName, QWidget *parent)
 >>>>>>> ee6c15c... Привязка запуска тестов по сочетанию клавиш Ctrl+T
 =======
 	//showPage(ui.DutyCharAction);
+<<<<<<< HEAD
 	showPage(ui.EmployeeListAction);
 >>>>>>> 98daa92... Запуск тестов по нажатию `Ctrl+T` при помощи класса Tester
+=======
+	showPage(ui.LaborSheetAction);
+>>>>>>> a86c9eb... Комплексный тест на редактирование отметок табеля
 
 
 	QShortcut *test_shortcut = new QShortcut(QKeySequence(QString("Ctrl+T")), this);

@@ -1,10 +1,15 @@
 #include "SalaryCountGuiTester.h"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #include <QMessageBox>
 
 =======
 >>>>>>> 04183d2... Реализация комплексного теста для редактирования сотрудника
+=======
+#include <QMessageBox>
+
+>>>>>>> a86c9eb... Комплексный тест на редактирование отметок табеля
 void Tester::runTests(Ui_SalaryCount* ui) {
 	SalaryCountGuiTester t(ui);
 	char *argv[] = {"-nograb"};
@@ -133,6 +138,7 @@ void SalaryCountGuiTester::editWorkerInfo()
 	 rec_data[1].phone	= QString("+44044047855");
 
 	qDebug("Launching test `editWorkerInfo` ...");
+<<<<<<< HEAD
 
 	// � ������ �.�. �� ����� 2 �������!
 	int employees_count = ui->employeeList->count();
@@ -343,6 +349,8 @@ void CbxSetIndex(QComboBox* cbx, int val)
 >>>>>>> 688eb8c... Тест-заглушка для страницы сотрудников
 =======
 	fflush(stdout);
+=======
+>>>>>>> a86c9eb... Комплексный тест на редактирование отметок табеля
 
 	// � ������ �.�. �� ����� 2 �������!
 	int employees_count = ui->employeeList->count();
@@ -472,6 +480,20 @@ void CbxSetIndex(QComboBox* cbx, int val)
 >>>>>>> 04183d2... Реализация комплексного теста для редактирования сотрудника
 }
 
+<<<<<<< HEAD
+=======
+void CbxSetIndex(QComboBox* cbx, int val)
+{
+	cbx->setFocus();
+
+	QTest::keyClick( cbx , Qt::Key_Down, Qt::NoModifier, /*delay =*/ 50);
+	QTest::keyClick( cbx , Qt::Key_Down, Qt::NoModifier, /*delay =*/ 50);
+	QTest::keyClick( cbx , Qt::Key_Up, Qt::ShiftModifier, /*delay =*/ 50);
+	
+	cbx->setCurrentIndex(val);
+}
+
+>>>>>>> a86c9eb... Комплексный тест на редактирование отметок табеля
 void SalaryCountGuiTester::editLaborSheet()
 {
 	if( ui->stackedWidget->currentWidget()->objectName() != "LaborSheetsPage" )

@@ -41,10 +41,13 @@ int main(int argc, char *argv[])
 		return test_main(argc, argv);
 	}
 
+<<<<<<< HEAD
 	//DirectiveGeneratorTest dgt(0);
 	//QTest::qExec( &dgt , NULL , NULL);
 	
 >>>>>>> 25c9d1b... Перенаправление стандартных потоков в файлы
+=======
+>>>>>>> a86c9eb... Комплексный тест на редактирование отметок табеля
     QApplication a(argc, argv);
     companyOpenDialog q;
     q.show();
