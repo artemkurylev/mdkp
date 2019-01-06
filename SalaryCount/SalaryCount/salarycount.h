@@ -75,6 +75,10 @@ private slots:
 
 	//! Тестирование
 	void startTesting();
+	void finishTesting(int failedTests);
+
+signals:
+	void runTestThread(Ui_SalaryCount* ui);
 
 private slots:
 	void rememberState(bool state);

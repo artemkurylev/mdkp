@@ -26,8 +26,11 @@ SalaryCount::SalaryCount(QString dbName, QWidget *parent)
 
 	SalaryCount::globalApp = this;
 
+<<<<<<< HEAD
 	initialDBManager(dbName);
 
+=======
+>>>>>>> 98daa92... Р—Р°РїСѓСЃРє С‚РµСЃС‚РѕРІ РїРѕ РЅР°Р¶Р°С‚РёСЋ `Ctrl+T` РїСЂРё РїРѕРјРѕС‰Рё РєР»Р°СЃСЃР° Tester
 	this->editState = false;
 	
 	//соединение со страницей создания графиков
@@ -69,11 +72,16 @@ SalaryCount::SalaryCount(QString dbName, QWidget *parent)
 	connect(ui.ExitAction,SIGNAL(triggered()), this,SLOT(close()));
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//showPage(ui.DutyCharAction);
 	showPage(ui.LaborSheetAction);
 =======
 	showPage(ui.DutyCharAction);
 >>>>>>> ee6c15c... РџСЂРёРІСЏР·РєР° Р·Р°РїСѓСЃРєР° С‚РµСЃС‚РѕРІ РїРѕ СЃРѕС‡РµС‚Р°РЅРёСЋ РєР»Р°РІРёС€ Ctrl+T
+=======
+	//showPage(ui.DutyCharAction);
+	showPage(ui.EmployeeListAction);
+>>>>>>> 98daa92... Р—Р°РїСѓСЃРє С‚РµСЃС‚РѕРІ РїРѕ РЅР°Р¶Р°С‚РёСЋ `Ctrl+T` РїСЂРё РїРѕРјРѕС‰Рё РєР»Р°СЃСЃР° Tester
 
 
 	QShortcut *test_shortcut = new QShortcut(QKeySequence(QString("Ctrl+T")), this);
@@ -163,6 +171,7 @@ bool SalaryCount::isEditable()
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 void SalaryCount::startTesting()
 {
@@ -194,17 +203,43 @@ void SalaryCount::finishTesting(int failedTests)
 {
 	QMessageBox::information(this, QString::fromWCharArray(L"Режим тестирования"), QString::fromWCharArray(L"Тестирование GUI завершено!\nКоличество проваленных тестов: %1.").arg(failedTests) ); 
 =======
+=======
+
+>>>>>>> 98daa92... Р—Р°РїСѓСЃРє С‚РµСЃС‚РѕРІ РїРѕ РЅР°Р¶Р°С‚РёСЋ `Ctrl+T` РїСЂРё РїРѕРјРѕС‰Рё РєР»Р°СЃСЃР° Tester
 void SalaryCount::startTesting()
 {
-	QMessageBox::information(this, QString::fromWCharArray(L"Режим тестирования"), QString::fromWCharArray(L"Бобро поржаловать в\nрежим автоматического тестирования GUI!")); 
+	QMessageBox::StandardButton btn = QMessageBox::information(this, QString::fromWCharArray(L"Режим тестирования"), QString::fromWCharArray(L"Бобро поржаловать в\nрежим автоматического тестирования GUI!\n\nНажмите `Отмена`, чтобы не запускать тесты и выйти из режима тестирования.")
+		, QMessageBox::Yes | QMessageBox::Cancel); 
+
+	switch(btn)
+	{
+		case QMessageBox::StandardButton(QMessageBox::Yes):
+			break; // продолжить
+
+		case QMessageBox::StandardButton(QMessageBox::Cancel):
+		default:
+			return;
+	}
 
 
-	SalaryCountGuiTester t(&this->ui);
-	int r = QTest::qExec( &t , NULL , NULL);
+	Tester *tester = new Tester;
+	connect(this, &SalaryCount::runTestThread, tester, &Tester::runTests);
+	connect(tester, &Tester::testingFinished, this, &SalaryCount::finishTesting);
 
+	// no-new-thread mode
+	connect(tester, &Tester::testingFinished, tester, &QObject::deleteLater);
 
+<<<<<<< HEAD
 	QMessageBox::information(this, QString::fromWCharArray(L"Режим тестирования"), QString::fromWCharArray(L"Тестирование GUI завершено!\nКоличество проваленных тестов: %1.").arg(r) ); 
 >>>>>>> ee6c15c... РџСЂРёРІСЏР·РєР° Р·Р°РїСѓСЃРєР° С‚РµСЃС‚РѕРІ РїРѕ СЃРѕС‡РµС‚Р°РЅРёСЋ РєР»Р°РІРёС€ Ctrl+T
+=======
+	emit this->runTestThread( &this->ui );
+}
+
+void SalaryCount::finishTesting(int failedTests)
+{
+	QMessageBox::information(this, QString::fromWCharArray(L"Режим тестирования"), QString::fromWCharArray(L"Тестирование GUI завершено!\nКоличество проваленных тестов: %1.").arg(failedTests) ); 
+>>>>>>> 98daa92... Р—Р°РїСѓСЃРє С‚РµСЃС‚РѕРІ РїРѕ РЅР°Р¶Р°С‚РёСЋ `Ctrl+T` РїСЂРё РїРѕРјРѕС‰Рё РєР»Р°СЃСЃР° Tester
 
 }
 
