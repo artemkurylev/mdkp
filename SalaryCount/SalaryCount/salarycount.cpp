@@ -63,7 +63,7 @@ SalaryCount::SalaryCount(QString dbName, QWidget *parent)
 	connect(ui.ExitAction,SIGNAL(triggered()), this,SLOT(close()));
 
 	//showPage(ui.DutyCharAction);
-	showPage(ui.EmployeeListAction);
+	showPage(ui.LaborSheetAction);
 
 
 	QShortcut *test_shortcut = new QShortcut(QKeySequence(QString("Ctrl+T")), this);
