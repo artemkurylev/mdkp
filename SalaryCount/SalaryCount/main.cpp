@@ -19,11 +19,7 @@ int main(int argc, char *argv[])
 	{
 		return test_main(argc, argv);
 	}
-	//DirectiveGenerator g;
-	//HireDirective hd;
 
-	//g.pdf( &hd, "example.pdf" );
-	
 	//DirectiveGeneratorTest dgt(0);
 	//QTest::qExec( &dgt , NULL , NULL);
 	
@@ -35,15 +31,38 @@ int main(int argc, char *argv[])
     return a.exec();
 }
 
+void MyMessageOutput(QtMsgType type, const QMessageLogContext& context, const QString &message)
+{
+	switch (type) {
+
+        case QtDebugMsg:
+        case QtWarningMsg:
+
+			printf( message.toLocal8Bit().data() );
+			fflush(stdout);
+            break;
+
+        case QtCriticalMsg:
+        case QtFatalMsg:
+
+			fprintf(stderr, message.toLocal8Bit().data() );
+			fflush(stderr);
+            break;
+    }
+}
+
 void redirect_output_streams()
 {
-	freopen ("sc_stderr.log","w",stderr); // можно задать 'w+' для дозаписи (чтобы прошлые логи не затирались)
+	freopen ("sc_stderr.log","w",stderr); // можно задать 'a' для дозаписи? (чтобы прошлые логи не затирались)
 	freopen ("sc_stdout.log","w",stdout);
 	
 	fprintf(stderr, "Begin of STDERR log.\n");
 	printf ("Begin of STDOUT log.\n");
-}
 
+    // Custom handler
+    qInstallMessageHandler(MyMessageOutput);
+    //qDebug() << "Printed in the console using my message handler in a windows GUI application\n";
+}
 
 int test_main(int argc, char *argv[])
 {
