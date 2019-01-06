@@ -31,12 +31,18 @@ private slots:
 	void editLaborSheet();
 	void showOrder();
 
-
-
-
-
-
-
-
 };
+
+class Tester : public QObject
+{
+	Q_OBJECT
+
+public slots:
+	void runTests(Ui_SalaryCount* ui);
+
+signals:
+	void testingFinished(int failedTests);
+};
+
+
 #endif  SALARYCOUNTGUITESTER_H
