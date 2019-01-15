@@ -343,7 +343,7 @@ void salarycountEmployees::saveNewEntries(Employee* obj)
 		show_last_error();
 		this->journal->lastConflictNonResolved();
 
-		if(e!=log_errors::VALIDATE_EX) switchMode(USUAL);
+		//if(e!=log_errors::VALIDATE_EX) switchMode(USUAL);
 	}
 }
 
@@ -374,7 +374,7 @@ void salarycountEmployees::saveEditableEntries(Employee* obj)
 		show_last_error();
 		this->journal->lastConflictNonResolved();
 
-		if(e!=log_errors::VALIDATE_EX) switchMode(USUAL);
+		//if(e!=log_errors::VALIDATE_EX) switchMode(USUAL);
 	}
 }
 

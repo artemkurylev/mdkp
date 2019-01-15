@@ -21,6 +21,9 @@ private:
     Ui_EmployeeSC ui;
 
 	Employee* userData;
+	//HireDirective *hd;
+	//DutyChart *userDutyChart;
+
 	log_errors* journal;
 
 private:
@@ -29,12 +32,13 @@ private:
 
 	//конструкторы
 	void initialDBManager(QString dbName);
+	bool getEmployeeData();
 
 	void error_msg(const char* short_description, const char* text);
 	//QAction* currentAction;
 
 	//Employee* shapeBaseDataObject();
-	//void parseDataObject(Employee *obj);
+	void parseBaseDataObject(HireDirective *hd, QString dutyChartName);
 
 private slots:
 
