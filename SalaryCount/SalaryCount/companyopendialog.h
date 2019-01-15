@@ -16,7 +16,7 @@ class companyOpenDialog : public QDialog
 
 public:
     companyOpenDialog(QWidget *parent = 0);
-    ~companyOpenDialog();
+    ~companyOpenDialog();//xyi
 
 private:
     Ui::companyOpenDialog ui;
