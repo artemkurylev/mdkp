@@ -119,9 +119,6 @@ void companyOpenDialog::enterEmployee()
 
 		Employee* employee = new Employee(number,pass);
 
-		if(!employee->auth()) 
-			throw this->journal->failAuthorization("error authorization.\n Please, check you phone & password");
-
 		DbManager::companyManager().close();
 
 		EmployeeSC* sc = new EmployeeSC(name,employee);
@@ -130,14 +127,7 @@ void companyOpenDialog::enterEmployee()
 	}
 	catch(log_errors::exception_states e)
 	{
-		if(e==log_errors::AUTH_EX)
-		{
-			QByteArray code = QString::number(this->journal->getLastErrorCode()).toLocal8Bit();
-			QByteArray msg = this->journal->getLastError().toLocal8Bit();
-
-			error_msg(code.data(),msg.data());//cообщили об ошибке
-			this->journal->lastConflictNonResolved();
-		}
+		//TODO
 	}
 }
 
