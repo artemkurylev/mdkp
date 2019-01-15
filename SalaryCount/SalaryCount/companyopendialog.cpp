@@ -24,6 +24,11 @@ void companyOpenDialog::enterCompany()
     QString name = ui.CompanyCombo_2->currentText();
     QString pass = ui.companyPassEdit->text();
 
+	if(DbManager::companyManager().checkConnection())
+	{
+	
+	}
+
 	Company* company = new Company(name,pass);
     if(company->auth()){
         company->fetch();
@@ -127,7 +132,8 @@ void companyOpenDialog::enterEmployee()
 	}
 	catch(log_errors::exception_states e)
 	{
-		//TODO
+        //Вывести сообщение о неудаче!
+		QMessageBox::information(this, QString::fromWCharArray(L"Ошибка"), QString::fromWCharArray(L"Имя компании, телефон или пароль неправильные.\nАвторизация не пройдена."));
 	}
 }
 
