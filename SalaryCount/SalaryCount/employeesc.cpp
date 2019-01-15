@@ -357,9 +357,11 @@ void EmployeeSC::fillTabelMarksValues(QDate &date)
 	{
 		BillingPeriod *bp = BillingPeriod::getByDate(date);
 		if(!bp->fetch())throw this->journal->fetchError("fillTabelMarksValues getByDate BillingPeriod fetch");
+        BillingPeriod *bp = BillingPeriod::getByDate(date);
+		if(!bp->fetch())throw this->journal->fetchError("EmployeeSC::fillTabelMarksValues BillingPeriod fetch");
 
 		LaborSheet *lsh = new LaborSheet(this->userData->id(), bp->id());
-		if(!lsh->fetch())throw this->journal->fetchError("EmployeeSC::fillTabelMarksValues LaborSheet fetch");
+		if(!lsh->fetch(this->userData->id(),bp->id()))throw this->journal->fetchError("EmployeeSC::fillTabelMarksValues LaborSheet fetch");
 
 		QList<Mark> marks = lsh->grid();
 

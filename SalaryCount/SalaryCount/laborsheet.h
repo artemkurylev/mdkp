@@ -79,7 +79,8 @@ public:
 
     //! Сеттер для оценок
     void setGrid(QList<Mark> list){_grid = list;}
-
+    //fetch по сотруднику и периоду
+    bool fetch(int employeeid,int periodId);
 	// Статические методы
     static bool createDbTable();
     static QMap <int,int> getAll();
