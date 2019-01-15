@@ -127,11 +127,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="eDutyChart">
-           <property name="modelColumn">
-            <number>0</number>
-           </property>
-          </widget>
+          <widget class="QLineEdit" name="eDutyChart"/>
          </item>
         </layout>
        </item>
@@ -552,7 +548,7 @@
      <x>0</x>
      <y>0</y>
      <width>722</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
