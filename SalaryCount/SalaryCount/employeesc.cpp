@@ -24,7 +24,7 @@ EmployeeSC::EmployeeSC(QString dbName,Employee* employee, QWidget *parent)
 
 		this->userData = employee;
 
-		if(getEmployeeData())
+		if(showEmployeeData())
 		{
 
 		}
@@ -102,6 +102,7 @@ void EmployeeSC::error_msg(const char* short_description, const char* text)
 	QMessageBox::critical(NULL,c->toUnicode(short_description), c->toUnicode(text));
 }
 
+
 //Employee* EmployeeSC::shapeDataObject()
 //{
 //	return NULL;
@@ -132,6 +133,9 @@ void EmployeeSC::updateInfo(QString name)
 }
 
 bool EmployeeSC::getEmployeeData()
+
+bool EmployeeSC::showEmployeeData()
+
 {
 	try
 	{
