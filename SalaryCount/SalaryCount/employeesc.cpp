@@ -44,6 +44,7 @@ EmployeeSC::EmployeeSC(QString &dbName,Employee* employee, QWidget *parent)
 		QByteArray msg = this->journal->getLastError().toLocal8Bit();
 
 		//error_msg(code.data(),msg.data());//cообщили об ошибке -> перенесено в диалог входа
+		error_msg(code.data(),msg.data());//cообщили об ошибке //xyi-> перенесено в диалог входа (не надо так делать)
 		this->journal->lastConflictNonResolved();
 		if(e==log_errors::exception_states::AUTH_EX) this->destroy();
 		// throw again
