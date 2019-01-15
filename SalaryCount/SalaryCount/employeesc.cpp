@@ -20,7 +20,7 @@ EmployeeSC::EmployeeSC(QString &dbName,Employee* employee, QWidget *parent)
 		initialDBManager(dbName);
 
 		if(!employee->auth()) 
-				throw this->journal->failAuthorization("error authorization.\n Please, check you phone & password");
+				throw this->journal->failAuthorization("Error authorization.\n Please, check you phone & password");
 
 		this->userData = employee;
 
@@ -43,10 +43,12 @@ EmployeeSC::EmployeeSC(QString &dbName,Employee* employee, QWidget *parent)
 		QByteArray code = QString::number(this->journal->getLastErrorCode()).toLocal8Bit();
 		QByteArray msg = this->journal->getLastError().toLocal8Bit();
 
-		error_msg(code.data(),msg.data());//cообщили об ошибке
+		//error_msg(code.data(),msg.data());//cообщили об ошибке -> перенесено в диалог входа
 		this->journal->lastConflictNonResolved();
 
 		if(e==log_errors::exception_states::AUTH_EX) this->destroy();
+		// throw again
+		throw e;
 	}
 
 	connect(this->ui.BillingPeriod_dateEdit,SIGNAL(dateChanged(QDate)),this,SLOT(showPeriod(QDate)));
