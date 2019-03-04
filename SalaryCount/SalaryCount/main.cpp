@@ -14,6 +14,7 @@ int main(int argc, char *argv[])
 	//g.pdf( &hd, "example.pdf" );
 	
 	//QTest::qExec( new DirectiveGeneratorTest(0) , NULL , NULL);
+	int a;
 
     QApplication a(argc, argv);
     SalaryCount w;
